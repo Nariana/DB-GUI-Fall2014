@@ -8,10 +8,21 @@ img{
 	margin: auto;
 }
 
-#insert input{
+#insert *{
 	margin: auto;
 }
 
 #content{
 	margin:auto;
+}
+
+#insert{
+	padding: 10px;
+	background-color: #e39183;
+	border: solid 15px white;
+	margin: auto;
+}
+
+#search{
+	float: right;
 }

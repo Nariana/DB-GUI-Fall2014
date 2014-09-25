@@ -3,5 +3,7 @@ $('#addIngredient').click(function(){
 	console.log(inputted);
 	$('#textIngredient').val("");	
 
-	$('#ingredientList').append("<li class='ingredient'>"+ inputted + "</li>");
+	if(inputted != ""){
+		$('#ingredientList').append("<li class='ingredient'>"+ inputted + "</li>");
+	}
 });
