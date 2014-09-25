@@ -1,0 +1,17 @@
+body {
+	background-color: #8aa1ab;
+}
+
+img{
+	width: 30%;
+	display: block;
+	margin: auto;
+}
+
+#insert input{
+	margin: auto;
+}
+
+#content{
+	margin:auto;
+}
