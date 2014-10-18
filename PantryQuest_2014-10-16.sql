@@ -34,7 +34,7 @@ CREATE TABLE `filter` (
   `noNuts` tinyint(1) DEFAULT NULL,
   `lactoseFree` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`filterID`),
-  CONSTRAINT `recipieID` FOREIGN KEY (`filterID`) REFERENCES `recipe` (`recipieID`)
+  CONSTRAINT `recipeID` FOREIGN KEY (`filterID`) REFERENCES `recipe` (`recipeID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 LOCK TABLES `filter` WRITE;
@@ -77,30 +77,30 @@ VALUES
 UNLOCK TABLES;
 
 
-# Dump of table recepieConnection
+# Dump of table recipeConnection
 # ------------------------------------------------------------
 
-DROP TABLE IF EXISTS `recepieConnection`;
+DROP TABLE IF EXISTS `recipeConnection`;
 
-CREATE TABLE `recepieConnection` (
-  `recipieID` int(11) unsigned NOT NULL,
+CREATE TABLE `recipeConnection` (
+  `recipeID` int(11) unsigned NOT NULL,
   `foodName` varchar(30) DEFAULT NULL,
   `substitutable` tinyint(1) DEFAULT NULL,
   `essential` tinyint(1) DEFAULT NULL,
-  PRIMARY KEY (`recipieID`),
+  PRIMARY KEY (`recipeID`),
   KEY `foodName` (`foodName`),
   CONSTRAINT `name FK` FOREIGN KEY (`foodName`) REFERENCES `ingredient` (`foodName`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `recipie ID FK` FOREIGN KEY (`recipieID`) REFERENCES `recipe` (`recipieID`)
+  CONSTRAINT `recipe ID FK` FOREIGN KEY (`recipeID`) REFERENCES `recipe` (`recipeID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-LOCK TABLES `recepieConnection` WRITE;
-/*!40000 ALTER TABLE `recepieConnection` DISABLE KEYS */;
+LOCK TABLES `recipeConnection` WRITE;
+/*!40000 ALTER TABLE `recipeConnection` DISABLE KEYS */;
 
-INSERT INTO `recepieConnection` (`recipieID`, `foodName`, `substitutable`, `essential`)
+INSERT INTO `recipeConnection` (`recipeID`, `foodName`, `substitutable`, `essential`)
 VALUES
 	(1,'carrot',0,1);
 
-/*!40000 ALTER TABLE `recepieConnection` ENABLE KEYS */;
+/*!40000 ALTER TABLE `recipeConnection` ENABLE KEYS */;
 UNLOCK TABLES;
 
 
@@ -110,19 +110,19 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `recipe`;
 
 CREATE TABLE `recipe` (
-  `recipieID` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `recipeID` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `recipeName` varchar(30) DEFAULT NULL,
   `instruction` varchar(100) DEFAULT NULL,
   `time` int(11) DEFAULT NULL,
   `numberOfIgredients` int(11) DEFAULT NULL,
   `ranking` float DEFAULT NULL,
-  PRIMARY KEY (`recipieID`)
+  PRIMARY KEY (`recipeID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 LOCK TABLES `recipe` WRITE;
 /*!40000 ALTER TABLE `recipe` DISABLE KEYS */;
 
-INSERT INTO `recipe` (`recipieID`, `recipeName`, `instruction`, `time`, `numberOfIgredients`, `ranking`)
+INSERT INTO `recipe` (`recipeID`, `recipeName`, `instruction`, `time`, `numberOfIgredients`, `ranking`)
 VALUES
 	(1,'carrotcake ','connect to json',180,8,3.5);
 
