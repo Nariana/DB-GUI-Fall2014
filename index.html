@@ -3,6 +3,8 @@
 
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<title>Pantry Quest</title>
+	<link rel="stylesheet" href="fonts/font-awesome/css/font-awesome.min.css" >
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css" >
 </head>
 
 
@@ -13,29 +15,17 @@
 			<div id="insert">
 				<input type="textbox" id="textIngredient" placeholder="Type Ingredient Here!">
 				<button type="button" id="addIngredient">Add</button>
-				<button type="button" id="search">Search!</button>
+				<i id="search" class="fa fa-arrow-circle-right fa-3x"></i>
 				<ul id="ingredientList"></ul>
 			</div>
 		</div>
 	</body>
 
 	  <style>
-	  .ui-autocomplete {
-	    max-height: 100px;
-	    overflow-y: auto;
-	    /* prevent horizontal scrollbar */
-	    overflow-x: hidden;
-	  }
-	  /* IE 6 doesn't support max-height
-	   * we use height instead, but this forces the menu to always be this tall
-	   */
-	  * html .ui-autocomplete {
-	    height: 100px;
-	  }
+
 	  </style>
 
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-	<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
   	<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
   	<script src="http://code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
   	<script type="text/javascript" src="js/action.js"></script>

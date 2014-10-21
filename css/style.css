@@ -25,4 +25,17 @@ img{
 
 #search{
 	float: right;
+	color: white;
+	height: 80%;
+}
+
+.ui-autocomplete {
+	max-height: 160px;
+    overflow-y: auto;
+    /* prevent horizontal scrollbar */
+    overflow-x: hidden;
+}
+
+* html .ui-autocomplete {
+    height: 1000px;
 }

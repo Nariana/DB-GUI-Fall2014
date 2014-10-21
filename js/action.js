@@ -491,10 +491,16 @@ $(function() {
 
 $("#search").hover(
 	function(){
-		$(this).css("background-color","blue");
+		$(this).css("color","#8aa1ab");
 },  function(){
-		$(this).css("background-color","white");
+		$(this).css("color","white");
 });
 
-
+$(function() {
+    var tooltips = $( "[title]" ).tooltip({
+      position: {
+        my: "left top",
+        at: "right+5 top-5"
+      }
+})});
 
