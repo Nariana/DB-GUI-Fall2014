@@ -1,24 +1,4 @@
-
-var allIngredients = getIngredients();
-
-function getIngredients(){
-
-	console.log("in get Ingredients");
-	$.ajax({
-        type: "GET",
-        url: "ingredientList.csv",
-        dataType: "text/csv",
-        success: function (result) {
-            console.log(result);
-            //alert("done!"+ csvData.getAllResponseHeaders())
-        }
-    });
-}
-
-
-$(function() {
-   var availableTags = [
-      "almond",
+"almond",
 "all-purpose flour",
 "amaretti",
 "anchovy",
@@ -28,7 +8,7 @@ $(function() {
 "artichoke heart",
 "artichoke",
 "asparagus",
-"asparagus spear","asparagus",
+"asparagus spear","asparagus"
 "aubergine",
 "avocado",
 "bacon",
@@ -40,7 +20,7 @@ $(function() {
 "bap",
 "basil",
 "bay leaf",
-"bay leaves","bay leaf",
+"bay leaves","bay leaf"
 "bean",
 "beef",
 "beef mince",
@@ -48,14 +28,14 @@ $(function() {
 "beef stock",
 "bell pepper",
 "berry",
-"berries","berry",
+"berries","berry"
 "bicarbonate of soda",
 "biscuit",
 "biscuit",
 "black olive",
 "black pepper",
 "black-eyed peas",
-"blueberries","blueberry",
+"blueberries","blueberry"
 "blueberry",
 "bonnet chilli",
 "bouillon",
@@ -84,7 +64,7 @@ $(function() {
 "cabbage",
 "cake",
 "candy",
-"candies","candy",
+"candies","candy"
 "cannellini",
 "canola oil",
 "caper",
@@ -103,7 +83,7 @@ $(function() {
 "chard",
 "cheddar cheese",
 "cheese",
-"cherries","cherry",
+"cherries","cherry"
 "cherry",
 "cherry tomatoe",
 "chestnut",
@@ -118,7 +98,7 @@ $(function() {
 "chicory",
 "chile",
 "chilli",
-"chillies","chilli",
+"chillies","chilli"
 "chipotle",
 "chip",
 "chive",
@@ -149,7 +129,7 @@ $(function() {
 "cornmeal",
 "courgette",
 "couscous",
-"cranberries","cranberry",
+"cranberries","cranberry"
 "cranberry",
 "cranberry juice",
 "cream",
@@ -238,7 +218,7 @@ $(function() {
 "malt",
 "mangetout",
 "mango",
-"mangoes","mango",
+"mangoes","mango"
 "maple syrup",
 "marinara",
 "marshmallow",
@@ -289,7 +269,7 @@ $(function() {
 "pastry",
 "pea",
 "peach",
-"peaches","peach",
+"peaches","peach"
 "peanut",
 "peanut",
 "pear",
@@ -311,16 +291,16 @@ $(function() {
 "pine nut",
 "pineapple",
 "pistachio",
-"pita","pitta",
+"pita","pitta"
 "pitta",
 "pitted olive",
 "pizza",
 "plantain",
 "plum",
 "plum tomato",
-"plum tomatoes","plum tomato",
-"sun dried tomato","sun dried tomatoes",
-"sun-dried tomato","sun-dried tomatoes",
+"plum tomatoes","plum tomato"
+"sun dried tomato","sun dried tomatoes"
+"sun-dried tomato","sun-dried tomatoes"
 "poblano",
 "pod",
 "polenta",
@@ -330,7 +310,7 @@ $(function() {
 "Pork chop",
 "porridge",
 "potato",
-"potatoes","potato",
+"potatoes","potato"
 "prawn",
 "prosciutto",
 "prosciutto ham",
@@ -339,9 +319,9 @@ $(function() {
 "quail",
 "radicchio",
 "radish",
-"radishes","radish",
+"radishes","radish"
 "rapeseed oil",
-"raspberries","raspberry",
+"raspberries","raspberry"
 "raspberry",
 "red pepper",
 "red onion",
@@ -420,7 +400,7 @@ $(function() {
 "tomatillos",
 "tomato",
 "tomato puree",
-"tomatoes","tomato",
+"tomatoes","tomato"
 "tortilla",
 "treacle",
 "tuna steak",
@@ -455,46 +435,4 @@ $(function() {
 "natural yoghurt",
 "yoghurt",
 "yogurt",
-"red onion"
-    ];
-    $( "#textIngredient" ).autocomplete({
-      source: availableTags
-    });
-  });
-
-
-console.log("in action");
-
-$('#addIngredient').click(function(){
-	var inputted = $('#textIngredient').val();
-	console.log(inputted);
-	$('#textIngredient').val("");	
-
-	if(inputted != ""){
-		$('#ingredientList').append("<li class='ingredient'>"+ inputted + "</li>");
-	}
-});
-
-$("#search").click(function(){
-	console.log("go to results");
-	window.location.href = "results.html"
-
-});
-
-$(function() {
-    $( "input[type=submit], a, button" )
-      .button()
-      .click(function( event ) {
-        event.preventDefault();
-      });
-});
-
-$("#search").hover(
-	function(){
-		$(this).css("background-color","blue");
-},  function(){
-		$(this).css("background-color","white");
-});
-
-
-
+"red onion",
