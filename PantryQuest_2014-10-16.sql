@@ -22,6 +22,10 @@
 
 # Dump of table filter
 # ------------------------------------------------------------
+DROP DATABASE IF EXISTS PantryQuest;
+CREATE DATABASE PantryQuest;
+USE PantryQuest;
+
 
 DROP TABLE IF EXISTS `filter`;
 
