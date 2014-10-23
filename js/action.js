@@ -491,7 +491,8 @@ $(function() {
 
 $("#search").hover(
 	function(){
-		$(this).css("color","#8aa1ab");
+		$(this).css("color","#fae59d");
+		//$(this).css("color","#8aa1ab");
 },  function(){
 		$(this).css("color","white");
 });
