@@ -16,18 +16,18 @@ $app->get('/getIngredient', 'getIngredient'); //B public
 $app->run();
 
 function getConnection() {
-  $dbConnection = new mysqli("localhost", "root", "root", "PantryQuest"); //put in your password
-  // Check mysqli connection
-  if (mysqli_connect_errno()) {
-      printf("Connect failed: %s\n", mysqli_connect_error());
-      exit();
+    $dbConnection = new mysqli("localhost", "root", "root", "PantryQuest"); //put in your password
+    // Check mysqli connection
+    if (mysqli_connect_errno()) {
+        printf("Connect failed: %s\n", mysqli_connect_error());
+        exit();
   }
-  return $dbConnection;
+    return $dbConnection;
 }
 
 function getIngredient() {
-  $mysqli = getConnection();
-  $app = \Slim\Slim::getInstance();
+    $mysqli = getConnection();
+    $app = \Slim\Slim::getInstance();
     $request = $app->request()->getBody();
 
     $ingredient_list = array();
