@@ -86,7 +86,7 @@ CREATE TABLE `recipe` (
   `recipeName` varchar(30) DEFAULT NULL,
   `instruction` varchar(100) DEFAULT NULL,
   `time` int(11) DEFAULT NULL,
-  `numberOfIgredients` int(11) DEFAULT NULL,
+  `numberOfIngredients` int(11) DEFAULT NULL,
   `ranking` float DEFAULT NULL,
   PRIMARY KEY (`recipeID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -94,7 +94,7 @@ CREATE TABLE `recipe` (
 LOCK TABLES `recipe` WRITE;
 /*!40000 ALTER TABLE `recipe` DISABLE KEYS */;
 
-INSERT INTO `recipe` (`recipeID`, `recipeName`, `instruction`, `time`, `numberOfIgredients`, `ranking`)
+INSERT INTO `recipe` (`recipeID`, `recipeName`, `instruction`, `time`, `numberOfIngredients`, `ranking`)
 VALUES
 	(1,'carrotcake ','connect to json',180,8,3.5);
 
