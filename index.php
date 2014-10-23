@@ -24,3 +24,13 @@ function getConnection() {
   }
   return $dbConnection;
 }
+
+function getIngredient() {
+	$con = getConnection();
+	$app = \Slim\Slim::getInstance();
+    $request = $app->request()->getBody();
+
+    $query = "select * from ingredient";
+    $ingredient_list = $con->query($query);
+    echo json_encode($ingredient_list);
+}
