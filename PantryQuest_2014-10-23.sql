@@ -7,7 +7,7 @@
 #
 # Host: localhost (MySQL 5.5.38)
 # Database: PantryQuest
-# Generation Time: 2014-10-23 15:08:38 +0000
+# Generation Time: 2014-10-23 15:19:35 +0000
 # ************************************************************
 
 
@@ -22,7 +22,6 @@
 DROP DATABASE IF EXISTS PantryQuest;
 CREATE DATABASE PantryQuest;
 USE PantryQuest;
-
 # Dump of table filter
 # ------------------------------------------------------------
 
@@ -57,23 +56,21 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `ingredient`;
 
 CREATE TABLE `ingredient` (
-  `foodID` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `foodName` varchar(30) DEFAULT NULL,
-  PRIMARY KEY (`foodID`),
   KEY `foodName` (`foodName`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 LOCK TABLES `ingredient` WRITE;
 /*!40000 ALTER TABLE `ingredient` DISABLE KEYS */;
 
-INSERT INTO `ingredient` (`foodID`, `foodName`)
+INSERT INTO `ingredient` (`foodName`)
 VALUES
-	(5,'baking soda'),
-	(4,'butter'),
-	(1,'carrot'),
-	(6,'egg'),
-	(3,'flour'),
-	(2,'sugar');
+	('baking soda'),
+	('butter'),
+	('carrot'),
+	('egg'),
+	('flour'),
+	('sugar');
 
 /*!40000 ALTER TABLE `ingredient` ENABLE KEYS */;
 UNLOCK TABLES;
