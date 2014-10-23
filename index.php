@@ -10,5 +10,22 @@ $app = new \Slim\Slim(); //using the slim API
 
 $app->get('/getIngredient', 'getIngredient'); //B public 
 $app->get('/getResult', 'getResult'); //end session and log out user 
+$app->get('/getRecipe', 'getRecipe');
+
+
+$app->run();
+
+function getConnection() {
+	$dbConnection = new mysqli("localhost", "root", "root", "PantryQuest"); //put in your password
+  // Check mysqli connection
+  if (mysqli_connect_errno()) {
+    printf("Connect failed: %s\n", mysqli_connect_error());
+    exit();
+  }
+  return $dbConnection;
+}
+
+
+
 
 ?>
