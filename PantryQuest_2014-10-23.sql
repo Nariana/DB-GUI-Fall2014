@@ -72,6 +72,14 @@ VALUES
 	('flour'),
 	('sugar');
 
+
+
+
+
+LOAD DATA INFILE '/Users/karoline/DB-GUI-Fall2014/ingredientList.csv' INTO TABLE ingredient
+  FIELDS TERMINATED BY ',' ENCLOSED BY '"'
+  LINES TERMINATED BY '\n'
+  IGNORE 1 LINES;
 /*!40000 ALTER TABLE `ingredient` ENABLE KEYS */;
 UNLOCK TABLES;
 
