@@ -7,7 +7,7 @@
 #
 # Host: localhost (MySQL 5.5.38)
 # Database: PantryQuest
-# Generation Time: 2014-10-16 20:15:47 +0000
+# Generation Time: 2014-10-23 15:08:38 +0000
 # ************************************************************
 
 
@@ -19,13 +19,12 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
-
-# Dump of table filter
-# ------------------------------------------------------------
 DROP DATABASE IF EXISTS PantryQuest;
 CREATE DATABASE PantryQuest;
 USE PantryQuest;
 
+# Dump of table filter
+# ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `filter`;
 
@@ -46,7 +45,7 @@ LOCK TABLES `filter` WRITE;
 
 INSERT INTO `filter` (`filterID`, `method`, `glutenFree`, `vegetarian`, `vegan`, `noNuts`, `lactoseFree`)
 VALUES
-	(1,'oven',0,1,0,0,0);
+	(1,'oven',0,1,0,1,0);
 
 /*!40000 ALTER TABLE `filter` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -60,7 +59,6 @@ DROP TABLE IF EXISTS `ingredient`;
 CREATE TABLE `ingredient` (
   `foodID` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `foodName` varchar(30) DEFAULT NULL,
-  `calories` int(11) DEFAULT NULL,
   PRIMARY KEY (`foodID`),
   KEY `foodName` (`foodName`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -68,16 +66,42 @@ CREATE TABLE `ingredient` (
 LOCK TABLES `ingredient` WRITE;
 /*!40000 ALTER TABLE `ingredient` DISABLE KEYS */;
 
-INSERT INTO `ingredient` (`foodID`, `foodName`, `calories`)
+INSERT INTO `ingredient` (`foodID`, `foodName`)
 VALUES
-	(1,'carrot',100),
-	(2,'sugar',100),
-	(3,'flour',75),
-	(4,'butter',125),
-	(5,'baking soda',30),
-	(6,'egg',12);
+	(5,'baking soda'),
+	(4,'butter'),
+	(1,'carrot'),
+	(6,'egg'),
+	(3,'flour'),
+	(2,'sugar');
 
 /*!40000 ALTER TABLE `ingredient` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+# Dump of table recipe
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `recipe`;
+
+CREATE TABLE `recipe` (
+  `recipeID` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `recipeName` varchar(30) DEFAULT NULL,
+  `instruction` varchar(100) DEFAULT NULL,
+  `time` int(11) DEFAULT NULL,
+  `numberOfIgredients` int(11) DEFAULT NULL,
+  `ranking` float DEFAULT NULL,
+  PRIMARY KEY (`recipeID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+LOCK TABLES `recipe` WRITE;
+/*!40000 ALTER TABLE `recipe` DISABLE KEYS */;
+
+INSERT INTO `recipe` (`recipeID`, `recipeName`, `instruction`, `time`, `numberOfIgredients`, `ranking`)
+VALUES
+	(1,'carrotcake ','connect to json',180,8,3.5);
+
+/*!40000 ALTER TABLE `recipe` ENABLE KEYS */;
 UNLOCK TABLES;
 
 
@@ -105,32 +129,6 @@ VALUES
 	(1,'carrot',0,1);
 
 /*!40000 ALTER TABLE `recipeConnection` ENABLE KEYS */;
-UNLOCK TABLES;
-
-
-# Dump of table recipe
-# ------------------------------------------------------------
-
-DROP TABLE IF EXISTS `recipe`;
-
-CREATE TABLE `recipe` (
-  `recipeID` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `recipeName` varchar(30) DEFAULT NULL,
-  `instruction` varchar(100) DEFAULT NULL,
-  `time` int(11) DEFAULT NULL,
-  `numberOfIgredients` int(11) DEFAULT NULL,
-  `ranking` float DEFAULT NULL,
-  PRIMARY KEY (`recipeID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-LOCK TABLES `recipe` WRITE;
-/*!40000 ALTER TABLE `recipe` DISABLE KEYS */;
-
-INSERT INTO `recipe` (`recipeID`, `recipeName`, `instruction`, `time`, `numberOfIgredients`, `ranking`)
-VALUES
-	(1,'carrotcake ','connect to json',180,8,3.5);
-
-/*!40000 ALTER TABLE `recipe` ENABLE KEYS */;
 UNLOCK TABLES;
 
 
