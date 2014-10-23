@@ -25,6 +25,20 @@ function getConnection() {
   return $dbConnection;
 }
 
+function rankingResult()
+{
+    
+}
+
+function getIngredient() //return all the names of the ingedient 
+{
+
+    $mysqli = getConnection(); //establish connection
+    $app = \Slim\Slim::getInstance();      
+    $request = $app->request()->getBody();
+    $order = json_decode($request, true);
+}
+
 
 
 
