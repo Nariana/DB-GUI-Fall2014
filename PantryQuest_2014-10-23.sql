@@ -117,15 +117,13 @@ DROP TABLE IF EXISTS `recipeConnection`;
 
 CREATE TABLE `recipeConnection` (
   `recipeID` int(11) unsigned NOT NULL,
-  `foodName` varchar(30) DEFAULT NULL,
+  `foodName` varchar(30) NOT NULL DEFAULT '',
   `substitutable` tinyint(1) DEFAULT NULL,
   `essential` tinyint(1) DEFAULT NULL,
-  PRIMARY KEY (`recipeID`),
+  PRIMARY KEY (`recipeID`,`foodName`),
   KEY `foodName` (`foodName`),
-  CONSTRAINT `name FK` FOREIGN KEY (`foodName`) REFERENCES `ingredient` (`foodName`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `recipe ID FK` FOREIGN KEY (`recipeID`) REFERENCES `recipe` (`recipeID`)
+  CONSTRAINT `name FK` FOREIGN KEY (`foodName`) REFERENCES `ingredient` (`foodName`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
 LOCK TABLES `recipeConnection` WRITE;
 /*!40000 ALTER TABLE `recipeConnection` DISABLE KEYS */;
 
