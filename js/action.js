@@ -1,4 +1,4 @@
-var rootURL = "http://localhost:8888/DB-GUI-Fall2014/api/index.php";
+var rootURL = "http://localhost/DB-GUI-Fall2014/index.php";
 
 var allIngredients = getIngredients();
 
@@ -20,7 +20,6 @@ function getIngredients(){
 }
 
 
-
 console.log("in action");
 
 $('#addIngredient').click(function(){
@@ -40,7 +39,7 @@ $("#search").click(function(){
 });
 
 $(function() {
-    $( "input[type=submit], a, button" )
+    $( "input[type=submit], a, button" ) 
       .button()
       .click(function( event ) {
         event.preventDefault();
