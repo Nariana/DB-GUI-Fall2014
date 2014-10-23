@@ -24,11 +24,3 @@ function getConnection() {
   }
   return $dbConnection;
 }
-
-function getIngredient() {
-	$con = getConnection();
-	$app = \Slim\Slim::getInstance();
-    $request = $app->request()->getBody();
-
-    $sql = "select * from ingredient"
-}
