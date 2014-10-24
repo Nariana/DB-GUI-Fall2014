@@ -136,7 +136,7 @@ function searchDB($filters, $ingredients, $methods, $time)
         $sql = $sql.$method."'";
     }
 
-    if(empty($time))
+    if(!empty($time))
     {
         $sql = $sql." and time < ";
         $sql = $sql.$time;
