@@ -1,23 +1,35 @@
-var rootURL = "http://localhost/DB-GUI-Fall2014/index.php";
+//XAMPP
+//var rootURL = "http://localhost/DB-GUI-Fall2014/index.php";
+//MAMP
+var rootURL = "http://localhost:8888/DB-GUI-Fall2014/index.php";
 
 var allIngredients = getIngredients();
 
 function getIngredients(){
 
 	console.log("in get Ingredients");
+  console.log(rootURL+"/getIngredient");
+  var availableTags = [];
 	$.ajax({
         type: "GET",
         url: rootURL+"/getIngredient",
         dataType: "json",
         success: function (result) {
             console.log(result);
+            for (var i = 0; i < result.length - 1; i++) {
+              availableTags[i] = result[i][0];
+            };
             //alert("done!"+ csvData.getAllResponseHeaders())
             $( "#textIngredient" ).autocomplete({
               source: availableTags
             });
-        }
-    });
+          },
+        error: function(jqXHR, textStatus, errorThrown){
+           console.log(jqXHR, textStatus, errorThrown);
+      }});
 }
+        
+
 
 
 console.log("in action");
