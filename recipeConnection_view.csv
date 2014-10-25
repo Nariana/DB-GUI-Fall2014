@@ -1,2 +1,13 @@
-"recipeID","foodName","substitutable","essential"
-1,"carrot",0,1
+recipeID,foodName,substitutable,essential
+1,carrot,0,1
+1,egg,0,1
+1,flour,1,0
+1,walnuts,1,0
+1,baking soda,0,1
+1,cream cheese,1,0
+1,vegetable oil,1,0
+2,beef,1,0
+2,wheat bun,1,0
+2,lettuce,1,0
+2,tomato,1,0
+2,cheese,1,0
