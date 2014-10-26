@@ -11,3 +11,54 @@ recipeID,foodName,substitutable,essential
 2,lettuce,1,0
 2,tomato,1,0
 2,cheese,1,0
+3,egg,0,1
+3,tomato,0,1
+3,feta cheese,0,1
+3,spinach,0,1
+3,bread,1,0
+4,egg,0,1
+4,vegetable oil,1,0
+4,scallion,1,0
+4,tomato,0,1
+5,carrot,0,1
+5,potato,0,1
+5,onion,1,0
+5,cabbage,0,1
+5,garlic,1,0
+5,chicken stock,1,0
+5,parsley,1,0
+5,olive oil,1,0
+5,thyme,1,0
+5,basil,1,0
+6,anchovy,1,0
+6,dijon mustard,1,0
+6,vinegar,1,0
+6,Worcestershire sauce,1,0
+6,garlic,1,0
+6,lemon,1,0
+6,olive oil,1,0
+6,parmesan cheese,1,0
+6,bread,0,1
+6,romaine lettuce,0,1
+7,flour,0,1
+7,chicken breast,0,1
+7,buttermilk,1,0
+7,olive oil,1,0
+7,cornstarch,0,1
+7,chicken broth,0,1
+7,onion,1,0
+7,green onion,1,0
+7,garlic,1,0
+7,milk,0,1
+8,yogurt,0,1
+8,granola,0,1
+8,strawberry,1,0
+8,honey,1,0
+9,bacon,0,1
+9,lettuce,0,1
+9,tomato,0,1
+9,bread,0,1
+9,mayonnaise,1,0
+10,bread,0,1
+10,butter,0,1
+10,cheese,0,1
