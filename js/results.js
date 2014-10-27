@@ -50,6 +50,6 @@ function getResults(){
     });
   });
 
- function addFilters() {
- 
- } 
+$("#filters input").on("change", function() {
+getResults();
+} );
