@@ -39,3 +39,17 @@ img{
 * html .ui-autocomplete {
     height: 1000px;
 }
+
+#resultListDiv{
+	width: 60%;
+	height: auto;
+}
+
+#resultListDiv ul {
+	width: 100%;
+
+}
+
+#content > div {
+	float: left;
+}

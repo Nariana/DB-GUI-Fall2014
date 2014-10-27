@@ -8,17 +8,36 @@
 
 <html>
 	<body>
-		<div id="filters">
-		<form>
-			<input type="radio" name="filter" value="filter1" id="filter1"><label for="filter1">Filter1</label><br>
-			<input type="radio" name="filter" value="filter2" id="filter2"><label for="filter2">Filter2</label><br>
-			<input type="radio" name="filter" value="filter3" id="filter3"><label for="filter3">Filter3</label><br>
-			<input type="radio" name="filter" value="filter4" id="filter4"><label for="filter4">Filter4</label><br>
 
-		</form>
-		</div>
 		
 		<div id="content">
+
+			<div id="filters">
+				<form>
+					<input type="radio" name="filter" value="filter1" id="filter1"><label for="filter1">Filter1</label><br>
+					<input type="radio" name="filter" value="filter2" id="filter2"><label for="filter2">Filter2</label><br>
+					<input type="radio" name="filter" value="filter3" id="filter3"><label for="filter3">Filter3</label><br>
+					<input type="radio" name="filter" value="filter4" id="filter4"><label for="filter4">Filter4</label><br>
+
+				</form>
+			</div>
+
+			
+			<div id="resultListDiv">
+				<table id="resultTable">
+					<tr id="resultHead">
+						<th>
+							Recipe
+						</th>
+						<th>
+							Calories
+						</th>
+						<th>
+							Prep Time
+						</th>
+					</tr>
+				</table>
+			</div>
 
 		</div>
 

@@ -1,7 +1,7 @@
 //XAMPP
 //var rootURL = "http://localhost/DB-GUI-Fall2014/index.php";
 //MAMP
-var rootURL = "http://localhost:8888/DB-GUI-Fall2014/index.php";
+var rootURL = "http://localhost:8888/DB-GUI-Fall2014/api/index.php";
 
 var allIngredients = getIngredients();
 
@@ -46,6 +46,16 @@ $('#addIngredient').click(function(){
 
 $("#search").click(function(){
 	console.log("go to results");
+  var query = [];
+  var fields = $(".ingredient");
+  $.each(fields, function(i, v){
+    query.push(v.textContent);
+
+  });
+  //console.log(query);
+  localStorage.setItem("ingredients", query);
+  //console.log(localStorage.query);
+
 	window.location.href = "results.html"
 
 });
