@@ -44,6 +44,11 @@ function getResult() {
 	$app = \Slim\Slim::getInstance();
     $request = $app->request()->getBody();
     
+        //epty previous table 
+        $sql = "Truncate TABLE results";
+        $con->query($sql);
+       
+
     //create variables to store information
     $result = json_decode($request, true);
     $ingredients = array();
@@ -108,7 +113,7 @@ function searchDB($filters, $ingredients, $methods, $time)
 {
     //create query with all information 
     //select distinct recipeName, ranking from recipe natural join filter natural join recipeConnection where vegetarian and foodName = 'egg' order by 'ranking' asc;
-    $sql = "select distinct recipeName, ranking from recipe natural join filter natural join recipeConnection where "; //check if you need ''
+    $sql = "select distinct recipeID from recipe natural join filter natural join recipeConnection where "; //check if you need ''
 
     foreach ($filters as $filter)
     {
@@ -141,7 +146,37 @@ function searchDB($filters, $ingredients, $methods, $time)
         $sql = $sql." and time < ";
         $sql = $sql.$time;
     }
+   
+    //return $sql;
+    SearchInsert($sql); //call search and insert 
+}
 
-    $sql = $sql." order by 'ranking' asc";
-    return $sql;
+//serach the table and 
+function searchInsert($sql)
+{
+    $con = getConnection();
+    $result= $con->query($sql);
+    $sql = $con->prepare("INSERT INTO results(recipeID, rankingPoints) values (?,?)");
+
+    if (mysqli_num_rows($result) > 0) 
+   	{
+        while($r = mysqli_fetch_array($result)) 
+   	    {   
+            $recipeID = $r[0]; //get the id from the result
+            //calculate the rating points for that recipe 
+            $stmt = "select sum(value) from recipeConnection where recipeID = ".$recipeID;
+            $result = $con->query($stmt);
+            $row = mysqli_fetch_row($result);
+            $rankingPoints = $row[0]; //save the ranking points
+            
+            $sql->bind_param('ii', $recipeID, $rankingPoints);
+            $sql->execute();
+        }
+    }
+}
+
+//create a list of subsets og a set as aelements in a set and call search for all of them 
+function createSubSet()
+{
+    
 }
