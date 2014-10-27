@@ -49,3 +49,7 @@ function getResults(){
       }
     });
   });
+  
+ function addFilters() {
+ 
+ } 
