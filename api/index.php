@@ -42,27 +42,25 @@ function getIngredient() {
 function getResult() {
 	$con = getConnection();
 	$app = \Slim\Slim::getInstance();
-    $request = $app->request()->getBody();
-    
-        //epty previous table 
-        $sql = "Truncate TABLE results";
-        $con->query($sql);
+    //epty previous table 
+    $sql = "Truncate TABLE results";
+    $con->query($sql);
        
 
     //create variables to store information
-    $result = json_decode($request, true);
+    //$result = json_decode($_GET, true);
+    
     $ingredients = array();
     $filters = array();
     $methods = array();
     $noIngredients = array();
-    $results = array();
+    
     $time;
     $counter = 0;
 
     //store all information from json, input from user 
     foreach ($result as $part)
     {
-
         if(array_key_exists("name", $part ))
         {
             $ingredients[] = $part['name'];
@@ -90,12 +88,13 @@ function getResult() {
         }  
     }
 
+    //SEARCHDB with all subsets of ingredient 
 
-    $result= $con->query(searchDB($filters, $ingredients, $methods, $time)); //execute query 
+    $result= $con->query("select recipeName, time, rankingPoints from recipe natural join results"); //execute query 
     
     if (mysqli_num_rows($result) == 0)
     {
-        //this means there are no matches, need to re-search with fever ingredients
+        //no possible resuts 
         echo json_encode($rows);
         exit;
     }
@@ -149,6 +148,8 @@ function searchDB($filters, $ingredients, $methods, $time)
    
     //return $sql;
     SearchInsert($sql); //call search and insert 
+
+    //recipie name 
 }
 
 //serach the table and 
@@ -167,9 +168,16 @@ function searchInsert($sql)
             $stmt = "select sum(value) from recipeConnection where recipeID = ".$recipeID;
             $result = $con->query($stmt);
             $row = mysqli_fetch_row($result);
-            $rankingPoints = $row[0]; //save the ranking points
+            $ratio = $row[0]; //save the ranking points
+            //find total number fo ingredient 
+            $stmt = "select numberOfIngredients from recipe where recipeID = ".$recipeID;
+            $result = $con->query($stmt);
+            $row = mysqli_fetch_row($result);
+            $totalNum = 10 * $row[0]; //save the ranking points
             
-            $sql->bind_param('ii', $recipeID, $rankingPoints);
+            $ranking = $ratio / $totalNum;
+            
+            $sql->bind_param('ii', $recipeID, $ranking);
             $sql->execute();
         }
     }
