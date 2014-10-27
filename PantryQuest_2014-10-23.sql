@@ -49,7 +49,17 @@ VALUES
 /*!40000 ALTER TABLE `filter` ENABLE KEYS */;
 UNLOCK TABLES;
 
+DROP TABLE IF EXISTS `results`;
 
+CREATE TABLE `results` (
+  `recipeID` int(11) unsigned NOT NULL,
+  `rankingPoints` float DEFAULT NULL,
+  `ranking` float DEFAULT NULL,
+  PRIMARY KEY (`recipieID`),
+  CONSTRAINT `RecipeIDFK` FOREIGN KEY (`recipeID`) REFERENCES `recipe` (`recipeID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+LOCK TABLES `results` WRITE;
 # Dump of table ingredient
 # ------------------------------------------------------------
 
@@ -552,8 +562,7 @@ DROP TABLE IF EXISTS `recipeConnection`;
 CREATE TABLE `recipeConnection` (
   `recipeID` int(11) unsigned NOT NULL,
   `foodName` varchar(30) NOT NULL DEFAULT '',
-  `substitutable` tinyint(1) DEFAULT NULL,
-  `essential` tinyint(1) DEFAULT NULL,
+    `value` float DEFAULT NULL,
   PRIMARY KEY (`recipeID`,`foodName`),
   KEY `foodName` (`foodName`),
   CONSTRAINT `name FK` FOREIGN KEY (`foodName`) REFERENCES `ingredient` (`foodName`) ON DELETE CASCADE ON UPDATE CASCADE
@@ -562,7 +571,7 @@ CREATE TABLE `recipeConnection` (
 LOCK TABLES `recipeConnection` WRITE;
 /*!40000 ALTER TABLE `recipeConnection` DISABLE KEYS */;
 
-INSERT INTO `recipeconnection` (`recipeID`, `foodName`, `substitutable`, `essential`) VALUES
+INSERT INTO `recipeconnection` (`recipeID`, `foodName`, `value`) VALUES
 (1, 'baking soda', 0, 1),
 (1, 'carrot', 0, 1),
 (1, 'cream cheese', 1, 0),
@@ -631,6 +640,8 @@ INSERT INTO `recipeconnection` (`recipeID`, `foodName`, `substitutable`, `essent
 UNLOCK TABLES;
 
 
+
+/*!40000 ALTER TABLE `results` DISABLE KEYS */;
 
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
