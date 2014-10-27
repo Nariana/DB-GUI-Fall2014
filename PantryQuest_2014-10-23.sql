@@ -140,8 +140,6 @@ VALUES
 	('caraway seed'),
 	('cardamom'),
 	('carrot'),
-	('carrot'),
-	('carrot'),
 	('cashew'),
 	('caster sugar'),
 	('cayenne pepper'),
@@ -154,7 +152,7 @@ VALUES
 	('cheese'),
 	('cherries'),
 	('cherry'),
-	('cherry tomatoe'),
+	('cherry tomato'),
 	('chestnut'),
 	('chicken'),
 	('chicken'),
@@ -521,7 +519,7 @@ DROP TABLE IF EXISTS `recipe`;
 CREATE TABLE `recipe` (
   `recipeID` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `recipeName` varchar(30) DEFAULT NULL,
-  `instruction` varchar(100) DEFAULT NULL,
+  `instruction` varchar(5000) DEFAULT NULL,
   `time` int(11) DEFAULT NULL,
   `numberOfIgredients` int(11) DEFAULT NULL,
   `ranking` float DEFAULT NULL,
@@ -530,10 +528,17 @@ CREATE TABLE `recipe` (
 
 LOCK TABLES `recipe` WRITE;
 /*!40000 ALTER TABLE `recipe` DISABLE KEYS */;
-
-INSERT INTO `recipe` (`recipeID`, `recipeName`, `instruction`, `time`, `numberOfIgredients`, `ranking`)
-VALUES
-	(1,'carrotcake ','connect to json',180,8,3.5);
+INSERT INTO `recipe` (`recipeID`, `recipeName`, `instruction`, `time`, `numberOfIgredients`, `ranking`) VALUES
+(1, 'Carrot Cake', 'In a mixing bowl, mix sugar, vegetable oil, and eggs. In another bowl, sift together flour, baking soda, salt, and cinnamon. Fold dry ingredients into wet mixture and blend well. Fold in carrots and chopped nuts until well blended. Distribute batter evenly into 3 (9-inch) cake layer pans, which have been generously greased. There will be approximately 1 pound 5 ounces of batter per pan. Place in preheated oven and bake for 50 to 60 minutes. Cool layers in pans, for approximately 1 hour. Store layers in pans, inverted, in closed cupboard to prevent drying. Layers must be a minimum of 1 day old.\n\nTo remove layers from baking pan, turn upside down, tap edge of pan on a hard surface. Center a 9-inch cake circle on top of revolving cake stand. Remove paper from bottom of layer cake. Place first layer, bottom side down, at center of cake stand. With a spatula, evenly spread approximately 3 1/2 ounces of frosting on the layer. Center second layer on top of first layer with topside down. Again with a spatula, evenly spread approximately 3 1/2 ounces of frosting on the layer. Center third layer on top of second layer with topside down. Using both hands, press firmly but gently, all layers together to get one firm cake. With spatula, spread remainder of frosting to cover top and sides of cake. Refrigerated until needed. Display on counter or cake stand with a plastic cover.', 95, 7, 4),
+(2, 'Beef Burger', 'In a large bowl, mix ground beef, onion powder, salt and pepper until just combined. Do not overmix, or your patties will be tough.\nForm patties, without pressing too hard. They should be uniform in thickness. Smooth out any cracks using your fingers. Make these right before you grill them, so they stay at room temperature.\n\nPreheat your grill, grill pan or cast-iron skillet to high heat and add burger patties. If using a grill, cover with the lid.\n\nCook until the crust that forms on the bottom of the burger releases it from the pan or grate ? about 2 minutes. Gently test, but don''t flip it until it gets to this point. When burgers lift up easily, flip, add two slices of cheese to each, close lid if using a grill, and cook on the other side for another 2-3 minutes for medium to medium rare. \n\nRemove burgers with a sturdy metal spatula and transfer to a plate. Allow to rest for several minutes, then transfer to buns.\n\nGarnish as desired and serve immediately.', 25, 5, 5),
+(3, 'Sun-dried Tomato Omelet', 'In a medium bowl, beat the eggs with a pinch each of salt and pepper.', 25, 5, 5),
+(4, 'Stir-fried Egg and Tomato', 'Beat eggs with 1/2 teaspoon salt until smooth but not frothy.\n\nHeat 1 tablespoon oil in a 12-inch nonstick skillet over medium-high heat until hot. Add eggs and cook, undisturbed, just until a thin film of cooked egg forms on bottom of skillet but most of eggs are still runny, 5 to 10 seconds. Immediately scrape eggs into a bowl. Wipe out skillet.\n\nHeat remaining tablespoon oil in skillet over medium-high heat until hot. Add scallions and stir-fry until just softened, about 30 seconds. Add tomatoes and cook, stirring and turning occasionally, until juices are released and tomatoes are slightly wilted but still intact, 4 to 6 minutes. Sprinkle sugar and 1/4 teaspoon salt over tomatoes and stir to combine. Return eggs to skillet and cook, stirring occasionally, until eggs are just cooked through. Serve sprinkled with reserved scallion greens.', 15, 4, 4),
+(5, 'Carrot, Potato, Cabbage Soup', 'Combine the carrots, potatoes, onion, cabbage, garlic, chicken stock, olive oil, thyme, basil, parsley, salt, and pepper in a stock pot over medium-high heat; bring to a simmer and cook until the carrots are tender, about 20 minutes. Transfer to a blender in small batches and blend until smooth.', 50, 10, 5),
+(6, 'Caesar Salad', 'For the dressing: Place the anchovies into a blender or food processor. Throw in the Dijon mustard, vinegar, Worcestershire, garlic and lemon juice. Pulse the processor or blend on low speed for several seconds. Scrape down the sides.\n\nWith the food processor or blender on, drizzle the olive oil into the mixture in a small stream. Scrape down the sides. Add the Parmesan, salt and a generous grind of black pepper. Pulse the whole thing together and mix until thoroughly combined. Refrigerate the dressing for a few hours (it just gets better!) before using it on the salad.\n\nFor the croutons: Slice the bread into thick slices and cut them into 1-inch cubes. Throw them onto a baking sheet.\n\nHeat the olive oil in a small saucepan or skillet over low heat.\n\nCrush-but don''t chop-the garlic and add them to the oil. Use a spoon to move the garlic around in the pan. After 3 to 5 minutes, turn off the heat and remove the garlic from the pan.\n\nSlowly drizzle the olive oil over the bread cubes. Mix together with your hands, and then sprinkle lightly with salt. Toss and cook in the pan until golden brown and crisp. (Add a little butter for more flavor!)\n\nFor the salad: Wash and dry the hearts of romaine lettuce. Leave them whole. Use a vegetable peeler and shave off large, thin slices of Parmesan.\n\nDrizzle about half of the dressing over the top of the hearts. Throw in a good handful of the Parmesan shavings. Give it a good initial toss, just so you can evaluate how much more dressing you need.\n\nAdd more dressing and Parmesan to taste. Add the cooled croutons. Toss gently.', 20, 10, 5),
+(7, 'Chicken-fried Chicken', 'Preheat the oven to 350 degrees F. Spray a baking sheet with nonstick cooking spray.\n\nMix together the flour and 1 teaspoon of the House Seasoning in a small bowl. Sprinkle the chicken with the remaining 1 teaspoon House Seasoning. Pour the buttermilk into a shallow dish. Dredge the chicken in the buttermilk, followed by the flour.\n\nHeat 2 tablespoons of the oil in a heavy nonstick skillet over medium-high heat. Add half of the chicken breasts to the hot oil and cook until both sides are browned, about 3 minutes per side, and then transfer to the baking sheet. Repeat with the remaining chicken breasts. Transfer the baking sheet to the oven and bake until the chicken is cooked through, about 10 minutes.\n\nWhisk together the cornstarch and 1/4 cup chicken broth until dissolved. Set aside.\n\nTo make the gravy , add the remaining 1 tablespoon oil to the same skillet and heat over medium heat. Add the onions and saute until translucent, about 2 minutes.\n\nAdd the remaining chicken broth, scrape the pan drippings with a wooden spoon, raise the heat to medium-high and cook until the mixture begins to bubble, about 2 minutes. Stir in the dissolved cornstarch to incorporate. Bring to a simmer and continue to cook until the mixture thickens, 4 to 5 minutes. Stir in the milk and black pepper and continue cooking over medium-high heat until thickened, 5 minutes longer.\n\nRemove the chicken from the oven and top each piece with 4 teaspoons of the gravy. Sprinkle with the chopped green onions.\n\nMix together the salt, garlic powder and pepper.', 45, 10, 5),
+(8, 'Yogurt Parfait', 'Line up 4 parfait, white wine, or other tall glasses.\n\nSpoon 2 tablespoons of yogurt into each glass and smooth surface.\n\nSpoon 2 tablespoons of granola overtop and smooth surface.\n\nSpoon 2 tablespoons of fruit overtop and smooth surface.\n\nRepeat the process, adding a bit of honey here and there, to taste.\n\nRead more at: http://www.foodnetwork.com/recipes/granola-yogurt-berry-parfait-recipe.html?oc=linkback', 5, 4, 5),
+(9, 'BLT', 'Cook the bacon in a large, deep skillet over medium-high heat until evenly browned, about 10 minutes. Drain the bacon slices on a paper towel-lined plate.\n\nArrange the cooked bacon, lettuce, and tomato slices on one slice of bread. Spread one side of remaining bread slice with the mayonnaise. Bring the two pieces together to make a sandwich.', 15, 5, 5),
+(10, 'Grilled Cheese Sandwich', 'Preheat skillet over medium heat. Generously butter one side of a slice of bread. Place bread butter-side-down onto skillet bottom and add 1 slice of cheese. Butter a second slice of bread on one side and place butter-side-up on top of sandwich. Grill until lightly browned and flip over; continue grilling until cheese is melted. Repeat with remaining 2 slices of bread, butter and slice of cheese.', 20, 3, 5);
 
 /*!40000 ALTER TABLE `recipe` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -557,11 +562,70 @@ CREATE TABLE `recipeConnection` (
 LOCK TABLES `recipeConnection` WRITE;
 /*!40000 ALTER TABLE `recipeConnection` DISABLE KEYS */;
 
-INSERT INTO `recipeConnection` (`recipeID`, `foodName`, `substitutable`, `essential`)
-VALUES
-	(1,'carrot',0,1),
-	(1,'egg',0,1),
-	(1,'flour',1,0);
+INSERT INTO `recipeconnection` (`recipeID`, `foodName`, `substitutable`, `essential`) VALUES
+(1, 'baking soda', 0, 1),
+(1, 'carrot', 0, 1),
+(1, 'cream cheese', 1, 0),
+(1, 'egg', 0, 1),
+(1, 'flour', 1, 0),
+(1, 'vegetable oil', 1, 0),
+(1, 'walnuts', 1, 0),
+(2, 'beef', 1, 0),
+(2, 'cheese', 1, 0),
+(2, 'lettuce', 1, 0),
+(2, 'tomato', 1, 0),
+(2, 'wheat bun', 1, 0),
+(3, 'bread', 1, 0),
+(3, 'egg', 0, 1),
+(3, 'feta cheese', 0, 1),
+(3, 'spinach', 0, 1),
+(3, 'tomato', 0, 1),
+(4, 'egg', 0, 1),
+(4, 'scallion', 1, 0),
+(4, 'tomato', 0, 1),
+(4, 'vegetable oil', 1, 0),
+(5, 'basil', 1, 0),
+(5, 'cabbage', 0, 1),
+(5, 'carrot', 0, 1),
+(5, 'chicken stock', 1, 0),
+(5, 'garlic', 1, 0),
+(5, 'olive oil', 1, 0),
+(5, 'onion', 1, 0),
+(5, 'parsley', 1, 0),
+(5, 'potato', 0, 1),
+(5, 'thyme', 1, 0),
+(6, 'anchovy', 1, 0),
+(6, 'bread', 0, 1),
+(6, 'dijon mustard', 1, 0),
+(6, 'garlic', 1, 0),
+(6, 'lemon', 1, 0),
+(6, 'olive oil', 1, 0),
+(6, 'parmesan cheese', 1, 0),
+(6, 'romaine lettuce', 0, 1),
+(6, 'vinegar', 1, 0),
+(6, 'Worcestershire sauce', 1, 0),
+(7, 'buttermilk', 1, 0),
+(7, 'chicken breast', 0, 1),
+(7, 'chicken broth', 0, 1),
+(7, 'cornstarch', 0, 1),
+(7, 'flour', 0, 1),
+(7, 'garlic', 1, 0),
+(7, 'green onion', 1, 0),
+(7, 'milk', 0, 1),
+(7, 'olive oil', 1, 0),
+(7, 'onion', 1, 0),
+(8, 'granola', 0, 1),
+(8, 'honey', 1, 0),
+(8, 'strawberry', 1, 0),
+(8, 'yogurt', 0, 1),
+(9, 'bacon', 0, 1),
+(9, 'bread', 0, 1),
+(9, 'lettuce', 0, 1),
+(9, 'mayonnaise', 1, 0),
+(9, 'tomato', 0, 1),
+(10, 'bread', 0, 1),
+(10, 'butter', 0, 1),
+(10, 'cheese', 0, 1);
 
 /*!40000 ALTER TABLE `recipeConnection` ENABLE KEYS */;
 UNLOCK TABLES;
