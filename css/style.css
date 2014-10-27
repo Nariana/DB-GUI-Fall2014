@@ -43,10 +43,14 @@ img{
 #resultListDiv{
 	width: 60%;
 	height: auto;
+	margin: 0 auto;
+	padding: 40px;
 }
 
-#resultListDiv ul {
+#resultListDiv table {
 	width: 100%;
+	background-color: white;
+	/*padding: 40px;*/
 
 }
 
