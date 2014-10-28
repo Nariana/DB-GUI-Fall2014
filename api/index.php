@@ -211,7 +211,7 @@ function searchInsert($sql)
             //find total number fo ingredient 
             $stmt = "select numberOfIngredients from recipe where recipeID = ".$recipeID;
             
-            $result= mysqli_query($con, $stmt);
+            $result= $con->query($stmt);
             $row = mysqli_fetch_row($result);
             $totalNum = 10 * $row[0]; //save the ranking points
             
