@@ -29,6 +29,7 @@ function getRecipe()
 {
     $con = getConnection();
 	$app = \Slim\Slim::getInstance();
+    $request = $app->request()->getBody();
     
     $recipeName;
     $results = array();
@@ -75,7 +76,7 @@ function getResult() {
     $noIngredients = array();
     $results = array();
     $points = array();
-    $time;
+    $time = array();
     $counter = 0;
     $points = array();
 
