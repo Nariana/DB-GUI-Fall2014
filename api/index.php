@@ -31,11 +31,12 @@ function getRecipe()
 	$app = \Slim\Slim::getInstance();
     $request = $app->request()->getBody();
     
+    
     $recipeName;
     $results = array();
     //get the name they are sending us 
     
-    $sql = "SELECT recipeName, instruction, time FROM recipes where recipeName = '".$recipeName."'"; 
+    $sql = "SELECT * FROM recipes where recipeName = '".$recipeName."'"; 
     $con->query($sql);
   
     while ($rows = mysqli_fetch_row($result)) {
@@ -148,6 +149,7 @@ function getResult() {
 //function that creates a query 
 function searchDB($filters, $ingredients, $methods, $time)
 {
+    $counter = 0;
     //create query with all information 
     //select distinct recipeName, ranking from recipe natural join filter natural join recipeConnection where vegetarian and foodName = 'egg' order by 'ranking' asc;
     $sql = "select distinct recipeID from recipe natural join filter natural join recipeConnection where "; //check if you need ''
