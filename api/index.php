@@ -29,12 +29,14 @@ function getRecipe()
 {
     $con = getConnection();
 	$app = \Slim\Slim::getInstance();
+    $request = $app->request()->getBody();
+    $result = json_decode($request, true);
     
-    $recipeName;
+    $recipeName = $result['recipeName'];
     $results = array();
     //get the name they are sending us 
     
-    $sql = "SELECT recipeName, instruction, time FROM recipes where recipeName = '".$recipeName."'"; 
+    $sql = "SELECT * FROM recipes where recipeName = '".$recipeName."'"; 
     $con->query($sql);
   
     while ($rows = mysqli_fetch_row($result)) {
@@ -64,15 +66,20 @@ function getResult() {
     //epty previous table 
     $sql = "Truncate TABLE results";
     $con->query($sql);
-       
+
+
+    //create variables to store information
+    //$result = json_decode($_GET, true);
     
     $ingredients = array();
     $filters = array();
     $methods = array();
     $noIngredients = array();
     $results = array();
-    $time;
+    $points = array();
+    $time = array();
     $counter = 0;
+    $points = array();
 
     //store all information from json, input from user 
     foreach ($_GET as $part)
@@ -109,22 +116,32 @@ function getResult() {
     //insert and search for all subsets 
     foreach ($subset as $part)
     {
-        searchDB($filters, $ipart, $methods, $time);
+        searchDB($filters, $part, $methods, $time);
     }
 
-    $result= $con->query("select recipeName, time, rankingPoints from recipe natural join results"); //execute query 
-    
+    $result= $con->query("select recipeName, ranking, time from recipe where recipeID in (select recipeID from results)"); //execute query 
     if (mysqli_num_rows($result) == 0)
     {
         //no possible resuts 
         echo json_encode($rows);
         exit;
     }
- 
+    //store information in results
    	while($r = mysqli_fetch_assoc($result)) 
    	{
-         $results[] = $r;
+        $results[] = $r;
+        //$points [] = $
    	} 
+    
+    //get the ranking points for each recipe 
+    $result = $con->query("select rankingPoints from results");
+   	while($r = mysqli_fetch_assoc($result)) 
+   	{
+         $points[] = $r;
+   	} 
+    
+    $results[] = $points;
+    //send back a json
     echo json_encode($results);
     mysqli_close($con);
 }
@@ -132,6 +149,7 @@ function getResult() {
 //function that creates a query 
 function searchDB($filters, $ingredients, $methods, $time)
 {
+    $counter = 0;
     //create query with all information 
     //select distinct recipeName, ranking from recipe natural join filter natural join recipeConnection where vegetarian and foodName = 'egg' order by 'ranking' asc;
     $sql = "select distinct recipeID from recipe natural join filter natural join recipeConnection where "; //check if you need ''
@@ -185,22 +203,29 @@ function searchInsert($sql)
         while($r = mysqli_fetch_array($result)) 
    	    {   
             $recipeID = $r[0]; //get the id from the result
+           // echo $recipeID;
             //calculate the rating points for that recipe 
             $stmt = "select sum(value) from recipeConnection where recipeID = ".$recipeID;
-            $result = $con->query($stmt);
+            $result= $con->query($stmt);
             $row = mysqli_fetch_row($result);
             $ratio = $row[0]; //save the ranking points
             //find total number fo ingredient 
             $stmt = "select numberOfIngredients from recipe where recipeID = ".$recipeID;
-            $result = $con->query($stmt);
+            
+            $result= $con->query($stmt);
             $row = mysqli_fetch_row($result);
             $totalNum = 10 * $row[0]; //save the ranking points
             
             $ranking = $ratio / $totalNum;
             
-            $sql->bind_param('ii', $recipeID, $ranking);
+            $sql->bind_param('id', $recipeID, $ranking);
             $sql->execute();
         }
+    }
+    else 
+    {
+        //return if you have no matches 
+        return;
     }
 }
 

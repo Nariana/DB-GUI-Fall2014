@@ -27,13 +27,24 @@ function getResults(){
         data: send,
         success: function (result) {
             console.log(result);
+            if(result.length === 0){
+               $("#resultTable").append("<tr><td>sorry, no results</td></tr>");
+            }
+
             for (var i = 0; i < result.length - 1; i++) {
-              var add = "<tr id='recipe"+i+"'><td></td></tr>";
+              console.log(result[i]);
+              var add = "<tr id='recipe"+i+"'><td class='name'>"+result[i].recipeName+"</td><td>"+result[i].ranking+"</td><td>"+result[i].time+"</td></tr>";
               $("#resultTable").append(add);
+              $("tr").click(function(){
+                recipe = $(this).children(".name").html();
+                localStorage.setItem("selectedRecipe", recipe);
+                window.location.href = "recipe.html";
+              });
             };
             //alert("done!"+ csvData.getAllResponseHeaders())
           },
         error: function(jqXHR, textStatus, errorThrown){
+          $("#resultTable").append("<tr><td>sorry, no results</td></tr>");
            console.log(jqXHR, textStatus, errorThrown);
       }});
 
