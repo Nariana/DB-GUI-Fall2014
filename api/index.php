@@ -66,7 +66,7 @@ function getResult() {
     $con->query($sql);
        
     
-    
+    $points = array();
     $ingredients = array();
     $filters = array();
     $methods = array();
@@ -113,19 +113,27 @@ function getResult() {
         searchDB($filters, $part, $methods, $time);
     }
 
-    $result= $con->query("select recipeName, time, rankingPoints from recipe natural join results"); //execute query 
-    
+    $result= $con->query("select * from recipe where recipeID in (select recipeID from results)"); //execute query 
+    $points = $con->query("select rankingPoints from results");
     if (mysqli_num_rows($result) == 0)
     {
         //no possible resuts 
         echo json_encode($rows);
         exit;
     }
- 
+    //store information in results
    	while($r = mysqli_fetch_assoc($result)) 
    	{
-         $results[] = $r;
+        $results[] = $r;
+        //$points [] = $
    	} 
+    $result = $con->query("select rankingPoints from results");
+   	while($r = mysqli_fetch_assoc($result)) 
+   	{
+         $points[] = $r;
+   	} 
+    
+    $results[] = $points;
     echo json_encode($results);
     mysqli_close($con);
 }
