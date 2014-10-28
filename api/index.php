@@ -64,16 +64,11 @@ function getResult() {
     //epty previous table 
     $sql = "Truncate TABLE results";
     $con->query($sql);
-       
-<<<<<<< HEAD
-    
-    $points = array();
-=======
+
 
     //create variables to store information
     //$result = json_decode($_GET, true);
     
->>>>>>> FETCH_HEAD
     $ingredients = array();
     $filters = array();
     $methods = array();
@@ -82,6 +77,7 @@ function getResult() {
     $points = array();
     $time;
     $counter = 0;
+    $points = array();
 
     //store all information from json, input from user 
     foreach ($_GET as $part)
@@ -118,10 +114,10 @@ function getResult() {
     //insert and search for all subsets 
     foreach ($subset as $part)
     {
-        searchDB($filters, $ipart, $methods, $time);
+        searchDB($filters, $part, $methods, $time);
     }
 
-    $result= $con->query("select * from recipe where recipeID in (select recipeID from results)"); //execute query 
+    $result= $con->query("select recipeName, ranking, time from recipe where recipeID in (select recipeID from results)"); //execute query 
     if (mysqli_num_rows($result) == 0)
     {
         //no possible resuts 
