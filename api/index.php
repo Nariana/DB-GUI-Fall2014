@@ -79,6 +79,7 @@ function getResult() {
     $methods = array();
     $noIngredients = array();
     $results = array();
+    $points = array();
     $time;
     $counter = 0;
 
@@ -121,7 +122,6 @@ function getResult() {
     }
 
     $result= $con->query("select * from recipe where recipeID in (select recipeID from results)"); //execute query 
-    $points = $con->query("select rankingPoints from results");
     if (mysqli_num_rows($result) == 0)
     {
         //no possible resuts 
@@ -134,6 +134,8 @@ function getResult() {
         $results[] = $r;
         //$points [] = $
    	} 
+    
+    //get the ranking points for each recipe 
     $result = $con->query("select rankingPoints from results");
    	while($r = mysqli_fetch_assoc($result)) 
    	{
@@ -141,6 +143,7 @@ function getResult() {
    	} 
     
     $results[] = $points;
+    //send back a json
     echo json_encode($results);
     mysqli_close($con);
 }
@@ -217,6 +220,11 @@ function searchInsert($sql)
             $sql->bind_param('ii', $recipeID, $ranking);
             $sql->execute();
         }
+    }
+    else 
+    {
+        //return if you have no matches 
+        return;
     }
 }
 
