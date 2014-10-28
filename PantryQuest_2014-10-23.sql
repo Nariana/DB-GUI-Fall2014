@@ -574,7 +574,7 @@ CREATE TABLE `recipeConnection` (
 LOCK TABLES `recipeConnection` WRITE;
 /*!40000 ALTER TABLE `recipeConnection` DISABLE KEYS */;
 
-INSERT INTO `recipeconnection` (`recipeID`, `foodName`, `value`) VALUES
+INSERT INTO `recipeConnection` (`recipeID`, `foodName`, `value`) VALUES
 (1, 'baking soda', 10),
 (1, 'carrot', 10),
 (1, 'cream cheese', 5),
