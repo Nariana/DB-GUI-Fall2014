@@ -28,41 +28,41 @@ USE PantryQuest;
 DROP TABLE IF EXISTS `filter`;
 
 CREATE TABLE `filter` (
-  `filterID` int(11) unsigned NOT NULL,
+  `recipeID` int(11) unsigned NOT NULL,
   `method` varchar(30) DEFAULT NULL,
   `glutenFree` tinyint(1) DEFAULT NULL,
   `vegetarian` tinyint(1) DEFAULT NULL,
   `vegan` tinyint(1) DEFAULT NULL,
   `noNuts` tinyint(1) DEFAULT NULL,
   `lactoseFree` tinyint(1) DEFAULT NULL,
-  PRIMARY KEY (`filterID`),
-  CONSTRAINT `recipeID` FOREIGN KEY (`filterID`) REFERENCES `recipe` (`recipeID`)
+  `calories` int(11) DEFAULT NULL,
+  PRIMARY KEY (`recipeID`),
+  CONSTRAINT `RecipeID_FK` FOREIGN KEY (`recipeID`) REFERENCES `recipe` (`recipeID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 LOCK TABLES `filter` WRITE;
 /*!40000 ALTER TABLE `filter` DISABLE KEYS */;
 
-INSERT INTO `filter` (`filterID`, `method`, `glutenFree`, `vegetarian`, `vegan`, `noNuts`, `lactoseFree`)
+INSERT INTO `filter` (`recipeID`, `method`, `glutenFree`, `vegetarian`, `vegan`, `noNuts`, `lactoseFree`, `calories`)
 VALUES
-	(1,'oven',0,1,0,1,0);
+	(1,'bake ',0,1,0,1,0,400),
+	(61,'bake ',0,1,0,1,0,450),
+	(62,'bake ',0,1,0,1,0,700),
+	(63,'bake',1,1,0,1,1,207),
+	(64,'bake',1,1,1,1,1,245),
+	(65,'bake',0,1,1,1,1,264),
+	(66,'bake',0,1,1,0,1,648),
+	(67,'bake',0,1,1,1,1,278),
+	(68,'bake',0,1,1,1,1,240),
+	(69,'bake',0,1,1,1,1,200),
+	(70,'bake',1,1,0,1,1,199);
 
 /*!40000 ALTER TABLE `filter` ENABLE KEYS */;
 UNLOCK TABLES;
 
-DROP TABLE IF EXISTS `results`;
 
-CREATE TABLE `results` (
-  `recipeID` int(11) unsigned NOT NULL,
-  `rankingPoints` double DEFAULT NULL,
-  `ranking` float DEFAULT NULL,
-  PRIMARY KEY (`recipeID`),
-  CONSTRAINT `RecipeIDFK` FOREIGN KEY (`recipeID`) REFERENCES `recipe` (`recipeID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-LOCK TABLES `results` WRITE;
 # Dump of table ingredient
 # ------------------------------------------------------------
-
-UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `ingredient`;
 
@@ -78,10 +78,12 @@ INSERT INTO `ingredient` (`foodName`)
 VALUES
 	('all-purpose flour'),
 	('almond essence'),
+	('almond meal'),
 	('amaretti'),
 	('anchovy'),
 	('anise'),
 	('apple juice'),
+	('applesauce'),
 	('artichoke'),
 	('artichoke'),
 	('artichoke heart'),
@@ -92,6 +94,7 @@ VALUES
 	('bacon'),
 	('baguette'),
 	('baked beans'),
+	('baking powder'),
 	('baking soda'),
 	('balsamic vinegar'),
 	('bamboo'),
@@ -112,6 +115,7 @@ VALUES
 	('bicarbonate of soda'),
 	('biscuit'),
 	('biscuit'),
+	('black beans'),
 	('black olive'),
 	('black pepper'),
 	('black-eyed peas'),
@@ -192,6 +196,7 @@ VALUES
 	('clarified butter'),
 	('clove'),
 	('cocoa'),
+	('cocoa powder'),
 	('coconut'),
 	('coconut milk'),
 	('cod'),
@@ -203,6 +208,7 @@ VALUES
 	('corn'),
 	('cornflour'),
 	('cornmeal'),
+	('cornstarch'),
 	('courgette'),
 	('couscous'),
 	('cranberries'),
@@ -281,6 +287,7 @@ VALUES
 	('lard'),
 	('lardons'),
 	('lasagne'),
+	('lasgana noodles '),
 	('lavender'),
 	('leek'),
 	('lemon'),
@@ -298,6 +305,7 @@ VALUES
 	('mango'),
 	('mangoes'),
 	('maple syrup'),
+	('margarine'),
 	('marinara'),
 	('marshmallow'),
 	('marzano'),
@@ -367,6 +375,7 @@ VALUES
 	('pickled onion'),
 	('pickled red onion'),
 	('pie'),
+	('pie crust'),
 	('pimento pepper'),
 	('pine nut'),
 	('pineapple'),
@@ -404,6 +413,7 @@ VALUES
 	('red onion'),
 	('red onion'),
 	('red pepper'),
+	('red peppers'),
 	('red wine vinegar'),
 	('relish'),
 	('rhubarb'),
@@ -446,6 +456,7 @@ VALUES
 	('snapper'),
 	('sour cream'),
 	('sourdough'),
+	('soy milk'),
 	('soy sauce'),
 	('spaghetti'),
 	('spice'),
@@ -469,6 +480,7 @@ VALUES
 	('sun-dried tomato'),
 	('sunflower oil'),
 	('sweet pepper'),
+	('sweet potato'),
 	('sweetcorn'),
 	('sweets'),
 	('swordfish'),
@@ -484,6 +496,7 @@ VALUES
 	('tofu'),
 	('tomatillos'),
 	('tomato'),
+	('tomato pasta sauce '),
 	('tomato puree'),
 	('tomatoes'),
 	('tortilla'),
@@ -497,8 +510,10 @@ VALUES
 	('turnip'),
 	('vanilla'),
 	('vanilla essence'),
+	('vanilla extract'),
 	('vanilla pod'),
 	('veal'),
+	('vegetable broth '),
 	('vegetable oil'),
 	('vermouth'),
 	('vinaigrette'),
@@ -511,12 +526,14 @@ VALUES
 	('white rice'),
 	('white wine vinegar'),
 	('wholegrain pasta'),
+	('wild rice'),
 	('wine'),
 	('worcestershire sauce'),
 	('yeast'),
 	('yellow pepper'),
 	('yoghurt'),
-	('yogurt');
+	('yogurt'),
+	('zucchini');
 
 /*!40000 ALTER TABLE `ingredient` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -539,17 +556,29 @@ CREATE TABLE `recipe` (
 
 LOCK TABLES `recipe` WRITE;
 /*!40000 ALTER TABLE `recipe` DISABLE KEYS */;
-INSERT INTO `recipe` (`recipeID`, `recipeName`, `instruction`, `time`, `numberOfIngredients`, `ranking`) VALUES
-(1, 'Carrot Cake', 'In a mixing bowl, mix sugar, vegetable oil, and eggs. In another bowl, sift together flour, baking soda, salt, and cinnamon. Fold dry ingredients into wet mixture and blend well. Fold in carrots and chopped nuts until well blended. Distribute batter evenly into 3 (9-inch) cake layer pans, which have been generously greased. There will be approximately 1 pound 5 ounces of batter per pan. Place in preheated oven and bake for 50 to 60 minutes. Cool layers in pans, for approximately 1 hour. Store layers in pans, inverted, in closed cupboard to prevent drying. Layers must be a minimum of 1 day old.\n\nTo remove layers from baking pan, turn upside down, tap edge of pan on a hard surface. Center a 9-inch cake circle on top of revolving cake stand. Remove paper from bottom of layer cake. Place first layer, bottom side down, at center of cake stand. With a spatula, evenly spread approximately 3 1/2 ounces of frosting on the layer. Center second layer on top of first layer with topside down. Again with a spatula, evenly spread approximately 3 1/2 ounces of frosting on the layer. Center third layer on top of second layer with topside down. Using both hands, press firmly but gently, all layers together to get one firm cake. With spatula, spread remainder of frosting to cover top and sides of cake. Refrigerated until needed. Display on counter or cake stand with a plastic cover.', 95, 7, 4),
-(2, 'Beef Burger', 'In a large bowl, mix ground beef, onion powder, salt and pepper until just combined. Do not overmix, or your patties will be tough.\nForm patties, without pressing too hard. They should be uniform in thickness. Smooth out any cracks using your fingers. Make these right before you grill them, so they stay at room temperature.\n\nPreheat your grill, grill pan or cast-iron skillet to high heat and add burger patties. If using a grill, cover with the lid.\n\nCook until the crust that forms on the bottom of the burger releases it from the pan or grate ? about 2 minutes. Gently test, but don''t flip it until it gets to this point. When burgers lift up easily, flip, add two slices of cheese to each, close lid if using a grill, and cook on the other side for another 2-3 minutes for medium to medium rare. \n\nRemove burgers with a sturdy metal spatula and transfer to a plate. Allow to rest for several minutes, then transfer to buns.\n\nGarnish as desired and serve immediately.', 25, 5, 5),
-(3, 'Sun-dried Tomato Omelet', 'In a medium bowl, beat the eggs with a pinch each of salt and pepper.', 25, 5, 5),
-(4, 'Stir-fried Egg and Tomato', 'Beat eggs with 1/2 teaspoon salt until smooth but not frothy.\n\nHeat 1 tablespoon oil in a 12-inch nonstick skillet over medium-high heat until hot. Add eggs and cook, undisturbed, just until a thin film of cooked egg forms on bottom of skillet but most of eggs are still runny, 5 to 10 seconds. Immediately scrape eggs into a bowl. Wipe out skillet.\n\nHeat remaining tablespoon oil in skillet over medium-high heat until hot. Add scallions and stir-fry until just softened, about 30 seconds. Add tomatoes and cook, stirring and turning occasionally, until juices are released and tomatoes are slightly wilted but still intact, 4 to 6 minutes. Sprinkle sugar and 1/4 teaspoon salt over tomatoes and stir to combine. Return eggs to skillet and cook, stirring occasionally, until eggs are just cooked through. Serve sprinkled with reserved scallion greens.', 15, 4, 4),
-(5, 'Carrot, Potato, Cabbage Soup', 'Combine the carrots, potatoes, onion, cabbage, garlic, chicken stock, olive oil, thyme, basil, parsley, salt, and pepper in a stock pot over medium-high heat; bring to a simmer and cook until the carrots are tender, about 20 minutes. Transfer to a blender in small batches and blend until smooth.', 50, 10, 5),
-(6, 'Caesar Salad', 'For the dressing: Place the anchovies into a blender or food processor. Throw in the Dijon mustard, vinegar, Worcestershire, garlic and lemon juice. Pulse the processor or blend on low speed for several seconds. Scrape down the sides.\n\nWith the food processor or blender on, drizzle the olive oil into the mixture in a small stream. Scrape down the sides. Add the Parmesan, salt and a generous grind of black pepper. Pulse the whole thing together and mix until thoroughly combined. Refrigerate the dressing for a few hours (it just gets better!) before using it on the salad.\n\nFor the croutons: Slice the bread into thick slices and cut them into 1-inch cubes. Throw them onto a baking sheet.\n\nHeat the olive oil in a small saucepan or skillet over low heat.\n\nCrush-but don''t chop-the garlic and add them to the oil. Use a spoon to move the garlic around in the pan. After 3 to 5 minutes, turn off the heat and remove the garlic from the pan.\n\nSlowly drizzle the olive oil over the bread cubes. Mix together with your hands, and then sprinkle lightly with salt. Toss and cook in the pan until golden brown and crisp. (Add a little butter for more flavor!)\n\nFor the salad: Wash and dry the hearts of romaine lettuce. Leave them whole. Use a vegetable peeler and shave off large, thin slices of Parmesan.\n\nDrizzle about half of the dressing over the top of the hearts. Throw in a good handful of the Parmesan shavings. Give it a good initial toss, just so you can evaluate how much more dressing you need.\n\nAdd more dressing and Parmesan to taste. Add the cooled croutons. Toss gently.', 20, 10, 5),
-(7, 'Chicken-fried Chicken', 'Preheat the oven to 350 degrees F. Spray a baking sheet with nonstick cooking spray.\n\nMix together the flour and 1 teaspoon of the House Seasoning in a small bowl. Sprinkle the chicken with the remaining 1 teaspoon House Seasoning. Pour the buttermilk into a shallow dish. Dredge the chicken in the buttermilk, followed by the flour.\n\nHeat 2 tablespoons of the oil in a heavy nonstick skillet over medium-high heat. Add half of the chicken breasts to the hot oil and cook until both sides are browned, about 3 minutes per side, and then transfer to the baking sheet. Repeat with the remaining chicken breasts. Transfer the baking sheet to the oven and bake until the chicken is cooked through, about 10 minutes.\n\nWhisk together the cornstarch and 1/4 cup chicken broth until dissolved. Set aside.\n\nTo make the gravy , add the remaining 1 tablespoon oil to the same skillet and heat over medium heat. Add the onions and saute until translucent, about 2 minutes.\n\nAdd the remaining chicken broth, scrape the pan drippings with a wooden spoon, raise the heat to medium-high and cook until the mixture begins to bubble, about 2 minutes. Stir in the dissolved cornstarch to incorporate. Bring to a simmer and continue to cook until the mixture thickens, 4 to 5 minutes. Stir in the milk and black pepper and continue cooking over medium-high heat until thickened, 5 minutes longer.\n\nRemove the chicken from the oven and top each piece with 4 teaspoons of the gravy. Sprinkle with the chopped green onions.\n\nMix together the salt, garlic powder and pepper.', 45, 10, 5),
-(8, 'Yogurt Parfait', 'Line up 4 parfait, white wine, or other tall glasses.\n\nSpoon 2 tablespoons of yogurt into each glass and smooth surface.\n\nSpoon 2 tablespoons of granola overtop and smooth surface.\n\nSpoon 2 tablespoons of fruit overtop and smooth surface.\n\nRepeat the process, adding a bit of honey here and there, to taste.\n\nRead more at: http://www.foodnetwork.com/recipes/granola-yogurt-berry-parfait-recipe.html?oc=linkback', 5, 4, 5),
-(9, 'BLT', 'Cook the bacon in a large, deep skillet over medium-high heat until evenly browned, about 10 minutes. Drain the bacon slices on a paper towel-lined plate.\n\nArrange the cooked bacon, lettuce, and tomato slices on one slice of bread. Spread one side of remaining bread slice with the mayonnaise. Bring the two pieces together to make a sandwich.', 15, 5, 5),
-(10, 'Grilled Cheese Sandwich', 'Preheat skillet over medium heat. Generously butter one side of a slice of bread. Place bread butter-side-down onto skillet bottom and add 1 slice of cheese. Butter a second slice of bread on one side and place butter-side-up on top of sandwich. Grill until lightly browned and flip over; continue grilling until cheese is melted. Repeat with remaining 2 slices of bread, butter and slice of cheese.', 20, 3, 5);
+
+INSERT INTO `recipe` (`recipeID`, `recipeName`, `instruction`, `time`, `numberOfIngredients`, `ranking`)
+VALUES
+	(1,'Carrot Cake','In a mixing bowl, mix sugar, vegetable oil, and eggs. In another bowl, sift together flour, baking soda, salt, and cinnamon. Fold dry ingredients into wet mixture and blend well. Fold in carrots and chopped nuts until well blended. Distribute batter evenly into 3 (9-inch) cake layer pans, which have been generously greased. There will be approximately 1 pound 5 ounces of batter per pan. Place in preheated oven and bake for 50 to 60 minutes. Cool layers in pans, for approximately 1 hour. Store layers in pans, inverted, in closed cupboard to prevent drying. Layers must be a minimum of 1 day old.\n\nTo remove layers from baking pan, turn upside down, tap edge of pan on a hard surface. Center a 9-inch cake circle on top of revolving cake stand. Remove paper from bottom of layer cake. Place first layer, bottom side down, at center of cake stand. With a spatula, evenly spread approximately 3 1/2 ounces of frosting on the layer. Center second layer on top of first layer with topside down. Again with a spatula, evenly spread approximately 3 1/2 ounces of frosting on the layer. Center third layer on top of second layer with topside down. Using both hands, press firmly but gently, all layers together to get one firm cake. With spatula, spread remainder of frosting to cover top and sides of cake. Refrigerated until needed. Display on counter or cake stand with a plastic cover.',95,7,4),
+	(2,'Beef Burger','In a large bowl, mix ground beef, onion powder, salt and pepper until just combined. Do not overmix, or your patties will be tough.\nForm patties, without pressing too hard. They should be uniform in thickness. Smooth out any cracks using your fingers. Make these right before you grill them, so they stay at room temperature.\n\nPreheat your grill, grill pan or cast-iron skillet to high heat and add burger patties. If using a grill, cover with the lid.\n\nCook until the crust that forms on the bottom of the burger releases it from the pan or grate ? about 2 minutes. Gently test, but don\'t flip it until it gets to this point. When burgers lift up easily, flip, add two slices of cheese to each, close lid if using a grill, and cook on the other side for another 2-3 minutes for medium to medium rare. \n\nRemove burgers with a sturdy metal spatula and transfer to a plate. Allow to rest for several minutes, then transfer to buns.\n\nGarnish as desired and serve immediately.',25,5,5),
+	(3,'Sun-dried Tomato Omelet','In a medium bowl, beat the eggs with a pinch each of salt and pepper.',25,5,5),
+	(4,'Stir-fried Egg and Tomato','Beat eggs with 1/2 teaspoon salt until smooth but not frothy.\n\nHeat 1 tablespoon oil in a 12-inch nonstick skillet over medium-high heat until hot. Add eggs and cook, undisturbed, just until a thin film of cooked egg forms on bottom of skillet but most of eggs are still runny, 5 to 10 seconds. Immediately scrape eggs into a bowl. Wipe out skillet.\n\nHeat remaining tablespoon oil in skillet over medium-high heat until hot. Add scallions and stir-fry until just softened, about 30 seconds. Add tomatoes and cook, stirring and turning occasionally, until juices are released and tomatoes are slightly wilted but still intact, 4 to 6 minutes. Sprinkle sugar and 1/4 teaspoon salt over tomatoes and stir to combine. Return eggs to skillet and cook, stirring occasionally, until eggs are just cooked through. Serve sprinkled with reserved scallion greens.',15,4,4),
+	(5,'Carrot, Potato, Cabbage Soup','Combine the carrots, potatoes, onion, cabbage, garlic, chicken stock, olive oil, thyme, basil, parsley, salt, and pepper in a stock pot over medium-high heat; bring to a simmer and cook until the carrots are tender, about 20 minutes. Transfer to a blender in small batches and blend until smooth.',50,10,5),
+	(6,'Caesar Salad','For the dressing: Place the anchovies into a blender or food processor. Throw in the Dijon mustard, vinegar, Worcestershire, garlic and lemon juice. Pulse the processor or blend on low speed for several seconds. Scrape down the sides.\n\nWith the food processor or blender on, drizzle the olive oil into the mixture in a small stream. Scrape down the sides. Add the Parmesan, salt and a generous grind of black pepper. Pulse the whole thing together and mix until thoroughly combined. Refrigerate the dressing for a few hours (it just gets better!) before using it on the salad.\n\nFor the croutons: Slice the bread into thick slices and cut them into 1-inch cubes. Throw them onto a baking sheet.\n\nHeat the olive oil in a small saucepan or skillet over low heat.\n\nCrush-but don\'t chop-the garlic and add them to the oil. Use a spoon to move the garlic around in the pan. After 3 to 5 minutes, turn off the heat and remove the garlic from the pan.\n\nSlowly drizzle the olive oil over the bread cubes. Mix together with your hands, and then sprinkle lightly with salt. Toss and cook in the pan until golden brown and crisp. (Add a little butter for more flavor!)\n\nFor the salad: Wash and dry the hearts of romaine lettuce. Leave them whole. Use a vegetable peeler and shave off large, thin slices of Parmesan.\n\nDrizzle about half of the dressing over the top of the hearts. Throw in a good handful of the Parmesan shavings. Give it a good initial toss, just so you can evaluate how much more dressing you need.\n\nAdd more dressing and Parmesan to taste. Add the cooled croutons. Toss gently.',20,10,5),
+	(7,'Chicken-fried Chicken','Preheat the oven to 350 degrees F. Spray a baking sheet with nonstick cooking spray.\n\nMix together the flour and 1 teaspoon of the House Seasoning in a small bowl. Sprinkle the chicken with the remaining 1 teaspoon House Seasoning. Pour the buttermilk into a shallow dish. Dredge the chicken in the buttermilk, followed by the flour.\n\nHeat 2 tablespoons of the oil in a heavy nonstick skillet over medium-high heat. Add half of the chicken breasts to the hot oil and cook until both sides are browned, about 3 minutes per side, and then transfer to the baking sheet. Repeat with the remaining chicken breasts. Transfer the baking sheet to the oven and bake until the chicken is cooked through, about 10 minutes.\n\nWhisk together the cornstarch and 1/4 cup chicken broth until dissolved. Set aside.\n\nTo make the gravy , add the remaining 1 tablespoon oil to the same skillet and heat over medium heat. Add the onions and saute until translucent, about 2 minutes.\n\nAdd the remaining chicken broth, scrape the pan drippings with a wooden spoon, raise the heat to medium-high and cook until the mixture begins to bubble, about 2 minutes. Stir in the dissolved cornstarch to incorporate. Bring to a simmer and continue to cook until the mixture thickens, 4 to 5 minutes. Stir in the milk and black pepper and continue cooking over medium-high heat until thickened, 5 minutes longer.\n\nRemove the chicken from the oven and top each piece with 4 teaspoons of the gravy. Sprinkle with the chopped green onions.\n\nMix together the salt, garlic powder and pepper.',45,10,5),
+	(8,'Yogurt Parfait','Line up 4 parfait, white wine, or other tall glasses.\n\nSpoon 2 tablespoons of yogurt into each glass and smooth surface.\n\nSpoon 2 tablespoons of granola overtop and smooth surface.\n\nSpoon 2 tablespoons of fruit overtop and smooth surface.\n\nRepeat the process, adding a bit of honey here and there, to taste.\n\nRead more at: http://www.foodnetwork.com/recipes/granola-yogurt-berry-parfait-recipe.html?oc=linkback',5,4,5),
+	(9,'BLT','Cook the bacon in a large, deep skillet over medium-high heat until evenly browned, about 10 minutes. Drain the bacon slices on a paper towel-lined plate.\n\nArrange the cooked bacon, lettuce, and tomato slices on one slice of bread. Spread one side of remaining bread slice with the mayonnaise. Bring the two pieces together to make a sandwich.',15,5,5),
+	(10,'Grilled Cheese Sandwich','Preheat skillet over medium heat. Generously butter one side of a slice of bread. Place bread butter-side-down onto skillet bottom and add 1 slice of cheese. Butter a second slice of bread on one side and place butter-side-up on top of sandwich. Grill until lightly browned and flip over; continue grilling until cheese is melted. Repeat with remaining 2 slices of bread, butter and slice of cheese.',20,3,5),
+	(61,'Spinach Mushroom Quiche ','INGREDIENTS:\n1 prepared 9-inch single pie crust\n4 eggs\n3/4 cup milk\n1 tablespoon chopped fresh parsley\n1 teaspoon minced garlic\n1/2 teaspoon salt\n1/2 teaspoon ground black pepper\n1/8 teaspoon ground nutmeg\n1/2 (10 ounce) bag fresh spinach\n1 (8 ounce) package sliced fresh\nmushrooms\n1/2 yellow onion, sliced\n1/2 (4 ounce) container crumbled feta\ncheese\n1/2 (8 ounce) package shredded Swiss\ncheese, divided\nDIRECTIONS:\n1.	Preheat oven to 400 degrees F (200 degrees C).\n2.	Fit pie crust into a 9-inch pie dish.\n3.	Whisk eggs, milk, parsley, garlic, salt, black pepper, and nutmeg in a bowl.\n4.	Gently combine spinach, mushrooms, onion, and feta cheese in a separate bowl. Spread spinach-mushroom mixture in the prepared pie dish; top with half the Swiss cheese.\n5.	Pour egg mixture evenly over the filling, swirling egg mixture in bowl to spread seasonings through the eggs; top the quiche with remaining Swiss cheese. Place quiche on a baking sheet.\n6.	Bake in preheated oven until the quiche is lightly puffed and browned, 45 to 50 minutes. A toothpick inserted into the center of the filling should come out clean. Cool for 30 minutes before serving.',90,9,3.5),
+	(62,'Vegetable Lasagne ','INGREDIENTS:\ncooking spray\n9 uncooked lasagna noodles\n1 onion, chopped\n4 cloves garlic, chopped\n1 (14.5 ounce) can vegetable broth\n1 tablespoon chopped fresh rosemary\n1 (14 ounce) can marinated artichoke\nhearts, drained and chopped\n1 (10 ounce) package frozen chopped\nspinach, thawed, drained and squeezed\ndry\n1 (28 ounce) jar tomato pasta sauce\n3 cups shredded mozzarella cheese,\ndivided\n1 (4 ounce) package herb and garlic feta,\ncrumbled\nDIRECTIONS:\n1.	Preheat oven to 350 degrees F (175 degrees C). Spray a 9x13 inch baking dish with cooking spray.\n2.	Bring a large pot of lightly salted water to a boil. Add noodles and cook for 8 to 10 minutes or until al dente; drain.\n3.	Spray a large skillet with cooking spray and heat on medium-high. Saute onion and garlic for 3 minutes, or until onion is tender-crisp. Stir in broth and rosemary; bring to a boil. Stir in artichoke hearts and spinach; reduce heat, cover and simmer 5 minutes. Stir in pasta sauce.\n4.	Spread 1/4 of the artichoke mixture in the bottom of the prepared baking dish; top with 3 cooked noodles. Sprinkle 3/4 cup mozzarella cheese over noodles. Repeat layers 2 more times, ending with artichoke mixture and mozzarella cheese. Sprinkle crumbled feta on top.\n5.	Bake, covered, for 40 minutes. Uncover, and bake 15 minutes more, or until hot and bubbly. Let stand 10 minutes before cutting.',80,9,4.5),
+	(63,'Egg Fritata ','INGREDIENTS:\n3 tablespoons olive oil\n1 small red onion, chopped\n3 cloves garlic, chopped\n2 green bell peppers, diced\n12 eggs, beaten\n1/2 cup chopped fresh basil leaves\n4 sprigs fresh rosemary, leaves removed\nand chopped\n1 teaspoon salt\n1/2 teaspoon freshly ground black\npepper\n1 cup olive oil for frying\n1 sweet potato, peeled and cut into thin\nmatchsticks\nDIRECTIONS:\n1.	Preheat oven to 350 degrees F (175 degrees C).\n2.	Heat 3 tablespoons of olive oil over medium heat in an oven-safe skillet, and cook and stir the onion and garlic until translucent, about 5 minutes. Stir in the green peppers, and cook and stir until they have begun to soften, 5 more minutes. Pour the eggs over the vegetables, and stir in the basil, rosemary, salt, and pepper. Reduce the heat to medium-low, let the eggs sit over the heat until they have started to set, about 10 minutes.\n3.	Transfer the skillet to the preheated oven and cook the frittata until fully set, about 15 minutes.\n4.	While the frittata is baking, heat 1 cup of olive oil in a deep-fryer or large saucepan to 375 degrees F (190 degrees C). Deep-fry the sweet potato slices, a layer at a time, until golden brown and crisp, about 5 minutes. Remove with a slotted spoon, and drain on paper towels. Top baked frittata with the fried sweet potato slices to serve.\nINGREDIENTS:\n3 tablespoons olive oil\n1 small red onion, chopped\n3 cloves garlic, chopped\n2 green bell peppers, diced\n12 eggs, beaten\n1/2 cup chopped fresh basil leaves\n4 sprigs fresh rosemary, leaves removed\nand chopped\n1 teaspoon salt\n1/2 teaspoon freshly ground black\npepper\n1 cup olive oil for frying\n1 sweet potato, peeled and cut into thin\nmatchsticks\nDIRECTIONS:\n1.	Preheat oven to 350 degrees F (175 degrees C).\n2.	Heat 3 tablespoons of olive oil over medium heat in an oven-safe skillet, and cook and stir the onion and garlic until translucent, about 5 minutes. Stir in the green peppers, and cook and stir until they have begun to soften, 5 more minutes. Pour the eggs over the vegetables, and stir in the basil, rosemary, salt, and pepper. Reduce the heat to medium-low, let the eggs sit over the heat until they have started to set, about 10 minutes.\n3.	Transfer the skillet to the preheated oven and cook the frittata until fully set, about 15 minutes.\n4.	While the frittata is baking, heat 1 cup of olive oil in a deep-fryer or large saucepan to 375 degrees F (190 degrees C). Deep-fry the sweet potato slices, a layer at a time, until golden brown and crisp, about 5 minutes. Remove with a slotted spoon, and drain on paper towels. Top baked frittata with the fried sweet potato slices to serve.\n',45,6,3),
+	(64,'Baked Rice and Vegetables','INGREDIENTS:\n3/4 cup uncooked long-grain rice\n1 tablespoon uncooked wild rice\n1/4 cup uncooked brown rice\n1/4 cup sliced fresh mushrooms\n1/4 chopped fresh broccoli\n1/4 cup chopped carrots\n1/4 cup chopped red bell pepper\n1/4 cup finely chopped onion\n1 teaspoon salt\n1 teaspoon dried onion flakes\n1 teaspoon paprika\n1/4 teaspoon black pepper\n2 1/2 cups vegetable broth\nDIRECTIONS:\n1.	Preheat oven to 425 degrees F (220 degrees C).\n2.	In a 9 x 13 inch baking dish combine white rice, wild rice, brown rice, mushrooms, broccoli, carrots, bell pepper, onion, salt, onion flakes, paprika, black pepper and broth. Mix well; cover.\n3.	Bake in preheated oven for 30 minutes, or until cooked through; stir once during baking.',45,10,3.3),
+	(65,'Bean Burger','INGREDIENTS:\n1 (15 ounce) can black beans, drained\nand rinsed\n1/3 cup chopped sweet onion\n1 tablespoon minced garlic\n3 baby carrots, grated (optional)\n1/4 cup minced green bell pepper\n(optional)\n1 tablespoon cornstarch\n1 tablespoon warm water\n3 tablespoons chile-garlic sauce (such\nas Sriracha®), or to taste\n1 teaspoon chili powder\n1 teaspoon ground cumin\n1 teaspoon seafood seasoning (such as\nOld Bay®)\n1/4 teaspoon salt\n1/4 teaspoon ground black pepper\n2 slices whole-wheat bread, torn into\nsmall crumbs\n3/4 cup unbleached flour, or as needed\nDIRECTIONS:\n1.	Preheat oven to 350 degrees F (175 degrees C). Grease a baking sheet.\n2.	Mash black beans in a bowl; add onion, garlic, carrots, and green bell pepper. Mix.\n3.	Whisk cornstarch, water, chile-garlic sauce, chili powder, cumin, seafood seasoning, salt, and black pepper together in a separate small bowl. Stir cornstarch mixture into black bean mixture.\n4.	Mix whole-wheat bread into bean mixture. Stir flour, 1/4 cup at a time, into bean mixture until a sticky batter forms.\n5.	Spoon \'burger-sized\' mounds of batter onto the prepared baking sheet, about a 3/4-inch thickness per mound. Shape into burgers.\n6.	Bake in the preheated oven until cooked in the center and crisp in the outside, about 10 minutes on each side.',35,10,4.3),
+	(66,'Vegan Mac and nNo Cheese','INGREDIENTS:\n1 (8 ounce) package uncooked elbow\nmacaroni\n1 tablespoon vegetable oil\n1 medium onion, chopped\n1 cup cashews\n1/3 cup lemon juice\n1 1/3 cups water\nsalt to taste\n1/3 cup canola oil\n4 ounces roasted red peppers, drained\n3 tablespoons nutritional yeast\n1 teaspoon garlic powder\n1 teaspoon onion powder\nDIRECTIONS:\n1.	Preheat oven to 350 degrees F (175 degrees C).\n2.	Bring a large pot of lightly salted water to a boil. Add macaroni, and cook for 8 to 10 minutes or until al dente; drain. Transfer to a medium baking dish.\n3.	Heat vegetable oil in a medium saucepan over medium heat. Stir in onion, and cook until tender and lightly browned. Gently mix with the macaroni.\n4.	In a blender or food processor, mix cashews, lemon juice, water, and salt. Gradually blend in canola oil, roasted red peppers, nutritional yeast, garlic powder, and onion powder. Blend until smooth. Thoroughly mix with the macaroni and onions.\n5.	Bake 45 minutes in the preheated oven, until lightly browned. Cool 10 to 15 minutes before serving.',75,6,4),
+	(67,'Vegan Chocolate Cake ','INGREDIENTS:\n1 1/2 cups all-purpose flour\n1 cup white sugar\n1/4 cup cocoa powder\n1 teaspoon baking soda\n1/2 teaspoon salt\n1/3 cup vegetable oil\n1 teaspoon vanilla extract\n1 teaspoon distilled white vinegar\n1 cup water\nDIRECTIONS:\n1.	Preheat oven to 350 degrees F (175 degrees C). Lightly grease one 9x5 inch loaf pan.\n2.	Sift together the flour, sugar, cocoa, baking soda and salt. Add the oil, vanilla, vinegar and water. Mix together until smooth.\n3.	Pour into prepared pan and bake at 350 degrees F (175 degrees C) for 45 minutes. Remove from oven and allow to cool.',60,8,4.8),
+	(68,'Scones','INGREDIENTS:\n2 cups all-purpose flour\n3/4 cup white sugar\n4 teaspoons baking powder\n1/2 teaspoon salt\n3/4 cup margarine\n1 lemon, zested and juiced\n2 tablespoons poppy seeds\n1/2 cup soy milk\n1/2 cup water\nDIRECTIONS:\n1.	Preheat the oven to 400 degrees F (200 degrees C). Grease a baking sheet.\n2.	Sift the flour, sugar, baking powder and salt into a large bowl. Cut in margarine until the mixture is the consistency of large grains of sand. I like to use my hands to rub the margarine into the flour. Stir in poppy seeds, lemon zest and lemon juice. Combine the soy milk and water, and gradually stir into the dry ingredients until the batter is moistened, but still thick like biscuit dough. You may not need all of the liquid.\n3.	Spoon 1/4 cup sized plops of batter onto the greased baking sheet so they are about 3 inches apart.\n4.	Bake for 10 to 15 minutes the preheated oven, until golden.',25,6,2),
+	(69,'Zucchini Bread','INGREDIENTS:\n3 cups all-purpose flour\n3 tablespoons flax seeds (optional)\n1 teaspoon salt\n1 teaspoon baking soda\n2 teaspoons ground cinnamon\n1/2 teaspoon baking powder\n1/2 teaspoon arrowroot powder (optional\n)\n1 cup unsweetened applesauce\n1 cup white sugar\n1 cup packed brown sugar\n3/4 cup vegetable oil\n2 teaspoons vanilla extract\n2 1/2 cups shredded zucchini\nDIRECTIONS:\n1.	Preheat oven to 325 degrees F (165 degrees C). Grease and flour two 9x5 inch loaf pans. Whisk together the flour, flax seeds, salt, baking soda, cinnamon, baking powder, and arrowroot in a bowl until evenly blended; set aside.\n2.	Whisk together the applesauce, white sugar, brown sugar, vegetable oil, and vanilla extract in a bowl until smooth. Fold in the flour mixture and shredded zucchini until moistened. Divide the batter between the prepared loaf pans.\n3.	Bake in the preheated oven until a toothpick inserted into the center comes out clean, about 70 minutes. Cool in the pans for 10 minutes before removing to cool completely on a wire rack.',210,10,200),
+	(70,'Banana-Blueberry Muffin','INGREDIENTS:\n1 cup almond meal\n1/2 teaspoon ground flax seed (optional)\n1/2 teaspoon chia seeds (optional)\n1/4 teaspoon baking soda\n2 eggs\n1 tablespoon honey\n1/2 teaspoon apple cider vinegar\n1/2 ripe banana\n3/4 cup fresh blueberries\nDIRECTIONS:\n1.	Preheat oven to 350 degrees F (175 degrees C). Line 4 muffin cups with paper liners.\n2.	Mix almond meal, flax seed, chia seeds, and baking soda together in a small bowl. Whisk eggs, honey, and apple cider vinegar together in a separate bowl. Stir almond meal mixture into egg mixture until batter is just mixed. Mash banana into batter and fold in blueberries. Scoop batter into the prepared muffin cups.\n3.	Bake in the preheated oven until slightly browned, about 15 minutes. Cool muffins in pan for 30 minutes.',60,7,4);
 
 /*!40000 ALTER TABLE `recipe` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -563,7 +592,7 @@ DROP TABLE IF EXISTS `recipeConnection`;
 CREATE TABLE `recipeConnection` (
   `recipeID` int(11) unsigned NOT NULL,
   `foodName` varchar(30) NOT NULL DEFAULT '',
-    `value` float DEFAULT NULL,
+  `value` float DEFAULT NULL,
   PRIMARY KEY (`recipeID`,`foodName`),
   KEY `foodName` (`foodName`),
   CONSTRAINT `name FK` FOREIGN KEY (`foodName`) REFERENCES `ingredient` (`foodName`) ON DELETE CASCADE ON UPDATE CASCADE
@@ -572,77 +601,169 @@ CREATE TABLE `recipeConnection` (
 LOCK TABLES `recipeConnection` WRITE;
 /*!40000 ALTER TABLE `recipeConnection` DISABLE KEYS */;
 
-INSERT INTO `recipeconnection` (`recipeID`, `foodName`, `value`) VALUES
-(1, 'baking soda', 10),
-(1, 'carrot', 10),
-(1, 'cream cheese', 5),
-(1, 'egg', 10),
-(1, 'flour', 8),
-(1, 'vegetable oil', 8),
-(1, 'walnuts', 5),
-(2, 'beef', 10),
-(2, 'cheese', 5),
-(2, 'lettuce', 5),
-(2, 'tomato', 5),
-(2, 'wheat bun', 7),
-(3, 'bread', 2),
-(3, 'egg', 10),
-(3, 'feta cheese', 5),
-(3, 'spinach', 5),
-(3, 'tomato', 10),
-(4, 'egg', 10),
-(4, 'scallion', 5),
-(4, 'tomato', 10),
-(4, 'vegetable oil', 8),
-(5, 'basil', 5),
-(5, 'cabbage', 10),
-(5, 'carrot', 10),
-(5, 'chicken stock', 5),
-(5, 'garlic', 2),
-(5, 'olive oil', 8),
-(5, 'onion', 5),
-(5, 'parsley', 5),
-(5, 'potato', 10),
-(5, 'thyme', 5),
-(6, 'anchovy', 5),
-(6, 'bread', 8),
-(6, 'dijon mustard', 5),
-(6, 'garlic', 5),
-(6, 'lemon', 5),
-(6, 'olive oil', 10),
-(6, 'parmesan cheese', 8),
-(6, 'romaine lettuce', 10),
-(6, 'vinegar', 8),
-(6, 'Worcestershire sauce', 5),
-(7, 'buttermilk', 8),
-(7, 'chicken breast', 10),
-(7, 'chicken broth', 8),
-(7, 'cornstarch', 10),
-(7, 'flour', 10),
-(7, 'garlic', 5),
-(7, 'green onion', 5),
-(7, 'milk', 10),
-(7, 'olive oil', 5),
-(7, 'onion', 5),
-(8, 'granola', 10),
-(8, 'honey', 2),
-(8, 'strawberry', 5),
-(8, 'yogurt', 10),
-(9, 'bacon', 10),
-(9, 'bread', 10),
-(9, 'lettuce', 10),
-(9, 'mayonnaise', 5),
-(9, 'tomato', 10),
-(10, 'bread', 10),
-(10, 'butter', 10),
-(10, 'cheese', 10);
+INSERT INTO `recipeConnection` (`recipeID`, `foodName`, `value`)
+VALUES
+	(1,'artichoke',4),
+	(1,'baking soda',10),
+	(1,'carrot',10),
+	(1,'cream cheese',5),
+	(1,'egg',10),
+	(1,'flour',8),
+	(1,'vegetable oil',8),
+	(1,'walnuts',5),
+	(2,'beef',10),
+	(2,'cheese',5),
+	(2,'lettuce',5),
+	(2,'tomato',5),
+	(2,'wheat bun',7),
+	(3,'bread',2),
+	(3,'egg',10),
+	(3,'feta cheese',5),
+	(3,'spinach',5),
+	(3,'tomato',10),
+	(4,'egg',10),
+	(4,'scallion',5),
+	(4,'tomato',10),
+	(4,'vegetable oil',8),
+	(5,'basil',5),
+	(5,'cabbage',10),
+	(5,'carrot',10),
+	(5,'chicken stock',5),
+	(5,'garlic',2),
+	(5,'olive oil',8),
+	(5,'onion',5),
+	(5,'parsley',5),
+	(5,'potato',10),
+	(5,'thyme',5),
+	(6,'anchovy',5),
+	(6,'bread',8),
+	(6,'dijon mustard',5),
+	(6,'garlic',5),
+	(6,'lemon',5),
+	(6,'olive oil',10),
+	(6,'parmesan cheese',8),
+	(6,'romaine lettuce',10),
+	(6,'vinegar',8),
+	(6,'Worcestershire sauce',5),
+	(7,'buttermilk',8),
+	(7,'chicken breast',10),
+	(7,'chicken broth',8),
+	(7,'cornstarch',10),
+	(7,'flour',10),
+	(7,'garlic',5),
+	(7,'green onion',5),
+	(7,'milk',10),
+	(7,'olive oil',5),
+	(7,'onion',5),
+	(8,'granola',10),
+	(8,'honey',2),
+	(8,'strawberry',5),
+	(8,'yogurt',10),
+	(9,'bacon',10),
+	(9,'bread',10),
+	(9,'lettuce',10),
+	(9,'mayonnaise',5),
+	(9,'tomato',10),
+	(10,'bread',10),
+	(10,'butter',10),
+	(10,'cheese',10),
+	(61,'cheese',4),
+	(61,'egg',10),
+	(61,'feta',3),
+	(61,'milk',8),
+	(61,'mushroom',5),
+	(61,'onion',4),
+	(61,'pie crust ',10),
+	(61,'spinach',6),
+	(62,'artichoke',4),
+	(62,'cheese',7),
+	(62,'lasgana noodles ',10),
+	(62,'onion',2),
+	(62,'spinach',5),
+	(62,'tomato pasta sauce',10),
+	(62,'vegetable broth',3),
+	(63,'basil',1),
+	(63,'bell pepper',7),
+	(63,'egg',10),
+	(63,'olive oil',1),
+	(63,'red onion',5),
+	(63,'sweet potato',8),
+	(64,'bell pepper',5),
+	(64,'broccoli',5),
+	(64,'brown rice',7),
+	(64,'carrot',5),
+	(64,'mushroom',5),
+	(64,'onion',1),
+	(64,'rice',10),
+	(64,'vegetable broth',4),
+	(64,'wild rice',7),
+	(65,'bell pepper',1),
+	(65,'black beans',10),
+	(65,'bread',9),
+	(65,'chilli',4),
+	(65,'cornstarch',8),
+	(65,'cumin',5),
+	(65,'garlic',1),
+	(65,'onion',7),
+	(65,'pepper',1),
+	(66,'garlic',3),
+	(66,'lemon ',3),
+	(66,'onion',5),
+	(66,'pasta',10),
+	(66,'red peppers',7),
+	(66,'vegetable oil',1),
+	(67,'baking soda',9),
+	(67,'cocoa powder',9),
+	(67,'flour',10),
+	(67,'oil',7),
+	(67,'salt',1),
+	(67,'sugar',10),
+	(67,'vanilla extract',7),
+	(67,'vinegar',5),
+	(68,'baking powder',10),
+	(68,'flour',10),
+	(68,'lemon',1),
+	(68,'margarine',7),
+	(68,'soy milk',9),
+	(68,'sugar',9),
+	(69,'applesauce',7),
+	(69,'baking powder',9),
+	(69,'baking soda',9),
+	(69,'brown sugar',7),
+	(69,'cinnamon',5),
+	(69,'flour',10),
+	(69,'oil',7),
+	(69,'salt',1),
+	(69,'sugar',8),
+	(69,'vanilla extract',3),
+	(69,'zucchini',10),
+	(70,'almond meal',10),
+	(70,'baking soda',9),
+	(70,'banana',8),
+	(70,'blueberry',8),
+	(70,'egg',10),
+	(70,'honey',3),
+	(70,'vinegar',4);
 
 /*!40000 ALTER TABLE `recipeConnection` ENABLE KEYS */;
 UNLOCK TABLES;
 
 
+# Dump of table results
+# ------------------------------------------------------------
 
-/*!40000 ALTER TABLE `results` DISABLE KEYS */;
+DROP TABLE IF EXISTS `results`;
+
+CREATE TABLE `results` (
+  `recipeID` int(11) unsigned NOT NULL,
+  `rankingPoints` double DEFAULT NULL,
+  `ranking` float DEFAULT NULL,
+  PRIMARY KEY (`recipeID`),
+  CONSTRAINT `RecipeIDFK` FOREIGN KEY (`recipeID`) REFERENCES `recipe` (`recipeID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+
 
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
