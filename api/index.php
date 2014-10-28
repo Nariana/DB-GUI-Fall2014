@@ -65,8 +65,15 @@ function getResult() {
     $sql = "Truncate TABLE results";
     $con->query($sql);
        
+<<<<<<< HEAD
     
     $points = array();
+=======
+
+    //create variables to store information
+    //$result = json_decode($_GET, true);
+    
+>>>>>>> FETCH_HEAD
     $ingredients = array();
     $filters = array();
     $methods = array();
@@ -110,7 +117,7 @@ function getResult() {
     //insert and search for all subsets 
     foreach ($subset as $part)
     {
-        searchDB($filters, $part, $methods, $time);
+        searchDB($filters, $ipart, $methods, $time);
     }
 
     $result= $con->query("select * from recipe where recipeID in (select recipeID from results)"); //execute query 
@@ -196,18 +203,18 @@ function searchInsert($sql)
             $recipeID = $r[0]; //get the id from the result
             //calculate the rating points for that recipe 
             $stmt = "select sum(value) from recipeConnection where recipeID = ".$recipeID;
-            $result = $con->query($stmt);
+            $result= mysqli_query($con, $stmt);
             $row = mysqli_fetch_row($result);
             $ratio = $row[0]; //save the ranking points
             //find total number fo ingredient 
             $stmt = "select numberOfIngredients from recipe where recipeID = ".$recipeID;
-            $result = $con->query($stmt);
+            $result= mysqli_query($con, $stmt);
             $row = mysqli_fetch_row($result);
             $totalNum = 10 * $row[0]; //save the ranking points
             
             $ranking = $ratio / $totalNum;
             
-            $sql->bind_param('if', $recipeID, $ranking);
+            $sql->bind_param('ii', $recipeID, $ranking);
             $sql->execute();
         }
     }
