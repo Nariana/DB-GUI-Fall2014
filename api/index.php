@@ -66,6 +66,7 @@ function getResult() {
     $con->query($sql);
        
     
+    
     $ingredients = array();
     $filters = array();
     $methods = array();
@@ -109,7 +110,7 @@ function getResult() {
     //insert and search for all subsets 
     foreach ($subset as $part)
     {
-        searchDB($filters, $ipart, $methods, $time);
+        searchDB($filters, $part, $methods, $time);
     }
 
     $result= $con->query("select recipeName, time, rankingPoints from recipe natural join results"); //execute query 
@@ -198,7 +199,7 @@ function searchInsert($sql)
             
             $ranking = $ratio / $totalNum;
             
-            $sql->bind_param('ii', $recipeID, $ranking);
+            $sql->bind_param('if', $recipeID, $ranking);
             $sql->execute();
         }
     }

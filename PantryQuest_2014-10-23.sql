@@ -26,18 +26,17 @@ USE PantryQuest;
 # ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `filter`;
-
 CREATE TABLE `filter` (
-  `filterID` int(11) unsigned NOT NULL,
+  `recipeID` int(11) unsigned NOT NULL,
   `method` varchar(30) DEFAULT NULL,
   `glutenFree` tinyint(1) DEFAULT NULL,
   `vegetarian` tinyint(1) DEFAULT NULL,
   `vegan` tinyint(1) DEFAULT NULL,
   `noNuts` tinyint(1) DEFAULT NULL,
   `lactoseFree` tinyint(1) DEFAULT NULL,
-    `calories` int(11) DEFAULT NULL,
-  PRIMARY KEY (`filterID`),
-  CONSTRAINT `recipeID` FOREIGN KEY (`filterID`) REFERENCES `recipe` (`recipeID`)
+  `calories` int(11) DEFAULT NULL,
+  PRIMARY KEY (`recipeID`),
+  CONSTRAINT `RecipeID_FK` FOREIGN KEY (`recipeID`) REFERENCES `recipe` (`recipeID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 LOCK TABLES `filter` WRITE;
@@ -64,7 +63,7 @@ DROP TABLE IF EXISTS `results`;
 
 CREATE TABLE `results` (
   `recipeID` int(11) unsigned NOT NULL,
-  `rankingPoints` float DEFAULT NULL,
+  `rankingPoints` double DEFAULT NULL,
   `ranking` float DEFAULT NULL,
   PRIMARY KEY (`recipeID`),
   CONSTRAINT `RecipeIDFK` FOREIGN KEY (`recipeID`) REFERENCES `recipe` (`recipeID`)
