@@ -30,7 +30,7 @@ function getRecipe()
     $con = getConnection();
 	$app = \Slim\Slim::getInstance();
     $request = $app->request()->getBody();
-    
+    $res
     
     $recipeName;
     $results = array();
@@ -205,11 +205,12 @@ function searchInsert($sql)
             $recipeID = $r[0]; //get the id from the result
             //calculate the rating points for that recipe 
             $stmt = "select sum(value) from recipeConnection where recipeID = ".$recipeID;
-            $result= mysqli_query($con, $stmt);
+            $result= $con->query($stmt);
             $row = mysqli_fetch_row($result);
             $ratio = $row[0]; //save the ranking points
             //find total number fo ingredient 
             $stmt = "select numberOfIngredients from recipe where recipeID = ".$recipeID;
+            
             $result= mysqli_query($con, $stmt);
             $row = mysqli_fetch_row($result);
             $totalNum = 10 * $row[0]; //save the ranking points
