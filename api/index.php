@@ -65,9 +65,6 @@ function getResult() {
     $sql = "Truncate TABLE results";
     $con->query($sql);
        
-
-    //create variables to store information
-    //$result = json_decode($_GET, true);
     
     $ingredients = array();
     $filters = array();
