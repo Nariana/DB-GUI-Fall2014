@@ -9,3 +9,4 @@ filterID,method,glutenFree,vegetarian,vegan,noNuts,lactoseFree
 8,raw,0,1,1,0,0
 9,stovetop,0,0,0,1,1
 10,stovetop,0,1,0,1,0
+11,grill,1,0,0,1,1

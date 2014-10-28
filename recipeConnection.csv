@@ -2,7 +2,7 @@ recipeID,foodName,value
 1,carrot,10
 1,egg,10
 1,flour,8
-1,walnuts,5
+1,walnut,5
 1,baking soda,10
 1,cream cheese,5
 1,vegetable oil,8
@@ -61,3 +61,5 @@ recipeID,foodName,value
 10,bread,10
 10,butter,10
 10,cheese,10
+11,salmon,10
+11,vegetable oil,5
