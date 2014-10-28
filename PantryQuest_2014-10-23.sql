@@ -45,6 +45,16 @@ LOCK TABLES `filter` WRITE;
 INSERT INTO `filter` (`filterID`, `method`, `glutenFree`, `vegetarian`, `vegan`, `noNuts`, `lactoseFree`)
 VALUES
 	(1,'oven',0,1,0,1,0);
+	(2, 'grill', 0, 0, 0, 1, 0);
+	(3, 'stovetop',1,0,0,1,0);
+	(4, 'stovetop', 1, 0, 0, 1, 1);
+	(5, 'stovetop', 1, 0, 0, 1, 1);
+	(6, 'raw', 0, 1, 1, 1, 0);
+	(7, 'deep fry', 0, 0, 0, 1, 0);
+	(8, 'raw', 0, 1, 1, 0, 0);
+	(9, 'stovetop', 0, 0, 0, 1, 1);
+	(10, 'stovetop', 0, 1, 0, 1, 0);
+	
 
 /*!40000 ALTER TABLE `filter` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -543,7 +553,7 @@ LOCK TABLES `recipe` WRITE;
 INSERT INTO `recipe` (`recipeID`, `recipeName`, `instruction`, `time`, `numberOfIngredients`, `ranking`) VALUES
 (1, 'Carrot Cake', 'In a mixing bowl, mix sugar, vegetable oil, and eggs. In another bowl, sift together flour, baking soda, salt, and cinnamon. Fold dry ingredients into wet mixture and blend well. Fold in carrots and chopped nuts until well blended. Distribute batter evenly into 3 (9-inch) cake layer pans, which have been generously greased. There will be approximately 1 pound 5 ounces of batter per pan. Place in preheated oven and bake for 50 to 60 minutes. Cool layers in pans, for approximately 1 hour. Store layers in pans, inverted, in closed cupboard to prevent drying. Layers must be a minimum of 1 day old.\n\nTo remove layers from baking pan, turn upside down, tap edge of pan on a hard surface. Center a 9-inch cake circle on top of revolving cake stand. Remove paper from bottom of layer cake. Place first layer, bottom side down, at center of cake stand. With a spatula, evenly spread approximately 3 1/2 ounces of frosting on the layer. Center second layer on top of first layer with topside down. Again with a spatula, evenly spread approximately 3 1/2 ounces of frosting on the layer. Center third layer on top of second layer with topside down. Using both hands, press firmly but gently, all layers together to get one firm cake. With spatula, spread remainder of frosting to cover top and sides of cake. Refrigerated until needed. Display on counter or cake stand with a plastic cover.', 95, 7, 4),
 (2, 'Beef Burger', 'In a large bowl, mix ground beef, onion powder, salt and pepper until just combined. Do not overmix, or your patties will be tough.\nForm patties, without pressing too hard. They should be uniform in thickness. Smooth out any cracks using your fingers. Make these right before you grill them, so they stay at room temperature.\n\nPreheat your grill, grill pan or cast-iron skillet to high heat and add burger patties. If using a grill, cover with the lid.\n\nCook until the crust that forms on the bottom of the burger releases it from the pan or grate ? about 2 minutes. Gently test, but don''t flip it until it gets to this point. When burgers lift up easily, flip, add two slices of cheese to each, close lid if using a grill, and cook on the other side for another 2-3 minutes for medium to medium rare. \n\nRemove burgers with a sturdy metal spatula and transfer to a plate. Allow to rest for several minutes, then transfer to buns.\n\nGarnish as desired and serve immediately.', 25, 5, 5),
-(3, 'Sun-dried Tomato Omelet', 'In a medium bowl, beat the eggs with a pinch each of salt and pepper.', 25, 5, 5),
+(3, 'Sun-dried Tomato Omelet', 'In a medium bowl, beat the eggs with a pinch each of salt and pepper.', 25, 4, 5),
 (4, 'Stir-fried Egg and Tomato', 'Beat eggs with 1/2 teaspoon salt until smooth but not frothy.\n\nHeat 1 tablespoon oil in a 12-inch nonstick skillet over medium-high heat until hot. Add eggs and cook, undisturbed, just until a thin film of cooked egg forms on bottom of skillet but most of eggs are still runny, 5 to 10 seconds. Immediately scrape eggs into a bowl. Wipe out skillet.\n\nHeat remaining tablespoon oil in skillet over medium-high heat until hot. Add scallions and stir-fry until just softened, about 30 seconds. Add tomatoes and cook, stirring and turning occasionally, until juices are released and tomatoes are slightly wilted but still intact, 4 to 6 minutes. Sprinkle sugar and 1/4 teaspoon salt over tomatoes and stir to combine. Return eggs to skillet and cook, stirring occasionally, until eggs are just cooked through. Serve sprinkled with reserved scallion greens.', 15, 4, 4),
 (5, 'Carrot, Potato, Cabbage Soup', 'Combine the carrots, potatoes, onion, cabbage, garlic, chicken stock, olive oil, thyme, basil, parsley, salt, and pepper in a stock pot over medium-high heat; bring to a simmer and cook until the carrots are tender, about 20 minutes. Transfer to a blender in small batches and blend until smooth.', 50, 10, 5),
 (6, 'Caesar Salad', 'For the dressing: Place the anchovies into a blender or food processor. Throw in the Dijon mustard, vinegar, Worcestershire, garlic and lemon juice. Pulse the processor or blend on low speed for several seconds. Scrape down the sides.\n\nWith the food processor or blender on, drizzle the olive oil into the mixture in a small stream. Scrape down the sides. Add the Parmesan, salt and a generous grind of black pepper. Pulse the whole thing together and mix until thoroughly combined. Refrigerate the dressing for a few hours (it just gets better!) before using it on the salad.\n\nFor the croutons: Slice the bread into thick slices and cut them into 1-inch cubes. Throw them onto a baking sheet.\n\nHeat the olive oil in a small saucepan or skillet over low heat.\n\nCrush-but don''t chop-the garlic and add them to the oil. Use a spoon to move the garlic around in the pan. After 3 to 5 minutes, turn off the heat and remove the garlic from the pan.\n\nSlowly drizzle the olive oil over the bread cubes. Mix together with your hands, and then sprinkle lightly with salt. Toss and cook in the pan until golden brown and crisp. (Add a little butter for more flavor!)\n\nFor the salad: Wash and dry the hearts of romaine lettuce. Leave them whole. Use a vegetable peeler and shave off large, thin slices of Parmesan.\n\nDrizzle about half of the dressing over the top of the hearts. Throw in a good handful of the Parmesan shavings. Give it a good initial toss, just so you can evaluate how much more dressing you need.\n\nAdd more dressing and Parmesan to taste. Add the cooled croutons. Toss gently.', 20, 10, 5),
@@ -586,7 +596,6 @@ INSERT INTO `recipeconnection` (`recipeID`, `foodName`, `value`) VALUES
 (2, 'lettuce', 5),
 (2, 'tomato', 5),
 (2, 'wheat bun', 7),
-(3, 'bread', 2),
 (3, 'egg', 10),
 (3, 'feta cheese', 5),
 (3, 'spinach', 5),
