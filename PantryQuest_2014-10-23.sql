@@ -35,6 +35,7 @@ CREATE TABLE `filter` (
   `vegan` tinyint(1) DEFAULT NULL,
   `noNuts` tinyint(1) DEFAULT NULL,
   `lactoseFree` tinyint(1) DEFAULT NULL,
+    `calories` int(11) DEFAULT NULL,
   PRIMARY KEY (`filterID`),
   CONSTRAINT `recipeID` FOREIGN KEY (`filterID`) REFERENCES `recipe` (`recipeID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -104,6 +105,7 @@ VALUES
 	('baguette'),
 	('baked beans'),
 	('baking soda'),
+	('baking powder'),
 	('balsamic vinegar'),
 	('bamboo'),
 	('banana'),
@@ -195,6 +197,7 @@ VALUES
 	('chocolate'),
 	('chop'),
 	('choy'),
+	('corn husk'),
 	('chutney'),
 	('ciabatta'),
 	('cider'),
@@ -231,8 +234,7 @@ VALUES
 	('dill'),
 	('double cream'),
 	('duck'),
-	('edamame bean'),
-	('egg'),
+	('edamame'),
 	('egg'),
 	('espresso'),
 	('fennel'),
@@ -254,8 +256,8 @@ VALUES
 	('gin'),
 	('ginger'),
 	('glucose'),
-	('goat'),
-	('goat\'s cheese'),
+	('masa harina'),
+	('goat cheese'),
 	('golden syrup'),
 	('gorgonzola'),
 	('gouda'),
@@ -412,7 +414,8 @@ VALUES
 	('rapeseed oil'),
 	('raspberries'),
 	('raspberry'),
-	('red onion'),
+	('onion'),
+	('red chile sauce'),
 	('red onion'),
 	('red pepper'),
 	('red wine vinegar'),
@@ -449,6 +452,7 @@ VALUES
 	('shiitake'),
 	('shiitake mushroom'),
 	('shortcrust pastry'),
+	('shortening'),
 	('single cream'),
 	('sirloin'),
 	('sirloin steak'),
@@ -476,7 +480,6 @@ VALUES
 	('sugar'),
 	('sugar'),
 	('sultana'),
-	('sun dried tomato'),
 	('sun-dried tomato'),
 	('sunflower oil'),
 	('sweet pepper'),
@@ -583,7 +586,7 @@ CREATE TABLE `recipeConnection` (
 LOCK TABLES `recipeConnection` WRITE;
 /*!40000 ALTER TABLE `recipeConnection` DISABLE KEYS */;
 
-INSERT INTO `recipeconnection` (`recipeID`, `foodName`, `value`) VALUES
+INSERT INTO `recipeConnection` (`recipeID`, `foodName`, `value`) VALUES
 (1, 'baking soda', 10),
 (1, 'carrot', 10),
 (1, 'cream cheese', 5),
