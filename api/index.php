@@ -32,7 +32,7 @@ function getRecipe()
     $request = $app->request()->getBody();
     $result = json_decode($request, true);
     
-    $recipeName = $result['recipeName']
+    $recipeName = $result['recipeName'];
     $results = array();
     //get the name they are sending us 
     
