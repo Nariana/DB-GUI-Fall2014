@@ -30,9 +30,9 @@ function getRecipe()
     $con = getConnection();
 	$app = \Slim\Slim::getInstance();
     $request = $app->request()->getBody();
-    $res
+    $result = json_decode($request, true);
     
-    $recipeName;
+    $recipeName = $result['recipeName']
     $results = array();
     //get the name they are sending us 
     
