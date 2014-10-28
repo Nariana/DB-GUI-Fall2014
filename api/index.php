@@ -217,7 +217,7 @@ function searchInsert($sql)
             
             $ranking = $ratio / $totalNum;
             
-            $sql->bind_param('ii', $recipeID, $ranking);
+            $sql->bind_param('id', $recipeID, $ranking);
             $sql->execute();
         }
     }
