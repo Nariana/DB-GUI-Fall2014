@@ -35,6 +35,7 @@ CREATE TABLE `filter` (
   `vegan` tinyint(1) DEFAULT NULL,
   `noNuts` tinyint(1) DEFAULT NULL,
   `lactoseFree` tinyint(1) DEFAULT NULL,
+    `calories` int(11) DEFAULT NULL,
   PRIMARY KEY (`filterID`),
   CONSTRAINT `recipeID` FOREIGN KEY (`filterID`) REFERENCES `recipe` (`recipeID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
