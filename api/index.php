@@ -10,7 +10,7 @@ $app = new \Slim\Slim(); //using the slim API
 
 $app->get('/getIngredient', 'getIngredient'); //B public 
 $app->get('/getResult', 'getResult'); //end session and log out user 
-// $app->get('/getRecipe', 'getRecipe');
+$app->get('/getRecipe', 'getRecipe');
 
 
 $app->run();
@@ -23,6 +23,25 @@ function getConnection() {
         exit();
   }
     return $dbConnection;
+}
+
+function getRecipe()
+{
+    $con = getConnection();
+	$app = \Slim\Slim::getInstance();
+    
+    $recipeName;
+    $results = array();
+    //get the name they are sending us 
+    
+    $sql = "SELECT recipeName, instruction, time FROM recipes where recipeName = '".$recipeName."'"; 
+    $con->query($sql);
+  
+    while ($rows = mysqli_fetch_row($result)) {
+        $results[] = $rows;
+    }
+    echo json_encode($results);
+
 }
 
 function getIngredient() {
@@ -54,12 +73,12 @@ function getResult() {
     $filters = array();
     $methods = array();
     $noIngredients = array();
-    
+    $results = array();
     $time;
     $counter = 0;
 
     //store all information from json, input from user 
-    foreach ($result as $part)
+    foreach ($_GET as $part)
     {
         if(array_key_exists("name", $part ))
         {
@@ -87,8 +106,14 @@ function getResult() {
             $noIngredients[] = $part['noingredient'];
         }  
     }
-
-    //SEARCHDB with all subsets of ingredient 
+    //create all possible subsets of the ingredients 
+    $subset = createSubSet($ingredients);
+    
+    //insert and search for all subsets 
+    foreach ($subset as $part)
+    {
+        searchDB($filters, $ipart, $methods, $time);
+    }
 
     $result= $con->query("select recipeName, time, rankingPoints from recipe natural join results"); //execute query 
     
@@ -149,7 +174,6 @@ function searchDB($filters, $ingredients, $methods, $time)
     //return $sql;
     SearchInsert($sql); //call search and insert 
 
-    //recipie name 
 }
 
 //serach the table and 
@@ -184,7 +208,20 @@ function searchInsert($sql)
 }
 
 //create a list of subsets og a set as aelements in a set and call search for all of them 
-function createSubSet()
-{
-    
+function createSubSet($in,$minLength = 1)
+{ 
+   $count = count($in); 
+   $members = pow(2,$count); 
+   $return = array(); 
+   for ($i = 0; $i < $members; $i++) { 
+      $b = sprintf("%0".$count."b",$i); 
+      $out = array(); 
+      for ($j = 0; $j < $count; $j++) { 
+         if ($b{$j} == '1') $out[] = $in[$j]; 
+      } 
+      if (count($out) >= $minLength) { 
+         $return[] = $out; 
+      } 
+   } 
+    return $return; 
 }
