@@ -53,12 +53,11 @@ DROP TABLE IF EXISTS `results`;
 
 CREATE TABLE `results` (
   `recipeID` int(11) unsigned NOT NULL,
-  `rankingPoints` float DEFAULT NULL,
+  `rankingPoints` double DEFAULT NULL,
   `ranking` float DEFAULT NULL,
   PRIMARY KEY (`recipeID`),
   CONSTRAINT `RecipeIDFK` FOREIGN KEY (`recipeID`) REFERENCES `recipe` (`recipeID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
 LOCK TABLES `results` WRITE;
 # Dump of table ingredient
 # ------------------------------------------------------------
