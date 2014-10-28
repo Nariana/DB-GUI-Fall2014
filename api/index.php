@@ -203,6 +203,7 @@ function searchInsert($sql)
         while($r = mysqli_fetch_array($result)) 
    	    {   
             $recipeID = $r[0]; //get the id from the result
+           // echo $recipeID;
             //calculate the rating points for that recipe 
             $stmt = "select sum(value) from recipeConnection where recipeID = ".$recipeID;
             $result= $con->query($stmt);
