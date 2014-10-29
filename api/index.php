@@ -79,7 +79,6 @@ function getResult() {
     $points = array();
     $time = array();
     $counter = 0;
-    $points = array();
 
     //store all information from json, input from user 
     foreach ($_GET as $part)
@@ -119,7 +118,7 @@ function getResult() {
         searchDB($filters, $part, $methods, $time);
     }
 
-    $result= $con->query("select recipeName, ranking, time from recipe where recipeID in (select recipeID from results)"); //execute query 
+    $result= $con->query("select recipeName, time, recipe.ranking, rankingPoints from recipe inner join  results on results.recipeID =  recipe.recipeID order by rankingPoints desc"); //execute query 
     if (mysqli_num_rows($result) == 0)
     {
         //no possible resuts 
@@ -132,15 +131,7 @@ function getResult() {
         $results[] = $r;
         //$points [] = $
    	} 
-    
-    //get the ranking points for each recipe 
-    $result = $con->query("select rankingPoints from results");
-   	while($r = mysqli_fetch_assoc($result)) 
-   	{
-         $points[] = $r;
-   	} 
-    
-    $results[] = $points;
+
     //send back a json
     echo json_encode($results);
     mysqli_close($con);
