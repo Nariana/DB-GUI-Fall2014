@@ -77,3 +77,24 @@ color: #EDE297;
 #filters{
 margin-top: 75px;
 }
+
+/* for recipe.html */
+
+#recipeName {
+	float: left;
+}
+
+#recipeImage {
+	float: right;
+	border-style: solid;
+}
+
+#recipeDirections {
+	clear: left;
+	float: left;
+}
+
+#recipeButtons {
+	clear: left;
+	float: bottom;
+}

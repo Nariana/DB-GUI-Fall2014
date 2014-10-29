@@ -29,3 +29,13 @@ function load(){
 
 
 }
+
+/* go back to results */
+$("#backButton").click(function(){
+  window.location.href = "results.html";
+});
+
+/* go to front page (clear localstorage also?) */
+$("#newButton").click(function(){
+  window.location.href = "index.html";
+});

@@ -2,18 +2,21 @@
 <!-- recipe.html - displays recipe that user has chosen -->
 <html>
 <head>
-	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<title>Pantry Quest</title>
+	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<link rel="stylesheet" href="fonts/font-awesome/css/font-awesome.min.css" >
 	<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css" >
 	<link rel="shortcut icon" href="img/PQ.png" >
-<title>My Recipe</title>
 </head>
 <body>
-<h2>My Recipe</h2>
-<p>Some text about my recipe</p>
+	<h2 id="recipeName">Recipe Name</h2>
+	<img id="recipeImage" src="#" alt="Recipe's Image">
+	<p id="recipeDirections">Recipe Description</p>
+	<form id="recipeButtons">
+		<button type="button" id="backButton">Back To Results</button>
+		<button type="button" id="newButton">Start New Search</button>
+	</form>
 </body>
-
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   	<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
   	<script src="http://code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
