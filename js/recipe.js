@@ -4,6 +4,11 @@ console.log(localStorage.getItem("selectedRecipe"));
 //MAMP
 var rootURL = "http://localhost:8888/DB-GUI-Fall2014/api/index.php";
 
+var dummy = {
+            "recipeName": "dummyName",
+            "recipeImage": "img/Logo2.png",
+            "recipeDirections": "dummyDirections"
+            }
 
 load();
 
@@ -28,6 +33,10 @@ function load(){
       }});
 
 
+  /* modify page with data from get request */
+  $("#recipeTitle").text(dummy["recipeName"]);
+  $("#recipeImage").attr("src", dummy["recipeImage"])
+  $("#recipeDirections").text(dummy["recipeDirections"]);
 }
 
 /* go back to results */
