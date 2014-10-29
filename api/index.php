@@ -206,14 +206,14 @@ function searchInsert($sql)
            // echo $recipeID;
             //calculate the rating points for that recipe 
             $stmt = "select sum(value) from recipeConnection where recipeID = ".$recipeID;
-            $result= $con->query($stmt);
-            $row = mysqli_fetch_row($result);
+            $result2= $con->query($stmt);
+            $row = mysqli_fetch_row($result2);
             $ratio = $row[0]; //save the ranking points
             //find total number fo ingredient 
             $stmt = "select numberOfIngredients from recipe where recipeID = ".$recipeID;
             
-            $result= $con->query($stmt);
-            $row = mysqli_fetch_row($result);
+            $result1= $con->query($stmt);
+            $row = mysqli_fetch_row($result1);
             $totalNum = 10 * $row[0]; //save the ranking points
             
             $ranking = $ratio / $totalNum;
