@@ -178,12 +178,12 @@ function searchDB($filters, $ingredients, $methods, $time)
     }
    
     //return $sql;
-    SearchInsert($sql); //call search and insert 
+    SearchInsert($sql, $ingredients); //call search and insert 
 
 }
 
 //serach the table and 
-function searchInsert($sql)
+function searchInsert($sql, $ingredients)
 {
     $con = getConnection();
     $result= $con->query($sql);
@@ -199,15 +199,17 @@ function searchInsert($sql)
             $stmt = "select sum(value) from recipeConnection where recipeID = ".$recipeID;
             $result2= $con->query($stmt);
             $row = mysqli_fetch_row($result2);
-            $ratio = $row[0]; //save the ranking points
-            //find total number fo ingredient 
-            $stmt = "select numberOfIngredients from recipe where recipeID = ".$recipeID;
+            $totalPoints = $row[0]; //save the ranking points
             
-            $result1= $con->query($stmt);
+            foreach ($ingredients as $ingredient)
+            {
+                $stmt = "select value from recipeConnection where recipeID = ".$recipeID." and foodName = '".$ingredient."'";
+            $result1= mysqli_query($con, $stmt);
             $row = mysqli_fetch_row($result1);
-            $totalNum = 10 * $row[0]; //save the ranking points
-            
-            $ranking = $ratio / $totalNum;
+            $ingredientPoints = $ingredientPoints + $row[0];
+            }
+           
+            $ranking = $ingredientPoints / $totalPoints;
             
             $sql->bind_param('id', $recipeID, $ranking);
             $sql->execute();
