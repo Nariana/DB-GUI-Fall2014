@@ -21,7 +21,13 @@ function getIngredients(){
             };
             //alert("done!"+ csvData.getAllResponseHeaders())
             $( "#textIngredient" ).autocomplete({
-              source: availableTags
+              source: availableTags,
+              select: function(event, ui){
+                $('#textIngredient').val(ui.item.value);
+                //console.log();
+                clickAdd();
+                $('#textIngredient').val("");
+              }
             });
           },
         error: function(jqXHR, textStatus, errorThrown){
@@ -35,14 +41,23 @@ function getIngredients(){
 console.log("in action");
 
 $('#addIngredient').click(function(){
-	var inputted = $('#textIngredient').val();
-	console.log(inputted);
-	$('#textIngredient').val("");	
-
-	if(inputted != ""){
-		$('#ingredientList').append("<li class='ingredient'>"+ inputted + "</li>");
-	}
+  clickAdd();
 });
+
+$("li .ui-menu-item").click(function(){
+  console.log("clicked "+ this);
+  clickAdd();
+});
+
+function clickAdd(){
+  var inputted = $('#textIngredient').val();
+  console.log(inputted);
+  $('#textIngredient').val(""); 
+
+  if(inputted != ""){
+    $('#ingredientList').append("<li class='ingredient'>"+ inputted + "</li>");
+  }
+}
 
 $("#search").click(function(){
 	console.log("go to results");
@@ -83,4 +98,6 @@ $(function() {
         at: "right+5 top-5"
       }
 })});
+
+
 

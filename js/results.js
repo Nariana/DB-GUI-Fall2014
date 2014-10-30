@@ -79,6 +79,11 @@ function addListeners(){
 
   });
 
+  $("#back").click(function(){
+    window.location.href = "index.html";
+
+  });
+
 }
 
 
@@ -94,7 +99,19 @@ function load(){
     });
     $( "#calories" ).val($( "#slider-calories" ).slider( "value" ) + " Calories");
 
+    $( "#slider-time" ).slider({
+      range: "min",
+      value: 30,
+      min: 5,
+      max: 120,
+      slide: function( event, ui ) {
+        $( "#time" ).val( ui.value + " minutes" );
+      }
+    });
+    $( "#time" ).val($( "#slider-time" ).slider( "value" ) + " minutes");
+
     getResults();
+    addListeners();
 
 }
 
