@@ -204,7 +204,7 @@ function searchInsert($sql, $ingredients)
             foreach ($ingredients as $ingredient)
             {
                 $stmt = "select value from recipeConnection where recipeID = ".$recipeID." and foodName = '".$ingredient."'";
-            $result1= mysqli_query($con, $stmt);
+            $result1= $con->query($stmt);
             $row = mysqli_fetch_row($result1);
             $ingredientPoints = $ingredientPoints + $row[0];
             }
