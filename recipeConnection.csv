@@ -7,13 +7,13 @@ recipeID,foodName,value
 1,cream cheese,5
 1,vegetable oil,8
 2,beef,10
-2,wheat bun,7
+2,bun,7
 2,lettuce,5
 2,tomato,5
 2,cheese,5
 3,egg,10
 3,tomato,10
-3,feta cheese,5
+3,feta,5
 3,spinach,5
 3,bread,2
 4,egg,10
@@ -33,7 +33,7 @@ recipeID,foodName,value
 6,anchovy,5
 6,dijon mustard,5
 6,vinegar,8
-6,Worcestershire sauce,5
+6,worcestershire sauce,5
 6,garlic,5
 6,lemon,5
 6,olive oil,10
@@ -71,7 +71,7 @@ recipeID,foodName,value
 13,squash,7
 13,zucchini,7
 13,eggplant,7
-13,mushrooms,7
+13,mushroom,7
 13,asparagus,7
 13,green onion,5
 13,garlic,5
@@ -92,22 +92,22 @@ recipeID,foodName,value
 15,mustard,3
 15,filet mignon,10
 15,olive oil,5
-15,onions,5
-15,mushrooms,3
+15,onion,5
+15,mushroom,3
 15,bell pepper,3
-16,peanuts,3
-16,cashews,3
-16,dates,3
+16,peanut,3
+16,cashew,3
+16,date,3
 16,maple syrup,5
-16,chocolate chips,5
-16,bananas,5
+16,chocolate chip,5
+16,banana,5
 16,cinnamon,5
 16,coconut milk,7
 16,coconut,5
-17,dates,10
+17,date,10
 17,walnut,5
-17,almonds,5
-17,cashews,7
+17,almond,5
+17,cashew,7
 17,lemon,3
 17,coconut oil,5
 17,coconut milk,5
@@ -127,3 +127,13 @@ recipeID,foodName,value
 19,cilantro,5
 19,zucchini,7
 19,golden flax,5
+20,anchovy,2
+20,caper,5
+20,dijon mustard,5
+20,egg,10
+20,beef tenderloin,10
+20,onion,5
+20,parsley,3
+20,olive oil,5
+20,hot sauce,3
+20,Worcestershire sauce,3
