@@ -3,6 +3,7 @@
 
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<title>Pantry Quest</title>
+	<link rel="stylesheet" href="fonts/font-awesome/css/font-awesome.min.css" >
 </head>
 
 
@@ -33,6 +34,11 @@
 					<input type="checkbox" name="diet" value="vegan" id="vegan"><label for="vegan">Vegan</label><br>
 					<br>
 					<!--<input type="submit" name="appyFilters" value="Apply Changes" id="apply"><br>-->
+					<label for="calories">Maximum calories:</label>
+  					<input type="text" id="calories" readonly style="border:0; color:#f6931f; font-weight:bold;">
+  					<div id="slider-calories"></div>
+
+
 				</form>
 			</div>
 
@@ -52,6 +58,8 @@
 					</tr>
 				</table>
 			</div>
+
+			<i id="back" class="fa fa-arrow-circle-left fa-3x" style="color: rgb(255, 255, 255);"></i>
 
 		</div>
 		<!--

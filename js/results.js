@@ -3,8 +3,7 @@
 //MAMP
 var rootURL = "http://localhost:8888/DB-GUI-Fall2014/api/index.php";
 
-
-getResults();
+load();
 
 
 function getResults(){
@@ -35,7 +34,7 @@ function getResults(){
 
             for (var i = 0; i < result.length - 1; i++) {
               console.log(result[i]);
-              var add = "<tr id='recipe"+i+"' class='resultRow'><td class='name'>"+result[i].recipeName+"</td><td>"+result[i].ranking+"</td><td>"+result[i].time+"</td></tr>";
+              var add = "<tr id='recipe"+i+"' class='resultRow'><td class='name'>"+result[i].recipeName+"</td><td>"+result[i].ranking+"<i id='back' class='fa fa-info'></i></td><td>"+result[i].time+"</td></tr>";
               $("#resultTable").append(add);
 
               addListeners();
@@ -79,6 +78,23 @@ function addListeners(){
     $(this).css("border","none");
 
   });
+
+}
+
+
+function load(){
+    $( "#slider-calories" ).slider({
+      range: "min",
+      value: 200,
+      min: 100,
+      max: 2000,
+      slide: function( event, ui ) {
+        $( "#calories" ).val( ui.value + " Calories" );
+      }
+    });
+    $( "#calories" ).val($( "#slider-calories" ).slider( "value" ) + " Calories");
+
+    getResults();
 
 }
 
