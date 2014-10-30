@@ -34,14 +34,19 @@ function getRecipe()
     
     $recipeName = $result['recipeName'];
     $results = array();
+    $rows = array();
     //get the name they are sending us 
     
     $sql = "SELECT * FROM recipes where recipeName = '".$recipeName."'"; 
     $con->query($sql);
-  
-    while ($rows = mysqli_fetch_row($result)) {
+    if(mysqli_num_rows($result) > 0) //check if there are any results 
+    {
+        while ($rows = mysqli_fetch_row($result)) 
+        {
         $results[] = $rows;
+        }
     }
+
     echo json_encode($results);
 
 }
