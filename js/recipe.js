@@ -10,7 +10,10 @@ var dummy = {
             "recipeDirections": "dummyDirections"
             }
 
-load();
+$(document).ready(function(){
+  load();
+});
+
 
 function load(){
 
