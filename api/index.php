@@ -89,6 +89,7 @@ function getResult() {
     $results = array();
     $points = array();
     $time = array();
+    $calories = array();
     $counter = 0;
     $rows = array();
 
@@ -121,12 +122,15 @@ function getResult() {
         {
             $time = (int)$part['time'];
             $hasTime = true;
-            //echo $time;
         }
             if(array_key_exists("noingredient", $part ))
         {
             $noIngredients[] = $part['noingredient'];
         }  
+            if(array_key_exists("calories", $part ))
+        {
+            $calories[] = (int)$part['calories'];
+        } 
     }
     //create all possible subsets of the ingredients 
     $subset = createSubSet($ingredients);
@@ -134,7 +138,7 @@ function getResult() {
     //insert and search for all subsets 
     foreach ($subset as $part)
     {
-        searchDB($filters, $part, $methods, $time);
+        searchDB($filters, $part, $methods, $time, $calories);
     }
 
     $result= $con->query("select recipeName, time, recipe.ranking, rankingPoints from recipe inner join  results on results.recipeID =  recipe.recipeID order by rankingPoints desc"); //execute query 
@@ -157,7 +161,7 @@ function getResult() {
 }
 
 //function that creates a query 
-function searchDB($filters, $ingredients, $methods, $time)
+function searchDB($filters, $ingredients, $methods, $time, $calories)
 {
     $counter = 0;
     //create query with all information 
@@ -193,7 +197,12 @@ function searchDB($filters, $ingredients, $methods, $time)
     if(!empty($time))
     {
         $sql = $sql." and time < ";
-        $sql = $sql.$time;
+        $sql = $sql.$time[0];
+    }
+        if(!empty($calories))
+    {
+        $sql = $sql." and calories < ";
+        $sql = $sql.$calories[0];
     }
    
     //return $sql;
