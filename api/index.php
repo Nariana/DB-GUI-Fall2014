@@ -30,15 +30,21 @@ function getRecipe()
     $con = getConnection();
 	$app = \Slim\Slim::getInstance();
     $request = $app->request()->getBody();
-    $result = json_decode($request, true);
+    $name = json_decode($request, true);
+    $results = array();
     
-    $recipeName = $result['recipeName'];
+    
     $results = array();
     $rows = array();
-    //get the name they are sending us 
+    //replace + with space 
+    $tempName = $name['recipeName'];
+    $replace = '+';
+    $recplacement = ' ';
+    $recipeName = str_replace($replace, $recplacement, $tempName);
     
     $sql = "SELECT * FROM recipes where recipeName = '".$recipeName."'"; 
     $result = $con->query($sql);
+    
     if(mysqli_num_rows($result) > 0) //check if there are any results 
     {
         while ($rows = mysqli_fetch_row($result)) 
@@ -90,9 +96,16 @@ function getResult() {
     foreach ($_GET as $part)
     {
         if(array_key_exists("name", $part ))
-        {
+        {   
             $ingredients[] = $part['name'];
-            //echo $part['name'];
+            //increment the nuber of times that ingredient is searched for
+            $stmt = "select timesSearched from ingredient where foodName = '".$ingredient."'";
+           $result1= $con->query($stmt);
+            $row = mysqli_fetch_row($result1);
+            $timesSearched = $row[0]; //save the ranking points
+            $timesSearched = $timesSearched + 1;
+            $sql2 = "UPDATE ingredient SET timesSearched = ".$timesSearched." where foodName = '".$ingredient."'";
+            $con->query($sql2);
         }
             if(array_key_exists("filter", $part ))
         {
