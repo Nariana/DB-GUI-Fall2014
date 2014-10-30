@@ -3,11 +3,12 @@
 //MAMP
 var rootURL = "http://localhost:8888/DB-GUI-Fall2014/api/index.php";
 
-load();
+$(document).ready(function(){
+  load();
+});
 
 
 function getResults(){
-
   $("table .resultRow").remove();
 
   var ing = localStorage.getItem("ingredients");
@@ -53,7 +54,7 @@ function getResults(){
 
 }
 
-  $(function() {
+$(function() {
     $( "#pic-modal" ).dialog({
       modal: true,
       buttons: {
@@ -63,10 +64,6 @@ function getResults(){
       }
     });
   });
-
-$("#filters input").on("change", function() {
-  getResults();
-} );
 
 
 function addListeners(){
@@ -82,6 +79,10 @@ function addListeners(){
   $("#back").click(function(){
     window.location.href = "index.html";
 
+  });
+
+  $("#filters *").on("change", function() {
+    getResults();
   });
 
 }
