@@ -47,12 +47,12 @@ function getRecipe()
 }
 
 function getIngredient() {
-    $mysqli = getConnection();
+    $con = getConnection();
     $app = \Slim\Slim::getInstance();
     $request = $app->request()->getBody();
 
     $ingredient_list = array();
-    $result = mysqli_query($mysqli, "SELECT * FROM ingredient");
+    $result = $con->query("SELECT * FROM ingredient");
     while ($rows = mysqli_fetch_row($result)) {
         $ingredient_list[] = $rows;
     }
@@ -79,6 +79,7 @@ function getResult() {
     $points = array();
     $time = array();
     $counter = 0;
+    $rows = array();
 
     //store all information from json, input from user 
     foreach ($_GET as $part)
