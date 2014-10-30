@@ -38,7 +38,7 @@ function getRecipe()
     //get the name they are sending us 
     
     $sql = "SELECT * FROM recipes where recipeName = '".$recipeName."'"; 
-    $ result = $con->query($sql);
+    $result = $con->query($sql);
     if(mysqli_num_rows($result) > 0) //check if there are any results 
     {
         while ($rows = mysqli_fetch_row($result)) 
