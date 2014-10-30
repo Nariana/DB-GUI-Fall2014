@@ -37,7 +37,7 @@ function getResults(){
               $("#resultTable").append(add);
 
               addListeners();
-              $("tr").click(function(){
+              $(".resultRow").click(function(){
                 recipe = $(this).children(".name").html();
                 localStorage.setItem("selectedRecipe", recipe);
                 window.location.href = "recipe.html";
