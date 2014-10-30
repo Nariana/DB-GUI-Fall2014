@@ -56,7 +56,7 @@ $("#search").click(function(){
   localStorage.setItem("ingredients", query);
   //console.log(localStorage.query);
 
-	window.location.href = "results.html"
+	window.location.href = "results.html";
 
 });
 

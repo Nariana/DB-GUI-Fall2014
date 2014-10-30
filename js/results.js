@@ -33,8 +33,10 @@ function getResults(){
 
             for (var i = 0; i < result.length - 1; i++) {
               console.log(result[i]);
-              var add = "<tr id='recipe"+i+"'><td class='name'>"+result[i].recipeName+"</td><td>"+result[i].ranking+"</td><td>"+result[i].time+"</td></tr>";
+              var add = "<tr id='recipe"+i+"' class='resultRow'><td class='name'>"+result[i].recipeName+"</td><td>"+result[i].ranking+"</td><td>"+result[i].time+"</td></tr>";
               $("#resultTable").append(add);
+
+              addListeners();
               $("tr").click(function(){
                 recipe = $(this).children(".name").html();
                 localStorage.setItem("selectedRecipe", recipe);
@@ -64,3 +66,20 @@ function getResults(){
 $("#filters input").on("change", function() {
 getResults();
 } );
+
+
+function addListeners(){
+  $(".resultRow").hover(function(){
+    console.log("hover");
+    $(this).css("background-color","grey");
+    $(this).css("border","solid black 1px");
+  }, function(){
+    $(this).css("background-color","white");
+    $(this).css("border","none");
+
+  });
+
+}
+
+
+
