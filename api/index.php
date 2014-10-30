@@ -194,12 +194,15 @@ function searchInsert($sql, $ingredients)
         while($r = mysqli_fetch_array($result)) 
    	    {   
             $recipeID = $r[0]; //get the id from the result
+            $ingredientPoints;
            // echo $recipeID;
             //calculate the rating points for that recipe 
             $stmt = "select sum(value) from recipeConnection where recipeID = ".$recipeID;
             $result2= $con->query($stmt);
             $row = mysqli_fetch_row($result2);
             $totalPoints = $row[0]; //save the ranking points
+            
+            
             
             foreach ($ingredients as $ingredient)
             {
