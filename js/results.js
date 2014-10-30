@@ -9,6 +9,8 @@ getResults();
 
 function getResults(){
 
+  $("table .resultRow").remove();
+
   var ing = localStorage.getItem("ingredients");
   ing = ing.split(",");
 
@@ -64,13 +66,12 @@ function getResults(){
   });
 
 $("#filters input").on("change", function() {
-getResults();
+  getResults();
 } );
 
 
 function addListeners(){
   $(".resultRow").hover(function(){
-    console.log("hover");
     $(this).css("background-color","grey");
     $(this).css("border","solid black 1px");
   }, function(){
