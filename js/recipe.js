@@ -4,10 +4,15 @@ console.log(localStorage.getItem("selectedRecipe"));
 //MAMP
 var rootURL = "http://localhost:8888/DB-GUI-Fall2014/api/index.php";
 
+/* dummy objec for testing, remember to delete */
 var dummy = {
-            "recipeName": "dummyName",
-            "recipeImage": "img/Logo2.png",
-            "recipeDirections": "dummyDirections"
+            "name": "recipe name",
+            "url": "img/Logo2.png",
+            "instructions": "instructions:",
+            "rating": "rating: 5",
+            "ingredients": "ingredients:",
+            "calories": "calories: 2000",
+            "time": "time: 3 hours",
             }
 
 $(document).ready(function(){
@@ -36,9 +41,13 @@ function load(){
 
 
   /* modify page with data from get request */
-  $("#recipeTitle").text(dummy["recipeName"]);
-  $("#recipeImage").attr("src", dummy["recipeImage"])
-  $("#recipeDirections").text(dummy["recipeDirections"]);
+  $("#recipeName").text(dummy["name"]);
+  $("#recipeImg").attr("src", dummy["url"])
+  $("#instr").text(dummy["instructions"]);
+  $("#ingr").text(dummy["ingredients"]);
+  $("#rate").text(dummy["rating"]);
+  $("#time").text(dummy["time"]);
+  $("#cals").text(dummy["calories"]);
 }
 
 /* go back to results */
