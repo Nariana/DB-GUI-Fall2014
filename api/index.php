@@ -16,7 +16,7 @@ $app->get('/getRecipe', 'getRecipe');
 $app->run();
 
 function getConnection() {
-    $dbConnection = new mysqli("localhost", "root", "root", "PantryQuest"); //put in your password
+    $dbConnection = new mysqli('localhost', 'root', 'root', 'PantryQuest'); //put in your password
     // Check mysqli connection
     if (mysqli_connect_errno()) {
         printf("Connect failed: %s\n", mysqli_connect_error());
@@ -30,29 +30,19 @@ function getRecipe()
     $con = getConnection();
 	$app = \Slim\Slim::getInstance();
     $request = $app->request()->getBody();
-    $name = json_decode($request, true);
-    $results = array();
-    
-    
     $results = array();
     $rows = array();
+
     //replace + with space 
-    $tempName = $name['recipeName'];
-    $replace = '+';
-    $recplacement = ' ';
-    $recipeName = str_replace($replace, $recplacement, $tempName);
+    $recipeName = $_GET['recipeName']; 
     
-    $sql = "SELECT * FROM recipes where recipeName = '".$recipeName."'"; 
+    $sql = "select recipeName, instruction, time, rating, ingredients, picture, calories from recipe natural join filter where recipeName = '".$recipeName."'"; 
     $result = $con->query($sql);
     
-    if(mysqli_num_rows($result) > 0) //check if there are any results 
+    if (mysqli_num_rows($result) != 0)
     {
-        while ($rows = mysqli_fetch_row($result)) 
-        {
-        $results[] = $rows;
-        }
+        $results = mysqli_fetch_assoc($result);
     }
-
     echo json_encode($results);
 
 }
@@ -64,7 +54,8 @@ function getIngredient() {
 
     $ingredient_list = array();
     $result = $con->query("SELECT * FROM ingredient");
-    while ($rows = mysqli_fetch_row($result)) {
+    while ($rows = mysqli_fetch_row($result)) 
+    {
         $ingredient_list[] = $rows;
     }
 
@@ -92,6 +83,7 @@ function getResult() {
     $calories = array();
     $counter = 0;
     $rows = array();
+    $results = array();
 
     //store all information from json, input from user 
     foreach ($_GET as $part)
@@ -99,13 +91,15 @@ function getResult() {
         if(array_key_exists("name", $part ))
         {   
             $ingredients[] = $part['name'];
+            
+            
             //increment the nuber of times that ingredient is searched for
-            $stmt = "select timesSearched from ingredient where foodName = '".$ingredient."'";
+            $stmt = "select timesSearched from ingredient where foodName = '".$part['name']."'";
            $result1= $con->query($stmt);
             $row = mysqli_fetch_row($result1);
             $timesSearched = $row[0]; //save the ranking points
             $timesSearched = $timesSearched + 1;
-            $sql2 = "UPDATE ingredient SET timesSearched = ".$timesSearched." where foodName = '".$ingredient."'";
+            $sql2 = "UPDATE ingredient SET timesSearched = ".$timesSearched." where foodName = '".$part['name']."'";
             $con->query($sql2);
         }
             if(array_key_exists("filter", $part ))
@@ -141,19 +135,17 @@ function getResult() {
         searchDB($filters, $part, $methods, $time, $calories);
     }
 
-    $result= $con->query("select recipeName, time, recipe.ranking, rankingPoints from recipe inner join  results on results.recipeID =  recipe.recipeID order by rankingPoints desc"); //execute query 
-    if (mysqli_num_rows($result) == 0)
+    $result= $con->query("select recipeName, time, recipe.rating, rankingPoints from recipe inner join  results on results.recipeID =  recipe.recipeID order by rankingPoints asc"); //execute query 
+    
+    if (mysqli_num_rows($result) != 0)
     {
-        //no possible resuts 
-        echo json_encode($rows);
-        exit;
+            //store information in results
+   	    while($r = mysqli_fetch_assoc($result)) 
+   	    {
+            $results[] = $r;
+            //$points [] = $
+        } 
     }
-    //store information in results
-   	while($r = mysqli_fetch_assoc($result)) 
-   	{
-        $results[] = $r;
-        //$points [] = $
-   	} 
 
     //send back a json
     echo json_encode($results);
@@ -204,8 +196,7 @@ function searchDB($filters, $ingredients, $methods, $time, $calories)
         $sql = $sql." and calories < ";
         $sql = $sql.$calories[0];
     }
-   
-    //return $sql;
+
     SearchInsert($sql, $ingredients); //call search and insert 
 
 }
