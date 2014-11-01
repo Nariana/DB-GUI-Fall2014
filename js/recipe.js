@@ -43,6 +43,8 @@ function load(){
             $("#cals").text(result["calories"]);
           },
         error: function(jqXHR, textStatus, errorThrown){
+          alert("No recipe found! Let's go back!");
+          window.location.href = "results.html";
            console.log(jqXHR, textStatus, errorThrown);
       }});
 
