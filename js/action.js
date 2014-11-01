@@ -61,8 +61,8 @@ function clickAdd(inputted){
   if(inputted != ""){
     $('#ingredientList').append("<li class='ingredient'>"+ inputted + "</li>");
   }
-  console.log($('#textIngredient')[0].value);
-  $('#textIngredient')[0].value = "";
+  console.log($($('#textIngredient')[0]));
+  $($('#textIngredient')[0]).val("");
 }
 
 $("#search").click(function(){

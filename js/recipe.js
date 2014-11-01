@@ -34,20 +34,18 @@ function load(){
         data: send,
         success: function (result) {
             console.log(result);
+            $("#recipeName").text(result["name"]);
+            $("#recipeImg").attr("src", result["url"]);
+            $("#instr").text(result["instructions"]);
+            $("#ingr").text(result["ingredients"]);
+            $("#rate").text(result["rating"]);
+            $("#time").text(result["time"]);
+            $("#cals").text(result["calories"]);
           },
         error: function(jqXHR, textStatus, errorThrown){
            console.log(jqXHR, textStatus, errorThrown);
       }});
 
-
-  /* modify page with data from get request */
-  $("#recipeName").text(dummy["name"]);
-  $("#recipeImg").attr("src", dummy["url"])
-  $("#instr").text(dummy["instructions"]);
-  $("#ingr").text(dummy["ingredients"]);
-  $("#rate").text(dummy["rating"]);
-  $("#time").text(dummy["time"]);
-  $("#cals").text(dummy["calories"]);
 }
 
 /* go back to results */
