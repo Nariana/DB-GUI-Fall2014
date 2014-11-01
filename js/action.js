@@ -3,7 +3,16 @@
 //MAMP
 var rootURL = "http://localhost:8888/DB-GUI-Fall2014/api/index.php";
 
+
+$("#ingredientList").bind("DOMSubtreeModified", function(){
+  $(this).val("");
+});
+
 var allIngredients = getIngredients();
+$( ".textIngredient" ).on( "autocompleteselect", function( event, ui ) {
+  $('#textIngredient').val("");
+  console.log($(this));
+} );
 
 function getIngredients(){
 
@@ -23,10 +32,10 @@ function getIngredients(){
             $( "#textIngredient" ).autocomplete({
               source: availableTags,
               select: function(event, ui){
-                $('#textIngredient').val(ui.item.value);
                 //console.log();
-                clickAdd();
-                $('#textIngredient').val("");
+                clickAdd(ui.item.value);
+                $(ui.item).val("");
+                console.log("clearing");
               }
             });
           },
@@ -41,22 +50,19 @@ function getIngredients(){
 console.log("in action");
 
 $('#addIngredient').click(function(){
-  clickAdd();
+  clickAdd($('#textIngredient').val());
 });
 
-$("li .ui-menu-item").click(function(){
-  console.log("clicked "+ this);
-  clickAdd();
-});
 
-function clickAdd(){
-  var inputted = $('#textIngredient').val();
+function clickAdd(inputted){
   console.log(inputted);
   $('#textIngredient').val(""); 
 
   if(inputted != ""){
     $('#ingredientList').append("<li class='ingredient'>"+ inputted + "</li>");
   }
+  console.log($('#textIngredient')[0].value);
+  $('#textIngredient')[0].value = "";
 }
 
 $("#search").click(function(){
@@ -98,6 +104,7 @@ $(function() {
         at: "right+5 top-5"
       }
 })});
+
 
 
 

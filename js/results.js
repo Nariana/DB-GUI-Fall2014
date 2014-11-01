@@ -35,7 +35,7 @@ function getResults(){
 
             for (var i = 0; i < result.length - 1; i++) {
               console.log(result[i]);
-              var add = "<tr id='recipe"+i+"' class='resultRow'><td class='name'>"+result[i].recipeName+"</td><td>"+result[i].ranking+"<i id='back' class='fa fa-info'></i></td><td>"+result[i].time+"</td></tr>";
+              var add = "<tr id='recipe"+i+"' class='resultRow'><td class='name'>"+result[i].recipeName+"</td><td>"+result[i].rating+"<i id='back' class='fa fa-info'></i></td><td>"+result[i].time+"</td></tr>";
               $("#resultTable").append(add);
 
               addListeners();

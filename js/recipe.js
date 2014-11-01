@@ -18,7 +18,6 @@ $(document).ready(function(){
 function load(){
 
 	var recipeName = localStorage.getItem("selectedRecipe");
-
 	var send = {"recipeName": recipeName};
 
 	console.log(send);
@@ -44,10 +43,12 @@ function load(){
 
 /* go back to results */
 $("#backButton").click(function(){
+  localStorage.selectedRecipe.clear();
   window.location.href = "results.html";
 });
 
 /* go to front page (clear localstorage also?) */
 $("#newButton").click(function(){
+  localStorage.clear();
   window.location.href = "index.html";
 });
