@@ -10,6 +10,7 @@ $(document).ready(function(){
 
 function getResults(){
   $("table .resultRow").remove();
+  console.log("show table");
 
   var ing = localStorage.getItem("ingredients");
   ing = ing.split(",");
@@ -28,12 +29,12 @@ function getResults(){
         dataType: "json",
         data: send,
         success: function (result) {
-            console.log(result);
+            console.log(result.length);
             if(result.length === 0){
                $("#resultTable").append("<tr><td>sorry, no results</td></tr>");
             }
 
-            for (var i = 0; i < result.length - 1; i++) {
+            for (var i = 0; i < result.length ; i++) {
               console.log(result[i]);
               var add = "<tr id='recipe"+i+"' class='resultRow'><td class='name'>"+result[i].recipeName+"</td><td>"+result[i].rating+"<i id='back' class='fa fa-info'></i></td><td>"+result[i].time+"</td></tr>";
               $("#resultTable").append(add);
