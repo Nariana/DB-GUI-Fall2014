@@ -33,11 +33,20 @@ function load(){
         dataType: "json",
         data: send,
         success: function (result) {
-            console.log(result);
+            //console.log(result.ingredients.split("\n"));
             $("#recipeName").append(result["recipeName"]);
             $("#recipeImg").attr("src", result["url"]);
-            $("#instr").append(result["instruction"]);
-            $("#ingr").append(result["ingredients"]);
+            var instructions = result.instruction.split("\n");
+            $.each(instructions, function(i,text){
+              console.log(text);
+              $("#instr").append("<li>"+text+"</li>");
+            })
+
+            var ingredients = result.ingredients.split("\n");
+            $.each(ingredients, function(i,text){
+              $("#ingr").append("<li>"+text+"</li>");
+              console.log(text);
+            })
             $("#rate").append(result["rating"]);
             $("#time").prepend(result["time"]);
             $("#cals").prepend(result["calories"]);

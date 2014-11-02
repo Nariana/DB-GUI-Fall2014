@@ -94,12 +94,13 @@ margin-top: 75px;
 
 
 /* selects the instructions p */
-#majorInfo p {
+#majorInfo ul {
 	width: 45%;
 	float: left;
 	padding: 10px;
 	border: 1px solid white;
 	margin: 10px;
+	list-style: none;
 }
 
 /* selects the ingredients p 
