@@ -81,63 +81,49 @@ margin-top: 75px;
 /* for recipe.html */
 
 #headerInfo {
-	position: relative;
 	float: left;
-	left: 42.5%;
+	margin-left: auto;
+    margin-right: auto;
+    width: 70%;
+
 }
 
 #recipeImg {
-	width: 10%;
-	position: relative;
-	clear: both;
 	float: right;
-	bottom: 130px;
 }
 
-#time {
-	position: relative;
-	float: left;
-	right: 50%;
-}
-
-#cals {
-	position: relative;
-	float: left;
-	right: 32%;
-}
-
-#rate {
-	position: relative;
-	float: left;
-	right: 10%;
-}
 
 /* selects the instructions p */
-#majorInfo p:nth-child(1) {
-	position: relative;
+#majorInfo p {
+	width: 45%;
 	float: left;
-	left: 20%;
+	padding: 10px;
+	border: 1px solid white;
+	margin: 10px;
 }
 
-/* selects the ingredients p */
+/* selects the ingredients p 
 #majorInfo p:nth-child(2) {
 	position: relative;
 	float: left;
 	left: 60%;
 }
+*/
 
-#backButton {
-	position: relative;
+#recipeButtons{
 	float: left;
-	clear: both;
-}
-
-#newButton {
-	position: relative;
-	float: left;
-	left: 87.5%;
+	width: 60%;
 }
 
 .filterTitle {
 	color: #EDE297;
+}
+
+.back{
+	display: block;
+	float: right;
+}
+
+#recipeInfo{
+	list-style: none;
 }

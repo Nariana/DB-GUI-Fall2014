@@ -34,13 +34,13 @@ function load(){
         data: send,
         success: function (result) {
             console.log(result);
-            $("#recipeName").text(result["name"]);
+            $("#recipeName").append(result["recipeName"]);
             $("#recipeImg").attr("src", result["url"]);
-            $("#instr").text(result["instruction"]);
-            $("#ingr").text(result["ingredients"]);
-            $("#rate").text(result["rating"]);
-            $("#time").text(result["time"]);
-            $("#cals").text(result["calories"]);
+            $("#instr").append(result["instruction"]);
+            $("#ingr").append(result["ingredients"]);
+            $("#rate").append(result["rating"]);
+            $("#time").prepend(result["time"]);
+            $("#cals").prepend(result["calories"]);
           },
         error: function(jqXHR, textStatus, errorThrown){
           alert("No recipe found! Let's go back!");
