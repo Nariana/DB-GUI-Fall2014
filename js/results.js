@@ -29,6 +29,7 @@ function getResults(){
         dataType: "json",
         data: send,
         success: function (result) {
+          $("table .resultRow").remove();
             console.log(result.length);
             if(result.length === 0){
                $("#resultTable").append("<tr><td>sorry, no results</td></tr>");
@@ -82,7 +83,8 @@ function addListeners(){
 
   });
 
-  $("#filters *").on("change", function() {
+  $("#filters input").on("change", function() {
+    console.log("change filters");
     getResults();
   });
 
