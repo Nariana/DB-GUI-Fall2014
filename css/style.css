@@ -83,6 +83,7 @@ margin-top: 75px;
 #headerInfo {
 	position: relative;
 	float: left;
+	left: 42.5%;
 }
 
 #recipeImg {
@@ -90,19 +91,39 @@ margin-top: 75px;
 	position: relative;
 	clear: both;
 	float: right;
-	bottom: 175px;
+	bottom: 130px;
+}
+
+#time {
+	position: relative;
+	float: left;
+	right: 50%;
+}
+
+#cals {
+	position: relative;
+	float: left;
+	right: 32%;
+}
+
+#rate {
+	position: relative;
+	float: left;
+	right: 10%;
 }
 
 /* selects the instructions p */
 #majorInfo p:nth-child(1) {
 	position: relative;
 	float: left;
+	left: 20%;
 }
 
 /* selects the ingredients p */
 #majorInfo p:nth-child(2) {
 	position: relative;
 	float: left;
+	left: 60%;
 }
 
 #backButton {
@@ -114,5 +135,5 @@ margin-top: 75px;
 #newButton {
 	position: relative;
 	float: left;
-	clear: both;
+	left: 87.5%;
 }
