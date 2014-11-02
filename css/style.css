@@ -131,3 +131,7 @@ margin-top: 75px;
 #filters ul{
 	list-style: none;
 }
+
+.filterField{
+	background-color: none;
+}

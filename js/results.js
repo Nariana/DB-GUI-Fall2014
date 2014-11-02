@@ -9,17 +9,25 @@ $(document).ready(function(){
 
 
 function getResults(){
+
+
   $("table .resultRow").remove();
   console.log("show table");
 
-  var ing = localStorage.getItem("ingredients");
-  ing = ing.split(",");
-
   var send = new Object();
 
-  for(var i = 0; i< ing.length; i++){
-    send[i] = {"name":ing[i]};
-  }
+  var selected = $("#filters input:checked");
+  var i = 0;
+
+  $.each(selected, function(){
+    //console.log($(this).attr("class"));
+    var key = $(this).attr("class");
+    var value = $(this).val();
+
+    send[i] = {key: value};
+    i++;
+  });
+  //console.log(selected);
 
   console.log(send);
 
@@ -113,10 +121,9 @@ function load(){
       }
     });
     $( "#time" ).val($( "#slider-time" ).slider( "value" ) + " minutes");
-
-    getResults();
     addListeners();
     showIngredients();
+    getResults();
 
 }
 
@@ -125,7 +132,7 @@ function showIngredients(){
   var ing = localStorage.getItem("ingredients");
   ing = ing.split(",");
   $.each(ing, function(key, value){
-    $("#ingList").append('<li><input type="checkbox" name="ing" value="'+value+'" id="ing'+key+'"><label for="ing'+key+'">'+value+'</label></li>');
+    $("#ingList").append('<li><input type="checkbox" class="ing" checked name="ing" value="'+value+'" id="ing'+key+'"><label for="ing'+key+'">'+value+'</label></li>');
   });
 }
 

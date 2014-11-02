@@ -22,21 +22,29 @@
 						<li><input type="text" name="addIngredient" placeholder="New Ingredient..."></li>
 					</ul>
 					<span class="filterTitle">Cook method</span>
-					<ul>
-						<li><input type="checkbox" name="method" value="Bake" id="Bake"><label for="Bake">Bake</label></li>
-						<li><input type="checkbox" name="method" value="Boil" id="Boil"><label for="Boil"></label>Boil</li>
-						<li><input type="checkbox" name="method" value="Grill" id="Grill"><label for="Grill"></label>Grill</li>
-						<li><input type="checkbox" name="method" value="slowcook" id="slowcook"><label for="slowcook"></label>Slow Cook</li>
-						<li><input type="checkbox" name="method" value="Stovetop" id="Stovetop"><label for="Stovetop"></label>Stovetop</li>
-						<li><input type="checkbox" name="method" value="Fry" id="Fry"><label for="Fry"></label>Fry</li>
+					<ul id="cookmethod">
+						<li><input class="filter" type="checkbox" name="method" value="Bake" id="Bake"><label for="Bake">Bake</label></li>
+						<li><input class="filter" type="checkbox" name="method" value="Boil" id="Boil"><label for="Boil">Boil</label></li>
+						<li><input class="filter" type="checkbox" name="method" value="Grill" id="Grill"><label for="Grill">Grill</label></li>
+						<li><input class="filter" type="checkbox" name="method" value="slowcook" id="slowcook"><label for="slowcook">Slow Cook</label></li>
+						<li><input class="filter" type="checkbox" name="method" value="Stovetop" id="Stovetop"><label for="Stovetop">Stovetop</label></li>
+						<li><input class="filter" type="checkbox" name="method" value="Fry" id="Fry"><label for="Fry">Fry</label></li>
 					</ul>
-					<!--<input type="submit" name="appyFilters" value="Apply Changes" id="apply"><br>-->
-					<label for="calories">Maximum calories:</label>
-  					<input type="text" id="calories" readonly style="border:0; color:#f6931f; font-weight:bold;">
+					<span class="filterTitle">Dietary Restrictions</span>
+					<ul> 
+						<li><input class="filter" type="checkbox" name="restriction" value="LactoseFree" id="LactoseFree"><label for="LactoseFree">Lactose Free</label></li>
+						<li><input class="filter" type="checkbox" name="restriction" value="Vegetarian" id="Vegetarian"><label for="Vegetarian">Vegetarian</label></li>
+						<li><input class="filter" type="checkbox" name="restriction" value="Vegan" id="Vegan"><label for="Vegan">Vegan</label></li>
+						<li><input class="filter" type="checkbox" name="restriction" value="GlutenFree" id="GlutenFree"><label for="GlutenFree">Gluten Free</label></li>
+						<li><input class="filter" type="checkbox" name="restriction" value="NoNuts" id="NoNuts"><label for="NoNuts">No Nuts</label></li>
+					</ul>
+
+					<label for="calories" class="filterTitle">Maximum calories:</label>
+  					<input type="text" id="calories" readonly class="filterField" style="border:0; color:#f6931f; font-weight:bold;">
   					<div id="slider-calories"></div>
 
-  					<label for="time">Maximum Prep Time:</label>
-  					<input type="text" id="time" readonly style="border:0; color:#f6931f; font-weight:bold;">
+  					<label for="time" class="filterTitle">Maximum Prep Time:</label>
+  					<input type="text" id="time" readonly class="filterField" style="border:0; color:#f6931f; font-weight:bold;">
   					<div id="slider-time"></div>
 				</ul>
 			</div>
