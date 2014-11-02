@@ -24,7 +24,9 @@ function getResults(){
     var key = $(this).attr("class");
     var value = $(this).val();
 
-    send[i] = {name: value};
+    console.log(key, value);
+    send[i] = {};
+    send[i][key] = value;
     i++;
   });
   //console.log(selected);
