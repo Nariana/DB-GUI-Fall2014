@@ -21,6 +21,8 @@ img{
 	background-color: #e39183;
 	border: solid 15px white;
 	margin: auto;
+	position: relative;
+	left: 40%;
 }
 
 #search{
@@ -80,21 +82,39 @@ margin-top: 75px;
 
 /* for recipe.html */
 
-#recipeName {
+#headerInfo {
+	position: relative;
 	float: left;
 }
 
-#recipeImage {
+#recipeImg {
+	width: 10%;
+	position: relative;
+	clear: both;
 	float: right;
-	border-style: solid;
+	bottom: 175px;
 }
 
-#recipeDirections {
-	clear: left;
+/* selects the instructions p */
+#majorInfo p:nth-child(1) {
+	position: relative;
 	float: left;
 }
 
-#recipeButtons {
-	clear: left;
-	float: bottom;
+/* selects the ingredients p */
+#majorInfo p:nth-child(2) {
+	position: relative;
+	float: left;
+}
+
+#backButton {
+	position: relative;
+	float: left;
+	clear: both;
+}
+
+#newButton {
+	position: relative;
+	float: left;
+	clear: both;
 }
