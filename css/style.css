@@ -127,3 +127,7 @@ margin-top: 75px;
 #recipeInfo{
 	list-style: none;
 }
+
+#filters ul{
+	list-style: none;
+}

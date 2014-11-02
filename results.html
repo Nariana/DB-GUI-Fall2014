@@ -15,16 +15,21 @@
 		<div id="content">
 
 			<div id="filters">
-				<form>
+				<ul>
+					<span class="filterTitle">Add/Remove Ingredients</span>
 					<ul id="ingList">
-						<span class="filterTitle">Add/Remove Ingredients</span><br>
-						<input type="text" name="addIngredient" placeholder="New Ingredient..."><br>
+						
+						<li><input type="text" name="addIngredient" placeholder="New Ingredient..."></li>
 					</ul>
-					<br>
-					<span class="filterTitle">Dietary Restrictions</span><br>
-					<input type="checkbox" name="diet" value="vegetarian" id="vegetarian"><label for="vegetarian">Vegetarian</label><br>
-					<input type="checkbox" name="diet" value="vegan" id="vegan"><label for="vegan">Vegan</label><br>
-					<br>
+					<span class="filterTitle">Cook method</span>
+					<ul>
+						<li><input type="checkbox" name="method" value="Bake" id="Bake"><label for="Bake">Bake</label></li>
+						<li><input type="checkbox" name="method" value="Boil" id="Boil"><label for="Boil"></label>Boil</li>
+						<li><input type="checkbox" name="method" value="Grill" id="Grill"><label for="Grill"></label>Grill</li>
+						<li><input type="checkbox" name="method" value="slowcook" id="slowcook"><label for="slowcook"></label>Slow Cook</li>
+						<li><input type="checkbox" name="method" value="Stovetop" id="Stovetop"><label for="Stovetop"></label>Stovetop</li>
+						<li><input type="checkbox" name="method" value="Fry" id="Fry"><label for="Fry"></label>Fry</li>
+					</ul>
 					<!--<input type="submit" name="appyFilters" value="Apply Changes" id="apply"><br>-->
 					<label for="calories">Maximum calories:</label>
   					<input type="text" id="calories" readonly style="border:0; color:#f6931f; font-weight:bold;">
@@ -33,9 +38,7 @@
   					<label for="time">Maximum Prep Time:</label>
   					<input type="text" id="time" readonly style="border:0; color:#f6931f; font-weight:bold;">
   					<div id="slider-time"></div>
-
-
-				</form>
+				</ul>
 			</div>
 
 

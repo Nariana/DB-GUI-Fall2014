@@ -125,7 +125,7 @@ function showIngredients(){
   var ing = localStorage.getItem("ingredients");
   ing = ing.split(",");
   $.each(ing, function(key, value){
-    $("#ingList").append('<input type="checkbox" name="ing" value="'+value+'" id="ing'+key+'"><label for="ing'+key+'">'+value+'</label>');
+    $("#ingList").append('<li><input type="checkbox" name="ing" value="'+value+'" id="ing'+key+'"><label for="ing'+key+'">'+value+'</label></li>');
   });
 }
 
