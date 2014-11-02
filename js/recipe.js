@@ -36,7 +36,7 @@ function load(){
             console.log(result);
             $("#recipeName").text(result["name"]);
             $("#recipeImg").attr("src", result["url"]);
-            $("#instr").text(result["instruction"]);
+            $("#instr").text(result["instructions"]);
             $("#ingr").text(result["ingredients"]);
             $("#rate").text(result["rating"]);
             $("#time").text(result["time"]);
