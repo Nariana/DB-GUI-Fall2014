@@ -127,4 +127,11 @@ function showIngredients(){
   });
 }
 
-
+/* hover color change for the back button */
+$("#back").hover(
+  function(){
+    $(this).css("color","#fae59d");
+    //$(this).css("color","#8aa1ab");
+},  function(){
+    $(this).css("color","white");
+});
