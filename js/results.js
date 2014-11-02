@@ -102,7 +102,7 @@ function addListeners(){
 function load(){
     $( "#slider-calories" ).slider({
       range: "min",
-      value: 200,
+      value: 1000,
       min: 100,
       max: 2000,
       slide: function( event, ui ) {
