@@ -1,4 +1,4 @@
-recipeID,recipeName,instruction,time,numberOfIngredients,rating,ingredients,picture
+recipeID,recipeName,instruction,time,numberOfIngredients,rating,ingredients,picture,timesSaved,timesClicked
 1,Carrot Cake,"DIRECTIONS:
 1.In a mixing bowl, mix sugar, vegetable oil, and eggs. In another bowl, sift together flour, baking soda, salt, and cinnamon. Fold dry ingredients into wet mixture and blend well. Fold in carrots and chopped nuts until well blended. Distribute batter evenly into 3 (9-inch) cake layer pans, which have been generously greased. There will be approximately 1 pound 5 ounces of batter per pan. 
 
@@ -17,7 +17,7 @@ recipeID,recipeName,instruction,time,numberOfIngredients,rating,ingredients,pict
 1 1/2 pounds powdered sugar
 12 ounces room temperature cream cheese
 1 tablespoon vanilla extract
-2 ounces room temperature margarine",http://lh3.ggpht.com/bdusWZTgamcDJJZ3G4sekfMG1Cw1_laYpkNt_ghgSoJVLqUSVAN2uhnA7pW9zgZ96q_U3zCas0tbNR_mrBGT9A=s730-c-e365
+2 ounces room temperature margarine",http://lh3.ggpht.com/bdusWZTgamcDJJZ3G4sekfMG1Cw1_laYpkNt_ghgSoJVLqUSVAN2uhnA7pW9zgZ96q_U3zCas0tbNR_mrBGT9A=s730-c-e365,0,0
 2,Beef Burger,"DIRECTIONS:
 
 1. In a large bowl, mix ground beef, onion powder, salt and pepper until just combined. Do not overmix, or your patties will be tough.
@@ -35,7 +35,7 @@ Form patties, without pressing too hard. They should be uniform in thickness. Sm
 1 teaspoon salt
 1 teaspoon freshly ground black pepper
 12 slices deli-counter American cheese
-6 large burger buns, preferably homemade, toasted if desired",http://lh4.ggpht.com/ZcombAtc807urAH89vi1Ccey8kiNeWNFLwT5TmWCbhIS1F7DAqTSvc3WO4FoM6G7BzCMv0om7b3WX7dscfn2K4U=s730-c-e365
+6 large burger buns, preferably homemade, toasted if desired",http://lh4.ggpht.com/ZcombAtc807urAH89vi1Ccey8kiNeWNFLwT5TmWCbhIS1F7DAqTSvc3WO4FoM6G7BzCMv0om7b3WX7dscfn2K4U=s730-c-e365,0,0
 3,"Spinach, Feta, Sun-dried Tomato Omelet","DIRECTIONS:
 
 1. In a medium bowl, beat the eggs with a pinch each of salt and pepper.
@@ -50,7 +50,7 @@ kosher salt and black pepper
 1/2 tablespoon unsalted butter 
 1/2 cup spinach, chopped 
 2 tablespoons oil-packed sun-dried tomatoes, chopped 
-2 tablespoons crumbled Feta country bread, for serving",http://lh3.ggpht.com/vBDxkLbUSNWSlQIAkSOxML9GmiELdSXrQOa2VGbCXdqSArEV9aYPOb_yo08jgLwkC9uYtTZCW_Glpvfql7voDXI=s730-c-e365
+2 tablespoons crumbled Feta country bread, for serving",http://lh3.ggpht.com/vBDxkLbUSNWSlQIAkSOxML9GmiELdSXrQOa2VGbCXdqSArEV9aYPOb_yo08jgLwkC9uYtTZCW_Glpvfql7voDXI=s730-c-e365,0,0
 4,Stir-fried Egg and Tomato,"DIRECTIONS:
 
 1. Beat eggs with 1/2 teaspoon salt until smooth but not frothy.
@@ -63,7 +63,7 @@ kosher salt and black pepper
 2 scallions, finely chopped (reserve some chopped greens for garnish)
 4 medium tomatoes (about 1 pound), each cut into 6 wedges
 1 teaspoon sugar
-Accompaniment: white rice",http://lh5.ggpht.com/BLmHLiKl1vkczpP0jzRRVj88xJo3zczzXDL9SwdNXDdtiNofxvjvDUenSiGhj3NZIsHqv-gBYdntkxOIZqNu9eE=s730-e365
+Accompaniment: white rice",http://lh5.ggpht.com/BLmHLiKl1vkczpP0jzRRVj88xJo3zczzXDL9SwdNXDdtiNofxvjvDUenSiGhj3NZIsHqv-gBYdntkxOIZqNu9eE=s730-e365,0,0
 5,"Carrot, Potato, Cabbage Soup","DIRECTIONS:
 
 1. Combine the carrots, potatoes, onion, cabbage, garlic, chicken stock, olive oil, thyme, basil, parsley, salt, and pepper in a stock pot over medium-high heat; bring to a simmer and cook until the carrots are tender, about 20 minutes. Transfer to a blender in small batches and blend until smooth.",50,10,5,"INGREDIENTS:
@@ -78,7 +78,7 @@ Accompaniment: white rice",http://lh5.ggpht.com/BLmHLiKl1vkczpP0jzRRVj88xJo3zczz
 1/4 teaspoon dried basil
 1 teaspoon dried parsley
 1 teaspoon salt
-ground black pepper to taste",http://lh3.ggpht.com/jhAXLuFBxMWzcioDS4OqLW1YcY2SnHn1To2Vzeh9uGonttiwHk8KhhtkqFzt0HJwewXHJQiyz5nvE9Z9FJ9b1g=s730-c-e365
+ground black pepper to taste",http://lh3.ggpht.com/jhAXLuFBxMWzcioDS4OqLW1YcY2SnHn1To2Vzeh9uGonttiwHk8KhhtkqFzt0HJwewXHJQiyz5nvE9Z9FJ9b1g=s730-c-e365,0,0
 6,Caesar Salad,"DIRECTIONS:
 
 1. For the dressing: Place the anchovies into a blender or food processor. Throw in the Dijon mustard, vinegar, Worcestershire, garlic and lemon juice. Pulse the processor or blend on low speed for several seconds. Scrape down the sides.
@@ -116,7 +116,7 @@ Croutons:
 Salt
 Salad:
 Hearts of romaine lettuce
-Fresh Parmesan wedge",http://lh3.ggpht.com/4mXfGtrhAPAqwa9zCvXyCwQGOSxsQuCiAZFOPDNREIM7BXwK11DonVItJ7hL68uUiTNIHjzFYfDmYafaQMIDGw=s730-e365
+Fresh Parmesan wedge",http://lh3.ggpht.com/4mXfGtrhAPAqwa9zCvXyCwQGOSxsQuCiAZFOPDNREIM7BXwK11DonVItJ7hL68uUiTNIHjzFYfDmYafaQMIDGw=s730-e365,0,0
 7,Fried Chicken,"DIRECTIONS:
 
 1. Preheat the oven to 350 degrees F. Spray a baking sheet with nonstick cooking spray.
@@ -149,7 +149,7 @@ One 14-ounce can reduced-sodium chicken broth
 House Seasoning
 1 cup kosher salt
 1/4 cup garlic powder
-1/4 cup ground black pepper",http://lh6.ggpht.com/2dR4QiNYJ8fJo6fAXfzaRbQkJhemOsMt1Sv6_Av8aXCbjpwx_e1bfu-Gwafbp0iXSkTGn33G7QevCUEsOEv6Xpk=s730-e365
+1/4 cup ground black pepper",http://lh6.ggpht.com/2dR4QiNYJ8fJo6fAXfzaRbQkJhemOsMt1Sv6_Av8aXCbjpwx_e1bfu-Gwafbp0iXSkTGn33G7QevCUEsOEv6Xpk=s730-e365,0,0
 8,Yogurt Parfait,"DIRECTIONS:
 
 1. Line up 4 parfait, white wine, or other tall glasses.
@@ -164,7 +164,7 @@ House Seasoning
 2 cups plain yogurt
 2 cups your favorite granola
 2 cups fresh berries ( raspberries, blueberries, strawberries (hulled and sliced), and/or other fruit such as bananas, peaches or mangos, peeled and sliced
-4 tablespoons honey",http://lh4.ggpht.com/usZQLOAOGWfuB-dUouynQSxgLLSzdUGR79zc4EJTXMEB8XOAv5R3FUjGO1ODUVndyESoLwexqmLqijES7V1o=s730-c-e365
+4 tablespoons honey",http://lh4.ggpht.com/usZQLOAOGWfuB-dUouynQSxgLLSzdUGR79zc4EJTXMEB8XOAv5R3FUjGO1ODUVndyESoLwexqmLqijES7V1o=s730-c-e365,0,0
 9,BLT,"DIRECTIONS:
 
 1. Cook the bacon in a large, deep skillet over medium-high heat until evenly browned, about 10 minutes. Drain the bacon slices on a paper towel-lined plate.
@@ -174,7 +174,7 @@ House Seasoning
  2 leaves lettuce
  2 slices tomato
 2 slices bread, toasted
- 1 tablespoon mayonnaise",http://lh4.ggpht.com/8SZBMmJ1NHF1X-Hnr6Zw4kTsJfVwCXULEC9XsQQndIZuSwI6ZFYscT20JABx1SoR-sP6JOD_s0-He7aQfM8DLQ=s730-c-e365
+ 1 tablespoon mayonnaise",http://lh4.ggpht.com/8SZBMmJ1NHF1X-Hnr6Zw4kTsJfVwCXULEC9XsQQndIZuSwI6ZFYscT20JABx1SoR-sP6JOD_s0-He7aQfM8DLQ=s730-c-e365,0,0
 10,Grilled Cheese Sandwich,"DIRECTIONS:
 
 1. Preheat skillet over medium heat. 
@@ -184,7 +184,7 @@ House Seasoning
 3. Grill until lightly browned and flip over; continue grilling until cheese is melted. Repeat with remaining 2 slices of bread, butter and slice of cheese.",20,3,5,"INGREDIENTS:
 4 slices white bread
 3 tablespoons butter, divided
-2 slices Cheddar cheese",http://lh4.ggpht.com/Nh455zm85ukgJhPUxf7JXfuqFTW9YcRjkGL4fiiM-GoI4sz_Cyj0X7xLsmw8lzx89Skd3sP34Vk1JJnB1kg9LPA=s730-e365
+2 slices Cheddar cheese",http://lh4.ggpht.com/Nh455zm85ukgJhPUxf7JXfuqFTW9YcRjkGL4fiiM-GoI4sz_Cyj0X7xLsmw8lzx89Skd3sP34Vk1JJnB1kg9LPA=s730-e365,0,0
 11,Grilled Salmon,"DIRECTIONS:
 
 1. Season salmon fillets with lemon pepper, garlic powder, and salt.
@@ -201,7 +201,7 @@ salt to taste
 1/3 cup soy sauce
 1/3 cup brown sugar
 1/3 cup water
-1/4 cup vegetable oil",http://lh6.ggpht.com/wV-AyjWXPSuMzk80GqvomH6UidIG4hb-gCWUwDq6DzOkHHGAQx4QY5bbrtih9sqErhRxY6VCUkQd3Yu1YOBdXN4=s730-c-e365
+1/4 cup vegetable oil",http://lh6.ggpht.com/wV-AyjWXPSuMzk80GqvomH6UidIG4hb-gCWUwDq6DzOkHHGAQx4QY5bbrtih9sqErhRxY6VCUkQd3Yu1YOBdXN4=s730-c-e365,0,0
 12,Honey Grilled Shrimp,"DIRECTIONS:
 
 1. In a small bowl, combine the salad dressing, honey and garlic; set aside 1/2 cup. Pour remaining marinade into a large resealable plastic bag; add the shrimp. Seal bag and turn to coat; refrigerate for 30 minutes. Cover and refrigerate reserved marinade for basting.
@@ -212,7 +212,7 @@ salt to taste
 1 bottle (8 ounces) Italian salad dressing
  1 cup honey
  1/2 teaspoon minced garlic
- 2 pounds uncooked medium shrimp, peeled and deveined",http://lh3.ggpht.com/xrqsnSDMPuKTf90Yo8V1xn-BBl3VdlH68NHBoCFI9t0866P7VFqY60fajmXdSkSQaB7wGCvdsuNoZGSYdDDQSw=s730-c-e365
+ 2 pounds uncooked medium shrimp, peeled and deveined",http://lh3.ggpht.com/xrqsnSDMPuKTf90Yo8V1xn-BBl3VdlH68NHBoCFI9t0866P7VFqY60fajmXdSkSQaB7wGCvdsuNoZGSYdDDQSw=s730-c-e365,0,0
 13,Grilled Vegetables,"DIRECTIONS:
 
 1. Place a grill pan over medium-high heat or prepare the barbecue (medium-high heat). Brush the vegetables with 1/4 cup of the oil to coat lightly. Sprinkle the vegetables with salt and pepper. 
@@ -233,7 +233,7 @@ Salt and freshly ground black pepper
 2 garlic cloves, minced
 1 teaspoon chopped fresh Italian parsley leaves
 1 teaspoon chopped fresh basil leaves
-1/2 teaspoon finely chopped fresh rosemary leaves",http://lh6.ggpht.com/bu--lxZsfKo-1leNXwoeQ8Td1_KQAR6mrslGOw4zTToyHvQsdlUhriz0eW4ei9zbR7MNqMKI70q_3A9M3yz4Qw=s730-e365
+1/2 teaspoon finely chopped fresh rosemary leaves",http://lh6.ggpht.com/bu--lxZsfKo-1leNXwoeQ8Td1_KQAR6mrslGOw4zTToyHvQsdlUhriz0eW4ei9zbR7MNqMKI70q_3A9M3yz4Qw=s730-e365,0,0
 14,Grilled Chicken with Kale,"DIRECTIONS:
 
 1. Preheat the oven to 425 degrees F. Toss the potatoes with 1/2 tablespoon olive oil on a rimmed baking sheet; spread in a single layer and roast 5 minutes. Toss the kale in a large bowl with the garlic, 1/2 tablespoon olive oil, 1/4 teaspoon salt, and pepper to taste. Add to the baking sheet with the potatoes and toss. Roast until the kale is crisp and the potatoes are tender, stirring once, 15 to 20 minutes.
@@ -252,7 +252,7 @@ Kosher salt and freshly ground pepper
 4 cups mixed salad greens
 1/2 cup cherry tomatoes, halved
 1/3 cup grated parmesan cheese
-1 tablespoon fresh lemon juice",http://foodnetwork.sndimg.com/content/dam/images/food/fullset/2012/3/8/1/FNM_040112-WN-Dinners-003-0_s3x4.jpg.rend.sni12col.landscape.jpeg
+1 tablespoon fresh lemon juice",http://foodnetwork.sndimg.com/content/dam/images/food/fullset/2012/3/8/1/FNM_040112-WN-Dinners-003-0_s3x4.jpg.rend.sni12col.landscape.jpeg,0,0
 15,Grilled Philly Cheese Steak,"DIRECTIONS:
 
 1. Preheat grill to high. Melt butter in a medium saucepan on top of the grates of the grill. Whisk in flour and cook for 1 minute. Add the milk and cook until thickened. Whisk in the cheese and cook until melted. Add dry mustard and season with salt and pepper. Keep warm.
@@ -273,7 +273,7 @@ Toppings:
 Grilled yellow and red onions, coarsely chopped
 Grilled mushrooms, sliced
 Grilled green peppers, sliced
-Grilled Cubano peppers, sliced",http://lh3.ggpht.com/9Nu6093AcI_t63I88lvTf5BNumw5spx3Y-ONHIme7GfIJDfnHIXvNqVY-2lO_4_m-a7XeWeEnaE8ekXCCH1Bmw=s730-c-e365
+Grilled Cubano peppers, sliced",http://lh3.ggpht.com/9Nu6093AcI_t63I88lvTf5BNumw5spx3Y-ONHIme7GfIJDfnHIXvNqVY-2lO_4_m-a7XeWeEnaE8ekXCCH1Bmw=s730-c-e365,0,0
 16,Cookie Dough Blizzard,"DIRECTIONS:
 
 1. Place all cookie dough ingredients (except chocolate chips) into your food processor and blend until cookie dough consistency.
@@ -306,7 +306,7 @@ Pinch of Salts
 6 Packets of Stevia (or 2 Tbsp of Maple Syrup
 1 Tsp Cinnamon
 1 Cup Light Coconut Milk
-1/4 Cup Shredded Coconut",http://lh4.ggpht.com/TtBlIbgsphbDWYErvyTM7LFY7qrb3_yHFRuzlLvUMXNhPhJBuwR8AiD1tWCw8Zzk4HnB4rL1R3mzrL8wqH-G=s730-c-e365
+1/4 Cup Shredded Coconut",http://lh4.ggpht.com/TtBlIbgsphbDWYErvyTM7LFY7qrb3_yHFRuzlLvUMXNhPhJBuwR8AiD1tWCw8Zzk4HnB4rL1R3mzrL8wqH-G=s730-c-e365,0,0
 17,Vegan Cheesecake,"DIRECTIONS:
 
 1. Add dates to a food processor and blend until small bits remain and it forms into a ball. Remove and set aside.
@@ -339,7 +339,7 @@ Filling:
 Optional Flavor Add-Ins:
 2 Tbsp salted natural peanut butter
 1/4 cup wild blueberries (fresh or frozen)
-3 Tbsp bourbon caramel sauce",http://lh3.ggpht.com/jFibUDTVTnJxIMu16XJqefs0ktisHcjHANtP3BEyS6Zm1IOw3wp849aJa4N9DHuoZJIWBt6ZGVP5rYsm4a_3hA=s730-c-e365
+3 Tbsp bourbon caramel sauce",http://lh3.ggpht.com/jFibUDTVTnJxIMu16XJqefs0ktisHcjHANtP3BEyS6Zm1IOw3wp849aJa4N9DHuoZJIWBt6ZGVP5rYsm4a_3hA=s730-c-e365,0,0
 18,Sushi Rolls,"DIRECTIONS:
 
 1. Rinse the rice in cold water while stirring briskly to remove any dirt. Drain the rice completely. Place the rice and the 6 cups of water in a medium sized saucepan and cover it with a tight fitting lid. Bring the water to a boil over medium heat. Allow the water to boil for 3 minutes and then reduce the heat to low and continue cooking 15 minutes without removing the lid. Remove the rice from the heat and remove the lid (the water should no longer be visible). Turn the rice out evenly on a well-greased cookie sheet using a spatula or rice paddle. Sprinkle the rice with the vinegar, sugar, and salt while mixing with a spatula or rice paddle until the rice reaches body temperature. Keep the rice covered with damp paper towels or napkin until the rice is ready to use.
@@ -355,7 +355,7 @@ Optional Flavor Add-Ins:
 2 ounces sushi-grade salmon, cut into1/4 by 1/2 by 3-inch strips
 1 hot house cucumber, julienne
 1 carrot, peeled and julienne
-1/2 avocado, thinly sliced",http://lh4.ggpht.com/T3rf4wG10XSg4yiQQ4kE2fQqX07lJiaO58LndRvb3A8S4N0fXS2YsUFzcE_ooozlMPUZNtVGVNoPIbpd6yLbG5I=s730-e365
+1/2 avocado, thinly sliced",http://lh4.ggpht.com/T3rf4wG10XSg4yiQQ4kE2fQqX07lJiaO58LndRvb3A8S4N0fXS2YsUFzcE_ooozlMPUZNtVGVNoPIbpd6yLbG5I=s730-e365,0,0
 19,Peach Salsa with Raw Veggie Crackers,"DIRECTIONS:
 
 1. Place tomato, onion and zucchini in food processor and process until smooth. 
@@ -380,7 +380,7 @@ Veggie Crackers:
 2 medium zucchini, chopped into one-inch slices
 1 cup freshly ground golden flax
 2 tablespoons Braggs Liquid Aminos 
-Himalayan salt and fresh ground pepper to taste",http://lh3.ggpht.com/byBpVmXzQa3uVi5MK8mGxVaJYf67LiBkRPmWzazdFjqpKuCLqj8WJ_phBtyvnLOjm7mVhzVD93PGuDnB92qI=s730-e365
+Himalayan salt and fresh ground pepper to taste",http://lh3.ggpht.com/byBpVmXzQa3uVi5MK8mGxVaJYf67LiBkRPmWzazdFjqpKuCLqj8WJ_phBtyvnLOjm7mVhzVD93PGuDnB92qI=s730-e365,0,0
 20,Steak Tartare,"DIRECTIONS:
 
 1. Combine anchovies (if using), capers, and mustard in a nonreactive bowl. Using a fork or the back of a spoon, mash ingredients until evenly combined; mix in egg yolks. 
@@ -396,7 +396,7 @@ Himalayan salt and fresh ground pepper to taste",http://lh3.ggpht.com/byBpVmXzQa
 4 teaspoons olive oil
 3 dashes hot sauce (such as Tabasco)
 4 dashes Worcestershire sauce
-3/4 teaspoon crushed chile flakes (optional)",http://lh4.ggpht.com/faOH7E7DMqbqj2NyeQur-QVpDifOQ0dsFrKPBcPr0wKW7PC-qoQPCagpSUKDr3C5lQek2tjlKvRlqL1-DAMBhNI=s730-c-e365
+3/4 teaspoon crushed chile flakes (optional)",http://lh4.ggpht.com/faOH7E7DMqbqj2NyeQur-QVpDifOQ0dsFrKPBcPr0wKW7PC-qoQPCagpSUKDr3C5lQek2tjlKvRlqL1-DAMBhNI=s730-c-e365,0,0
 21,Microwave Baked Potato,"DIRECTIONS:
 
 1. Scrub the potato, and prick several time with the tines of a fork. Place on a plate.
@@ -409,7 +409,7 @@ Himalayan salt and fresh ground pepper to taste",http://lh3.ggpht.com/byBpVmXzQa
 3 tablespoons shredded Cheddar cheese
 salt to taste
 pepper to taste
-3 teaspoons sour cream",http://lh5.ggpht.com/kh6VjBwci_bOLw3jHIvydJDY6mXPNwJFvG9oCqqyA_hQqSjGq7cTa8o3ZBKqDvS4CoCo1nNkyVzddMEgm_DzkA=s730-c-e365
+3 teaspoons sour cream",http://lh5.ggpht.com/kh6VjBwci_bOLw3jHIvydJDY6mXPNwJFvG9oCqqyA_hQqSjGq7cTa8o3ZBKqDvS4CoCo1nNkyVzddMEgm_DzkA=s730-c-e365,0,0
 22,One Bowl Chocolate Fudge,"DIRECTIONS:
 
 1. Line an 8x8 inch square dish with aluminum foil.
@@ -420,7 +420,7 @@ pepper to taste
 16 ounces semisweet chocolate
 1 (14 ounce) can sweetened condensed milk
 2 teaspoons vanilla extract
-1 1/2 cups chopped walnuts",http://lh5.ggpht.com/Z7dXjHVTkN9qSwk3AsNHQ-3QanjVzMw2qnYAKYUpl9qapFaE2L5PNKayWCk3HaMTXxf9eVvaT-IVEeXNwpG7vQ=s730-c-e365
+1 1/2 cups chopped walnuts",http://lh5.ggpht.com/Z7dXjHVTkN9qSwk3AsNHQ-3QanjVzMw2qnYAKYUpl9qapFaE2L5PNKayWCk3HaMTXxf9eVvaT-IVEeXNwpG7vQ=s730-c-e365,0,0
 23,Funnel Cake,"DIRECTIONS:
 
 1. In a large bowl, mix all dry ingredients.
@@ -451,7 +451,7 @@ pepper to taste
 3/4 cup milk
 1 teaspoon vanilla
 oil, for frying
-powdered sugar",http://lh5.ggpht.com/vTntYBCBVNkK3nSJ-OahWscjOLmBtQjI2BCIeGby6-yizLYuxnZNuGF6cnNA2jEMwiQXwXax0Vpg_Przfm5PTw=s730-c-e365
+powdered sugar",http://lh5.ggpht.com/vTntYBCBVNkK3nSJ-OahWscjOLmBtQjI2BCIeGby6-yizLYuxnZNuGF6cnNA2jEMwiQXwXax0Vpg_Przfm5PTw=s730-c-e365,0,0
 24,Fried Butterflied Shrimp,"DIRECTIONS:
 
 1. Preheat deep fryer or skillet with oil to 350 degrees F (175 degrees C).
@@ -466,7 +466,7 @@ powdered sugar",http://lh5.ggpht.com/vTntYBCBVNkK3nSJ-OahWscjOLmBtQjI2BCIeGby6-y
 1 1/2 cups cornstarch
 2 eggs
 2 cups fresh bread crumbs
-5 cups oil for deep frying",http://lh6.ggpht.com/HMETm0edtNtVQD9f6p85TtupSPf75-grGPZZm_q7cn6o-rWBYu1VIWT37zj1CppEry54Cq2QjmcdKtTFbMj__A=s730-c-e365
+5 cups oil for deep frying",http://lh6.ggpht.com/HMETm0edtNtVQD9f6p85TtupSPf75-grGPZZm_q7cn6o-rWBYu1VIWT37zj1CppEry54Cq2QjmcdKtTFbMj__A=s730-c-e365,0,0
 25,Chicken Parmesan,"DIRECTIONS:
 
 1. Pound chicken to flatten.
@@ -500,7 +500,7 @@ pepper
 4 teaspoons butter
 2 cups spaghetti sauce
 4 slices mozzarella cheese
-1 teaspoon grated parmesan cheese",http://img.sndimg.com/food/image/upload/w_266/v1/img/recipes/19/13/5/pic7V2lhR.jpg
+1 teaspoon grated parmesan cheese",http://img.sndimg.com/food/image/upload/w_266/v1/img/recipes/19/13/5/pic7V2lhR.jpg,0,0
 26,Tofu Chili,"DIRECTIONS:
 
 1. In a medium bowl, crumble the tofu and toss with the chili powder and garlic.
@@ -517,7 +517,7 @@ pepper
 1/2 cup whole kernel corn, undrained
 1 (15.25 ounce) can kidney beans, undrained
 1 (14.5 ounce) can stewed tomatoes, undrained
-1 quart water",http://images.media-allrecipes.com/userphotos/250x250/01/55/46/1554634.jpg
+1 quart water",http://images.media-allrecipes.com/userphotos/250x250/01/55/46/1554634.jpg,0,0
 27,Macaroni and Tomatoes,"DIRECTIONS:
 
 1. Cook macaroni according to directions.
@@ -538,7 +538,7 @@ pepper
 2 -3 cups uncooked macaroni
 1 (19 ounce) can tomatoes
 salt
-pepper",http://cdn-image.myrecipes.com/sites/default/files/styles/300x300/public/image/recipes/ck/05/01/macaroni-ck-1011318-x.jpg?itok=qaByxIFh
+pepper",http://cdn-image.myrecipes.com/sites/default/files/styles/300x300/public/image/recipes/ck/05/01/macaroni-ck-1011318-x.jpg?itok=qaByxIFh,0,0
 28,Crispy Smoked Mozzarella with Honey and Figs,"DIRECTIONS:
 
 1. In a large pot, heat the vegetable oil over medium heat to 175°C.
@@ -555,7 +555,7 @@ pepper",http://cdn-image.myrecipes.com/sites/default/files/styles/300x300/public
 Vegetable oil, for frying
 8 oz (225g) dried figs, stemmed and quartered
 9 oz (255g) honey, plus more for drizzling
-¼ oz (10g) black sesame seeds",http://w2.fnstatic.co.uk/sites/default/files/styles/recipe_main_pic/public/pictures/recipeImages/EI1015_37568_s4x3.jpg?itok=NNR6l3bo
+¼ oz (10g) black sesame seeds",http://w2.fnstatic.co.uk/sites/default/files/styles/recipe_main_pic/public/pictures/recipeImages/EI1015_37568_s4x3.jpg?itok=NNR6l3bo,0,0
 29,Crispy Prosciutto Wrapped Asparagus,"DIRECTIONS:
 
 1. Preheat the oven to 400F. Wrap 2 asparagus spears with a slice of prosciutto. Place spears on baking sheet. Drizzle olive oil on the tips and ends of the asparagus (avoiding the prosciutto). Roast for 8-10 minutes, until the asparagus is cooked through and the prosciutto becomes crispy.
@@ -567,7 +567,7 @@ Vegetable oil, for frying
 8 ounces prosciutto, very thinly sliced
 1 tablespoon olive oil
 1/2 cup Philadelphia Cooking Creme (any flavor, I used Italian Cheese and Herb)
-1 tablespoon water",http://steamykitchen.com/wp-content/uploads/2011/04/proscuitto-wrapped-asparagus-recipe-8170.jpg
+1 tablespoon water",http://steamykitchen.com/wp-content/uploads/2011/04/proscuitto-wrapped-asparagus-recipe-8170.jpg,0,0
 30,Spicy Queso Dip,"DIRECTIONS:
 
 1. Cook onion in hot oil in a large nonstick skillet over medium-high heat 8 minutes or until tender. Add garlic, and cook 1 minute. Remove from heat.
@@ -579,7 +579,7 @@ Vegetable oil, for frying
 1 (16-oz.) package pepper Jack pasteurized prepared cheese product, cubed
 1 (10-oz.) can diced tomatoes and green chiles
 2 tablespoons chopped fresh cilantro
-Tortilla chips",http://cdn-image.myrecipes.com/sites/default/files/styles/300x300/public/image/recipes/sl/11/05/spicy-queso-dip-sl-x.jpg?itok=qx7pexYC
+Tortilla chips",http://cdn-image.myrecipes.com/sites/default/files/styles/300x300/public/image/recipes/sl/11/05/spicy-queso-dip-sl-x.jpg?itok=qx7pexYC,0,0
 31,Cracker Pizza,"DIRECTIONS:
 
 1. Spread each cracker with 1/2 teaspoon pizza sauce, place a slice of pepperoni on top, and sprinkle with about 1 tablespoon of shredded mozzarella cheese. Place crackers onto a microwave safe plate.
@@ -588,7 +588,7 @@ Tortilla chips",http://cdn-image.myrecipes.com/sites/default/files/styles/300x30
 24 whole wheat crackers
 1/4 cup pizza sauce
 24 slices pepperoni, or pizza toppings of your choice
-1 1/2 cups finely shredded mozzarella cheese",http://images.media-allrecipes.com/userphotos/250x250/00/12/24/122419.jpg
+1 1/2 cups finely shredded mozzarella cheese",http://images.media-allrecipes.com/userphotos/250x250/00/12/24/122419.jpg,0,0
 32,Grand Marnier Deep Fried Bananas,"DIRECTIONS:
 
 1. Combine the rice flour, sugar, salt, milk, Grand Marnier, baking soda and vanilla bean scrapings in a medium bowl. Let the batter sit at room temperature for 30 minutes.
@@ -606,7 +606,7 @@ Tortilla chips",http://cdn-image.myrecipes.com/sites/default/files/styles/300x30
 1 vanilla bean, split and scraped, bean pod discarded
 3 cups canola oil
 4 bananas, cut 1-inch thick on the bias
-confectioner's sugar, *optional for sprinkling",http://www.foodrepublic.com/sites/default/files/imagecache/embed/recipe/grandmarnierbananas.jpg
+confectioner's sugar, *optional for sprinkling",http://www.foodrepublic.com/sites/default/files/imagecache/embed/recipe/grandmarnierbananas.jpg,0,0
 33,Stove Top Macaroni and Cheese,"DIRECTIONS: 
 
 1. Cook macaroni pasta for 8-10 minutes in salted water, until al dente.
@@ -630,7 +630,7 @@ confectioner's sugar, *optional for sprinkling",http://www.foodrepublic.com/site
 Salt
 Pepper
 1 1/2 cup frozen peas, thawed
-1 cup shredded chicken (optional)",http://farm7.static.flickr.com/6169/6173262871_fb453f15c1_z.jpg
+1 cup shredded chicken (optional)",http://farm7.static.flickr.com/6169/6173262871_fb453f15c1_z.jpg,0,0
 34,Deep Fried Oreos,"DIRECTIONS:
 
 1. Heat oil in deep-fryer to 375 degrees F (190 degrees C).
@@ -641,7 +641,7 @@ Pepper
 1 cup milk 
 2 teaspoons vegetable oil
 1 cup pancake mix
-1 (18 ounce) package cream-filled chocolate sandwich cookies (such as Oreo®)",http://images.media-allrecipes.com/userphotos/250x250/00/37/72/377284.jpg
+1 (18 ounce) package cream-filled chocolate sandwich cookies (such as Oreo®)",http://images.media-allrecipes.com/userphotos/250x250/00/37/72/377284.jpg,0,0
 35,Japanese-Style Deep Fried Chicken,"DIRECTIONS:
 
 1. In a large bowl, mix together eggs, salt, pepper, sugar, garlic, ginger, sesame oil, soy sauce, and bouillon. Add chicken pieces, and stir to coat. Cover, and refrigerate for 30 minutes.
@@ -661,7 +661,7 @@ Pepper
 1 1/2 pounds skinless, boneless chicken breast halves - cut into 1 inch cubes
 3 tablespoons potato starch
 1 tablespoon rice flour
-oil for frying",http://images.media-allrecipes.com/userphotos/250x250/00/29/61/296189.jpg
+oil for frying",http://images.media-allrecipes.com/userphotos/250x250/00/29/61/296189.jpg,0,0
 36,Best Ever 5 Minute Microwave Hummus,"DIRECTIONS:
 
 1. Microwave undrained chickpeas and whole garlic cloves in a mixing bowl for 4-5 minutes.
@@ -676,7 +676,7 @@ oil for frying",http://images.media-allrecipes.com/userphotos/250x250/00/29/61/2
 1/2 cup tahini
 2 Tbsp fresh lemon juice
 3/4 – 1 tsp sea salt
-1-2 Tbsp extra virgin olive oil",http://i.minimalistbaker.com/wp-content/uploads/2014/05/5-Minute-Microwave-Hummus-vegan-glutenfree-and-totally-restuarant-worthy.jpg
+1-2 Tbsp extra virgin olive oil",http://i.minimalistbaker.com/wp-content/uploads/2014/05/5-Minute-Microwave-Hummus-vegan-glutenfree-and-totally-restuarant-worthy.jpg,0,0
 37,Corn on the Cob with Chile and Lime,"DIRECTIONS:
 
 1. Microwave corn, in their husks, for about 15-20 minutes. (Until cooked)
@@ -685,7 +685,7 @@ oil for frying",http://images.media-allrecipes.com/userphotos/250x250/00/29/61/2
 4 ears corn with husks
 1 lime, cut in wedges
 1 tps butter
-McCormick Chili with Lime Seasoning",http://2.bp.blogspot.com/_BizpeaUzxq8/SBslqhCq9tI/AAAAAAAAAJU/kr46QbLWwnA/s400/corn.jpg
+McCormick Chili with Lime Seasoning",http://2.bp.blogspot.com/_BizpeaUzxq8/SBslqhCq9tI/AAAAAAAAAJU/kr46QbLWwnA/s400/corn.jpg,0,0
 38,Basil Lemonade,"DIRECTIONS:
 
 1. Combine sugar and 1/4 cup water in a microwave safe bowl and heat for 45 seconds. Then stir until sugar is dissolved and liquid is clear. Set aside to cool.
@@ -697,7 +697,7 @@ McCormick Chili with Lime Seasoning",http://2.bp.blogspot.com/_BizpeaUzxq8/SBslq
 1/3 cup freshly squeezed lemon juice (from 2 large lemons)
 1/4 cup fresh basil leaves, roughly torn
 water
-ice",http://camillestyles.com/wp-content/uploads/2012/03/IMG_0037.jpg
+ice",http://camillestyles.com/wp-content/uploads/2012/03/IMG_0037.jpg,0,0
 39,S'more Chocolate Bark,"DIRECTIONS:
 
 1. Melt the dark chocolate in a double boiler or in 20-second intervals in the microwave. You want it to be just melted—don’t let it bubble or burn. As it’s melting, stir it occasionally with a heatproof spatula.
@@ -714,7 +714,7 @@ ice",http://camillestyles.com/wp-content/uploads/2012/03/IMG_0037.jpg
 2 cups bittersweet chocolate chips
 2 cups good-quality white chocolate chips (ingredient list must contain cocoa butter)
 2 cups chopped graham crackers
-2 cups mini marshmallows",http://www.biggirlssmallkitchen.com/wp-content/uploads/2012/07/IMG_8779-600x399.jpg
+2 cups mini marshmallows",http://www.biggirlssmallkitchen.com/wp-content/uploads/2012/07/IMG_8779-600x399.jpg,0,0
 40,Chocolate Fondue,"DIRECTIONS:
 
 1. Place all of the ingredients in a medium microwave-safe bowl. Cook in the microwave on medium power (50%) for 1½ minutes. Take out and stir. Microwave on medium power for 30-60 seconds more, then stir the mixture until smooth. (Note: you want to take it out when it is almost melted; there should be enough residual heat to melt any remaining bits of chocolate.)
@@ -725,4 +725,4 @@ ice",http://camillestyles.com/wp-content/uploads/2012/03/IMG_0037.jpg
 1 cup heavy cream
 8 ounces premium semi-sweet chocolate, finely chopped
 1 tablespoon sugar
-1 tablespoon unsalted butter",http://www.onceuponachef.com/images/2011/02/chocolate-fondue.jpg
+1 tablespoon unsalted butter",http://www.onceuponachef.com/images/2011/02/chocolate-fondue.jpg,0,0
