@@ -1,10 +1,10 @@
-recipeID,recipeName,instruction,time,numberOfIngredients,rating,ingredients,picture
+recipeID,recipeName,instruction,time,numberOfIngredients,rating,picture
 1,Carrot Cake,"DIRECTIONS:
 1.In a mixing bowl, mix sugar, vegetable oil, and eggs. In another bowl, sift together flour, baking soda, salt, and cinnamon. Fold dry ingredients into wet mixture and blend well. Fold in carrots and chopped nuts until well blended. Distribute batter evenly into 3 (9-inch) cake layer pans, which have been generously greased. There will be approximately 1 pound 5 ounces of batter per pan. 
 
 2. Place in preheated oven and bake for 50 to 60 minutes. Cool layers in pans, for approximately 1 hour. Store layers in pans, inverted, in closed cupboard to prevent drying. Layers must be a minimum of 1 day old.
 
-3. To remove layers from baking pan, turn upside down, tap edge of pan on a hard surface. Center a 9-inch cake circle on top of revolving cake stand. Remove paper from bottom of layer cake. Place first layer, bottom side down, at center of cake stand. With a spatula, evenly spread approximately 3 1/2 ounces of frosting on the layer. Center second layer on top of first layer with topside down. Again with a spatula, evenly spread approximately 3 1/2 ounces of frosting on the layer. Center third layer on top of second layer with topside down. Using both hands, press firmly but gently, all layers together to get one firm cake. With spatula, spread remainder of frosting to cover top and sides of cake. Refrigerated until needed. Display on counter or cake stand with a plastic cover.",95,7,4,,http://lh3.ggpht.com/bdusWZTgamcDJJZ3G4sekfMG1Cw1_laYpkNt_ghgSoJVLqUSVAN2uhnA7pW9zgZ96q_U3zCas0tbNR_mrBGT9A=s730-c-e365
+3. To remove layers from baking pan, turn upside down, tap edge of pan on a hard surface. Center a 9-inch cake circle on top of revolving cake stand. Remove paper from bottom of layer cake. Place first layer, bottom side down, at center of cake stand. With a spatula, evenly spread approximately 3 1/2 ounces of frosting on the layer. Center second layer on top of first layer with topside down. Again with a spatula, evenly spread approximately 3 1/2 ounces of frosting on the layer. Center third layer on top of second layer with topside down. Using both hands, press firmly but gently, all layers together to get one firm cake. With spatula, spread remainder of frosting to cover top and sides of cake. Refrigerated until needed. Display on counter or cake stand with a plastic cover.",95,7,4,http://lh3.ggpht.com/bdusWZTgamcDJJZ3G4sekfMG1Cw1_laYpkNt_ghgSoJVLqUSVAN2uhnA7pW9zgZ96q_U3zCas0tbNR_mrBGT9A=s730-c-e365
 2,Beef Burger,"DIRECTIONS:
 
 1. In a large bowl, mix ground beef, onion powder, salt and pepper until just combined. Do not overmix, or your patties will be tough.
@@ -16,7 +16,7 @@ Form patties, without pressing too hard. They should be uniform in thickness. Sm
 
 4. Remove burgers with a sturdy metal spatula and transfer to a plate. Allow to rest for several minutes, then transfer to buns.
 
-5. Garnish as desired and serve immediately.",25,5,5,,http://lh4.ggpht.com/ZcombAtc807urAH89vi1Ccey8kiNeWNFLwT5TmWCbhIS1F7DAqTSvc3WO4FoM6G7BzCMv0om7b3WX7dscfn2K4U=s730-c-e365
+5. Garnish as desired and serve immediately.",25,5,5,http://lh4.ggpht.com/ZcombAtc807urAH89vi1Ccey8kiNeWNFLwT5TmWCbhIS1F7DAqTSvc3WO4FoM6G7BzCMv0om7b3WX7dscfn2K4U=s730-c-e365
 3,Sun-dried Tomato Omelet,"DIRECTIONS:
 
 1. In a medium bowl, beat the eggs with a pinch each of salt and pepper.
@@ -25,17 +25,17 @@ Form patties, without pressing too hard. They should be uniform in thickness. Sm
 
 3. Sprinkle with the spinach, sun-dried tomatoes, and Feta; fold the eggs over the filling. 
 
-4. Transfer to a plate and serve with the bread.",25,5,5,,http://lh3.ggpht.com/vBDxkLbUSNWSlQIAkSOxML9GmiELdSXrQOa2VGbCXdqSArEV9aYPOb_yo08jgLwkC9uYtTZCW_Glpvfql7voDXI=s730-c-e365
+4. Transfer to a plate and serve with the bread.",25,5,5,http://lh3.ggpht.com/vBDxkLbUSNWSlQIAkSOxML9GmiELdSXrQOa2VGbCXdqSArEV9aYPOb_yo08jgLwkC9uYtTZCW_Glpvfql7voDXI=s730-c-e365
 4,Stir-fried Egg and Tomato,"DIRECTIONS:
 
 1. Beat eggs with 1/2 teaspoon salt until smooth but not frothy.
 
 2. Heat 1 tablespoon oil in a 12-inch nonstick skillet over medium-high heat until hot. Add eggs and cook, undisturbed, just until a thin film of cooked egg forms on bottom of skillet but most of eggs are still runny, 5 to 10 seconds. Immediately scrape eggs into a bowl. Wipe out skillet.
 
-3. Heat remaining tablespoon oil in skillet over medium-high heat until hot. Add scallions and stir-fry until just softened, about 30 seconds. Add tomatoes and cook, stirring and turning occasionally, until juices are released and tomatoes are slightly wilted but still intact, 4 to 6 minutes. Sprinkle sugar and 1/4 teaspoon salt over tomatoes and stir to combine. Return eggs to skillet and cook, stirring occasionally, until eggs are just cooked through. Serve sprinkled with reserved scallion greens.",15,4,4,,http://lh5.ggpht.com/BLmHLiKl1vkczpP0jzRRVj88xJo3zczzXDL9SwdNXDdtiNofxvjvDUenSiGhj3NZIsHqv-gBYdntkxOIZqNu9eE=s730-e365
+3. Heat remaining tablespoon oil in skillet over medium-high heat until hot. Add scallions and stir-fry until just softened, about 30 seconds. Add tomatoes and cook, stirring and turning occasionally, until juices are released and tomatoes are slightly wilted but still intact, 4 to 6 minutes. Sprinkle sugar and 1/4 teaspoon salt over tomatoes and stir to combine. Return eggs to skillet and cook, stirring occasionally, until eggs are just cooked through. Serve sprinkled with reserved scallion greens.",15,4,4,http://lh5.ggpht.com/BLmHLiKl1vkczpP0jzRRVj88xJo3zczzXDL9SwdNXDdtiNofxvjvDUenSiGhj3NZIsHqv-gBYdntkxOIZqNu9eE=s730-e365
 5,"Carrot, Potato, Cabbage Soup","DIRECTIONS:
 
-1. Combine the carrots, potatoes, onion, cabbage, garlic, chicken stock, olive oil, thyme, basil, parsley, salt, and pepper in a stock pot over medium-high heat; bring to a simmer and cook until the carrots are tender, about 20 minutes. Transfer to a blender in small batches and blend until smooth.",50,10,5,,http://lh3.ggpht.com/jhAXLuFBxMWzcioDS4OqLW1YcY2SnHn1To2Vzeh9uGonttiwHk8KhhtkqFzt0HJwewXHJQiyz5nvE9Z9FJ9b1g=s730-c-e365
+1. Combine the carrots, potatoes, onion, cabbage, garlic, chicken stock, olive oil, thyme, basil, parsley, salt, and pepper in a stock pot over medium-high heat; bring to a simmer and cook until the carrots are tender, about 20 minutes. Transfer to a blender in small batches and blend until smooth.",50,10,5,http://lh3.ggpht.com/jhAXLuFBxMWzcioDS4OqLW1YcY2SnHn1To2Vzeh9uGonttiwHk8KhhtkqFzt0HJwewXHJQiyz5nvE9Z9FJ9b1g=s730-c-e365
 6,Caesar Salad,"DIRECTIONS:
 
 1. For the dressing: Place the anchovies into a blender or food processor. Throw in the Dijon mustard, vinegar, Worcestershire, garlic and lemon juice. Pulse the processor or blend on low speed for several seconds. Scrape down the sides.
@@ -54,7 +54,7 @@ Form patties, without pressing too hard. They should be uniform in thickness. Sm
 
 8. Drizzle about half of the dressing over the top of the hearts. Throw in a good handful of the Parmesan shavings. Give it a good initial toss, just so you can evaluate how much more dressing you need.
 
-9. Add more dressing and Parmesan to taste. Add the cooled croutons. Toss gently.",20,10,5,,http://lh3.ggpht.com/4mXfGtrhAPAqwa9zCvXyCwQGOSxsQuCiAZFOPDNREIM7BXwK11DonVItJ7hL68uUiTNIHjzFYfDmYafaQMIDGw=s730-e365
+9. Add more dressing and Parmesan to taste. Add the cooled croutons. Toss gently.",20,10,5,http://lh3.ggpht.com/4mXfGtrhAPAqwa9zCvXyCwQGOSxsQuCiAZFOPDNREIM7BXwK11DonVItJ7hL68uUiTNIHjzFYfDmYafaQMIDGw=s730-e365
 7,Fried Chicken,"DIRECTIONS:
 
 1. Preheat the oven to 350 degrees F. Spray a baking sheet with nonstick cooking spray.
@@ -71,7 +71,7 @@ Form patties, without pressing too hard. They should be uniform in thickness. Sm
 
 7. Remove the chicken from the oven and top each piece with 4 teaspoons of the gravy. Sprinkle with the chopped green onions.
 
-8. Mix together the salt, garlic powder and pepper.",45,10,5,,http://lh6.ggpht.com/2dR4QiNYJ8fJo6fAXfzaRbQkJhemOsMt1Sv6_Av8aXCbjpwx_e1bfu-Gwafbp0iXSkTGn33G7QevCUEsOEv6Xpk=s730-e365
+8. Mix together the salt, garlic powder and pepper.",45,10,5,http://lh6.ggpht.com/2dR4QiNYJ8fJo6fAXfzaRbQkJhemOsMt1Sv6_Av8aXCbjpwx_e1bfu-Gwafbp0iXSkTGn33G7QevCUEsOEv6Xpk=s730-e365
 8,Yogurt Parfait,"DIRECTIONS:
 
 1. Line up 4 parfait, white wine, or other tall glasses.
@@ -82,19 +82,19 @@ Form patties, without pressing too hard. They should be uniform in thickness. Sm
 
 4. Spoon 2 tablespoons of fruit overtop and smooth surface.
 
-5. Repeat the process, adding a bit of honey here and there, to taste.",5,4,5,,http://lh4.ggpht.com/usZQLOAOGWfuB-dUouynQSxgLLSzdUGR79zc4EJTXMEB8XOAv5R3FUjGO1ODUVndyESoLwexqmLqijES7V1o=s730-c-e365
+5. Repeat the process, adding a bit of honey here and there, to taste.",5,4,5,http://lh4.ggpht.com/usZQLOAOGWfuB-dUouynQSxgLLSzdUGR79zc4EJTXMEB8XOAv5R3FUjGO1ODUVndyESoLwexqmLqijES7V1o=s730-c-e365
 9,BLT,"DIRECTIONS:
 
 1. Cook the bacon in a large, deep skillet over medium-high heat until evenly browned, about 10 minutes. Drain the bacon slices on a paper towel-lined plate.
 
-2. Arrange the cooked bacon, lettuce, and tomato slices on one slice of bread. Spread one side of remaining bread slice with the mayonnaise. Bring the two pieces together to make a sandwich.",15,5,5,,http://lh4.ggpht.com/8SZBMmJ1NHF1X-Hnr6Zw4kTsJfVwCXULEC9XsQQndIZuSwI6ZFYscT20JABx1SoR-sP6JOD_s0-He7aQfM8DLQ=s730-c-e365
+2. Arrange the cooked bacon, lettuce, and tomato slices on one slice of bread. Spread one side of remaining bread slice with the mayonnaise. Bring the two pieces together to make a sandwich.",15,5,5,http://lh4.ggpht.com/8SZBMmJ1NHF1X-Hnr6Zw4kTsJfVwCXULEC9XsQQndIZuSwI6ZFYscT20JABx1SoR-sP6JOD_s0-He7aQfM8DLQ=s730-c-e365
 10,Grilled Cheese Sandwich,"DIRECTIONS:
 
 1. Preheat skillet over medium heat. 
 
 2. Generously butter one side of a slice of bread. Place bread butter-side-down onto skillet bottom and add 1 slice of cheese. Butter a second slice of bread on one side and place butter-side-up on top of sandwich. 
 
-3. Grill until lightly browned and flip over; continue grilling until cheese is melted. Repeat with remaining 2 slices of bread, butter and slice of cheese.",20,3,5,,http://lh4.ggpht.com/Nh455zm85ukgJhPUxf7JXfuqFTW9YcRjkGL4fiiM-GoI4sz_Cyj0X7xLsmw8lzx89Skd3sP34Vk1JJnB1kg9LPA=s730-e365
+3. Grill until lightly browned and flip over; continue grilling until cheese is melted. Repeat with remaining 2 slices of bread, butter and slice of cheese.",20,3,5,http://lh4.ggpht.com/Nh455zm85ukgJhPUxf7JXfuqFTW9YcRjkGL4fiiM-GoI4sz_Cyj0X7xLsmw8lzx89Skd3sP34Vk1JJnB1kg9LPA=s730-e365
 11,Grilled Salmon,"DIRECTIONS:
 
 1. Season salmon fillets with lemon pepper, garlic powder, and salt.
@@ -103,21 +103,21 @@ Form patties, without pressing too hard. They should be uniform in thickness. Sm
 
 3. Preheat grill for medium heat.
 
-4. Lightly oil grill grate. Place salmon on the preheated grill, and discard marinade. Cook salmon for 6 to 8 minutes per side, or until the fish flakes easily with a fork.",150,3,4.5,,
+4. Lightly oil grill grate. Place salmon on the preheated grill, and discard marinade. Cook salmon for 6 to 8 minutes per side, or until the fish flakes easily with a fork.",150,3,4,http://lh6.ggpht.com/wV-AyjWXPSuMzk80GqvomH6UidIG4hb-gCWUwDq6DzOkHHGAQx4QY5bbrtih9sqErhRxY6VCUkQd3Yu1YOBdXN4=s730-c-e365
 12,Honey Grilled Shrimp,"DIRECTIONS:
 
 1. In a small bowl, combine the salad dressing, honey and garlic; set aside 1/2 cup. Pour remaining marinade into a large resealable plastic bag; add the shrimp. Seal bag and turn to coat; refrigerate for 30 minutes. Cover and refrigerate reserved marinade for basting.
 
 2. Drain and discard marinade. Thread shrimp onto eight metal or soaked wooden skewers. Moisten a paper towel with cooking oil; using long-handled tongs, rub on grill rack to coat lightly.
 
-3. Grill, uncovered, over medium heat or broil 4 in. from the heat for 1 to 1-1/2 minutes on each side. Baste with reserved marinade. Grill or broil 3-4 minutes longer or until shrimp turn pink, turning and basting frequently.",20,2,5,,
-13,Grilled vegetables,"DIRECTIONS:
+3. Grill, uncovered, over medium heat or broil 4 in. from the heat for 1 to 1-1/2 minutes on each side. Baste with reserved marinade. Grill or broil 3-4 minutes longer or until shrimp turn pink, turning and basting frequently.",20,2,5,http://lh3.ggpht.com/xrqsnSDMPuKTf90Yo8V1xn-BBl3VdlH68NHBoCFI9t0866P7VFqY60fajmXdSkSQaB7wGCvdsuNoZGSYdDDQSw=s730-c-e365
+13,Grilled Vegetables,"DIRECTIONS:
 
 1. Place a grill pan over medium-high heat or prepare the barbecue (medium-high heat). Brush the vegetables with 1/4 cup of the oil to coat lightly. Sprinkle the vegetables with salt and pepper. 
 
 2. Working in batches, grill the vegetables until tender and lightly charred all over, about 8 to 10 minutes for the bell peppers; 7 minutes for the yellow squash, zucchini, eggplant, and mushrooms; 4 minutes for the asparagus and green onions. Arrange the vegetables on a platter. The key to getting those great grill marks is to not shift the vegetables too frequently once they've been placed on the hot grill.
 
-3. Meanwhile, whisk the remaining 2 tablespoons of oil, balsamic vinegar, garlic, parsley, basil, and rosemary in a small bowl to blend. Add salt and pepper to taste. Drizzle the herb mixture over the vegetables. Serve the vegetables, warm or at room temperature.",40,10,5,,
+3. Meanwhile, whisk the remaining 2 tablespoons of oil, balsamic vinegar, garlic, parsley, basil, and rosemary in a small bowl to blend. Add salt and pepper to taste. Drizzle the herb mixture over the vegetables. Serve the vegetables, warm or at room temperature.",40,10,5,http://lh6.ggpht.com/bu--lxZsfKo-1leNXwoeQ8Td1_KQAR6mrslGOw4zTToyHvQsdlUhriz0eW4ei9zbR7MNqMKI70q_3A9M3yz4Qw=s730-e365
 14,Grilled Chicken with Kale,"DIRECTIONS:
 
 1. Preheat the oven to 425 degrees F. Toss the potatoes with 1/2 tablespoon olive oil on a rimmed baking sheet; spread in a single layer and roast 5 minutes. Toss the kale in a large bowl with the garlic, 1/2 tablespoon olive oil, 1/4 teaspoon salt, and pepper to taste. Add to the baking sheet with the potatoes and toss. Roast until the kale is crisp and the potatoes are tender, stirring once, 15 to 20 minutes.
@@ -126,14 +126,14 @@ Form patties, without pressing too hard. They should be uniform in thickness. Sm
 
 3. Grill the chicken until well marked and cooked through, 2 to 4 minutes per side. Transfer to a plate.
 
-4. Toss the kale, potatoes, the remaining 1/2 tablespoon olive oil, the salad greens, tomatoes, parmesan, lemon juice, and salt and pepper to taste in a large bowl. Divide the chicken among plates and top with any collected juices. Serve with the kale salad.",40,9,4,,
+4. Toss the kale, potatoes, the remaining 1/2 tablespoon olive oil, the salad greens, tomatoes, parmesan, lemon juice, and salt and pepper to taste in a large bowl. Divide the chicken among plates and top with any collected juices. Serve with the kale salad.",40,9,4,http://foodnetwork.sndimg.com/content/dam/images/food/fullset/2012/3/8/1/FNM_040112-WN-Dinners-003-0_s3x4.jpg.rend.sni12col.landscape.jpeg
 15,Grilled Philly Cheese Steak,"DIRECTIONS:
 
 1. Preheat grill to high. Melt butter in a medium saucepan on top of the grates of the grill. Whisk in flour and cook for 1 minute. Add the milk and cook until thickened. Whisk in the cheese and cook until melted. Add dry mustard and season with salt and pepper. Keep warm.
 
 2. Brush filets with oil on both sides and season with salt and pepper. Grill for 2 to 3 minutes on each side for rare, which is desired for this sandwich. Let rest for 5 minutes and then slice into 1/8-inch thick slices.
 
-3. Slice 7/8 of the way through the rolls and fill each with several slices of the beef, cheese sauce, and any or all of the toppings. Return sandwiches to the grill, close top, and grill very briefly just to heat through.",25,9,4,,
+3. Slice 7/8 of the way through the rolls and fill each with several slices of the beef, cheese sauce, and any or all of the toppings. Return sandwiches to the grill, close top, and grill very briefly just to heat through.",25,9,4,http://lh3.ggpht.com/9Nu6093AcI_t63I88lvTf5BNumw5spx3Y-ONHIme7GfIJDfnHIXvNqVY-2lO_4_m-a7XeWeEnaE8ekXCCH1Bmw=s730-c-e365
 16,Cookie Dough Blizzard,"DIRECTIONS:
 
 1. Place all cookie dough ingredients (except chocolate chips) into your food processor and blend until cookie dough consistency.
@@ -151,7 +151,7 @@ Pulse a couple times.
 6. Individual Ice Cream Cake Directions – If you are making the individual cookie dough ice cream cakes simply place blended mixture into your ice cream sandwich molds and freeze overnight.
 Immediately before serving remove from ice cream sandwich molds, place onto a plate, add coconut whipped cream and chocolate ganache if desired.
 
-7. Cookie Dough Blizzard on a Stick Directions – Place mixture into popsicle molds and freeze overnight. Serve immediately out of the freezer as these get soft quickly.",5,9,4,,
+7. Cookie Dough Blizzard on a Stick Directions – Place mixture into popsicle molds and freeze overnight. Serve immediately out of the freezer as these get soft quickly.",5,9,4,http://lh4.ggpht.com/TtBlIbgsphbDWYErvyTM7LFY7qrb3_yHFRuzlLvUMXNhPhJBuwR8AiD1tWCw8Zzk4HnB4rL1R3mzrL8wqH-G=s730-c-e365
 17,Vegan Cheesecake,"DIRECTIONS:
 
 1. Add dates to a food processor and blend until small bits remain and it forms into a ball. Remove and set aside.
@@ -171,7 +171,7 @@ Immediately before serving remove from ice cream sandwich molds, place onto a pl
 8. Divide filling evenly among the muffin tins. Tap a few times to release any air bubbles, then cover with plastic wrap and freeze until hard - about 4-6 hours.
 
 9. Once set, remove by tugging on the tabs or loosening them with a butter knife. They should pop right out. Add more caramel or top with whipped coconut cream if you desire.  Keep in the freezer for up to 1-2 weeks.
-Optional: you can set them out for 10 minutes before serving to soften.",20,8,5,,
+Optional: you can set them out for 10 minutes before serving to soften.",20,8,5,http://lh3.ggpht.com/jFibUDTVTnJxIMu16XJqefs0ktisHcjHANtP3BEyS6Zm1IOw3wp849aJa4N9DHuoZJIWBt6ZGVP5rYsm4a_3hA=s730-c-e365
 18,Sushi Rolls,"DIRECTIONS:
 
 1. Rinse the rice in cold water while stirring briskly to remove any dirt. Drain the rice completely. Place the rice and the 6 cups of water in a medium sized saucepan and cover it with a tight fitting lid. Bring the water to a boil over medium heat. Allow the water to boil for 3 minutes and then reduce the heat to low and continue cooking 15 minutes without removing the lid. Remove the rice from the heat and remove the lid (the water should no longer be visible). Turn the rice out evenly on a well-greased cookie sheet using a spatula or rice paddle. Sprinkle the rice with the vinegar, sugar, and salt while mixing with a spatula or rice paddle until the rice reaches body temperature. Keep the rice covered with damp paper towels or napkin until the rice is ready to use.
@@ -180,7 +180,7 @@ Optional: you can set them out for 10 minutes before serving to soften.",20,8,5,
 
 3. Wet your hands in cool water and take a handful of sushi rice. Place the rice in the center of the nori and use your fingers to spread the rice evenly over the nori. Be sure to leave a 3/4-inch strip of nori uncovered on the far side. 
 
-4. Place tuna strips and some julienne vegetable, cucumber or avocado along the center of the rice. Be careful not to overfill the nori. Place your fingertips over the fillings to hold them in place. Then, use your thumbs to lift up the edge of the bamboo rolling mat closest to you. Begin rolling the mat away from you, while applying pressure to the fillings to keep the roll firm. Roll the mat over slowly until it covers the rice and the near and far sides of rice join, still leaving the 3/4-inch strip of nori, rice-free, exposed. While holding the bamboo mat in position, apply pressure to the roll with your fingers to make the roll firm. Slice the roll in half, then cut both rolls twice to make 6 equal sized pieces. Repeat this process with the salmon and various fillings, nori and rice.",55,7,5,,
+4. Place tuna strips and some julienne vegetable, cucumber or avocado along the center of the rice. Be careful not to overfill the nori. Place your fingertips over the fillings to hold them in place. Then, use your thumbs to lift up the edge of the bamboo rolling mat closest to you. Begin rolling the mat away from you, while applying pressure to the fillings to keep the roll firm. Roll the mat over slowly until it covers the rice and the near and far sides of rice join, still leaving the 3/4-inch strip of nori, rice-free, exposed. While holding the bamboo mat in position, apply pressure to the roll with your fingers to make the roll firm. Slice the roll in half, then cut both rolls twice to make 6 equal sized pieces. Repeat this process with the salmon and various fillings, nori and rice.",55,7,5,http://lh4.ggpht.com/T3rf4wG10XSg4yiQQ4kE2fQqX07lJiaO58LndRvb3A8S4N0fXS2YsUFzcE_ooozlMPUZNtVGVNoPIbpd6yLbG5I=s730-e365
 19,Peach Salsa with Raw Veggie Crackers,"DIRECTIONS:
 
 1. Place tomato, onion and zucchini in food processor and process until smooth. 
@@ -189,26 +189,26 @@ Optional: you can set them out for 10 minutes before serving to soften.",20,8,5,
 
 3. Spread 1/4-inch thick on non-stick dehydrator sheet.
 
-4. Dehydrate at 145 for 1 hour*, reduce heat and dehydrate until dry. 12-24 hours, removing to screens halfway through dehydration.",90,8,5,,
+4. Dehydrate at 145 for 1 hour*, reduce heat and dehydrate until dry. 12-24 hours, removing to screens halfway through dehydration.",90,8,5,http://lh3.ggpht.com/byBpVmXzQa3uVi5MK8mGxVaJYf67LiBkRPmWzazdFjqpKuCLqj8WJ_phBtyvnLOjm7mVhzVD93PGuDnB92qI=s730-e365
 20,Steak Tartare,"DIRECTIONS:
 
 1. Combine anchovies (if using), capers, and mustard in a nonreactive bowl. Using a fork or the back of a spoon, mash ingredients until evenly combined; mix in egg yolks. 
 
-2. Use a rubber spatula to fold remaining ingredients into mustard mixture until thoroughly combined. Season well with salt and freshly ground black pepper. Serve immediately with toast points or french fries.",5,10,4.5,,
+2. Use a rubber spatula to fold remaining ingredients into mustard mixture until thoroughly combined. Season well with salt and freshly ground black pepper. Serve immediately with toast points or french fries.",5,10,4,http://lh4.ggpht.com/faOH7E7DMqbqj2NyeQur-QVpDifOQ0dsFrKPBcPr0wKW7PC-qoQPCagpSUKDr3C5lQek2tjlKvRlqL1-DAMBhNI=s730-c-e365
 21,Microwave Baked Potato,"DIRECTIONS:
 
 1. Scrub the potato, and prick several time with the tines of a fork. Place on a plate.
 
 2. Cook on full power in the microwave for 5 minutes. Turn over, and continue to cook for 5 more minutes. When the potato is soft, remove from the microwave, and cut in half lengthwise. Season with salt and pepper, and mash up the inside a little using a fork. Top the open sides with butter and 2 tablespoons of cheese. Return to the microwave, and cook for about 1 minute to melt the cheese.
 
-3. Top with remaining cheese and sour cream, and serve.",12,5,4,,
+3. Top with remaining cheese and sour cream, and serve.",12,5,4,http://lh5.ggpht.com/kh6VjBwci_bOLw3jHIvydJDY6mXPNwJFvG9oCqqyA_hQqSjGq7cTa8o3ZBKqDvS4CoCo1nNkyVzddMEgm_DzkA=s730-c-e365
 22,One Bowl Chocolate Fudge,"DIRECTIONS:
 
 1. Line an 8x8 inch square dish with aluminum foil.
 
 2. Chop chocolate and place in a large, microwave safe bowl with condensed milk. Microwave on high, stirring once or twice until chocolate is soft, 2 to 3 minutes. Remove from oven and stir until completely smooth. Stir in vanilla and walnuts. Spread in prepared pan.
 
-3. Refrigerate 2 hours, until firm. Cut into squares.",138,4,5,,
+3. Refrigerate 2 hours, until firm. Cut into squares.",138,4,5,http://lh5.ggpht.com/Z7dXjHVTkN9qSwk3AsNHQ-3QanjVzMw2qnYAKYUpl9qapFaE2L5PNKayWCk3HaMTXxf9eVvaT-IVEeXNwpG7vQ=s730-c-e365
 23,Funnel Cake,"DIRECTIONS:
 
 1. In a large bowl, mix all dry ingredients.
@@ -229,7 +229,7 @@ Optional: you can set them out for 10 minutes before serving to soften.",20,8,5,
 
 9. Remove from oil, drain on paper towels, and sprinkle with powdered sugar.
 
-10. Serve hot.",18,10,5,,
+10. Serve hot.",18,10,5,http://lh5.ggpht.com/vTntYBCBVNkK3nSJ-OahWscjOLmBtQjI2BCIeGby6-yizLYuxnZNuGF6cnNA2jEMwiQXwXax0Vpg_Przfm5PTw=s730-c-e365
 24,Fried Butterflied Shrimp,"DIRECTIONS:
 
 1. Preheat deep fryer or skillet with oil to 350 degrees F (175 degrees C).
@@ -238,7 +238,7 @@ Optional: you can set them out for 10 minutes before serving to soften.",20,8,5,
 
 3. Dip the shrimp into the mixture allowing them to be completely coated. Then roll the shrimp in the breadcrumbs. Coat the shrimp well with the breadcrumbs. Mix up the cornstarch batter again. Dip the breadcrumbs coated shrimp back into the cornstarch batter. Roll the shrimp in the breadcrumbs for a second time. Repeat for each shrimp.
 
-4. Drop shrimp, one at a time, into the hot oil and cook shrimp until they are golden brown.",35,6,5,,
+4. Drop shrimp, one at a time, into the hot oil and cook shrimp until they are golden brown.",35,6,5,http://lh6.ggpht.com/HMETm0edtNtVQD9f6p85TtupSPf75-grGPZZm_q7cn6o-rWBYu1VIWT37zj1CppEry54Cq2QjmcdKtTFbMj__A=s730-c-e365
 25,Chicken Parmesan,"DIRECTIONS:
 
 1. Pound chicken to flatten.
@@ -263,6 +263,7 @@ Optional: you can set them out for 10 minutes before serving to soften.",20,8,5,
 
 11. Cover and cook until cheese is melted.
 
+<<<<<<< HEAD
 12. Serve with a side of spaghetti.",23,9,5,,
 26,Tofu Chili,"DIRECTIONS:
 
@@ -394,3 +395,21 @@ Optional: you can set them out for 10 minutes before serving to soften.",20,8,5,
 2. Transfer the mixture to a fondue pot or bowl and serve with assorted dippers.
 
 3. Note: It's a good idea to stir the fondue occasionally to avoid scorching. If you don't have a fondue pot, you can re-warm the fondue over medium heat in the microwave if necessary.",15,4,4,,
+=======
+12. Serve with a side of spaghetti.",23,9,5,http://lh4.ggpht.com/wSztxHluA4QpWg2Ij1LZIMFXl2lcEW05W1VBbV8nIPHz7bDyjmIaemTsyCQ3yFSD4iMgYkvvpFUUWXoKcHI4rGg=s730-c-e365
+26,,,,,,
+27,,,,,,
+28,,,,,,
+29,,,,,,
+30,,,,,,
+31,,,,,,
+32,,,,,,
+33,,,,,,
+34,,,,,,
+35,,,,,,
+36,,,,,,
+37,,,,,,
+38,,,,,,
+39,,,,,,
+40,,,,,,
+>>>>>>> origin/master
