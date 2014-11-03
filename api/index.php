@@ -14,8 +14,8 @@ $app->get('/getIngredient', 'getIngredient'); //B public
 $app->get('/getResult', 'getResult'); 
 $app->get('/getRecipe', 'getRecipe');
 
-$app->post('/login', 'login');
-$app->post('/register', 'register');
+//$app->post('/login', 'login');
+//$app->post('/register', 'register');
 
 
 $app->run();
@@ -142,12 +142,12 @@ function getResult() {
             
             
             //increment the nuber of times that ingredient is searched for
-            $stmt = "select timesSearched from ingredient where foodName = '".$part['name']."'";
+            $stmt = "select timesSearched from ingredient where foodName = '".$part['ing']."'";
             $result1= $con->query($stmt);
             $row = mysqli_fetch_row($result1);
             $timesSearched = $row[0]; //save the ranking points
             $timesSearched = $timesSearched + 1;
-            $sql2 = "UPDATE ingredient SET timesSearched = ".$timesSearched." where foodName = '".$part['name']."'";
+            $sql2 = "UPDATE ingredient SET timesSearched = ".$timesSearched." where foodName = '".$part['ing']."'";
             $con->query($sql2);
         }
             if(array_key_exists("filter", $part ))
