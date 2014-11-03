@@ -120,9 +120,9 @@ margin-top: 75px;
 	color: #EDE297;
 }
 
-.back{
+#back{
 	display: block;
-	float: right;
+	float: left;
 }
 
 #recipeInfo{
