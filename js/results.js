@@ -11,12 +11,7 @@ $(document).ready(function(){
 function getResults(){
 
 
-  var allRows = $("table .tr");
-  $.each(allRows.slice(1), function(row){
-    row.remove();
-  });
-
-
+  $("table .resultRow").remove();
   console.log("show table");
 
   var send = new Object();
@@ -54,8 +49,7 @@ function getResults(){
               console.log("not 0");
               for (var i = 0; i < result.length ; i++) {
                 console.log(result[i]);
-                var percent = Math.floor(result[i].rankingPoints*100);
-                var add = "<tr id='recipe"+i+"' class='resultRow'><td class='name'>"+result[i].recipeName+"</td><td>"+result[i].rating+"</td><td>"+result[i].time+"</td><td>"+percent+"%</td></tr>";
+                var add = "<tr id='recipe"+i+"' class='resultRow'><td class='name'>"+result[i].recipeName+"</td><td>"+result[i].rating+"</td><td>"+result[i].time+"</td></tr>";
                 $("#resultTable").append(add);
 
                 addListeners();
