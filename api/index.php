@@ -1,5 +1,7 @@
 <?php
 
+//session_start();
+
 require 'Slim/Slim.php';
 \Slim\Slim::registerAutoloader();
 
@@ -9,11 +11,16 @@ ini_set('display_errors', 1);
 $app = new \Slim\Slim(); //using the slim API
 
 $app->get('/getIngredient', 'getIngredient'); //B public 
-$app->get('/getResult', 'getResult'); //end session and log out user 
+$app->get('/getResult', 'getResult'); 
 $app->get('/getRecipe', 'getRecipe');
+
+$app->post('/login', 'login');
+$app->post('/register', 'register');
 
 
 $app->run();
+
+//session_destroy();
 
 function getConnection() {
     $dbConnection = new mysqli('localhost', 'root', 'root', 'PantryQuest'); //put in your password
@@ -25,6 +32,47 @@ function getConnection() {
     return $dbConnection;
 }
 
+/*
+function login()
+{
+    $con = getConnection();
+	$app = \Slim\Slim::getInstance();
+    $request = $app->request()->getBody();
+    $information = array();
+    
+    $query = "select * from users where id = '";
+    $query = $query.$_POST['username']."' and pw = '".$_POST['pw']."'";
+    $result = $con->query($sql);
+  
+    if (mysql_num_rows($result) == 0)
+    {
+        $_SESSION['id'] = false;
+        //INVALID LOGIN
+    }
+    else
+    {
+        $_SESSION['id'] = true;
+        $_SESSION['username'] = $_POST['username'];
+        $information[] = $_POST['username'];
+    }
+    echo json_encode($information);
+}
+
+function addUser()
+{
+    $con = getConnection();
+	$app = \Slim\Slim::getInstance();
+    $request = $app->request()->getBody();
+    $information = array();
+    
+    $userExists = FALSE;
+    
+    $sql = "select * from users where username = '".$_POST['username']."'";
+    
+    $stmt = $con->prepare("INSERT into table users value (?,?,?)");
+    $stmt->bindParam('sss', $_POST['username'], $_POST['email'], $_POST['pw']);
+}
+*/
 function getRecipe()
 {
     $con = getConnection();
@@ -88,14 +136,14 @@ function getResult() {
     //store all information from json, input from user 
     foreach ($_GET as $part)
     {
-        if(array_key_exists("name", $part ))
+        if(array_key_exists("ing", $part ))
         {   
-            $ingredients[] = $part['name'];
+            $ingredients[] = $part['ing'];
             
             
             //increment the nuber of times that ingredient is searched for
             $stmt = "select timesSearched from ingredient where foodName = '".$part['name']."'";
-           $result1= $con->query($stmt);
+            $result1= $con->query($stmt);
             $row = mysqli_fetch_row($result1);
             $timesSearched = $row[0]; //save the ranking points
             $timesSearched = $timesSearched + 1;
