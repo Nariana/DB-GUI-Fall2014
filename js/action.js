@@ -3,12 +3,8 @@
 //MAMP
 var rootURL = "http://localhost:8888/DB-GUI-Fall2014/api/index.php";
 
-
-$("#ingredientList").bind("DOMSubtreeModified", function(){
-  $(this).val("");
-});
-
 var allIngredients = getIngredients();
+
 $( ".textIngredient" ).on( "autocompleteselect", function( event, ui ) {
   $('#textIngredient').val("");
   console.log($(this));

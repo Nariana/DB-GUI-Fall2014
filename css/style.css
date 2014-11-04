@@ -136,3 +136,8 @@ margin-top: 75px;
 .filterField{
 	background-color: none;
 }
+
+
+.ui-slider-horizontal .ui-state-default {
+	background: white url(img/LadelIcon.png) no-repeat scroll 50% 50%;
+}

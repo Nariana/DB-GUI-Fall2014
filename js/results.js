@@ -11,12 +11,7 @@ $(document).ready(function(){
 function getResults(){
 
 
-  var allRows = $("table .tr");
-  $.each(allRows.slice(1), function(row){
-    row.remove();
-  });
-
-
+  $("table .resultRow").remove();
   console.log("show table");
 
   var send = new Object();
@@ -44,18 +39,18 @@ function getResults(){
         dataType: "json",
         data: send,
         success: function (result) {
-          $("table .resultRow").remove();
-            console.log(result.length);
+            console.log(result);
+            $("table .resultRow").remove();
             if(result.length === 0){
-               $("#resultTable").append("<tr><td>sorry, no results</td></tr>");
+               $("#resultTable").append("<tr class='resultRow'><td>sorry, no results</td></tr>");
             }
 
             if(result != 0){
               console.log("not 0");
               for (var i = 0; i < result.length ; i++) {
-                console.log(result[i]);
+                //console.log(result[i]);
                 var percent = Math.floor(result[i].rankingPoints*100);
-                var add = "<tr id='recipe"+i+"' class='resultRow'><td class='name'>"+result[i].recipeName+"</td><td>"+result[i].rating+"</td><td>"+result[i].time+"</td><td>"+percent+"%</td></tr>";
+                var add = "<tr id='recipe"+i+"' class='resultRow'><td class='name'>"+result[i].recipeName+"</td><td>"+result[i].rating+"</td><td>"+result[i].time+" minutes</td><td>"+percent+"%</td></tr>";
                 $("#resultTable").append(add);
 
                 addListeners();
@@ -118,6 +113,9 @@ function load(){
       max: 2000,
       slide: function( event, ui ) {
         $( "#calories" ).val( ui.value + " Calories" );
+      },
+      stop: function( event, ui ) {
+        getResults();
       }
     });
     $( "#calories" ).val($( "#slider-calories" ).slider( "value" ) + " Calories");
@@ -129,6 +127,9 @@ function load(){
       max: 120,
       slide: function( event, ui ) {
         $( "#time" ).val( ui.value + " minutes" );
+      },
+      stop: function( event, ui ) {
+        getResults();
       }
     });
     $( "#time" ).val($( "#slider-time" ).slider( "value" ) + " minutes");
