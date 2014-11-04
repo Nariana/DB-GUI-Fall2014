@@ -48,14 +48,9 @@ function getResults(){
             if(result != 0){
               console.log("not 0");
               for (var i = 0; i < result.length ; i++) {
-<<<<<<< HEAD
                 //console.log(result[i]);
                 var percent = Math.floor(result[i].rankingPoints*100);
                 var add = "<tr id='recipe"+i+"' class='resultRow'><td class='name'>"+result[i].recipeName+"</td><td>"+result[i].rating+"</td><td>"+result[i].time+" minutes</td><td>"+percent+"%</td></tr>";
-=======
-                console.log(result[i]);
-                var add = "<tr id='recipe"+i+"' class='resultRow'><td class='name'>"+result[i].recipeName+"</td><td>"+result[i].rating+"</td><td>"+result[i].time+"</td></tr>";
->>>>>>> FETCH_HEAD
                 $("#resultTable").append(add);
 
                 addListeners();
