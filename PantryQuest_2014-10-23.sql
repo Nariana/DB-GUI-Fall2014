@@ -114,7 +114,7 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `ingredient`;
 
 CREATE TABLE `ingredient` (
-  `foodName` varchar(30) DEFAULT NULL,
+  `foodName` varchar(50) DEFAULT NULL,
   `timesSearched` int(11) NOT NULL DEFAULT '0',
   KEY `foodName` (`foodName`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -643,7 +643,7 @@ DROP TABLE IF EXISTS `recipe`;
 
 CREATE TABLE `recipe` (
   `recipeID` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `recipeName` varchar(30) DEFAULT NULL,
+  `recipeName` varchar(100) DEFAULT NULL,
   `instruction` varchar(5000) DEFAULT NULL,
   `time` int(11) DEFAULT NULL,
   `numberOfIngredients` int(11) DEFAULT NULL,
