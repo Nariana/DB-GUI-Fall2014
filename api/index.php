@@ -1,6 +1,6 @@
 <?php
 
-//session_start();
+session_start();
 
 require 'Slim/Slim.php';
 \Slim\Slim::registerAutoloader();
@@ -14,13 +14,20 @@ $app->get('/getIngredient', 'getIngredient'); //B public
 $app->get('/getResult', 'getResult'); 
 $app->get('/getRecipe', 'getRecipe');
 
-//$app->post('/login', 'login');
-//$app->post('/register', 'register');
+$app->get('/saveRecipe', 'saveRecipe');
+//$app->get('/getAnalytics', 'getAnalytics');
+$app->get('/updateRating', 'updateRating');
+//$app->get('/showFavorite', 'showFavorite');
+
+
+$app->post('/login', 'login');
+$app->post('/register', 'register');
+//$app->post('/logout', 'logout');
 
 
 $app->run();
 
-//session_destroy();
+session_destroy();
 
 function getConnection() {
     $dbConnection = new mysqli('localhost', 'root', 'root', 'PantryQuest'); //put in your password
@@ -32,7 +39,91 @@ function getConnection() {
     return $dbConnection;
 }
 
-/*
+
+
+
+function saveRecipe()
+{
+	$app = \Slim\Slim::getInstance();
+    $request = $app->request()->getBody();
+    $recipeName = $_GET['recipeName']; 
+    $result = array();
+    try
+    {
+        $con = getConnection();
+        $recipeName = $_GET['recipeName']; 
+        
+        if ($_SESSION['id'] == 1)
+        {
+        //get the recipe ID
+        $stmt = "select recipeID from recipe where recipeName = '".$recipeName."'";
+        $result1= $con->query($stmt);
+        if (!$result1)
+        {   
+            throw new Exception(mysqli_error($con));
+        }
+        $row = mysqli_fetch_row($result1);
+        $id = $row[0]; 
+        
+        //prepare statement 
+            $sql = $con->prepare("INSERT INTO searchHsitory(username, id) values (?, ?)");    
+            $sql->bind_param('ss', $_SESSION['username'], $id);
+            $sql->execute();
+            
+        //increment number of times that recipe has been saved 
+        $stmt = "select timesSaved from recipe where recipeName = '".$recipeName."'";
+        $result2= $con->query($stmt);
+        if (!$result2)
+        {   
+            throw new Exception(mysqli_error($con));
+        }
+        
+        $row = mysqli_fetch_row($result2);
+        $timesSaved = $row[0]; //save the ranking points
+        $timesSaved= $timesSaved + 1;
+        $sql2 = "UPDATE recipe SET timesSaved = ".$timesSaved." where recipeName = '".$recipeName."'";
+        $con->query($sql2);
+        
+        }
+        else
+        {
+            //you are not logged in so you cannot save a recipe 
+        }
+    }
+    catch (Exception $e)
+    {
+        $e->getMessage();
+    }
+}
+
+function updateRating()
+{
+    $app = \Slim\Slim::getInstance();
+    $request = $app->request()->getBody();
+    //save recipename 
+    $recipeName = $_GET['recipeName']; 
+    try
+    {
+        $con = getConnection();
+        //get current rating 
+        $stmt = "select rating from recipe where recipeName = '".$recipeName."'";
+        $result2= $con->query($stmt);
+        if (!$result2)
+        {   
+            throw new Exception(mysqli_error($con));
+        }
+        
+        $row = mysqli_fetch_row($result2);
+        $rating = $row[0]; //save the ranking
+        $rating= $rating + 1; //update ranking 
+        $sql2 = "UPDATE recipe SET rating = ".$rating." where recipeName = '".$recipeName."'";
+        $con->query($sql2);
+    }
+    catch (Exception $e)
+    {
+        $e->getMessage();
+    }
+}
 function login()
 {
     $con = getConnection();
@@ -58,7 +149,7 @@ function login()
     echo json_encode($information);
 }
 
-function addUser()
+function register()
 {
     $con = getConnection();
 	$app = \Slim\Slim::getInstance();
@@ -72,12 +163,14 @@ function addUser()
     $stmt = $con->prepare("INSERT into table users value (?,?,?)");
     $stmt->bindParam('sss', $_POST['username'], $_POST['email'], $_POST['pw']);
 }
-*/
+
 function getRecipe()
 {
     $con = getConnection();
 	$app = \Slim\Slim::getInstance();
     $request = $app->request()->getBody();
+    try
+    {
     $results = array();
     $rows = array();
 
@@ -90,6 +183,20 @@ function getRecipe()
     if (mysqli_num_rows($result) != 0)
     {
         $results = mysqli_fetch_assoc($result);
+    }
+    
+     //increment the nuber of times that recipe has been selected 
+        $stmt = "select timesClicked from recipe where recipeName = '".$recipeName."'";
+        $result1= $con->query($stmt);
+        $row = mysqli_fetch_row($result1);
+        $timesClicked = $row[0]; //save the ranking points
+        $timesClicked = $timesClicked + 1;
+        $sql2 = "UPDATE recipe SET timesClicked = ".$timesClicked." where recipeName = '".$recipeName."'";
+        $con->query($sql2);
+    }// end try block 
+    catch (Exception $e)
+    {
+        $e->getMessage();
     }
     echo json_encode($results);
 
@@ -114,6 +221,9 @@ function getResult() {
 	$con = getConnection();
 	$app = \Slim\Slim::getInstance();
     //epty previous table 
+    
+    try
+    {
     $sql = "Truncate TABLE results";
     $con->query($sql);
 
@@ -132,6 +242,8 @@ function getResult() {
     $counter = 0;
     $rows = array();
     $results = array();
+    
+    
 
     //store all information from json, input from user 
     foreach ($_GET as $part)
@@ -183,7 +295,12 @@ function getResult() {
         searchDB($filters, $part, $methods, $time, $calories);
     }
 
-    $result= $con->query("select recipeName, time, recipe.rating, rankingPoints from recipe inner join  results on results.recipeID =  recipe.recipeID order by rankingPoints asc"); //execute query 
+    $result= $con->query("select recipeName, time, recipe.rating, rankingPoints, calories from recipe inner join  results on results.recipeID =  recipe.recipeID inner join filter on results.recipeID = filter.recipeID order by rankingPoints asc"); //execute query 
+    
+    if (!$result)
+    {
+        throw new Exception(mysqli_error($con));
+    }
     
     if (mysqli_num_rows($result) != 0)
     {
@@ -194,7 +311,11 @@ function getResult() {
             //$points [] = $
         } 
     }
-
+    }
+    catch (Exception $e)
+    {
+        $e->getMessage();
+    }
     //send back a json
     echo json_encode($results);
     mysqli_close($con);
@@ -246,15 +367,21 @@ function searchDB($filters, $ingredients, $methods, $time, $calories)
     }
 
     SearchInsert($sql, $ingredients); //call search and insert 
-
 }
 
 //serach the table and 
 function searchInsert($sql, $ingredients)
 {
     $con = getConnection();
-    $result= $con->query($sql);
-    $sql = $con->prepare("INSERT INTO results(recipeID, rankingPoints) values (?,?)");
+    try
+    {
+        $result= $con->query($sql);
+        $sql = $con->prepare("INSERT INTO results(recipeID, rankingPoints) values (?,?)");
+
+     if (!$result)
+    {
+        throw new Exception(mysqli_error($con));
+    }
 
     if (mysqli_num_rows($result) > 0) 
    	{
@@ -289,6 +416,11 @@ function searchInsert($sql, $ingredients)
     {
         //return if you have no matches 
         return;
+    }
+}//end try block 
+    catch(Exception $e)
+    {
+        echo $e->getMessage();
     }
 }
 
