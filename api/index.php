@@ -15,14 +15,14 @@ $app->get('/getResult', 'getResult');
 $app->get('/getRecipe', 'getRecipe');
 
 $app->get('/saveRecipe', 'saveRecipe');
-//$app->get('/getAnalytics', 'getAnalytics');
+$app->get('/getAnalytics', 'getAnalytics');
 $app->get('/updateRating', 'updateRating');
 //$app->get('/showFavorite', 'showFavorite');
 
 
 $app->post('/login', 'login');
 $app->post('/register', 'register');
-//$app->post('/logout', 'logout');
+$app->post('/logout', 'logout');
 
 
 $app->run();
@@ -39,6 +39,87 @@ function getConnection() {
     return $dbConnection;
 }
 
+function logout()
+{
+    session_destroy();
+}
+
+function getAnalytics() {
+    $app = \Slim\Slim::getInstance();
+    $request = $app->request()->getBody();
+    $foodNames = array();
+    $mostSaved = array ();
+    $mostClicked = array();
+    $return = array();
+    $counter = 0;
+    try
+    {
+        $con = getConnection();
+        
+    //show the 5 most searched for ingredients 
+        $stmt = "select foodName from ingredient order by timesSearched desc";
+        $result= $con->query($stmt);
+        if (!$result)
+        {
+            throw new Exception(mysqli_error($con));
+        }
+    
+        if (mysqli_num_rows($result) != 0)
+        {
+        //store information in results
+   	        while($counter < 6) 
+   	        {
+                $foodNames[] = $mysqli_fetch_assoc($result);
+                $counter = $counter + 1 ;
+            } 
+        }
+    //show the 5 most clicked recipes 
+        $counter = 0;
+        $stmt = "select recipeName from recipe order by timesClicked desc";
+        $result1= $con->query($stmt);
+        if (!$result1)
+        {
+            throw new Exception(mysqli_error($con));
+        }
+    
+        if (mysqli_num_rows($result1) != 0)
+        {
+        //store information in results
+   	        while($counter < 6) 
+   	        {
+                $mostClicked[] = $mysqli_fetch_assoc($result1);
+                $counter = $counter + 1 ;
+            } 
+        }
+    //show the 5 most saved recipes 
+        $counter = 0;
+        $stmt = "select recipeName from recipe order by timesSaved desc";
+        $result2= $con->query($stmt);
+        if (!$result2)
+        {
+            throw new Exception(mysqli_error($con));
+        }
+    
+        if (mysqli_num_rows($result2) != 0)
+        {
+        //store information in results
+   	        while($counter < 6) 
+   	        {
+                $mostSaved[] = $mysqli_fetch_assoc($result2);
+                $counter = $counter + 1 ;
+            } 
+        }
+    }
+    catch (Exception $e)
+    {
+        $e->getMessage();
+    }
+    $return[] = $foodNames;
+    $return[] = $mostClicked;
+    $return[] = $mostSaved;
+    echo json_encode($return);
+    
+}
 
 
 
