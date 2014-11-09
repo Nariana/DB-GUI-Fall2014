@@ -324,7 +324,7 @@ function getResult() {
     $rows = array();
     $results = array();
     
-    
+    //echo print_r($_GET);
 
     //store all information from json, input from user 
     foreach ($_GET as $part)
@@ -376,7 +376,7 @@ function getResult() {
         searchDB($filters, $part, $methods, $time, $calories);
     }
 
-    $result= $con->query("select recipeName, time, recipe.rating, rankingPoints, calories from recipe inner join  results on results.recipeID =  recipe.recipeID inner join filter on results.recipeID = filter.recipeID order by rankingPoints asc"); //execute query 
+    $result= $con->query("select recipeName, time, recipe.rating, rankingPoints, calories from recipe inner join  results on results.recipeID =  recipe.recipeID inner join filter on results.recipeID = filter.recipeID order by rankingPoints desc"); //execute query 
     
     if (!$result)
     {
@@ -406,7 +406,7 @@ function getResult() {
 function searchDB($filters, $ingredients, $methods, $time, $calories)
 {
     $counter = 0;
-    $i = 0;
+    $counter1 = 0;
     //create query with all information 
     //select distinct recipeName, ranking from recipe natural join filter natural join recipeConnection where vegetarian and foodName = 'egg' order by 'ranking' asc;
     $sql = "select distinct recipeID from recipe natural join filter natural join recipeConnection where "; //check if you need ''
@@ -433,7 +433,7 @@ function searchDB($filters, $ingredients, $methods, $time, $calories)
 
     foreach ($methods as $method)
     {
-        if($i == 0)
+        if($counter1 == 0)
         {
             $sql = $sql." and method = '";
             $sql = $sql.$method."'";
@@ -443,7 +443,7 @@ function searchDB($filters, $ingredients, $methods, $time, $calories)
             $sql = $sql." or method = '";
             $sql = $sql.$method."'";
         }
-        $i = $i + 1;
+        $counter1 = $counter1 + 1;
     }
 
     if(!empty($time))
@@ -456,7 +456,7 @@ function searchDB($filters, $ingredients, $methods, $time, $calories)
         $sql = $sql." and calories < ";
         $sql = $sql.$calories[0];
     }
-
+   // echo $sql;
     SearchInsert($sql, $ingredients); //call search and insert 
 }
 

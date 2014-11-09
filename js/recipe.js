@@ -1,8 +1,8 @@
 console.log(localStorage.getItem("selectedRecipe"));
 //XAMPP
-//var rootURL = "http://localhost/DB-GUI-Fall2014/index.php";
+var rootURL = "http://localhost/api/index.php";
 //MAMP
-var rootURL = "http://localhost:8888/DB-GUI-Fall2014/api/index.php";
+//ar rootURL = "http://localhost:8888/DB-GUI-Fall2014/api/index.php";
 
 /* dummy objec for testing, remember to delete */
 var dummy = {
@@ -33,7 +33,7 @@ function load(){
         dataType: "json",
         data: send,
         success: function (result) {
-            //console.log(result.ingredients.split("\n"));
+            console.log(result);
             $("#recipeName").append(result["recipeName"]);
             $("#recipeImg").attr("src", result["url"]);
             var instructions = result.instruction.split("\n");
@@ -50,6 +50,7 @@ function load(){
             $("#rate").append(result["rating"]);
             $("#time").prepend(result["time"]);
             $("#cals").prepend(result["calories"]);
+            $("#recipeImg").attr("src",result["picture"]);
           },
         error: function(jqXHR, textStatus, errorThrown){
           alert("No recipe found! Let's go back!");
