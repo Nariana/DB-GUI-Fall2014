@@ -406,6 +406,7 @@ function getResult() {
 function searchDB($filters, $ingredients, $methods, $time, $calories)
 {
     $counter = 0;
+    $i = 0;
     //create query with all information 
     //select distinct recipeName, ranking from recipe natural join filter natural join recipeConnection where vegetarian and foodName = 'egg' order by 'ranking' asc;
     $sql = "select distinct recipeID from recipe natural join filter natural join recipeConnection where "; //check if you need ''
@@ -432,8 +433,17 @@ function searchDB($filters, $ingredients, $methods, $time, $calories)
 
     foreach ($methods as $method)
     {
-        $sql = $sql." and method = '";
-        $sql = $sql.$method."'";
+        if($i == 0)
+        {
+            $sql = $sql." and method = '";
+            $sql = $sql.$method."'";
+        }
+        else 
+        {
+            $sql = $sql." or method = '";
+            $sql = $sql.$method."'";
+        }
+        $i = $i + 1;
     }
 
     if(!empty($time))
