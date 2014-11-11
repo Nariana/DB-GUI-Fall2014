@@ -258,7 +258,7 @@ function register()
     
     $userExists = FALSE;
     
-    $sql = con->prepare("select * from users where username = ?");
+    $sql = $con->prepare("select * from users where username = ?");
     $sql->bind_param('s', $_POST['username']);
     $sql->execute();
     
