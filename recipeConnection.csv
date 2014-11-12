@@ -126,7 +126,7 @@ recipeID,foodName,value
 19,jalapeno,3
 19,cilantro,5
 19,zucchini,7
-19,golden flax,5
+19,flax,5
 20,anchovy,2
 20,caper,5
 20,dijon mustard,5
@@ -136,7 +136,7 @@ recipeID,foodName,value
 20,parsley,3
 20,olive oil,5
 20,hot sauce,3
-20,Worcestershire sauce,3
+20,worcestershire sauce,3
 21,potato,10
 21,butter,6
 21,cheese,5
@@ -170,8 +170,7 @@ recipeID,foodName,value
 25,egg,8
 25,butter,8
 25,spaghetti sauce,9
-25,mozzarella,9
-25,parmesan,9
+25,cheese,9
 26,tofu,10
 26,chili powder,6
 26,garlic,6
@@ -180,7 +179,7 @@ recipeID,foodName,value
 26,celery,6
 26,corn,6
 26,kidney bean,6
-26,stewed tomatoes,6
+26,stewed tomato,6
 26,water,10
 27,macaroni,10
 27,tomato,10
