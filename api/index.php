@@ -17,8 +17,7 @@ $app->get('/getRecipe', 'getRecipe');
 $app->get('/saveRecipe', 'saveRecipe');
 $app->get('/getAnalytics', 'getAnalytics');
 $app->get('/updateRating', 'updateRating');
-//$app->get('/showFavorite', 'showFavorite');
-
+$app->get('/displayFavorites', 'displayFavorites');
 
 $app->post('/login', 'login');
 $app->post('/register', 'register');
@@ -151,9 +150,9 @@ function saveRecipe()
         $id = $row[0]; 
         
         //prepare statement 
-            $sql = $con->prepare("INSERT INTO savedRecipes(username, id) values (?, ?)");    
-            $sql->bind_param('ss', $_SESSION['username'], $id);
-            $sql->execute();
+        $sql = $con->prepare("INSERT INTO savedRecipes(username, id) values (?, ?)");    
+        $sql->bind_param('ss', $_SESSION['username'], $id);
+        $sql->execute();
             
         //increment number of times that recipe has been saved 
         $stmt = $con->prepare("select timesSaved from recipe where recipeName = ?");
@@ -207,7 +206,7 @@ function updateRating()
         
         $row = mysqli_fetch_row($result2);
         $rating = $row[0]; //save the ranking
-        $rating= $rating + 1; //update ranking 
+        $rating= $rating + 1; //update ranking
         $sql2 = $con->prepare("UPDATE recipe SET rating = ? where recipeName = ? ");
         $sql2->bind_param('is', $rating, $recipeName);
         $sql2->execute(); 
@@ -609,4 +608,23 @@ function createSubSet($in,$minLength = 1)
       } 
    } 
     return $return; 
+}
+
+function displayFavorites() 
+{
+    $con = getConnection();
+    $app = \Slim\Slim::getInstance();
+    $request = $app->request()->getBody();
+    $username = "kskatteboe";
+
+    $favoritesList = array();
+    $query = "select recipeName, picture from recipe natural join searchHistory where username = .$username.";
+    $result = $con->query($query);
+    while ($rows = mysqli_fetch_row($result)) 
+    {
+        $favoritesList[] = $rows;
+    }
+
+    echo json_encode($favoritesList);
+
 }
