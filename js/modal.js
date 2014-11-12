@@ -90,3 +90,11 @@
       dialog.dialog( "open" );
     });
   });
+
+  if(!localStorage.getItem("username")){
+    $("#favorites").hide();
+  }
+  else{
+    $("#login").hide();
+    $("#register").hide();
+  }

@@ -5,7 +5,6 @@
 	<title>Pantry Quest</title>
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<link rel="stylesheet" href="fonts/font-awesome/css/font-awesome.min.css" >
-	<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css" >
 	<link rel="shortcut icon" href="img/PQ.png" >
 	<link href='http://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
 </head>
@@ -29,9 +28,11 @@
 	</form>
 
 	<div class="button-div">
-		<button id="login">Login</button>
-		<button id="register">Register</button>
-		<button id="analytics">Analytics</button>
+		<p id="welcome">Welcome, </p>
+		<button id="favorites" class="modal-button">View Favorites</button>
+		<button id="login" class="modal-button">Login</button>
+		<button id="register" class="modal-button">Register</button>
+		<button id="analytics" class="modal-button">Analytics</button>
 	</div>
 
 </body>
@@ -40,4 +41,5 @@
   	<script src="http://code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
   	<script type="text/javascript" src="js/recipe.js"></script>
   	<script type="text/javascript" src="js/modal.js"></script>
+  	<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css" >
 </html>

@@ -44,6 +44,9 @@ function load(){
                 $("#instr").append("<li>"+text+"</li>");
               })
             }
+            else{
+              console.log(result.instructions);
+            }
 
             if(result.ingredients != undefined){
               var ingredients = result.ingredients.split("\n");
@@ -52,6 +55,10 @@ function load(){
                 console.log(text);
               })
             }
+            else{
+              console.log(result.ingredients);
+            }
+
             $("#rate").append(result["rating"]);
             $("#time").prepend(result["time"]);
             $("#cals").prepend(result["calories"]);

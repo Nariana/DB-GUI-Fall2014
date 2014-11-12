@@ -151,7 +151,7 @@ margin-top: 75px;
 	width: 100%;
 }
 
-.button-div button{
+.button-div *{
 	float: left;
 	margin-left: 20%;
 	margin-top:.5em;
