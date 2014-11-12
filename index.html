@@ -14,6 +14,7 @@
 	<body>
 		<div id="content">
 			<img src="img/Logo2.png">
+			<button id="register">Register!</button>
 			<div id="insert">
 				<input type="textbox" id="textIngredient" placeholder="Type Ingredient Here!">
 				<!--<button type="button" id="addIngredient">Add</button>-->
@@ -21,11 +22,27 @@
 				<ul id="ingredientList"></ul>
 			</div>
 		</div>
+	
+
+		<div id="dialog-form" title="Create new user">
+		  <p class="validateTips">All form fields are required.</p>
+		 
+		  <form>
+		    <fieldset>
+		      <label for="name">Name</label>
+		      <input type="text" name="name" id="name" value="" class="text ui-widget-content ui-corner-all">
+		      <label for="email">Email</label>
+		      <input type="text" name="email" id="email" value="" class="text ui-widget-content ui-corner-all">
+		      <label for="password">Password</label>
+		      <input type="password" name="password" id="password" value="" class="text ui-widget-content ui-corner-all">
+		 
+		      <!-- Allow form submission with keyboard without duplicating the dialog button -->
+		      <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+		    </fieldset>
+		  </form>
+		</div>
+
 	</body>
-
-	  <style>
-
-	  </style>
 
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   	<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
