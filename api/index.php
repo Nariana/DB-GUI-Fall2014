@@ -17,6 +17,7 @@ $app->get('/getRecipe', 'getRecipe');
 $app->get('/saveRecipe', 'saveRecipe');
 $app->get('/getAnalytics', 'getAnalytics');
 $app->get('/updateRating', 'updateRating');
+
 $app->get('/displayFavorites', 'displayFavorites');
 
 $app->post('/login', 'login');
@@ -41,6 +42,40 @@ function getConnection() {
 function logout()
 {
     session_destroy();
+}
+
+function showFavorite()
+{
+    $favorites = array();
+    try
+    {
+        $con = getConnection();
+        
+        if ($_SESSION['id'] == 1) //you can only do thos if you are logged in 
+        {
+            $sql = $con->prepare("select recipeName, rating from recipe inner join searchHistory on searchHistory.id = recipe.recipeID where username = ? ");
+            $sql -> bind_param('s', $_SESSION['username']);
+            $sql->execute(); 
+            $result = $sql->get_result(); 
+            
+        if (!$result) //check if the result is valid 
+        {
+            throw new Exception(mysqli_error($con));
+        }
+        
+        while($r = $result)
+        {
+            $favorites[] = $r; // store results in favorites 
+        }
+            
+        }
+        
+    }
+    catch (Exception $e)
+    {
+        $e->getMessage();
+    }
+    json_encode($favorites);
 }
 
 function getAnalytics() {
@@ -141,7 +176,8 @@ function saveRecipe()
         //get the recipe ID
         $stmt =$con->prepare("select recipeID from recipe where recipeName = ? ");
         $stmt->bind_param('s', $recipeName);
-        $result1= $stmt->execute();
+        $stmt->execute(); 
+        $result1 = $stmt->get_result(); 
         if (!$result1)
         {   
             throw new Exception(mysqli_error($con));
@@ -157,6 +193,7 @@ function saveRecipe()
         //increment number of times that recipe has been saved 
         $stmt = $con->prepare("select timesSaved from recipe where recipeName = ?");
         $stmt->bind_param('s', $recipeName);
+        $stmt->execute(); 
         $result2 = $stmt->execute();
                              
         if (!$result2)
@@ -198,7 +235,8 @@ function updateRating()
         //get current rating 
         $stmt = $con->prepare("select rating from recipe where recipeName = ? ");
         $stmt->bind_param('s', $recipeName);
-        $result2= $stmt->execute();
+        $stmt->execute(); 
+        $result2 = $stmt->get_result(); 
         if (!$result2)
         {   
             throw new Exception(mysqli_error($con));
@@ -273,7 +311,10 @@ function register()
         $pwmd5 = md5($_POST['pw']);
         $stmt->bindParam('sss', $_POST['username'], $_POST['name'], $pwmd5);
         $stmt->execute();
+        $information[] = $_POST['username'];
+        $information[] = $_POST['name'];
     }
+    json_encode($information);
 }
 
 
@@ -293,7 +334,8 @@ function getRecipe()
     $sql = $con->prepare("select recipeName, instruction, time, rating, ingredients, picture, calories from recipe natural join filter where recipeName = ?");
     $sql->bind_param('s', $recipeName);
         
-    $result = $sql->execute();
+    $sql->execute();
+    $result = $sql->get_result(); 
     
     if (mysqli_num_rows($result) != 0)
     {
@@ -303,15 +345,13 @@ function getRecipe()
      //increment the nuber of times that recipe has been selected 
         $stmt = $con->prepare("select timesClicked from recipe where recipeName = ? ");
         $stmt->bind_param('s', $recipeName);
-        $result2= $stmt->execute();
-        if (!$result2)
-        {   
-            throw new Exception(mysqli_error($con));
+        $stmt->execute();
+        $stmt->bind_result($timesClicked);
+        while ($stmt->fetch())
+        {
+            $timesClicked = $timesClicked + 1;
         }
-        
-        $row = mysqli_fetch_row($result2);
-        $timesClicked = $row[0]; //save the ranking
-        $timesClicked= $timesClicked + 1; //update ranking 
+
         $sql2 = $con->prepare("UPDATE recipe SET timesClicked = ? where recipeName = ? ");
         $sql2->bind_param('is', $timesClicked, $recipeName);
         $sql2->execute(); 
@@ -366,7 +406,7 @@ function getResult() {
     $counter = 0;
     $rows = array();
     $results = array();
-    
+    $timesSearched;
     //echo print_r($_GET);
 
     //store all information from json, input from user 
@@ -375,20 +415,20 @@ function getResult() {
         if(array_key_exists("ing", $part ))
         {   
             $ingredients[] = $part['ing'];
-            
-            
+             
             //increment the nuber of times that ingredient is searched for
-        $stmt = $con->prepare("select timesSearched from ingredient where foodName = ? ");
+            
+        $query = 'select timesSearched from ingredient where foodName = ? ';
+        $stmt = $con->prepare($query);
         $stmt->bind_param('s', $part['ing']);
-        $result1= $stmt->execute();
-        if (!$result2)
-        {   
-            throw new Exception(mysqli_error($con));
+        $stmt->execute();
+        $stmt->bind_result($timesSearched);
+        while ($stmt->fetch())
+        {
+            $timesSearched = $timesSearched + 1;
         }
-        
-        $row = mysqli_fetch_row($result1);
-        $timesSearched = $row[0]; //save the ranking points
-        $timesSearched = $timesSearched + 1;
+
+            
         $sql2 = $con->prepare("UPDATE ingredient SET timesSearched = ? where foodName = ? ");
         $sql2->bind_param('is', $timesSearched, $part['ing']);
         $sql2->execute(); 
@@ -457,6 +497,7 @@ function getResult() {
 //function that creates a query 
 function searchDB($filters, $ingredients, $methods, $time, $calories)
 {
+    //echo "inside search";
     $counter = 0;
     $counter1 = 0;
     
@@ -482,6 +523,8 @@ function searchDB($filters, $ingredients, $methods, $time, $calories)
             $sql = $sql.$ingredient."'";
         }
         $counter++;
+        
+        //echo $sql;
     }
 
     foreach ($methods as $method)
@@ -532,7 +575,7 @@ function searchDB($filters, $ingredients, $methods, $time, $calories)
         $sql = $sql.$calories[0];
         }
     }
-   // echo $sql;
+    //echo $sql;
     SearchInsert($sql, $ingredients); //call search and insert 
 }
 
