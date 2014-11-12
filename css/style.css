@@ -141,3 +141,19 @@ margin-top: 75px;
 .ui-slider-horizontal .ui-state-default {
 	background: white url(img/LadelIcon.png) no-repeat scroll 50% 50%;
 }
+
+.button-div {
+	position: fixed;
+	bottom: 0px;
+	left: 0px;
+	background-color: white;
+	border-top: solid black 1px;
+	width: 100%;
+}
+
+.button-div button{
+	float: left;
+	margin-left: 20%;
+	margin-top:.5em;
+	margin-bottom:.5em;
+}
