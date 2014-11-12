@@ -236,15 +236,12 @@ function updateRating()
         $stmt = $con->prepare("select rating from recipe where recipeName = ? ");
         $stmt->bind_param('s', $recipeName);
         $stmt->execute(); 
-        $result2 = $stmt->get_result(); 
-        if (!$result2)
-        {   
-            throw new Exception(mysqli_error($con));
+        $stmt->bind_result($rating);
+        while ($stmt->fetch())
+        {
+            $rating = $rating + 1;
         }
-        
-        $row = mysqli_fetch_row($result2);
-        $rating = $row[0]; //save the ranking
-        $rating= $rating + 1; //update ranking
+
         $sql2 = $con->prepare("UPDATE recipe SET rating = ? where recipeName = ? ");
         $sql2->bind_param('is', $rating, $recipeName);
         $sql2->execute(); 
@@ -330,17 +327,16 @@ function getRecipe()
 
     //replace + with space 
     $recipeName = $_GET['recipeName']; 
-    
-    $sql = $con->prepare("select recipeName, instruction, time, rating, ingredients, picture, calories from recipe natural join filter where recipeName = ?");
-    $sql->bind_param('s', $recipeName);
         
-    $sql->execute();
-    $result = $sql->get_result(); 
+   $sql = "select recipeName, instruction, time, rating, ingredients, picture, calories from recipe natural join filter where recipeName = '".$recipeName."'"; 
+    $result = $con->query($sql);
     
     if (mysqli_num_rows($result) != 0)
     {
         $results = mysqli_fetch_assoc($result);
     }
+
+        //echo print_r($results);
     
      //increment the nuber of times that recipe has been selected 
         $stmt = $con->prepare("select timesClicked from recipe where recipeName = ? ");
