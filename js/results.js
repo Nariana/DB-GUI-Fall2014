@@ -1,7 +1,7 @@
 //XAMPP
-//var rootURL = "http://localhost/DB-GUI-Fall2014/index.php";
+var rootURL = "http://localhost/db-gui-fall2014/api/index.php";
 //MAMP
-var rootURL = "http://localhost:8888/DB-GUI-Fall2014/api/index.php";
+// var rootURL = "http://localhost:8888/DB-GUI-Fall2014/api/index.php";
 
 $(document).ready(function(){
   load();
@@ -50,7 +50,7 @@ function getResults(){
               for (var i = 0; i < result.length ; i++) {
                 //console.log(result[i]);
                 var percent = Math.floor(result[i].rankingPoints*100);
-                var add = "<tr id='recipe"+i+"' class='resultRow'><td class='name'>"+result[i].recipeName+"</td><td>"+result[i].rating+"</td><td>"+result[i].time+" minutes</td><td>"+percent+"%</td></tr>";
+                var add = "<tr id='recipe"+i+"' class='resultRow'><td class='name'>"+result[i].recipeName+"</td><td>"+result[i].rating+"</td><td>"+result[i].time+" minutes</td><td>"+percent+"%</td><td><i class='fa fa-thumbs-o-up'></i></td></tr>";
                 $("#resultTable").append(add);
 
                 addListeners();

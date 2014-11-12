@@ -18,7 +18,7 @@ recipeID,foodName,value
 3,bread,2
 4,egg,10
 4,vegetable oil,8
-4,scallion,5
+4,scallions,5
 4,tomato,10
 5,carrot,10
 5,potato,10
@@ -194,7 +194,7 @@ recipeID,foodName,value
 29,asparagus,10
 29,prosciutto,8
 29,olive oil,7
-29,cooking crème,7
+29,cooking cr?me,7
 29,water,6
 30,onion,7
 30,oil,7
@@ -261,3 +261,62 @@ recipeID,foodName,value
 40,chocolate chip,10
 40,sugar,8
 40,unsalted butter,7
+141,spinach,10
+141,sesame oil,4
+141,rice vinegar,3
+141,sesame seed,1
+141,pepper,1
+141,salt,1
+142,flour,10
+142,yeast,10
+142,baking powder,10
+142,sugar,6
+142,salt,1
+142,sesame oil,1
+142,cabbage,5
+142,spring onion,6
+142,ginger,5
+142,sugar,3
+142,oyster sauce,4
+142,soy sauce,2
+142,sesame oil,2
+143,fish,10
+143,salt,1
+143,pepper,1
+143,bean paste,7
+143,sake,8
+143,ginger,5
+143,chives,2
+143,olive oil,3
+143,sesame oil,3
+144,ground chuck,10
+144,Worcestershire sauce,5
+144,salt,1
+144,pepper,1
+144,cheddar cheese,1
+144,roll,10
+145,dumplings,10
+145,vegetable oil,6
+145,mushroom,6
+145,garlic,4
+145,red pepper,5
+145,bell pepper,3
+145,spinach,3
+145,bok choy,2
+145,cilantro,2
+145,ginger,3
+145,soy sauce,6
+145,pepper,1
+145,chili,3
+145,rice vinegar,4
+145,sesame oil,5
+145,green onion,2
+146,sugar,2
+146,pepper,1
+146,oyster sauce,4
+146,canola oil,2
+146,garlic,4
+146,ginger,3
+146,scallions,6
+146,salmon,10
+146,cilantro,1

@@ -57,6 +57,7 @@ function getAnalytics() {
         $con = getConnection();
         
     //show the 5 most searched for ingredients 
+        //don't need to make injection safe because the user is not inputed query 
         $stmt = "select foodName from ingredient order by timesSearched desc";
         $result= $con->query($stmt);
         if (!$result)
@@ -75,6 +76,7 @@ function getAnalytics() {
         }
     //show the 5 most clicked recipes 
         $counter = 0;
+        //don't need to make injection safe because the user is not inputed query 
         $stmt = "select recipeName from recipe order by timesClicked desc";
         $result1= $con->query($stmt);
         if (!$result1)
@@ -93,6 +95,7 @@ function getAnalytics() {
         }
     //show the 5 most saved recipes 
         $counter = 0;
+        //don't need to make injection safe because the user is not inputed query 
         $stmt = "select recipeName from recipe order by timesSaved desc";
         $result2= $con->query($stmt);
         if (!$result2)
@@ -137,8 +140,9 @@ function saveRecipe()
         if ($_SESSION['id'] == 1)
         {
         //get the recipe ID
-        $stmt = "select recipeID from recipe where recipeName = '".$recipeName."'";
-        $result1= $con->query($stmt);
+        $stmt =$con->prepare("select recipeID from recipe where recipeName = ? ");
+        $stmt->bind_param('s', $recipeName);
+        $result1= $stmt->execute();
         if (!$result1)
         {   
             throw new Exception(mysqli_error($con));
@@ -147,13 +151,15 @@ function saveRecipe()
         $id = $row[0]; 
         
         //prepare statement 
-            $sql = $con->prepare("INSERT INTO searchHsitory(username, id) values (?, ?)");    
+            $sql = $con->prepare("INSERT INTO savedRecipes(username, id) values (?, ?)");    
             $sql->bind_param('ss', $_SESSION['username'], $id);
             $sql->execute();
             
         //increment number of times that recipe has been saved 
-        $stmt = "select timesSaved from recipe where recipeName = '".$recipeName."'";
-        $result2= $con->query($stmt);
+        $stmt = $con->prepare("select timesSaved from recipe where recipeName = ?");
+        $stmt->bind_param('s', $recipeName);
+        $result2 = $stmt->execute();
+                             
         if (!$result2)
         {   
             throw new Exception(mysqli_error($con));
@@ -162,12 +168,16 @@ function saveRecipe()
         $row = mysqli_fetch_row($result2);
         $timesSaved = $row[0]; //save the ranking points
         $timesSaved= $timesSaved + 1;
-        $sql2 = "UPDATE recipe SET timesSaved = ".$timesSaved." where recipeName = '".$recipeName."'";
-        $con->query($sql2);
+                             
+                             
+        $sql2 = $con->prepare("UPDATE recipe SET timesSaved = ? where recipeName = ? ");
+        $sql2->bind_param('is', $timesSaved, $recipeName);
+        $sql2->execute();                
         
         }
         else
         {
+            //REDIRECT TO SOMEWHERE ELSE 
             //you are not logged in so you cannot save a recipe 
         }
     }
@@ -187,8 +197,9 @@ function updateRating()
     {
         $con = getConnection();
         //get current rating 
-        $stmt = "select rating from recipe where recipeName = '".$recipeName."'";
-        $result2= $con->query($stmt);
+        $stmt = $con->prepare("select rating from recipe where recipeName = ? ");
+        $stmt->bind_param('s', $recipeName);
+        $result2= $stmt->execute();
         if (!$result2)
         {   
             throw new Exception(mysqli_error($con));
@@ -197,8 +208,9 @@ function updateRating()
         $row = mysqli_fetch_row($result2);
         $rating = $row[0]; //save the ranking
         $rating= $rating + 1; //update ranking 
-        $sql2 = "UPDATE recipe SET rating = ".$rating." where recipeName = '".$recipeName."'";
-        $con->query($sql2);
+        $sql2 = $con->prepare("UPDATE recipe SET rating = ? where recipeName = ? ");
+        $sql2->bind_param('is', $rating, $recipeName);
+        $sql2->execute(); 
     }
     catch (Exception $e)
     {
@@ -212,10 +224,15 @@ function login()
     $request = $app->request()->getBody();
     $information = array();
     
-    $query = "select * from users where id = '";
-    $query = $query.$_POST['username']."' and pw = '".$_POST['pw']."'";
-    $result = $con->query($sql);
+    $query = $con->prepare("select * from users where id = ? and pw = ? ");
+    $pwmd5 = md5($_POST['pw']);
+    $query->bind_param('ss', $_POST['username'], $pwmd5);
+    $result = $query->execute();
   
+    if (!$result)
+    {
+        throw new Exception(mysqli_error($con));
+    }
     if (mysql_num_rows($result) == 0)
     {
         $_SESSION['id'] = false;
@@ -225,7 +242,9 @@ function login()
     {
         $_SESSION['id'] = true;
         $_SESSION['username'] = $_POST['username'];
+        //return name as well 
         $information[] = $_POST['username'];
+        $information[] = mysqli_fetch_assoc($result);
     }
     echo json_encode($information);
 }
@@ -239,11 +258,25 @@ function register()
     
     $userExists = FALSE;
     
-    $sql = "select * from users where username = '".$_POST['username']."'";
+    $sql = $con->prepare("select * from users where username = ?");
+    $sql->bind_param('s', $_POST['username']);
+    $sql->execute();
     
-    $stmt = $con->prepare("INSERT into table users value (?,?,?)");
-    $stmt->bindParam('sss', $_POST['username'], $_POST['email'], $_POST['pw']);
+    //check if it is empty
+    $resultCheck = $stmt->fetch(PDO::FETCH_ASSOC);
+    if (empty($accountCheck)) {
+            $userExists = TRUE;
+    }
+    
+    if($userExists == FALSE)
+    {
+        $stmt = $con->prepare("INSERT into users (username, name, pw) value (?,?,?)");
+        $pwmd5 = md5($_POST['pw']);
+        $stmt->bindParam('sss', $_POST['username'], $_POST['name'], $pwmd5);
+        $stmt->execute();
+    }
 }
+
 
 function getRecipe()
 {
@@ -258,8 +291,10 @@ function getRecipe()
     //replace + with space 
     $recipeName = $_GET['recipeName']; 
     
-    $sql = "select recipeName, instruction, time, rating, ingredients, picture, calories from recipe natural join filter where recipeName = '".$recipeName."'"; 
-    $result = $con->query($sql);
+    $sql = $con->prepare("select recipeName, instruction, time, rating, ingredients, picture, calories from recipe natural join filter where recipeName = ?");
+    $sql->bind_param('s', $recipeName);
+        
+    $result = $sql->execute();
     
     if (mysqli_num_rows($result) != 0)
     {
@@ -267,18 +302,27 @@ function getRecipe()
     }
     
      //increment the nuber of times that recipe has been selected 
-        $stmt = "select timesClicked from recipe where recipeName = '".$recipeName."'";
-        $result1= $con->query($stmt);
-        $row = mysqli_fetch_row($result1);
-        $timesClicked = $row[0]; //save the ranking points
-        $timesClicked = $timesClicked + 1;
-        $sql2 = "UPDATE recipe SET timesClicked = ".$timesClicked." where recipeName = '".$recipeName."'";
-        $con->query($sql2);
+        $stmt = $con->prepare("select timesClicked from recipe where recipeName = ? ");
+        $stmt->bind_param('s', $recipeName);
+        $result2= $stmt->execute();
+        if (!$result2)
+        {   
+            throw new Exception(mysqli_error($con));
+        }
+        
+        $row = mysqli_fetch_row($result2);
+        $timesClicked = $row[0]; //save the ranking
+        $timesClicked= $timesClicked + 1; //update ranking 
+        $sql2 = $con->prepare("UPDATE recipe SET timesClicked = ? where recipeName = ? ");
+        $sql2->bind_param('is', $timesClicked, $recipeName);
+        $sql2->execute(); 
+        
     }// end try block 
     catch (Exception $e)
     {
         $e->getMessage();
     }
+    
     echo json_encode($results);
 
 }
@@ -335,13 +379,21 @@ function getResult() {
             
             
             //increment the nuber of times that ingredient is searched for
-            $stmt = "select timesSearched from ingredient where foodName = '".$part['ing']."'";
-            $result1= $con->query($stmt);
-            $row = mysqli_fetch_row($result1);
-            $timesSearched = $row[0]; //save the ranking points
-            $timesSearched = $timesSearched + 1;
-            $sql2 = "UPDATE ingredient SET timesSearched = ".$timesSearched." where foodName = '".$part['ing']."'";
-            $con->query($sql2);
+        $stmt = $con->prepare("select timesSearched from ingredient where foodName = ? ");
+        $stmt->bind_param('s', $part['ing']);
+        $result1= $stmt->execute();
+        if (!$result2)
+        {   
+            throw new Exception(mysqli_error($con));
+        }
+        
+        $row = mysqli_fetch_row($result1);
+        $timesSearched = $row[0]; //save the ranking points
+        $timesSearched = $timesSearched + 1;
+        $sql2 = $con->prepare("UPDATE ingredient SET timesSearched = ? where foodName = ? ");
+        $sql2->bind_param('is', $timesSearched, $part['ing']);
+        $sql2->execute(); 
+
         }
             if(array_key_exists("filter", $part ))
         {
@@ -402,11 +454,13 @@ function getResult() {
     mysqli_close($con);
 }
 
+//HOW TO MAKE   this safe 
 //function that creates a query 
 function searchDB($filters, $ingredients, $methods, $time, $calories)
 {
     $counter = 0;
     $counter1 = 0;
+    
     //create query with all information 
     //select distinct recipeName, ranking from recipe natural join filter natural join recipeConnection where vegetarian and foodName = 'egg' order by 'ranking' asc;
     $sql = "select distinct recipeID from recipe natural join filter natural join recipeConnection where "; //check if you need ''
@@ -433,6 +487,13 @@ function searchDB($filters, $ingredients, $methods, $time, $calories)
 
     foreach ($methods as $method)
     {
+        if(empty($ingredients) && empty($filters))
+        {
+            $sql = $sql." method = '";
+            $sql = $sql.$method."'";
+            continue;
+        }
+            
         if($counter1 == 0)
         {
             $sql = $sql." and method = '";
@@ -448,13 +509,29 @@ function searchDB($filters, $ingredients, $methods, $time, $calories)
 
     if(!empty($time))
     {
+        if(empty($ingredients) && empty($filters) && empty($methods))
+        {
+        $sql = $sql." time < ";
+        $sql = $sql.$time[0];
+        }
+        else 
+        {
         $sql = $sql." and time < ";
         $sql = $sql.$time[0];
+        }
     }
-        if(!empty($calories))
+    if(!empty($calories))
     {
+        if(empty($ingredients) && empty($filters) && empty($methods))
+        {
+        $sql = $sql." calories < ";
+        $sql = $sql.$calories[0];
+        }
+        else
+        {
         $sql = $sql." and calories < ";
         $sql = $sql.$calories[0];
+        }
     }
    // echo $sql;
     SearchInsert($sql, $ingredients); //call search and insert 
