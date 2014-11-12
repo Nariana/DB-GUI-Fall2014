@@ -64,7 +64,7 @@
       return valid;
     }
  
-    dialog = $( "#dialog-form" ).dialog({
+    dialog = $( "#register-form" ).dialog({
       autoOpen: false,
       height: 300,
       width: 380,
