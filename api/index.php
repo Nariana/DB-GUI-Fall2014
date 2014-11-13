@@ -352,8 +352,7 @@ function getRecipe()
         $stmt->bind_result($timesClicked);
         while ($stmt->fetch())
         {
-            $timesClicked = $timesClicked + 1;
-            
+            $timesClicked = $timesClicked + 1; 
         }
 
         $sql2 = $con->prepare("UPDATE recipe SET timesClicked = ? where recipeName = ? ");
@@ -417,8 +416,8 @@ function getResult() {
     foreach ($_GET as $part)
     {
         if(array_key_exists("ing", $part ))
-        {   
-            $ingredients[] = $part['ing'];
+        {   $ingredient = $con->real_escape_string($part['ing']);
+            $ingredients[] = $ingredient;
              
             //increment the nuber of times that ingredient is searched for
             
@@ -440,12 +439,14 @@ function getResult() {
         }
             if(array_key_exists("filter", $part ))
         {
-            $filters[] = $part['filter']; 
+            $filter = $con->real_escape_string($part['filter']);
+            $filters[] = $filter; 
                 //echo $part['filter']; 
         }
             if(array_key_exists("method", $part ))
         {
-            $methods[] = $part['method'];
+            $method = $con->real_escape_string($part['method']);
+            $methods[] = $method;
                // echo $part['method'];
         }
             if(array_key_exists("time", $part ))
@@ -455,7 +456,8 @@ function getResult() {
         }
             if(array_key_exists("noingredient", $part ))
         {
-            $noIngredients[] = $part['noingredient'];
+            $noIngredient = $con->real_escape_string($part['noingredient']);
+            $noIngredients[] = $noIngredient;
         }  
             if(array_key_exists("calories", $part ))
         {
@@ -518,13 +520,13 @@ function searchDB($filters, $ingredients, $methods, $time, $calories)
     {
         if($counter == 0)
         {
-            $ingredient = $con->real_escape_string($ingredient);
+            
             $sql = $sql."foodName = '";
             $sql = $sql.$ingredient."'";
         }
         else 
         {
-            $ingredient = $con->real_escape_string($ingredient);
+            
             $sql = $sql." and foodName = '";
             $sql = $sql.$ingredient."'";
         }
@@ -537,7 +539,7 @@ function searchDB($filters, $ingredients, $methods, $time, $calories)
     {
         if(empty($ingredients) && empty($filters))
         {
-            $method = $con->real_escape_string($method);
+            
             $sql = $sql." method = '";
             $sql = $sql.$method."'";
             continue;
@@ -545,13 +547,13 @@ function searchDB($filters, $ingredients, $methods, $time, $calories)
             
         if($counter1 == 0)
         {
-            $method = $con->real_escape_string($method);
+ 
             $sql = $sql." and method = '";
             $sql = $sql.$method."'";
         }
         else 
         {
-            $method = $con->real_escape_string($method);
+            
             $sql = $sql." or method = '";
             $sql = $sql.$method."'";
         }
@@ -562,13 +564,11 @@ function searchDB($filters, $ingredients, $methods, $time, $calories)
     {
         if(empty($ingredients) && empty($filters) && empty($methods))
         {
-            $time = $con->real_escape_string($time);
         $sql = $sql." time < ";
         $sql = $sql.$time[0];
         }
         else 
         {
-            $time = $con->real_escape_string($time);
         $sql = $sql." and time < ";
         $sql = $sql.$time[0];
         }
@@ -577,13 +577,11 @@ function searchDB($filters, $ingredients, $methods, $time, $calories)
     {
         if(empty($ingredients) && empty($filters) && empty($methods))
         {
-            $calories = $con->real_escape_string($calories);
         $sql = $sql." calories < ";
         $sql = $sql.$calories[0];
         }
         else
         {
-            $calories = $con->real_escape_string($calories);
         $sql = $sql." and calories < ";
         $sql = $sql.$calories[0];
         }
