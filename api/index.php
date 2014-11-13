@@ -257,17 +257,21 @@ function login()
 	$app = \Slim\Slim::getInstance();
     $request = $app->request()->getBody();
     $information = array();
+    $name;
     
-    $query = $con->prepare("select * from users where id = ? and pw = ? ");
+    $query = $con->prepare("select name from users where id = ? and pw = ? ");
     $pwmd5 = md5($_POST['pw']);
     $query->bind_param('ss', $_POST['username'], $pwmd5);
-    $result = $query->execute();
-  
-    if (!$result)
+    $query->execute();
+    $query->bind_result($tempName);
+    while ($query->fetch())
     {
-        throw new Exception(mysqli_error($con));
+        $name = $tempName;
     }
-    if (mysql_num_rows($result) == 0)
+    
+    $count = $query->num_rows();
+
+    if ($count == 0)
     {
         $_SESSION['id'] = false;
         //INVALID LOGIN
@@ -278,8 +282,9 @@ function login()
         $_SESSION['username'] = $_POST['username'];
         //return name as well 
         $information[] = $_POST['username'];
-        $information[] = mysqli_fetch_assoc($result);
+        $information[] = $name;
     }
+    
     echo json_encode($information);
 }
 
@@ -290,6 +295,7 @@ function register()
     $request = $app->request()->getBody();
     $information = array();
     
+    
     $userExists = FALSE;
     
     $sql = $con->prepare("select * from users where username = ?");
@@ -297,7 +303,7 @@ function register()
     $sql->execute();
     
     //check if it is empty
-    $resultCheck = $stmt->fetch(PDO::FETCH_ASSOC);
+    $resultCheck = $stmt->fetch();
     if (empty($accountCheck)) {
             $userExists = TRUE;
     }
@@ -320,6 +326,7 @@ function getRecipe()
     $con = getConnection();
 	$app = \Slim\Slim::getInstance();
     $request = $app->request()->getBody();
+    $timesClicked;
     try
     {
     $results = array();
@@ -346,6 +353,7 @@ function getRecipe()
         while ($stmt->fetch())
         {
             $timesClicked = $timesClicked + 1;
+            
         }
 
         $sql2 = $con->prepare("UPDATE recipe SET timesClicked = ? where recipeName = ? ");
@@ -463,7 +471,7 @@ function getResult() {
         searchDB($filters, $part, $methods, $time, $calories);
     }
 
-    $result= $con->query("select recipeName, time, recipe.rating, rankingPoints, calories from recipe inner join  results on results.recipeID =  recipe.recipeID inner join filter on results.recipeID = filter.recipeID order by rankingPoints desc"); //execute query 
+    $result= $con->query("select recipeName, time, recipe.rating, rankingPoints, calories, picture from recipe inner join  results on results.recipeID =  recipe.recipeID inner join filter on results.recipeID = filter.recipeID order by rankingPoints desc"); //execute query 
     
     if (!$result)
     {
@@ -510,11 +518,13 @@ function searchDB($filters, $ingredients, $methods, $time, $calories)
     {
         if($counter == 0)
         {
+            $ingredient = $con->real_escape_string($ingredient);
             $sql = $sql."foodName = '";
             $sql = $sql.$ingredient."'";
         }
         else 
         {
+            $ingredient = $con->real_escape_string($ingredient);
             $sql = $sql." and foodName = '";
             $sql = $sql.$ingredient."'";
         }
@@ -527,6 +537,7 @@ function searchDB($filters, $ingredients, $methods, $time, $calories)
     {
         if(empty($ingredients) && empty($filters))
         {
+            $method = $con->real_escape_string($method);
             $sql = $sql." method = '";
             $sql = $sql.$method."'";
             continue;
@@ -534,11 +545,13 @@ function searchDB($filters, $ingredients, $methods, $time, $calories)
             
         if($counter1 == 0)
         {
+            $method = $con->real_escape_string($method);
             $sql = $sql." and method = '";
             $sql = $sql.$method."'";
         }
         else 
         {
+            $method = $con->real_escape_string($method);
             $sql = $sql." or method = '";
             $sql = $sql.$method."'";
         }
@@ -549,11 +562,13 @@ function searchDB($filters, $ingredients, $methods, $time, $calories)
     {
         if(empty($ingredients) && empty($filters) && empty($methods))
         {
+            $time = $con->real_escape_string($time);
         $sql = $sql." time < ";
         $sql = $sql.$time[0];
         }
         else 
         {
+            $time = $con->real_escape_string($time);
         $sql = $sql." and time < ";
         $sql = $sql.$time[0];
         }
@@ -562,11 +577,13 @@ function searchDB($filters, $ingredients, $methods, $time, $calories)
     {
         if(empty($ingredients) && empty($filters) && empty($methods))
         {
+            $calories = $con->real_escape_string($calories);
         $sql = $sql." calories < ";
         $sql = $sql.$calories[0];
         }
         else
         {
+            $calories = $con->real_escape_string($calories);
         $sql = $sql." and calories < ";
         $sql = $sql.$calories[0];
         }
