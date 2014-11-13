@@ -671,10 +671,10 @@ function displayFavorites()
     $con = getConnection();
     $app = \Slim\Slim::getInstance();
     $request = $app->request()->getBody();
-    $username = "kskatteboe";
+    $_SESSION['username'] = $_POST['username'];
 
     $favoritesList = array();
-    $query = "select recipeName, time, rating, picture from recipe inner join searchHistory on recipe.recipeID = searchHistory.id";
+    $query = "select recipeName, time, rating, picture from recipe inner join searchHistory on recipe.recipeID = searchHistory.id where username =".$_SESSION['username'].;
     $result = $con->query($query);
     while ($rows = mysqli_fetch_row($result)) 
     {
