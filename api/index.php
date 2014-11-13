@@ -657,7 +657,7 @@ function displayFavorites()
     $username = "kskatteboe";
 
     $favoritesList = array();
-    $query = "select recipeName, picture from recipe natural join searchHistory where username = .$username.";
+    $query = "select recipeName, time, rating, picture from recipe inner join searchHistory on recipe.recipeID = searchHistory.id";
     $result = $con->query($query);
     while ($rows = mysqli_fetch_row($result)) 
     {
