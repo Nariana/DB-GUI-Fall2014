@@ -1,7 +1,7 @@
 //XAMPP
-var rootURL = "http://localhost/DB-GUI-Fall2014/api/index.php";
+//var rootURL = "http://localhost/DB-GUI-Fall2014/api/index.php";
 //MAMP
- // var rootURL = "http://localhost:8888/DB-GUI-Fall2014/api/index.php";
+ var rootURL = "http://localhost:8888/DB-GUI-Fall2014/api/index.php";
 
 $(document).ready(function(){
   load();
@@ -42,7 +42,8 @@ function getResults(){
             console.log(result);
             $("table .resultRow").remove();
             if(result.length === 0){
-               $("#resultTable").append("<tr class='resultRow'><td>sorry, no results</td></tr>");
+              console.log("no results");
+               $("#resultListDiv").append("<div class='resultDiv'>sorry, no results</div>");
             }
 
             if(result != 0){
@@ -78,12 +79,12 @@ $(function() {
 
 
 function addListeners(){
-  $(".resultRow").hover(function(){
+  $(".resultDiv").hover(function(){
     $(this).css("background-color","grey");
-    $(this).css("border","solid black 1px");
+    //$(this).css("border","solid black 1px");
   }, function(){
     $(this).css("background-color","white");
-    $(this).css("border","none");
+    //$(this).css("border","none");
 
   });
 
@@ -107,7 +108,7 @@ function addListeners(){
     console.log($(this));
   });
 
-  $(".resultRow td").click(function(){
+  $(".resultDiv").click(function(){
     //console.log($(this).attr("class"));
 
     var clickClass = $(this).attr("class");
