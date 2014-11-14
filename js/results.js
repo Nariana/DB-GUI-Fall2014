@@ -1,5 +1,5 @@
 //XAMPP
-//var rootURL = "http://localhost/db-gui-fall2014/api/index.php";
+//var rootURL = "http://localhost/DB-GUI-Fall2014/api/index.php";
 //MAMP
  var rootURL = "http://localhost:8888/DB-GUI-Fall2014/api/index.php";
 
@@ -42,7 +42,8 @@ function getResults(){
             console.log(result);
             $("table .resultRow").remove();
             if(result.length === 0){
-               $("#resultTable").append("<tr class='resultRow'><td>sorry, no results</td></tr>");
+              console.log("no results");
+               $("#resultListDiv").append("<div class='resultDiv'>sorry, no results</div>");
             }
 
             if(result != 0){
@@ -50,15 +51,10 @@ function getResults(){
               for (var i = 0; i < result.length ; i++) {
                 //console.log(result[i]);
                 var percent = Math.floor(result[i].rankingPoints*100);
-                var add = "<tr id='recipe"+i+"' class='resultRow'><td class='name'>"+result[i].recipeName+"</td><td>"+result[i].rating+"</td><td>"+result[i].time+" minutes</td><td>"+percent+"%</td><td><i class='fa fa-thumbs-o-up'></i></td></tr>";
-                $("#resultTable").append(add);
+                var add = "<div id='recipe"+i+"' class='resultDiv'><ul class='resultList'><h5 class='name'>"+result[i].recipeName+"</h5><li class='rating'>"+result[i].rating+"</li><li class='time'>"+result[i].time+" minutes</li><li class='percent'>"+percent+"%</li><li class='thumb-col'><i class='thumb fa fa-thumbs-o-up fa-2x'></i></li></ul></div>";
+                $("#resultListDiv").append(add);
 
                 addListeners();
-                $(".resultRow").click(function(){
-                  recipe = $(this).children(".name").html();
-                  localStorage.setItem("selectedRecipe", recipe);
-                  window.location.href = "recipe.html";
-                });
               }
             }
             //alert("done!"+ csvData.getAllResponseHeaders())
@@ -83,12 +79,12 @@ $(function() {
 
 
 function addListeners(){
-  $(".resultRow").hover(function(){
+  $(".resultDiv").hover(function(){
     $(this).css("background-color","grey");
-    $(this).css("border","solid black 1px");
+    //$(this).css("border","solid black 1px");
   }, function(){
     $(this).css("background-color","white");
-    $(this).css("border","none");
+    //$(this).css("border","none");
 
   });
 
@@ -101,6 +97,28 @@ function addListeners(){
     console.log("change filters");
     getResults();
   });
+
+  $(".thumb").hover(function(){
+    $(this).css("color","#e39183");
+  }, function(){
+    $(this).css("color","black");
+  });
+
+  $(".thumb").click(function(){
+    console.log($(this));
+  });
+
+  $(".resultDiv").click(function(){
+    //console.log($(this).attr("class"));
+
+    var clickClass = $(this).attr("class");
+    if(clickClass != "thumb-col"){
+      recipe = $(this).children(".name").html();
+      localStorage.setItem("selectedRecipe", recipe);
+      window.location.href = "recipe.html";
+    }
+});
+
 
 }
 
@@ -136,7 +154,6 @@ function load(){
     addListeners();
     showIngredients();
     getResults();
-
 }
 
 function showIngredients(){

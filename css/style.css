@@ -151,9 +151,25 @@ margin-top: 75px;
 	width: 100%;
 }
 
-.button-div button{
+.button-div *{
 	float: left;
 	margin-left: 20%;
 	margin-top:.5em;
 	margin-bottom:.5em;
+}
+
+.resultDiv {
+	width: 30%;
+	float: left;
+	background-color: white;
+	border: solid 1px black;
+}
+
+.resultList{
+	list-style-type: none;
+	margin-right: 25px;
+}
+
+.name{
+	margin-bottom: 5px;
 }

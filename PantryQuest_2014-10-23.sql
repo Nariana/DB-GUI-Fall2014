@@ -22,7 +22,7 @@ DROP DATABASE IF EXISTS PantryQuest;
 CREATE DATABASE PantryQuest;
 USE PantryQuest;
 
-create user 'loggedin'@'localhost';
+-- create user 'loggedin'@'localhost';
 
 DROP TABLE IF EXISTS `filter`;
 
