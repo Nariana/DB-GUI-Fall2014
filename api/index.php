@@ -710,7 +710,7 @@ function displayFavorites()
     $_SESSION['username'] = $_POST['username'];
 
     $favoritesList = array();
-    $query = "select recipeName, time, rating, picture from recipe inner join searchHistory on recipe.recipeID = searchHistory.id where username =".$_SESSION['username'].;
+    $query = "select recipeName, time, rating, picture from recipe inner join searchHistory on recipe.recipeID = searchHistory.id where username =".$_SESSION['username']."'";
     $result = $con->query($query);
     while ($rows = mysqli_fetch_row($result)) 
     {
