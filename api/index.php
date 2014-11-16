@@ -50,14 +50,17 @@ function showFavorite()
     $favorites = array();
     try
     {
-        $con = getConnection();
+        $user = 'loggedIn';
+        $pw = '123';
+        //get connection as a logged in user 
+        $con = getConnection($user, $pw);
         
         if ($_SESSION['id'] == 1) //you can only do thos if you are logged in 
         {
-            $sql = $con->prepare("select recipeName, rating from recipe inner join searchHistory on searchHistory.id = recipe.recipeID where username = ? ");
-            $sql -> bind_param('s', $_SESSION['username']);
-            $sql->execute(); 
-            $result = $sql->get_result(); 
+            $username = $con->real_escape_string($_SESSION['username']);
+            
+            $sql = "select recipeName, rating from recipe inner join searchHistory on searchHistory.id = recipe.recipeID where username =".$username."'";
+            $result= $con->query($sql);
             
         if (!$result) //check if the result is valid 
         {
@@ -213,11 +216,6 @@ function saveRecipe()
         }                    
               
         }
-        }
-        else
-        {
-            //REDIRECT TO SOMEWHERE ELSE 
-            //you are not logged in so you cannot save a recipe 
         }
     }
     catch (Exception $e)

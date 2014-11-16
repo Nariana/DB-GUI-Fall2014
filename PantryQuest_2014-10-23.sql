@@ -22,8 +22,6 @@ DROP DATABASE IF EXISTS PantryQuest;
 CREATE DATABASE PantryQuest;
 USE PantryQuest;
 
--- create user 'loggedin'@'localhost';
-
 DROP TABLE IF EXISTS `filter`;
 
 CREATE TABLE `filter` (
@@ -1240,5 +1238,38 @@ UNLOCK TABLES;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/* 
 
+CREATE USERS SYNTAX
+
+*/
+
+#create logged in user 
+drop user 'loggedIn'@'localhost';
+FLUSH PRIVILEGES;
+
+CREATE USER 'loggedIn'@'localhost' IDENTIFIED BY '123';
+
+grant select, insert, delete on PantryQuest.Results to 'loggedIn'@'localhost';
+grant select, insert on PantryQuest.SearchHistory to 'loggedIn'@'localhost';
+grant select (foodName, timesSearched), update (timesSearched) on PantryQuest.ingredient to 'loggedIn'@'localhost';
+grant select on PantryQuest.Filter to 'loggedIn'@'localhost';
+grant select on PantryQuest.recipeConnection to 'loggedIn'@'localhost';
+grant update, select, insert on PantryQuest.recipe to 'loggedIn'@'localhost';
+
+
+#Create unlogged in user
+drop user 'unLoggedIn'@'localhost';
+FLUSH PRIVILEGES;
+CREATE USER 'unLoggedIn'@'localhost' IDENTIFIED BY '123';
+
+grant select, insert, delete on PantryQuest.Results to 'unLoggedIn'@'localhost';
+grant select on PantryQuest.SearchHistory to 'unLoggedIn'@'localhost';
+grant select (foodName, timesSearched), update (timesSearched) on PantryQuest.ingredient to 'unLoggedIn'@'localhost';
+grant select on PantryQuest.Filter to 'unLoggedIn'@'localhost';
+grant select on PantryQuest.recipeConnection to 'unLoggedIn'@'localhost';
+grant update, select, insert on PantryQuest.recipe to 'unLoggedIn'@'localhost';
+
+
+FLUSH PRIVILEGES;
+/*EN CREATE USER SYNTAX*/
