@@ -342,9 +342,9 @@ function register()
 
 function getRecipe()
 {
+    echo "inside get Recipe";
     $con = getConnection();
 	$app = \Slim\Slim::getInstance();
-    $request = $app->request()->getBody();
     $timesClicked;
     try
     {
@@ -406,12 +406,12 @@ function getIngredient() {
 
 function getResult() {
     
+    echo "hi";
     
 	$con = getConnection();
 	$app = \Slim\Slim::getInstance();
     //create variables to store information
-    //$result = json_decode($_GET, true);
-    
+
     $ingredients = array();
     $filters = array();
     $methods = array();
@@ -421,6 +421,7 @@ function getResult() {
     $time = array();
     $calories = array();
     $counter = 0;
+    //echo $counter;
     $rows = array();
     $results = array();
     $saved = array();
@@ -448,16 +449,14 @@ function getResult() {
         $stmt->bind_param('s', $part['ing']);
         $stmt->execute();
         $stmt->bind_result($timesSearched);
-        $timesSearched;
         while ($stmt->fetch())
         {
             $timesSearched = $timesSearched + 1;
+            $sql2 = $con->prepare("UPDATE ingredient SET timesSearched = ? where foodName = ? ");
+            $sql2->bind_param('is', $timesSearched, $part['ing']);
+            $sql2->execute(); 
         }
 
-            
-        $sql2 = $con->prepare("UPDATE ingredient SET timesSearched = ? where foodName = ? ");
-        $sql2->bind_param('is', $timesSearched, $part['ing']);
-        $sql2->execute(); 
 
         }
             if(array_key_exists("filter", $part ))

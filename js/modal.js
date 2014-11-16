@@ -53,13 +53,28 @@
  
       var send = new Object();
 
+      send.name = name.val();
+      send.username = email.val();
+      send.pw = password.val();
+
+      console.log(send);
+
       if ( valid ) {
-        $( "#users tbody" ).append( "<tr>" +
-          "<td>" + name.val() + "</td>" +
-          "<td>" + email.val() + "</td>" +
-          "<td>" + password.val() + "</td>" +
-        "</tr>" );
         dialog.dialog( "close" );
+        console.log("running ajax 64");
+
+        $.ajax({
+          type: "POST",
+          url: rootURL+"/register",
+          data: send,
+          dataType: "json",
+          success: function (result) {
+              console.log(result);
+            },
+          error: function(jqXHR, textStatus, errorThrown){
+             console.log(jqXHR, textStatus, errorThrown);
+        }});
+
       }
       return valid;
     }
@@ -91,8 +106,11 @@
     });
   });
 
+
+
   if(!localStorage.getItem("username")){
     $("#favorites").hide();
+    $("#welcome").hide();
   }
   else{
     $("#login").hide();
