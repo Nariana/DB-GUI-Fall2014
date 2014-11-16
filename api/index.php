@@ -38,6 +38,20 @@ function getConnection($user = 'root', $pw = 'root', $host = 'localhost') {
     return $dbConnection;
 }
 
+function getIngredient() {
+    $con = getConnection();
+    $app = \Slim\Slim::getInstance();
+    $request = $app->request()->getBody();
+    $ingredient_list = array();
+    $result = $con->query("SELECT * FROM ingredient");
+    while ($rows = mysqli_fetch_row($result)) 
+    {
+        $ingredient_list[] = $rows;
+    }
+    echo json_encode($ingredient_list);
+}
+
+
 function logout()
 {
     session_destroy();
@@ -310,7 +324,7 @@ function register()
 
 function getRecipe()
 {
-    echo "inside get Recipe";
+
     $con = getConnection();
 	$app = \Slim\Slim::getInstance();
     $timesClicked;
@@ -342,9 +356,15 @@ function getRecipe()
     {
         $ingredient_list[] = $rows;
     }
-
+    }
+    catch (Exception $e)
+    {
+        $e->getMessage();
+    }
     echo json_encode($ingredient_list);
-}
+
+    
+    }
 
 function getResult() {
     
@@ -368,7 +388,6 @@ function getResult() {
     $saved = array();
     $timesSearched;
     //epty previous table 
-    print("hello");
     try
     {
     $sql = "Truncate TABLE results";
@@ -393,13 +412,12 @@ function getResult() {
         $timesSearched;
         $stmt->bind_result($timesSearched);
         while ($stmt->fetch())
-        {
-            $timesSearched = $timesSearched + 1;
-            $timesSearched = (int)$timesSearched;
-        }
+            {
+                $timesSearched = $timesSearched + 1;
+                $timesSearched = (int)$timesSearched;
+            }
             $q = "UPDATE ingredient SET timesSearched = ? where foodName = ? ";
-            if (!($sql = $con->prepare($q)))
- echo "Prepare failed: (" . $con->errno . ") " . $con->error;
+            $sql = $con->prepare($q);
             $sql1 = $con->prepare($q);
             $sql1->bind_param('is', $timesSearched, $ingredient);
             $sql1->execute(); 
@@ -441,8 +459,10 @@ function getResult() {
         searchDB($filters, $part, $methods, $time, $calories);
     }
 
+    if ($_SESSION['id'] == 1)
+    {
     //check what of the results you have favorited 
-    $result1= $con->query("select recipeName from recipe inner join  results on results.recipeID =  recipe.recipeID inner join filter on results.recipeID = filter.recipeID inner join searchHistory on results.recipeID = searchHistory.ID order by rankingPoints desc"); //execute query 
+    $result1= $con->query("select recipeName from recipe inner join  results on results.recipeID =  recipe.recipeID inner join filter on results.recipeID = filter.recipeID inner join searchHistory on results.recipeID = searchHistory.ID where username = ".$_SESSION['username']."'"." order by rankingPoints desc"); //execute query 
     
     if (!$result1)
     {
@@ -457,7 +477,7 @@ function getResult() {
             $saved[] = $r;
         } 
     }    
-        
+    }
                    
     $result= $con->query("select recipeName, time, recipe.rating, rankingPoints, calories, picture from recipe inner join  results on results.recipeID =  recipe.recipeID inner join filter on results.recipeID = filter.recipeID order by rankingPoints desc"); //execute query 
         
@@ -473,18 +493,26 @@ function getResult() {
             //loop through saved to see if a recipe is already saved 
    	    while($r = mysqli_fetch_assoc($result)) 
    	    {
-            foreach ($saved as $recipe)
+            if(!empty($saved))
             {
-                if($recipe == $r[0]) //if that recipe is in the saved list 
+                foreach ($saved as $recipe)
                 {
-                    $results[] = $r;
-                    $results[] = 'saved'; 
-                }
+                    if($recipe == $r[0]) //if that recipe is in the saved list 
+                    {
+                        $results[] = $r;
+                        $results[] = 'saved'; 
+                    }
                 else
-                {
-                    $results[] = $r;
-                    $results[] = 'notSaved'; 
+                    {
+                        $results[] = $r;
+                        $results[] = 'notSaved'; 
+                    }
                 }
+            }
+            else
+            {
+                $results[] = $r;
+                $results[] = 'notSaved'; 
             }
         } 
     } 
@@ -632,6 +660,7 @@ function searchInsert($sql, $ingredients)
             $ranking = $ingredientPoints / $totalPoints;
             
             $sql->bind_param('id', $recipeID, $ranking);
+            
             $sql->execute();
         }
     }
@@ -683,5 +712,7 @@ function displayFavorites()
             $favoritesList[] = $rows;
         }
         echo json_encode($favoritesList);
+
     }
 }
+
