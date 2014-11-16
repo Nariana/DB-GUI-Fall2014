@@ -61,7 +61,7 @@ function getResults(){
           },
         error: function(jqXHR, textStatus, errorThrown){
           $("#resultTable").append("<tr><td>sorry, no results</td></tr>");
-           // console.log(jqXHR, textStatus, errorThrown);
+          console.log(jqXHR, textStatus, errorThrown);
       }});
 
 }

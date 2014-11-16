@@ -449,7 +449,10 @@ function getResult() {
 	$app = \Slim\Slim::getInstance();
     //create variables to store information
     //$result = json_decode($_GET, true);
+
+    echo "hi";
     
+
     $ingredients = array();
     $filters = array();
     $methods = array();
@@ -459,6 +462,7 @@ function getResult() {
     $time = array();
     $calories = array();
     $counter = 0;
+    //echo $counter;
     $rows = array();
     $results = array();
     $saved = array();
