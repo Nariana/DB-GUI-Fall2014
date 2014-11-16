@@ -450,7 +450,7 @@ function getResult() {
     //create variables to store information
     //$result = json_decode($_GET, true);
 
-    echo "hi";
+    //echo "hi";
     
 
     $ingredients = array();
