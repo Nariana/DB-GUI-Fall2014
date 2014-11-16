@@ -30,7 +30,7 @@ $app->run();
 
 session_destroy();
 
-function getConnection($host = 'localhost', $user = 'root', $pw = 'root') {
+function getConnection($user = 'root', $pw = 'root', $host = 'localhost') {
     $dbConnection = new mysqli($host, $user, $pw, 'PantryQuest'); //put in your password
     // Check mysqli connection
     if (mysqli_connect_errno()) {
@@ -380,9 +380,9 @@ function register()
 
 function getRecipe()
 {
+    echo "inside get Recipe";
     $con = getConnection();
 	$app = \Slim\Slim::getInstance();
-    $request = $app->request()->getBody();
     $timesClicked;
     try
     {
@@ -444,13 +444,12 @@ function getIngredient() {
 
 function getResult() {
     
+    echo "hi";
     
 	$con = getConnection();
 	$app = \Slim\Slim::getInstance();
     //create variables to store information
-    //$result = json_decode($_GET, true);
 
-    echo "hi";
     
 
     $ingredients = array();
@@ -490,16 +489,14 @@ function getResult() {
         $stmt->bind_param('s', $part['ing']);
         $stmt->execute();
         $stmt->bind_result($timesSearched);
-        $timesSearched;
         while ($stmt->fetch())
         {
             $timesSearched = $timesSearched + 1;
+            $sql2 = $con->prepare("UPDATE ingredient SET timesSearched = ? where foodName = ? ");
+            $sql2->bind_param('is', $timesSearched, $part['ing']);
+            $sql2->execute(); 
         }
 
-            
-        $sql2 = $con->prepare("UPDATE ingredient SET timesSearched = ? where foodName = ? ");
-        $sql2->bind_param('is', $timesSearched, $part['ing']);
-        $sql2->execute(); 
 
         }
             if(array_key_exists("filter", $part ))
