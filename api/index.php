@@ -1,6 +1,7 @@
 <?php
 
 session_start();
+$_SESSION['id'] = 0;
 
 require 'Slim/Slim.php';
 \Slim\Slim::registerAutoloader();
@@ -319,10 +320,9 @@ function register()
     $sql = $con->prepare("select * from users where username = ?");
     $sql->bind_param('s', $_POST['username']);
     $sql->execute();
+    $sql->store_result();
     
-    //check if it is empty
-    $resultCheck = $stmt->fetch();
-    if (empty($accountCheck)) {
+    if ($sql->num_rows != 0) {
             $userExists = TRUE;
     }
     
@@ -406,7 +406,6 @@ function getIngredient() {
 
 function getResult() {
     
-    echo "hi";
     
 	$con = getConnection();
 	$app = \Slim\Slim::getInstance();
@@ -439,24 +438,29 @@ function getResult() {
     foreach ($_GET as $part)
     {
         if(array_key_exists("ing", $part ))
-        {   $ingredient = $con->real_escape_string($part['ing']);
+        {   
+            $ingredient = $con->real_escape_string($part['ing']);
             $ingredients[] = $ingredient;
              
             //increment the nuber of times that ingredient is searched for
             
-        $query = 'select timesSearched from ingredient where foodName = ? ';
+        $query = "select timesSearched from ingredient where foodName = ? ";
         $stmt = $con->prepare($query);
-        $stmt->bind_param('s', $part['ing']);
+        $stmt->bind_param('s', $ingredient);
         $stmt->execute();
+        $timesSearched;
         $stmt->bind_result($timesSearched);
         while ($stmt->fetch())
         {
             $timesSearched = $timesSearched + 1;
-            $sql2 = $con->prepare("UPDATE ingredient SET timesSearched = ? where foodName = ? ");
-            $sql2->bind_param('is', $timesSearched, $part['ing']);
-            $sql2->execute(); 
+            $timesSearched = (int)$timesSearched;
         }
-
+            $q = "UPDATE ingredient SET timesSearched = ? where foodName = ? ";
+            if (!($sql = $con->prepare($q)))
+ echo "Prepare failed: (" . $con->errno . ") " . $con->error;
+            $sql1 = $con->prepare($q);
+            $sql1->bind_param('is', $timesSearched, $ingredient);
+            $sql1->execute(); 
 
         }
             if(array_key_exists("filter", $part ))
@@ -565,6 +569,7 @@ function searchDB($filters, $ingredients, $methods, $time, $calories)
     //select distinct recipeName, ranking from recipe natural join filter natural join recipeConnection where vegetarian and foodName = 'egg' order by 'ranking' asc;
     $sql = "select distinct recipeID from recipe natural join filter natural join recipeConnection where "; //check if you need ''
 
+
     foreach ($filters as $filter)
     {
         $sql = $sql.$filter." and ";
@@ -640,13 +645,14 @@ function searchDB($filters, $ingredients, $methods, $time, $calories)
         $sql = $sql.$calories[0];
         }
     }
-    //echo $sql;
+
     SearchInsert($sql, $ingredients); //call search and insert 
 }
 
 //serach the table and 
 function searchInsert($sql, $ingredients)
 {
+
     $con = getConnection();
     try
     {
