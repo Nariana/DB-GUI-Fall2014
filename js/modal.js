@@ -93,6 +93,7 @@
 
   if(!localStorage.getItem("username")){
     $("#favorites").hide();
+    $("#welcome").hide();
   }
   else{
     $("#login").hide();

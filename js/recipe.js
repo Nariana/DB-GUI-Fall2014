@@ -2,19 +2,9 @@ console.log(localStorage.getItem("selectedRecipe"));
 //XAMPP
 //var rootURL = "http://localhost/DB-GUI-Fall2014/api/index.php";
 //MAMP
- // var rootURL = "http://localhost:8888/DB-GUI-Fall2014/api/index.php";
-var rootURL = "http://localhost/api/index.php";
+ var rootURL = "http://localhost:8888/DB-GUI-Fall2014/api/index.php";
+//var rootURL = "http://localhost/api/index.php";
 
-/* dummy objec for testing, remember to delete */
-var dummy = {
-            "name": "recipe name",
-            "url": "img/Logo2.png",
-            "instructions": "instructions:",
-            "rating": "rating: 5",
-            "ingredients": "ingredients:",
-            "calories": "calories: 2000",
-            "time": "time: 3 hours",
-            }
 
 $(document).ready(function(){
   load();

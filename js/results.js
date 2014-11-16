@@ -99,7 +99,7 @@ function addListeners(){
   });
 
   $(".thumb").hover(function(){
-    $(this).css("color","#e39183");
+    $(this).css("color","white");
   }, function(){
     $(this).css("color","black");
   });
