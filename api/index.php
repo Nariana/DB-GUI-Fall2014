@@ -17,8 +17,6 @@ $app->get('/getRecipe', 'getRecipe');
 $app->get('/saveRecipe', 'saveRecipe');
 $app->get('/getAnalytics', 'getAnalytics');
 
-//$app->get('/updateRating', 'updateRating');
-
 $app->get('/displayFavorites', 'displayFavorites');
 
 $app->post('/login', 'login');
@@ -179,8 +177,6 @@ function getAnalytics() {
     
 }
 
-
-
 function saveRecipe()
 {
 	$app = \Slim\Slim::getInstance();
@@ -240,35 +236,7 @@ function saveRecipe()
         $e->getMessage();
     }
 }
-/*
-function updateRating()
-{
-    $app = \Slim\Slim::getInstance();
-    $request = $app->request()->getBody();
-    //save recipename 
-    $recipeName = $_GET['recipeName']; 
-    try
-    {
-        $con = getConnection();
-        //get current rating 
-        $stmt = $con->prepare("select rating from recipe where recipeName = ? ");
-        $stmt->bind_param('s', $recipeName);
-        $stmt->execute(); 
-        $stmt->bind_result($rating);
-        while ($stmt->fetch())
-        {
-            $rating = $rating + 1;
-        }
 
-        $sql2 = $con->prepare("UPDATE recipe SET rating = ? where recipeName = ? ");
-        $sql2->bind_param('is', $rating, $recipeName);
-        $sql2->execute(); 
-    }
-    catch (Exception $e)
-    {
-        $e->getMessage();
-    }
-}*/
 function login()
 {
     $con = getConnection();
@@ -364,33 +332,7 @@ function getRecipe()
 
         //echo print_r($results);
     
-     //increment the nuber of times that recipe has been selected 
-        $stmt = $con->prepare("select timesClicked from recipe where recipeName = ? ");
-        $stmt->bind_param('s', $recipeName);
-        $stmt->execute();
-        $stmt->bind_result($timesClicked);
-        while ($stmt->fetch())
-        {
-            $timesClicked = $timesClicked + 1; 
-            $sql2 = $con->prepare("UPDATE recipe SET timesClicked = ? where recipeName = ? ");
-            $sql2->bind_param('is', $timesClicked, $recipeName);
-            $sql2->execute(); 
-        
-        }
-
-
-    }// end try block 
-    catch (Exception $e)
-    {
-        $e->getMessage();
-    }
-    
-    echo json_encode($results);
-
-}
-
-function getIngredient() {
-    $con = getConnection();
+     //increment the nuber of times that recipe has been
     $app = \Slim\Slim::getInstance();
     $request = $app->request()->getBody();
 
@@ -735,4 +677,5 @@ function displayFavorites()
             $favoritesList[] = $rows;
         }
         echo json_encode($favoritesList);
+    }
 }
