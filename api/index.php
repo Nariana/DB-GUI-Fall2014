@@ -10,8 +10,8 @@ ini_set('display_errors', 1);
 
 $app = new \Slim\Slim(); //using the slim API
 
-$app->get('/getIngredient', 'getIngredient'); //B public 
-$app->get('/getResult', 'getResult'); 
+$app->get('/getIngredient', 'getIngredient');
+$app->get('/getResult', 'getResult');
 $app->get('/getRecipe', 'getRecipe');
 
 $app->get('/saveRecipe', 'saveRecipe');
@@ -25,12 +25,11 @@ $app->post('/login', 'login');
 $app->post('/register', 'register');
 $app->post('/logout', 'logout');
 
-
 $app->run();
 
 session_destroy();
 
-function getConnection($host = 'localhost', $user = 'root', $pw = 'root') {
+function getConnection($user = 'root', $pw = 'root', $host = 'localhost') {
     $dbConnection = new mysqli($host, $user, $pw, 'PantryQuest'); //put in your password
     // Check mysqli connection
     if (mysqli_connect_errno()) {
@@ -98,43 +97,6 @@ function deleteFavorites()
         $e->getMessage();
     }
     
-}
-
-function showFavorite()
-{
-    $favorites = array();
-    try
-    {
-        $user = 'loggedIn';
-        $pw = '123';
-        //get connection as a logged in user 
-        $con = getConnection($user, $pw);
-        
-        if ($_SESSION['id'] == 1) //you can only do thos if you are logged in 
-        {
-            $username = $con->real_escape_string($_SESSION['username']);
-            
-            $sql = "select recipeName, rating from recipe inner join searchHistory on searchHistory.id = recipe.recipeID where username =".$username."'";
-            $result= $con->query($sql);
-            
-        if (!$result) //check if the result is valid 
-        {
-            throw new Exception(mysqli_error($con));
-        }
-        
-        while($r = $result)
-        {
-            $favorites[] = $r; // store results in favorites 
-        }
-            
-        }
-        
-    }
-    catch (Exception $e)
-    {
-        $e->getMessage();
-    }
-    json_encode($favorites);
 }
 
 function getAnalytics() {
@@ -464,7 +426,7 @@ function getResult() {
     $saved = array();
     $timesSearched;
     //epty previous table 
-    
+    print("hello");
     try
     {
     $sql = "Truncate TABLE results";
@@ -762,16 +724,53 @@ function displayFavorites()
     $con = getConnection();
     $app = \Slim\Slim::getInstance();
     $request = $app->request()->getBody();
-    $_SESSION['username'] = $_POST['username'];
 
     $favoritesList = array();
-    $query = "select recipeName, time, rating, picture from recipe inner join searchHistory on recipe.recipeID = searchHistory.id where username =".$_SESSION['username']."'";
-    $result = $con->query($query);
-    while ($rows = mysqli_fetch_row($result)) 
+
+    if ($_SESSION['id'] == 1) {
+        $username = $con->real_escape_string($_SESSION['username']);
+        $query = "select recipeName, time, rating, picture from recipe inner join searchHistory on recipe.recipeID = searchHistory.id where username =".$username."'";
+        $result = $con->query($query);
+        while ($rows = mysqli_fetch_row($result)) 
+        {
+            $favoritesList[] = $rows;
+        }
+        echo json_encode($favoritesList);
+}
+
+function showFavorite()
+{
+    $favorites = array();
+    try
     {
-        $favoritesList[] = $rows;
+        $user = 'loggedIn';
+        $pw = '123';
+        //get connection as a logged in user 
+        $con = getConnection($user, $pw);
+        
+        if ($_SESSION['id'] == 1) //you can only do thos if you are logged in 
+        {
+            $username = $con->real_escape_string($_SESSION['username']);
+            
+            $sql = "select recipeName, rating from recipe inner join searchHistory on searchHistory.id = recipe.recipeID where username =".$username."'";
+            $result= $con->query($sql);
+            
+        if (!$result) //check if the result is valid 
+        {
+            throw new Exception(mysqli_error($con));
+        }
+        
+        while($r = $result)
+        {
+            $favorites[] = $r; // store results in favorites 
+        }
+          
+        }
+        
     }
-
-    echo json_encode($favoritesList);
-
+    catch (Exception $e)
+    {
+        $e->getMessage();
+    }
+    json_encode($favorites);
 }
