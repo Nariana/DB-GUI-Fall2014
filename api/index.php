@@ -45,6 +45,61 @@ function logout()
     session_destroy();
 }
 
+function deleteFavorites()
+{
+    try
+    {   
+        if ($_SESSION['id'] == 1) //you can only do thos if you are logged in 
+        {
+            $user = 'loggedIn';
+            $pw = '123';
+            //get connection as a logged in user 
+            $con = getConnection($user, $pw);
+            $recipeName = $con->real_escape_string($_GET['recipeName']); 
+            $recipeID;
+            
+            
+            $stmt =$con->prepare("select recipeID from recipe where recipeName = ? ");
+            $stmt->bind_param('s', $recipeName);
+            $stmt->execute(); 
+            $stmt->bind_result($tempID);
+            $recipeID;
+            while ($stmt->fetch())
+            {
+            $recipeID = $tempID;
+            }
+            
+            
+            
+            $stmt =$con->prepare("delete from searchHistory where username = ? and id = ?");
+            $stmt->bind_param('si', $_SESSION['username'], $recipeID);
+            $stmt->execute(); 
+            
+            
+
+            //Decrement the number and then delete from the result table 
+
+            $stmt1 = $con->prepare("select rating from recipe where recipeName = ?");
+            $stmt1->bind_param('s', $recipeName);
+            $stmt1->execute(); 
+            $stmt1->bind_result($rating);
+            while ($stmt->fetch())
+            {
+            $rating = $rating - 1;
+            $sql2 = $con->prepare("UPDATE recipe SET rating = ? where recipeName = ? ");
+            $sql2->bind_param('is', $rating, $recipeName);
+            $sql2->execute();         
+            }                    
+            
+        }
+    }
+    catch (Exception $e)
+    {
+        $e->getMessage();
+    }
+    
+}
+
 function showFavorite()
 {
     $favorites = array();
@@ -388,6 +443,8 @@ function getIngredient() {
 }
 
 function getResult() {
+    
+    
 	$con = getConnection();
 	$app = \Slim\Slim::getInstance();
     //create variables to store information
@@ -429,6 +486,7 @@ function getResult() {
         $stmt->bind_param('s', $part['ing']);
         $stmt->execute();
         $stmt->bind_result($timesSearched);
+        $timesSearched;
         while ($stmt->fetch())
         {
             $timesSearched = $timesSearched + 1;
@@ -539,7 +597,6 @@ function getResult() {
 //function that creates a query 
 function searchDB($filters, $ingredients, $methods, $time, $calories)
 {
-    //echo "inside search";
     $counter = 0;
     $counter1 = 0;
     
