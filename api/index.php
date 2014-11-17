@@ -95,14 +95,14 @@ function deleteFavorites()
             $stmt1->bind_param('s', $recipeName);
             $stmt1->execute(); 
             $stmt1->bind_result($rating);
+            $rating;
             while ($stmt->fetch())
             {
             $rating = $rating - 1;
-            $sql2 = $con->prepare("UPDATE recipe SET rating = ? where recipeName = ? ");
-            $sql2->bind_param('is', $rating, $recipeName);
-            $sql2->execute();         
+            $sql2 = $con->prepare("UPDATE recipe SET rating = ? where recipeName = ? ");       
             }                    
-            
+            $sql2->bind_param('is', $rating, $recipeName);
+            $sql2->execute();  
         }
     }
     catch (Exception $e)
@@ -234,15 +234,15 @@ function saveRecipe()
         $stmt = $con->prepare("select rating from recipe where recipeName = ?");
         $stmt->bind_param('s', $recipeName);
         $stmt->execute(); 
+            $rating;
         $stmt->bind_result($rating);
         while ($stmt->fetch())
         {
-            $rating = $rating + 1;
+            $rating = $rating + 1;    
+        }                    
             $sql2 = $con->prepare("UPDATE recipe SET rating = ? where recipeName = ? ");
             $sql2->bind_param('is', $rating, $recipeName);
-            $sql2->execute();         
-        }                    
-              
+            $sql2->execute();        
         }
         }
     }
@@ -308,17 +308,24 @@ function register()
             $userExists = TRUE;
     }
     
+    $sql->close();
+    $con->close();
+    $con = getConnection();
+    
     if($userExists == FALSE)
     {
-        $stmt = $con->prepare("INSERT into users (username, name, pw) value (?,?,?)");
+        $stmt = $con->prepare("INSERT into users (username, firstname, pw) values (?,?,?)");
         $pwmd5 = md5($_POST['pw']);
-        $stmt->bindParam('sss', $_POST['username'], $_POST['name'], $pwmd5);
+
+        $stmt->bind_param('sss', $_POST['username'], $_POST['name'], $pwmd5);
+           
         $stmt->execute();
+        
         $information[] = $_POST['username'];
         $information[] = $_POST['name'];
         $_SESSION['username'] = $_POST['username'];
     }
-    json_encode($information);
+    echo json_encode($information);
 }
 
 
