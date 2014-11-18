@@ -81,8 +81,6 @@ function deleteFavorites()
             $recipeID = $tempID;
             }
             
-            
-            
             $stmt =$con->prepare("delete from searchHistory where username = ? and id = ?");
             $stmt->bind_param('si', $_SESSION['username'], $recipeID);
             $stmt->execute(); 
@@ -99,8 +97,8 @@ function deleteFavorites()
             while ($stmt->fetch())
             {
             $rating = $rating - 1;
+            }    
             $sql2 = $con->prepare("UPDATE recipe SET rating = ? where recipeName = ? ");       
-            }                    
             $sql2->bind_param('is', $rating, $recipeName);
             $sql2->execute();  
         }
@@ -324,6 +322,10 @@ function register()
         $information[] = $_POST['username'];
         $information[] = $_POST['name'];
         $_SESSION['username'] = $_POST['username'];
+    }
+    else
+    
+        $information[] = "User already exists";
     }
     echo json_encode($information);
 }
