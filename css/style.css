@@ -161,7 +161,7 @@ margin-top: 75px;
 .resultDiv {
 	width: 30%;
 	float: left;
-	position: absolute;
+	position: relative;
 	background-color: white;
 	border: solid 1px black;
 	border-radius: 10px;

@@ -113,7 +113,8 @@ function addListeners(){
 
     var clickClass = $(this).attr("class");
     if(clickClass != "thumb-col"){
-      recipe = $(this).children(".name").html();
+      console.log($(this).find("h5").html());
+      recipe = $(this).find("h5").html();
       localStorage.setItem("selectedRecipe", recipe);
       window.location.href = "recipe.html";
     }
