@@ -208,8 +208,7 @@
 
         $.ajax({
           type: "POST",
-          url: rootURL+"/login",
-          data: send,
+          url: rootURL+"/getAnalytics",
           dataType: "json",
           success: function (result) {
               console.log(result);
