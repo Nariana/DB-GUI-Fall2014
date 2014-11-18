@@ -29,14 +29,14 @@ function load(){
             $("#recipeImg").attr("src", result["url"]);
             var instructions = result.instruction.split("\n");
            
-            if(result.instructions != undefined){
+            if(result.instruction != undefined){
               $.each(instructions, function(i,text){
                 console.log(text);
                 $("#instr").append("<li>"+text+"</li>");
               })
             }
             else{
-              console.log(result.instructions);
+              console.log(result.instruction);
             }
 
             if(result.ingredients != undefined){

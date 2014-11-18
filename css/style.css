@@ -175,3 +175,7 @@ margin-top: 75px;
 .name{
 	margin-bottom: 5px;
 }
+
+#instr li, #ingr li {
+	margin-bottom: 5px;
+}
