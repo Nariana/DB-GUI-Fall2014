@@ -203,9 +203,6 @@
     function analytics(){
       console.log("analytics");
 
-      if ( valid ) {
-        dialogAnalytics.dialog( "close" );
-
         $.ajax({
           type: "POST",
           url: rootURL+"/getAnalytics",
@@ -218,11 +215,6 @@
         }});
 
       }
-      return valid;
-
-    }
-
-
   });
 
 
