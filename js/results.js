@@ -109,16 +109,43 @@ function addListeners(){
   });
 
   $(".resultDiv").click(function(){
-    //console.log($(this).attr("class"));
+    console.log($(this).attr("class"));
 
-    var clickClass = $(this).attr("class");
-    if(clickClass != "thumb-col"){
+    //var clickClass = $(this).attr("class");
+    if($(this).hasClass("thumb") === false){
       console.log($(this).find("h5").html());
       recipe = $(this).find("h5").html();
       localStorage.setItem("selectedRecipe", recipe);
       window.location.href = "recipe.html";
     }
+}).children().click(function(e) {
+  return false;
 });
+
+  $("i").unbind();
+  $("i").click(function(){
+    var recipe = $(this).parent().parent().find("h5").html();
+    var send = {"recipeName": recipe};
+    console.log(send);
+
+    $.ajax({
+        type: "GET",
+        url: rootURL+"/saveRecipe",
+        data: send,
+        success: function (result) {
+            console.log(result);
+          },
+        error: function(jqXHR, textStatus, errorThrown){
+          console.log(jqXHR, textStatus, errorThrown);
+      }});
+
+
+  });
+  $(".thumb").hover(function(){
+    $(this).css("color","white");
+  }, function(){
+    $(this).css("color","black");
+  });
 
 
 }
