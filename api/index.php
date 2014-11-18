@@ -256,27 +256,55 @@ function login()
 	$app = \Slim\Slim::getInstance();
     $request = $app->request()->getBody();
     $information = array();
-    $name;
     
-    $query = $con->prepare("select id from users where username = ? and pw = ? ");
-    $pwmd5 = md5($_POST['pw']);
-    $query->bind_param('ss', $_POST['username'], $pwmd5);
-    $query->execute();
-    $query->store_result();
+    
+    
+    $typedPW= $_POST["pw"];
 
-    if ($query->num_rows == 0)
+    $query = $con->prepare("select pw from users where username = ?");
+    
+    //$typedPW = $_POST['pw'];
+    //echo $pwmd5;
+    $query->bind_param('s', $_POST['name']);
+    $query->execute();
+    $query->bind_result($tempPw);
+    $pw;
+    while ($query->fetch())
     {
+        $pw = $tempPw;
+    }
+    //echo $pw;
+    //$query->store_result();
+    
+    if (!isset($pw))
+    {
+        
         $_SESSION['id'] = false;
         //INVALID LOGIN
         $information[] = "Invalid login";
     }
     else
     {
-        $_SESSION['id'] = true;
-        $_SESSION['username'] = $_POST['username'];
-        //return name as well 
-        $information[] = $_POST['username'];
-        $information[] = $name;
+        
+        echo $typedPW;
+        echo $pw;
+        
+        /*
+        if (password_verify($typedPW, $pw)) 
+        {
+            $_SESSION['id'] = true;
+            $_SESSION['username'] = $_POST['name'];
+            //return name as well 
+            $information[] = $_POST['name'];
+            $information[] = $name;
+        } 
+        else 
+        {
+            $_SESSION['id'] = false;
+            //INVALID LOGIN
+            $information[] = "Invalid login";
+        }*/
+
     }
     
     echo json_encode($information);
@@ -308,7 +336,7 @@ function register()
     if($userExists == FALSE)
     {
         $stmt = $con->prepare("INSERT into users (username, firstname, pw) values (?,?,?)");
-        $pwmd5 = md5($_POST['pw']);
+        $pwmd5 = password_hash($_POST['pw'], PASSWORD_DEFAULT);
 
         $stmt->bind_param('sss', $_POST['username'], $_POST['name'], $pwmd5);
            
@@ -332,6 +360,7 @@ function getRecipe()
     $con = getConnection();
 	$app = \Slim\Slim::getInstance();
     $timesClicked;
+    
     try
     {
     $results = array();
@@ -347,28 +376,16 @@ function getRecipe()
     {
         $results = mysqli_fetch_assoc($result);
     }
-
-        //echo print_r($results);
-    
-     //increment the nuber of times that recipe has been
-    $app = \Slim\Slim::getInstance();
-    $request = $app->request()->getBody();
-
-    $ingredient_list = array();
-    $result = $con->query("SELECT * FROM ingredient");
-    while ($rows = mysqli_fetch_row($result)) 
-    {
-        $ingredient_list[] = $rows;
-    }
     }
     catch (Exception $e)
     {
         $e->getMessage();
     }
-    echo json_encode($ingredient_list);
-
     
-    }
+
+        //echo print_r($results);
+    echo json_encode($results);
+}
 
 function getResult() {
     
