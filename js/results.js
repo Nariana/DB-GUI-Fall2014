@@ -118,8 +118,6 @@ function addListeners(){
       localStorage.setItem("selectedRecipe", recipe);
       window.location.href = "recipe.html";
     }
-}).children().click(function(e) {
-  return false;
 });
 
   $("i").unbind();
