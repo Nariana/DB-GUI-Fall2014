@@ -508,20 +508,21 @@ function getResult() {
                 {
                     if($recipe == $r[0]) //if that recipe is in the saved list 
                     {
+                        $r['saved'] = 'false';
                         $results[] = $r;
-                        $results[] = 'saved'; 
                     }
                 else
                     {
+                        $r['saved'] = 'false';
                         $results[] = $r;
-                        $results[] = 'notSaved'; 
                     }
                 }
             }
             else
             {
+                $r['saved'] = 'false';
                 $results[] = $r;
-                $results[] = 'notSaved'; 
+                //$results[] = 'notSaved'; 
             }
         } 
     } 
