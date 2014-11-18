@@ -258,22 +258,17 @@ function login()
     $information = array();
     $name;
     
-    $query = $con->prepare("select name from users where id = ? and pw = ? ");
+    $query = $con->prepare("select id from users where username = ? and pw = ? ");
     $pwmd5 = md5($_POST['pw']);
     $query->bind_param('ss', $_POST['username'], $pwmd5);
     $query->execute();
-    $query->bind_result($tempName);
-    while ($query->fetch())
-    {
-        $name = $tempName;
-    }
-    
-    $count = $query->num_rows();
+    $query->store_result();
 
-    if ($count == 0)
+    if ($query->num_rows == 0)
     {
         $_SESSION['id'] = false;
         //INVALID LOGIN
+        $information[] = "Invalid login";
     }
     else
     {
@@ -303,7 +298,7 @@ function register()
     $sql->store_result();
     
     if ($sql->num_rows != 0) {
-            $userExists = TRUE;
+        $userExists = TRUE;
     }
     
     $sql->close();
@@ -508,7 +503,7 @@ function getResult() {
                 {
                     if($recipe == $r[0]) //if that recipe is in the saved list 
                     {
-                        $r['saved'] = 'false';
+                        $r['saved'] = 'true';
                         $results[] = $r;
                     }
                 else
