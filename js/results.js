@@ -31,6 +31,9 @@ function getResults(){
   });
   //console.log(selected);
 
+  send["calories"] = $( "#slider-calories" ).slider( "value" );
+  send["time"] = $( "#slider-time" ).slider( "value" );
+
   console.log(send);
 
     $.ajax({

@@ -179,3 +179,7 @@ margin-top: 75px;
 #instr li, #ingr li {
 	margin-bottom: 5px;
 }
+
+#resultListDiv{
+	margin-bottom: 80px;
+}
