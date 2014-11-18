@@ -324,7 +324,7 @@ function register()
         $_SESSION['username'] = $_POST['username'];
     }
     else
-    
+    {
         $information[] = "User already exists";
     }
     echo json_encode($information);
