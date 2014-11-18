@@ -88,31 +88,29 @@ function addListeners(){
 
   });
 
-  $("#back").click(function(){
-    window.location.href = "index.html";
-
-  });
-
   $("#filters input").on("change", function() {
     console.log("change filters");
     getResults();
   });
 
-  $(".resultDiv").click(function(){
-    console.log($(this).attr("class"));
+  $(".resultDiv").on("click", function(){
+    console.log($(this));
 
     //var clickClass = $(this).attr("class");
     if($(this).hasClass("thumb") === false){
       console.log($(this).find("h5").html());
       recipe = $(this).find("h5").html();
       localStorage.setItem("selectedRecipe", recipe);
-      //window.location.href = "recipe.html";
+      window.location.href = "recipe.html";
     }
+}).on("click", ".thumb-col", function(e){
+  console.log("thumb blicked");
+  e.stopPropagation();
 });
 
   $("i").unbind();
-  $("i .thumb").one("click", function(){
-    console.log("thumbs up");
+  $("i .thumb").on("click", function(){
+    console.log($(this));
     var recipe = $(this).parent().parent().find("h5").html();
     var send = {"recipeName": recipe};
     console.log(send);
