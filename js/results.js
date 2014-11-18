@@ -145,6 +145,17 @@ function addListeners(){
     $(this).css("color","black");
   });
 
+  $("#back").click(function(){
+    localStorage.clear();
+    window.location = "index.html";
+  });
+
+  $("#back").hover(function(){
+    $(this).css("color", "#EDE297");
+  }, function(){
+    $(this).css("color", "white");
+  });
+
 
 }
 
