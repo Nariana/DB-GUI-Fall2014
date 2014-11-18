@@ -256,27 +256,25 @@ function login()
 	$app = \Slim\Slim::getInstance();
     $request = $app->request()->getBody();
     $information = array();
-    
-    
-    
-    $typedPW= $_POST["pw"];
 
-    $query = $con->prepare("select pw from users where username = ?");
+    $decodedPW = base64_encode($_POST['pw']);
     
-    //$typedPW = $_POST['pw'];
-    //echo $pwmd5;
-    $query->bind_param('s', $_POST['name']);
+    $name = $_POST['name'];
+
+
+    $query = $con->prepare("select firstname from users where username = ? and pw = ?");
+     
+    $query->bind_param('ss', $name, $decodedPW);
     $query->execute();
-    $query->bind_result($tempPw);
-    $pw;
+    $query->bind_result($temp);
+    $firstname;
     while ($query->fetch())
     {
-        $pw = $tempPw;
+        $firstname = $temp;
     }
-    //echo $pw;
     //$query->store_result();
     
-    if (!isset($pw))
+    if (!isset($firstname))
     {
         
         $_SESSION['id'] = false;
@@ -285,28 +283,15 @@ function login()
     }
     else
     {
-        
-        echo $typedPW;
-        echo $pw;
-        
-        /*
-        if (password_verify($typedPW, $pw)) 
-        {
             $_SESSION['id'] = true;
-            $_SESSION['username'] = $_POST['name'];
+            $_SESSION['username'] = $name;
             //return name as well 
-            $information[] = $_POST['name'];
             $information[] = $name;
-        } 
-        else 
-        {
-            $_SESSION['id'] = false;
-            //INVALID LOGIN
-            $information[] = "Invalid login";
-        }*/
+            $information[] = $firstname;
 
     }
     
+   
     echo json_encode($information);
 }
 
@@ -336,7 +321,7 @@ function register()
     if($userExists == FALSE)
     {
         $stmt = $con->prepare("INSERT into users (username, firstname, pw) values (?,?,?)");
-        $pwmd5 = password_hash($_POST['pw'], PASSWORD_DEFAULT);
+        $pwmd5 = base64_encode($_POST['pw']);
 
         $stmt->bind_param('sss', $_POST['username'], $_POST['name'], $pwmd5);
            
