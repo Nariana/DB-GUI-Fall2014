@@ -126,10 +126,11 @@
  
     form = dialogLogin.find( "form" ).on( "submit", function( event ) {
       event.preventDefault();
-      addUser();
+      login();
     });
  
     $( "#login" ).button().on( "click", function() {
+
       dialogLogin.dialog( "open" );
     });
 
@@ -149,6 +150,61 @@
 
       if ( valid ) {
         dialogLogin.dialog( "close" );
+
+        $.ajax({
+          type: "POST",
+          url: rootURL+"/login",
+          data: send,
+          dataType: "json",
+          success: function (result) {
+              console.log(result);
+            },
+          error: function(jqXHR, textStatus, errorThrown){
+             console.log(jqXHR, textStatus, errorThrown);
+        }});
+
+      }
+      return valid;
+
+    }
+
+
+    /***ANALYTICS*****/
+
+
+      dialogAnalytics = $( "#analytics-form" ).dialog({
+        autoOpen: false,
+        height: 500,
+        width: 580,
+        modal: true,
+        buttons: {
+          Cancel: function() {
+            dialogAnalytics.dialog( "close" );
+          }
+        },
+        close: function() {
+          form[ 0 ].reset();
+          allFields.removeClass( "ui-state-error" );
+        }
+    });
+ 
+    form = dialogLogin.find( "form" ).on( "submit", function( event ) {
+      event.preventDefault();
+      addUser();
+    });
+ 
+    $( "#analytics" ).button().on( "click", function() {
+      console.log("should show analytics");
+      console.log(dialogAnalytics);
+      dialogAnalytics.dialog( "open" );
+    });
+
+
+    function analytics(){
+      console.log("analytics");
+
+      if ( valid ) {
+        dialogAnalytics.dialog( "close" );
 
         $.ajax({
           type: "POST",

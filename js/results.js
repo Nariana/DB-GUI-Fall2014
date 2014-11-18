@@ -11,7 +11,7 @@ $(document).ready(function(){
 function getResults(){
 
 
-  $("table .resultRow").remove();
+  $(".resultDiv").remove();
   console.log("show table");
 
   var send = new Object();
@@ -46,7 +46,7 @@ function getResults(){
             $("table .resultRow").remove();
             if(result.length === 0){
               console.log("no results");
-               $("#resultListDiv").append("<div class='resultDiv'>sorry, no results</div>");
+               $("#resultListDiv").append("<div class='resultDiv'><p id='no-result'>sorry, no results<p></div>");
             }
 
             if(result != 0){
@@ -63,7 +63,7 @@ function getResults(){
             //alert("done!"+ csvData.getAllResponseHeaders())
           },
         error: function(jqXHR, textStatus, errorThrown){
-          $("#resultTable").append("<tr><td>sorry, no results</td></tr>");
+          $("#resultListDiv").append("<div class='resultDiv'><p id='no-result'>sorry, no results</p></div>");
           console.log(jqXHR, textStatus, errorThrown);
       }});
 
