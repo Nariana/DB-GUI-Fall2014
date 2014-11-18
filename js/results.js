@@ -98,16 +98,6 @@ function addListeners(){
     getResults();
   });
 
-  $(".thumb").hover(function(){
-    $(this).css("color","white");
-  }, function(){
-    $(this).css("color","black");
-  });
-
-  $(".thumb").click(function(){
-    console.log($(this));
-  });
-
   $(".resultDiv").click(function(){
     console.log($(this).attr("class"));
 
@@ -116,12 +106,13 @@ function addListeners(){
       console.log($(this).find("h5").html());
       recipe = $(this).find("h5").html();
       localStorage.setItem("selectedRecipe", recipe);
-      window.location.href = "recipe.html";
+      //window.location.href = "recipe.html";
     }
 });
 
   $("i").unbind();
-  $("i").click(function(){
+  $("i .thumb").one("click", function(){
+    console.log("thumbs up");
     var recipe = $(this).parent().parent().find("h5").html();
     var send = {"recipeName": recipe};
     console.log(send);
