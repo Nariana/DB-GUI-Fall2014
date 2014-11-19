@@ -29,10 +29,10 @@ function getResults(){
     send[i][key] = value;
     i++;
   });
-  //console.log(selected);
+  console.log(i);
 
-  send["calories"] = $( "#slider-calories" ).slider( "value" );
-  send["time"] = $( "#slider-time" ).slider( "value" );
+  send[i] = { "calories": $( "#slider-calories" ).slider( "value" )};
+  send[i+1] = { "time": $( "#slider-time" ).slider( "value" )};
 
   console.log(send);
 
