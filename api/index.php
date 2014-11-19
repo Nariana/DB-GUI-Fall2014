@@ -385,14 +385,18 @@ function getResult() {
     $noIngredients = array();
     $results = array();
     $points = array();
-    $time = array();
-    $calories = array();
+    $time;
+    $calories;
     $counter = 0;
     //echo $counter;
     $rows = array();
     $results = array();
     $saved = array();
     $timesSearched;
+    
+    
+    //var_dump($_GET);
+    
     //epty previous table 
     try
     {
@@ -404,6 +408,9 @@ function getResult() {
     //store all information from json, input from user 
     foreach ($_GET as $part)
     {
+        //echo "begining";
+        //print_r($part);
+        
         if(array_key_exists("ing", $part ))
         {   
             $ingredient = $con->real_escape_string($part['ing']);
@@ -422,13 +429,16 @@ function getResult() {
                 $timesSearched = $timesSearched + 1;
                 $timesSearched = (int)$timesSearched;
             }
+            
             $q = "UPDATE ingredient SET timesSearched = ? where foodName = ? ";
             $sql = $con->prepare($q);
             $sql1 = $con->prepare($q);
             $sql1->bind_param('is', $timesSearched, $ingredient);
             $sql1->execute(); 
+            //echo $ingredient;
 
         }
+        
             if(array_key_exists("filter", $part ))
         {
             $filter = $con->real_escape_string($part['filter']);
@@ -439,12 +449,11 @@ function getResult() {
         {
             $method = $con->real_escape_string($part['method']);
             $methods[] = $method;
-               // echo $part['method'];
+               //echo $part['method'];
         }
             if(array_key_exists("time", $part ))
         {
-            $time = (int)$part['time'];
-            $hasTime = true;
+            $time = $part['time'];
         }
             if(array_key_exists("noingredient", $part ))
         {
@@ -453,9 +462,13 @@ function getResult() {
         }  
             if(array_key_exists("calories", $part ))
         {
-            $calories[] = (int)$part['calories'];
+                //echo "inside cal";
+                //echo $part['calories'];
+            $calories = (int)$part['calories'];
         } 
+        
     }
+       // echo print_r($ingredients);
     //create all possible subsets of the ingredients 
     $subset = createSubSet($ingredients);
     
@@ -464,9 +477,10 @@ function getResult() {
     {
         searchDB($filters, $part, $methods, $time, $calories);
     }
-
+   
     if ($_SESSION['id'] == 1)
     {
+        //echo "inside";
     //check what of the results you have favorited 
     $result1= $con->query("select recipeName from recipe inner join  results on results.recipeID =  recipe.recipeID inner join filter on results.recipeID = filter.recipeID inner join searchHistory on results.recipeID = searchHistory.ID where username = ".$_SESSION['username']."'"." order by rankingPoints desc"); //execute query 
     
@@ -539,6 +553,7 @@ function getResult() {
 //function that creates a query 
 function searchDB($filters, $ingredients, $methods, $time, $calories)
 {
+
     $counter = 0;
     $counter1 = 0;
     
@@ -596,30 +611,30 @@ function searchDB($filters, $ingredients, $methods, $time, $calories)
         $counter1 = $counter1 + 1;
     }
 
-    if(!empty($time))
+    if(isset($time))
     {
         if(empty($ingredients) && empty($filters) && empty($methods))
         {
         $sql = $sql." time < ";
-        $sql = $sql.$time[0];
+        $sql = $sql.$time;
         }
         else 
         {
         $sql = $sql." and time < ";
-        $sql = $sql.$time[0];
+        $sql = $sql.$time;
         }
     }
-    if(!empty($calories))
+    if(isset($calories))
     {
         if(empty($ingredients) && empty($filters) && empty($methods))
         {
         $sql = $sql." calories < ";
-        $sql = $sql.$calories[0];
+        $sql = $sql.$calories;
         }
         else
         {
         $sql = $sql." and calories < ";
-        $sql = $sql.$calories[0];
+        $sql = $sql.$calories;
         }
     }
 
@@ -629,7 +644,6 @@ function searchDB($filters, $ingredients, $methods, $time, $calories)
 //serach the table and 
 function searchInsert($sql, $ingredients)
 {
-
     $con = getConnection();
     try
     {
