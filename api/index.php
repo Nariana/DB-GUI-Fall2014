@@ -355,9 +355,23 @@ function getRecipe()
     //replace + with space 
     $recipeName = $_GET['recipeName']; 
         
+             //increment the nuber of times that recipe has been selected 
+        $stmt = $con->prepare("select timesClicked from recipe where recipeName = ? ");
+        $stmt->bind_param('s', $recipeName);
+        $stmt->execute();
+        $stmt->bind_result($timesClicked);
+        $timesClicked;
+        while ($stmt->fetch())
+        {
+            $timesClicked = $timesClicked + 1;
+        }
+            $sql2 = $con->prepare("UPDATE recipe SET timesClicked = ? where recipeName = ? ");
+            $sql2->bind_param('is', $timesClicked, $recipeName);
+            $sql2->execute(); 
+        
    $sql = "select recipeName, instruction, time, rating, ingredients, picture, calories from recipe natural join filter where recipeName = '".$recipeName."'"; 
     $result = $con->query($sql);
-    
+
     if (mysqli_num_rows($result) != 0)
     {
         $results = mysqli_fetch_assoc($result);
@@ -367,6 +381,8 @@ function getRecipe()
     {
         $e->getMessage();
     }
+    
+    
     
 
         //echo print_r($results);
