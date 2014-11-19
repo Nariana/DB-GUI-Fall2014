@@ -197,6 +197,7 @@
       console.log("should show analytics");
       console.log(dialogAnalytics);
       dialogAnalytics.dialog( "open" );
+      analytics();
     });
 
 
@@ -204,7 +205,7 @@
       console.log("analytics");
 
         $.ajax({
-          type: "POST",
+          type: "GET",
           url: rootURL+"/getAnalytics",
           dataType: "json",
           success: function (result) {
