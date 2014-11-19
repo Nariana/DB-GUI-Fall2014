@@ -134,12 +134,13 @@ function getAnalytics() {
         if (mysqli_num_rows($result) != 0)
         {
         //store information in results
-   	        while($counter < 6) 
+   	        while($counter < 5 && $r = mysqli_fetch_assoc($result)) 
    	        {
-                $foodNames[] = $mysqli_fetch_assoc($result);
-                $counter = $counter + 1 ;
+                $foodNames[] = $r;
+                $counter += 1 ;
             } 
         }
+        
     //show the 5 most clicked recipes 
         $counter = 0;
         //don't need to make injection safe because the user is not inputed query 
@@ -153,9 +154,9 @@ function getAnalytics() {
         if (mysqli_num_rows($result1) != 0)
         {
         //store information in results
-   	        while($counter < 6) 
+   	        while($counter < 5 && $r = mysqli_fetch_assoc($result1)) 
    	        {
-                $mostClicked[] = $mysqli_fetch_assoc($result1);
+                $mostClicked[] = $r;
                 $counter = $counter + 1 ;
             } 
         }
@@ -172,9 +173,9 @@ function getAnalytics() {
         if (mysqli_num_rows($result2) != 0)
         {
         //store information in results
-   	        while($counter < 6) 
+   	        while($counter < 5 && $r = mysqli_fetch_assoc($result2)) 
    	        {
-                $mostSaved[] = $mysqli_fetch_assoc($result2);
+                $mostSaved[] = $r;
                 $counter = $counter + 1 ;
             } 
         }
