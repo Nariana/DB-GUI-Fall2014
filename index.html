@@ -41,6 +41,28 @@
 		  </form>
 		</div>
 
+		<div id="login-form" title="Login!">
+		  <p class="validateTips">All form fields are required.</p>
+		 
+		  <form>
+		    <fieldset>
+		      <label for="name">Username</label>
+		      <input type="text" name="name" id="nameLogin" value="" class="text ui-widget-content ui-corner-all">
+		      <label for="password">Password</label>
+		      <input type="password" name="password" id="passwordLogin" value="" class="text ui-widget-content ui-corner-all">
+		 
+		      <!-- Allow form submission with keyboard without duplicating the dialog button -->
+		      <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+		    </fieldset>
+		  </form>
+		</div>
+
+		<div id="analytics-form" title="Analytics">
+
+		</div>
+
+
+
 		<div class="button-div">
 			<p id="welcome">Welcome, </p>
 			<button id="favorites" class="modal-button">View Favorites</button>

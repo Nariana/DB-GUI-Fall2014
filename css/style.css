@@ -161,8 +161,10 @@ margin-top: 75px;
 .resultDiv {
 	width: 30%;
 	float: left;
+	position: relative;
 	background-color: white;
 	border: solid 1px black;
+	border-radius: 10px;
 }
 
 .resultList{
@@ -172,4 +174,16 @@ margin-top: 75px;
 
 .name{
 	margin-bottom: 5px;
+}
+
+#instr li, #ingr li {
+	margin-bottom: 5px;
+}
+
+#resultListDiv{
+	margin-bottom: 80px;
+}
+
+#no-result{
+	margin-left: 60px;
 }

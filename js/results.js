@@ -1,7 +1,7 @@
 //XAMPP
 //var rootURL = "http://localhost/DB-GUI-Fall2014/api/index.php";
 //MAMP
- var rootURL = "http://localhost:8888/DB-GUI-Fall2014/api/index.php";
+var rootURL = "http://localhost:8888/DB-GUI-Fall2014/api/index.php";
 
 $(document).ready(function(){
   load();
@@ -11,7 +11,7 @@ $(document).ready(function(){
 function getResults(){
 
 
-  $("table .resultRow").remove();
+  $(".resultDiv").remove();
   console.log("show table");
 
   var send = new Object();
@@ -29,7 +29,10 @@ function getResults(){
     send[i][key] = value;
     i++;
   });
-  //console.log(selected);
+  console.log(i);
+
+  send[i] = { "calories": $( "#slider-calories" ).slider( "value" )};
+  send[i+1] = { "time": $( "#slider-time" ).slider( "value" )};
 
   console.log(send);
 
@@ -43,7 +46,7 @@ function getResults(){
             $("table .resultRow").remove();
             if(result.length === 0){
               console.log("no results");
-               $("#resultListDiv").append("<div class='resultDiv'>sorry, no results</div>");
+               $("#resultListDiv").append("<div class='resultDiv'><p id='no-result'>sorry, no results<p></div>");
             }
 
             if(result != 0){
@@ -60,8 +63,8 @@ function getResults(){
             //alert("done!"+ csvData.getAllResponseHeaders())
           },
         error: function(jqXHR, textStatus, errorThrown){
-          $("#resultTable").append("<tr><td>sorry, no results</td></tr>");
-           // console.log(jqXHR, textStatus, errorThrown);
+          $("#resultListDiv").append("<div class='resultDiv'><p id='no-result'>sorry, no results</p></div>");
+          console.log(jqXHR, textStatus, errorThrown);
       }});
 
 }
@@ -88,36 +91,62 @@ function addListeners(){
 
   });
 
-  $("#back").click(function(){
-    window.location.href = "index.html";
-
-  });
-
   $("#filters input").on("change", function() {
     console.log("change filters");
     getResults();
   });
 
+  $(".resultDiv").on("click", function(){
+    console.log($(this));
+
+    //var clickClass = $(this).attr("class");
+    if($(this).hasClass("thumb") === false){
+      console.log($(this).find("h5").html());
+      recipe = $(this).find("h5").html();
+      localStorage.setItem("selectedRecipe", recipe);
+      window.location.href = "recipe.html";
+    }
+}).on("click", ".thumb-col", function(e){
+  console.log("thumb blicked");
+  e.stopPropagation();
+});
+
+  $("i").unbind();
+  $("i .thumb").on("click", function(){
+    console.log($(this));
+    var recipe = $(this).parent().parent().find("h5").html();
+    var send = {"recipeName": recipe};
+    console.log(send);
+
+    $.ajax({
+        type: "GET",
+        url: rootURL+"/saveRecipe",
+        data: send,
+        success: function (result) {
+            console.log(result);
+          },
+        error: function(jqXHR, textStatus, errorThrown){
+          console.log(jqXHR, textStatus, errorThrown);
+      }});
+
+
+  });
   $(".thumb").hover(function(){
-    $(this).css("color","#e39183");
+    $(this).css("color","white");
   }, function(){
     $(this).css("color","black");
   });
 
-  $(".thumb").click(function(){
-    console.log($(this));
+  $("#back").click(function(){
+    localStorage.clear();
+    window.location = "index.html";
   });
 
-  $(".resultDiv").click(function(){
-    //console.log($(this).attr("class"));
-
-    var clickClass = $(this).attr("class");
-    if(clickClass != "thumb-col"){
-      recipe = $(this).children(".name").html();
-      localStorage.setItem("selectedRecipe", recipe);
-      window.location.href = "recipe.html";
-    }
-});
+  $("#back").hover(function(){
+    $(this).css("color", "#EDE297");
+  }, function(){
+    $(this).css("color", "white");
+  });
 
 
 }

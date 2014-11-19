@@ -40,6 +40,7 @@
     }
  
     function addUser() {
+      console.log("addUser");
       var valid = true;
       allFields.removeClass( "ui-state-error" );
  
@@ -53,13 +54,28 @@
  
       var send = new Object();
 
+      send.name = name.val();
+      send.username = email.val();
+      send.pw = password.val();
+
+      console.log(send);
+
       if ( valid ) {
-        $( "#users tbody" ).append( "<tr>" +
-          "<td>" + name.val() + "</td>" +
-          "<td>" + email.val() + "</td>" +
-          "<td>" + password.val() + "</td>" +
-        "</tr>" );
         dialog.dialog( "close" );
+        console.log("running ajax 64");
+
+        $.ajax({
+          type: "POST",
+          url: rootURL+"/register",
+          data: send,
+          dataType: "json",
+          success: function (result) {
+              console.log(result);
+            },
+          error: function(jqXHR, textStatus, errorThrown){
+             console.log(jqXHR, textStatus, errorThrown);
+        }});
+
       }
       return valid;
     }
@@ -89,10 +105,125 @@
     $( "#register" ).button().on( "click", function() {
       dialog.dialog( "open" );
     });
+
+
+      dialogLogin = $( "#login-form" ).dialog({
+        autoOpen: false,
+        height: 300,
+        width: 380,
+        modal: true,
+        buttons: {
+          "Login!": login,
+          Cancel: function() {
+            dialogLogin.dialog( "close" );
+          }
+        },
+        close: function() {
+          form[ 0 ].reset();
+          allFields.removeClass( "ui-state-error" );
+        }
+    });
+ 
+    form = dialogLogin.find( "form" ).on( "submit", function( event ) {
+      event.preventDefault();
+      login();
+    });
+ 
+    $( "#login" ).button().on( "click", function() {
+
+      dialogLogin.dialog( "open" );
+    });
+
+
+    function login(){
+      console.log("loggin in");
+
+      var valid = true;
+      allFields.removeClass( "ui-state-error" );
+ 
+      var send = new Object();
+
+      send.name = $("#nameLogin").val();
+      send.pw = $("#passwordLogin").val();
+
+      console.log(send);
+
+      if ( valid ) {
+        dialogLogin.dialog( "close" );
+
+        $.ajax({
+          type: "POST",
+          url: rootURL+"/login",
+          data: send,
+          dataType: "json",
+          success: function (result) {
+              console.log(result);
+            },
+          error: function(jqXHR, textStatus, errorThrown){
+             console.log(jqXHR, textStatus, errorThrown);
+        }});
+
+      }
+      return valid;
+
+    }
+
+
+    /***ANALYTICS*****/
+
+
+      dialogAnalytics = $( "#analytics-form" ).dialog({
+        autoOpen: false,
+        height: 500,
+        width: 580,
+        modal: true,
+        buttons: {
+          Cancel: function() {
+            dialogAnalytics.dialog( "close" );
+          }
+        },
+        close: function() {
+          form[ 0 ].reset();
+          allFields.removeClass( "ui-state-error" );
+        }
+    });
+ 
+    form = dialogLogin.find( "form" ).on( "submit", function( event ) {
+      event.preventDefault();
+      addUser();
+    });
+ 
+    $( "#analytics" ).button().on( "click", function() {
+      console.log("should show analytics");
+      console.log(dialogAnalytics);
+      dialogAnalytics.dialog( "open" );
+      analytics();
+    });
+
+
+    function analytics(){
+      console.log("analytics");
+
+        $.ajax({
+          type: "GET",
+          url: rootURL+"/getAnalytics",
+          dataType: "json",
+          success: function (result) {
+              console.log(result);
+            },
+          error: function(jqXHR, textStatus, errorThrown){
+             console.log(jqXHR, textStatus, errorThrown);
+        }});
+
+      }
   });
+
+
+
 
   if(!localStorage.getItem("username")){
     $("#favorites").hide();
+    $("#welcome").hide();
   }
   else{
     $("#login").hide();

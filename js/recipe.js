@@ -2,19 +2,9 @@ console.log(localStorage.getItem("selectedRecipe"));
 //XAMPP
 //var rootURL = "http://localhost/DB-GUI-Fall2014/api/index.php";
 //MAMP
- // var rootURL = "http://localhost:8888/DB-GUI-Fall2014/api/index.php";
-var rootURL = "http://localhost/api/index.php";
+var rootURL = "http://localhost:8888/DB-GUI-Fall2014/api/index.php";
+// var rootURL = "http://localhost/api/index.php";
 
-/* dummy objec for testing, remember to delete */
-var dummy = {
-            "name": "recipe name",
-            "url": "img/Logo2.png",
-            "instructions": "instructions:",
-            "rating": "rating: 5",
-            "ingredients": "ingredients:",
-            "calories": "calories: 2000",
-            "time": "time: 3 hours",
-            }
 
 $(document).ready(function(){
   load();
@@ -39,14 +29,14 @@ function load(){
             $("#recipeImg").attr("src", result["url"]);
             var instructions = result.instruction.split("\n");
            
-            if(result.instructions != undefined){
+            if(result.instruction != undefined){
               $.each(instructions, function(i,text){
                 console.log(text);
                 $("#instr").append("<li>"+text+"</li>");
               })
             }
             else{
-              console.log(result.instructions);
+              console.log(result.instruction);
             }
 
             if(result.ingredients != undefined){
