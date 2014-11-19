@@ -51,13 +51,6 @@ img{
 	padding: 40px;
 }
 
-#resultListDiv table {
-	width: 100%;
-	background-color: white;
-	/*padding: 40px;*/
-
-}
-
 #content > div {
 	float: left;
 }
@@ -143,6 +136,7 @@ margin-top: 75px;
 }
 
 .button-div {
+	margin-top: 30px;
 	position: fixed;
 	bottom: 0px;
 	left: 0px;
