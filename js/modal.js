@@ -250,6 +250,52 @@
       }
   });
 
+  /****** GET FAVORITES  *****/
+  dialogFav = $( "#fav-form" ).dialog({
+        autoOpen: false,
+        height: 500,
+        width: 580,
+        modal: true,
+        buttons: {
+          Close: function() {
+            dialogAnalytics.dialog( "close" );
+          }
+        },
+        close: function() {
+          form[ 0 ].reset();
+          allFields.removeClass( "ui-state-error" );
+        }
+    });
+ 
+    $( "#favorites" ).button().on( "click", function() {
+      console.log("should show favorites");
+      console.log(dialogFav);
+      dialogFav.dialog( "open" );
+      favorites();
+    });
+
+
+    function favorites(){
+      console.log("favorites");
+
+        $.ajax({
+          type: "GET",
+          url: rootURL+"/getFavorites",
+          dataType: "json",
+          success: function (result) {
+              console.log(result);
+              
+            },
+          error: function(jqXHR, textStatus, errorThrown){
+             console.log(jqXHR, textStatus, errorThrown);
+        }});
+
+      }
+  });
+
+
+  /***end of favorites ****/
+
 $("#logout").on("click", function(){
   console.log("logging out");
 
@@ -260,8 +306,6 @@ $("#logout").on("click", function(){
       console.log(result);
       localStorage.setItem("username", null);
       localStorage.setItem("name", null);
-      var u = localStorage.getItem("username");
-      alert(u);
       location.reload();
         },
     error: function(jqXHR, textStatus, errorThrown){
