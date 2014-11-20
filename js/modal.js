@@ -195,7 +195,7 @@ $("#logout").button();
       dialogAnalytics = $( "#analytics-form" ).dialog({
         autoOpen: false,
         height: 500,
-        width: 580,
+        width: 780,
         modal: true,
         buttons: {
           Close: function() {
@@ -222,6 +222,10 @@ $("#logout").button();
 
 
     function analytics(){
+
+      $( "#tabs" ).tabs({
+        event: "mouseover"
+      });
       console.log("analytics");
 
         $.ajax({
@@ -231,11 +235,7 @@ $("#logout").button();
           success: function (result) {
               console.log(result);
 
-              $("#analytics-form ol").remove();
-
-              $("#analytics-form").append("Most searched ingredients: <ol id='searchedfor'></ol>");
-              $("#analytics-form").append("Most viewed recipes: <ol id='recipesviewed'></ol>");
-              $("#analytics-form").append("Favorite recipes: <ol id='favoriterecipes'></ol>");
+              $("#analytics-form .analytic").remove();
 
               var searchedfor = result[0];
               for(var i=0; i<searchedfor.length; i++){
@@ -244,12 +244,12 @@ $("#logout").button();
 
               var recipesviewed = result[1];
               for(var i=0; i<recipesviewed.length; i++){
-                $("#recipesviewed").append("<li class='analytic'>"+ recipesviewed[i].recipeName +"</li>");
+                $("#mostviewed").append("<li class='analytic'>"+ recipesviewed[i].recipeName +"</li>");
               }
 
               var favoriterecipes = result[2];
               for(var i=0; i<favoriterecipes.length; i++){
-                $("#favoriterecipes").append("<li class='analytic'>"+ favoriterecipes[i].recipeName +"</li>");
+                $("#favrecipes").append("<li class='analytic'>"+ favoriterecipes[i].recipeName +"</li>");
               }
               
             },

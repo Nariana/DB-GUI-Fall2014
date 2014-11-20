@@ -155,12 +155,13 @@ margin-top: 75px;
 }
 
 .resultDiv {
-	width: 28%;
+	width: 214px;
 	display: inline-block;
 	position: relative;
 	background-color: white;
 	border: solid 1px black;
 	border-radius: 10px;
+	height: 162px;
 }
 
 .resultList{
@@ -190,4 +191,8 @@ margin-top: 75px;
 
 html body .ui-widget{
 	font-family: 'Raleway', sans-serif;
+}
+
+#tabs .ui-button-text{
+	font-size: 16px;
 }
