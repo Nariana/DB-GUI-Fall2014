@@ -199,40 +199,38 @@ function saveRecipe()
 {
 	$app = \Slim\Slim::getInstance();
     $request = $app->request()->getBody();
-    $recipeName = $_GET['recipeName']; 
-    $result = array();
     
     try
     {
         $con = getConnection();
-        $recipeName = $_GET['recipeName']; 
+        $recipeName = $_GET['recipeName'];
+        echo $recipeName;
         
-        if ($_SESSION['id'] == 1)
-        {
-        //get the recipe ID
-        $stmt =$con->prepare("select recipeID from recipe where recipeName = ? ");
-        $stmt->bind_param('s', $recipeName);
-        $stmt->execute(); 
-        $stmt->bind_result($tempID);
-        $recipeID;
-        while ($stmt->fetch())
-        {
-            $recipeID = $tempID;
-        }
-        //check if it has already been saved by that person. 
-        $sgl1 = $con->prepare("select username from searchHistory where ID = ?");
-        $sgl1->bind_param('i', $recipeID);
-        $sgl1->execute(); 
-        $sgl1->bind_result($tempName); 
-        $count = $sql1->num_rows();
-        if ($count == 0) //you have not saved that before 
-        {
+        // if ($_SESSION['id'] == TRUE)
+        // {
+            $tempID;
+            $result = $con->prepare("SELECT recipeID FROM recipe WHERE recipeName = ?");
+            $result->bind_param('s', $recipeName);
+            $result->execute();
+            $result->bind_result($tempID);
+            $recipeID;
+            while ($result->fetch()) 
+            {
+                $recipeID = $tempID;
+            }
+            $tempCount;
+            $result = $con->prepare("SELECT COUNT(*) FROM searchHistory WHERE username = ? AND id = ?");
+            $result->bind_param('si', $_SESSION['username'], $recipeID);
+            $result->execute();
+            $result->bind_result($tempCount);
+            $count;
+            while ($result->fetch())
+            {
+                $count = $tempCount;
+            }
+            echo $count;
             
-        //prepare statement 
-        $sql = $con->prepare("INSERT INTO savedRecipes(username, id) values (?, ?)");    
-        $sql->bind_param('ss', $_SESSION['username'], $id);
-        $sql->execute();
-            
+<<<<<<< HEAD
         //increment number of times that recipe has been saved 
         $stmt = $con->prepare("select rating from recipe where recipeName = ?");
         $stmt->bind_param('s', $recipeName);
@@ -253,6 +251,30 @@ function saveRecipe()
             echo "Not logged in";
         }
         $con->close();
+=======
+            if ($count == 0) //you have not saved that before 
+            {
+                //prepare statement 
+                $sql = $con->prepare("INSERT INTO savedRecipes(username, id) values (?, ?)");    
+                $sql->bind_param('ss', $_SESSION['username'], $id);
+                $sql->execute();
+                    
+                //increment number of times that recipe has been saved 
+                $stmt = $con->prepare("select rating from recipe where recipeName = ?");
+                $stmt->bind_param('s', $recipeName);
+                $stmt->execute(); 
+                    $rating;
+                $stmt->bind_result($rating);
+                while ($stmt->fetch())
+                {
+                    $rating = $rating + 1;    
+                }                    
+                    $sql2 = $con->prepare("UPDATE recipe SET rating = ? where recipeName = ? ");
+                    $sql2->bind_param('is', $rating, $recipeName);
+                    $sql2->execute();        
+                }
+        // }
+>>>>>>> FETCH_HEAD
     }
     catch (Exception $e)
     {
