@@ -225,6 +225,7 @@ function saveRecipe()
                 $count = $tempCount;
             }
             echo $count;
+<<<<<<< Updated upstream
             
             if ($count == 0) //you have not saved that before 
             {
@@ -248,6 +249,25 @@ function saveRecipe()
                     $sql2->execute();        
                 }
         // }
+=======
+
+        //increment number of times that recipe has been saved 
+        $stmt = $con->prepare("select rating from recipe where recipeName = ?");
+        $stmt->bind_param('s', $recipeName);
+        $stmt->execute(); 
+            $rating;
+        $stmt->bind_result($rating);
+        while ($stmt->fetch())
+        {
+            $rating = $rating + 1;    
+        }                    
+            $sql2 = $con->prepare("UPDATE recipe SET rating = ? where recipeName = ? ");
+            $sql2->bind_param('is', $rating, $recipeName);
+            $sql2->execute();        
+
+        $con->close();
+
+>>>>>>> Stashed changes
     }
     catch (Exception $e)
     {
@@ -745,9 +765,12 @@ function displayFavorites()
 
     $favoritesList = array();
 
-    if ($_SESSION['id'] == 1) {
-        $username = $con->real_escape_string($_SESSION['username']);
-        $query = "select recipeName, time, rating, picture from recipe inner join searchHistory on recipe.recipeID = searchHistory.id where username =".$username."'";
+    if (isset($_SESSION['id'])) 
+    {
+        $username = $_GET['username'];
+        
+        $query = "select recipeName, time, rating, picture from recipe inner join searchHistory on recipe.recipeID = searchHistory.id where username = '".$username."'";
+        
         $result = $con->query($query);
         while ($rows = mysqli_fetch_row($result)) 
         {
