@@ -506,7 +506,7 @@ function getResult() {
     {
         //echo "inside";
     //check what of the results you have favorited 
-    $result1= $con->query("select recipeName from recipe inner join  results on results.recipeID =  recipe.recipeID inner join filter on results.recipeID = filter.recipeID inner join searchHistory on results.recipeID = searchHistory.ID where username = ".$_SESSION['username']."'"." order by rankingPoints desc"); //execute query 
+    $result1= $con->query("select recipeName from recipe inner join  searchHistory on  recipe.recipeID = SearchHistory.ID where username = '".$_SESSION['username']."'"); //execute query 
     
     if (!$result1)
     {
@@ -523,7 +523,7 @@ function getResult() {
     }    
     }
                    
-    $result= $con->query("select recipeName, time, recipe.rating, rankingPoints, calories, picture from recipe inner join  results on results.recipeID =  recipe.recipeID inner join filter on results.recipeID = filter.recipeID order by rankingPoints desc"); //execute query 
+    $result= $con->query("select distinct recipeName, time, recipe.rating, rankingPoints, calories, picture from recipe inner join  results on results.recipeID =  recipe.recipeID inner join filter on results.recipeID = filter.recipeID order by rankingPoints desc"); //execute query 
         
         //check what of the results you have favorited 
     
@@ -541,7 +541,8 @@ function getResult() {
             {
                 foreach ($saved as $recipe)
                 {
-                    if($recipe == $r[0]) //if that recipe is in the saved list 
+                    //print_r($recipe);
+                    if($recipe['recipeName'] == $r['recipeName']) //if that recipe is in the saved list 
                     {
                         $r['saved'] = 'true';
                         $results[] = $r;
