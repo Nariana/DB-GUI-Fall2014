@@ -1,7 +1,7 @@
 //XAMPP
-var rootURL = "http://localhost/DB-GUI-Fall2014/api/index.php";
+//var rootURL = "http://localhost/DB-GUI-Fall2014/api/index.php";
 //MAMP
-// var rootURL = "http://localhost:8888/DB-GUI-Fall2014/api/index.php";
+var rootURL = "http://localhost:8888/DB-GUI-Fall2014/api/index.php";
 
 $(document).ready(function(){
   load();
@@ -9,6 +9,7 @@ $(document).ready(function(){
 
 
 function getResults(){
+
 
   $(".resultDiv").remove();
   console.log("show table");
@@ -34,6 +35,7 @@ function getResults(){
   send[i+1] = { "time": $( "#slider-time" ).slider( "value" )};
 
   console.log(send);
+
     $.ajax({
         type: "GET",
         url: rootURL+"/getResult",
@@ -41,7 +43,7 @@ function getResults(){
         data: send,
         success: function (result) {
             console.log(result);
-            $(".resultDiv").remove();
+            $("table .resultRow").remove();
             if(result.length === 0){
               console.log("no results");
                $("#resultListDiv").append("<div class='resultDiv'><p id='no-result'>sorry, no results<p></div>");
@@ -102,8 +104,7 @@ function addListeners(){
 
   });
 
-  $("#filters input").off("change");
-  $("#filters input").on("change", function() {
+  $("#filters input").off("change").on("change", function() {
     console.log("change filters");
     getResults();
   });
@@ -124,7 +125,6 @@ function addListeners(){
   e.stopPropagation();
 });
 
-  $("i").unbind();
   $("i .thumb").off("click").on("click", function(){
     console.log($(this));
     thumbClick(this);
@@ -135,7 +135,7 @@ function addListeners(){
     $(this).css("color","black");
   });
 
-  $("#back").on("click",function(){
+  $("#back").off("click").on("click",function(){
     localStorage.clear();
     window.location = "index.html";
   });

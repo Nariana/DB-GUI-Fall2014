@@ -240,6 +240,7 @@ function saveRecipe()
                 $sql2->execute();        
             }
         // }
+
     }
     catch (Exception $e)
     {
@@ -737,9 +738,12 @@ function displayFavorites()
 
     $favoritesList = array();
 
-    if ($_SESSION['id'] == 1) {
-        $username = $con->real_escape_string($_SESSION['username']);
-        $query = "select recipeName, time, rating, picture from recipe inner join searchHistory on recipe.recipeID = searchHistory.id where username =".$username."'";
+    if (isset($_SESSION['id'])) 
+    {
+        $username = $_GET['username'];
+        
+        $query = "select recipeName, time, rating, picture from recipe inner join searchHistory on recipe.recipeID = searchHistory.id where username = '".$username."'";
+        
         $result = $con->query($query);
         while ($rows = mysqli_fetch_row($result)) 
         {
