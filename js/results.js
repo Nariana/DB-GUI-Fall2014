@@ -50,25 +50,27 @@ function getResults(){
             }
 
             if(result != 0){
-              console.log("not 0");
+              console.log(result.length);
               for (var i = 0; i < result.length ; i++) {
                 //console.log(result[i]);
                 var percent = Math.floor(result[i].rankingPoints*100);
                 var add = "<div id='recipe"+i+"' class='resultDiv'><ul class='resultList'><h5 class='name'>"+result[i].recipeName+"</h5><li class='rating'>"+result[i].rating+"</li><li class='time'>"+result[i].time+" minutes</li><li class='percent'>"+percent+"%</li></ul></div>";
                 
-                if(localStorage.getItem("username") != null){   
-                  console.log("logged in, adding thumbs");           
-                  var lists = $(".resultList");
-                  $.each(lists, function(index, t){
-                    //console.log($(t).has("i"));
-                    if(!$(t).has("i").length>0){
-                      //console.log("adding thumb")
-                     $(t).append("<li class='thumb-col'><i class='thumb fa fa-thumbs-o-up fa-2x'></i></li>");
-                   }
-                  });
-                }
-                    
                 $("#resultListDiv").append(add);
+
+                if(localStorage.getItem("username") != null){   
+                  //console.log("logged in, adding thumbs");           
+                  //console.log(i);
+                  //console.log($("#recipe"+i).has("i").length === 0);
+                  if($("#recipe"+i).has("i").length === 0){
+                    //console.log($("#recipe"+i));
+                    $("#recipe"+i +" >ul").append("<li class='thumb-col'><i class='thumb fa fa-thumbs-o-up fa-2x'></i></li>");
+                    if (result[i].saved) {
+                      $("#recipe"+i).children("i").css("color","yellow");
+                    }
+
+                   }
+                }
 
                 addListeners();
               }
@@ -160,7 +162,7 @@ function thumbClick(t){
         url: rootURL+"/saveRecipe",
         data: send,
         success: function (result) {
-            console.log(result);
+            //console.log(result);
           },
         error: function(jqXHR, textStatus, errorThrown){
           console.log(jqXHR, textStatus, errorThrown);

@@ -1,9 +1,9 @@
 //XAMPP
-var rootURL = "http://localhost/DB-GUI-Fall2014/api/index.php";
+//var rootURL = "http://localhost/DB-GUI-Fall2014/api/index.php";
 //MAMP
 // var rootURL = "http://localhost:8888/DB-GUI-Fall2014/api/index.php";
 // var rootURL = "http://localhost/api/index.php";
- // var rootURL = "http://localhost:8888/DB-GUI-Fall2014/api/index.php";
+var rootURL = "http://localhost:8888/DB-GUI-Fall2014/api/index.php";
 //var rootURL = "http://localhost/api/index.php";
 
 $("#favorites").button();
@@ -238,17 +238,17 @@ $("#logout").button();
               $("#analytics-form").append("Favorite recipes: <ol id='favoriterecipes'></ol>");
 
               var searchedfor = result[0];
-              for(var i=0; i<5; i++){
+              for(var i=0; i<searchedfor.length; i++){
                 $("#searchedfor").append("<li class='analytic'>"+ searchedfor[i].foodName +"</li>");
               }
 
               var recipesviewed = result[1];
-              for(var i=0; i<5; i++){
+              for(var i=0; i<recipesviewed.length; i++){
                 $("#recipesviewed").append("<li class='analytic'>"+ recipesviewed[i].recipeName +"</li>");
               }
 
               var favoriterecipes = result[2];
-              for(var i=0; i<5; i++){
+              for(var i=0; i<favoriterecipes.length; i++){
                 $("#favoriterecipes").append("<li class='analytic'>"+ favoriterecipes[i].recipeName +"</li>");
               }
               
@@ -304,7 +304,7 @@ $("#logout").button();
                 var s = $("#favTab").append("<tr></tr>");
                 $.each(recipe, function(index, t){
                   console.log(t);
-                  console.log(s);
+                  s.find("tr").append("<td>"+t+"</td>")
                 });
               });
             },
