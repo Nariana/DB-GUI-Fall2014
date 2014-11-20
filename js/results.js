@@ -3,6 +3,8 @@
 //MAMP
 var rootURL = "http://localhost:8888/DB-GUI-Fall2014/api/index.php";
 
+var allIngredients = getIngredients();
+
 $(document).ready(function(){
   load();
 });
@@ -219,3 +221,50 @@ $("#back").hover(
 },  function(){
     $(this).css("color","white");
 });
+
+function getIngredients(){
+
+  console.log("in get Ingredients");
+  console.log(rootURL+"/getIngredient");
+  var availableTags = [];
+  $.ajax({
+        type: "GET",
+        url: rootURL+"/getIngredient",
+        dataType: "json",
+        success: function (result) {
+            console.log(result);
+            for (var i = 0; i < result.length - 1; i++) {
+              availableTags[i] = result[i][0];
+            };
+            //console.log(availableTags);
+            //alert("done!"+ csvData.getAllResponseHeaders())
+            $( "#addIngredient" ).autocomplete({
+              source: availableTags,
+              select: function(event, ui){
+                //console.log();
+                var num = $(".ing").length;
+                $("#ingList").append('<li><input type="checkbox" class="ing" checked name="ing" value="'+ui.item.value+'" id="ing'+num+'"><label for="ing'+num+'">'+ui.item.value+'</label></li>');
+                $(this).val('');
+
+                var query = [];
+                var fields = $(".ing");
+                $.each(fields, function(i, v) {
+                  query.push(v.textContent);
+                }); 
+
+                if (query.length > 0) {
+                    localStorage.setItem("ingredients", query);
+                    getResults();
+                  }
+                  else {
+                    console.log("cancel search - no ingredients");
+                  }
+
+                return false;
+              }
+            });
+          },
+        error: function(jqXHR, textStatus, errorThrown){
+           console.log(jqXHR, textStatus, errorThrown);
+      }});
+}

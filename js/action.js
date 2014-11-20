@@ -45,9 +45,6 @@ function getIngredients(){
       }});
 }
         
-
-
-
 console.log("in action");
 
 $('#addIngredient').off("click").on("click", function(){
