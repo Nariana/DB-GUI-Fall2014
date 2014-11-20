@@ -1,7 +1,9 @@
 <?php
-
 session_start();
-$_SESSION['id'] = 0;
+
+$_SESSION['id'];
+$_SESSION['notLoggedInUsername'];
+$_SESSION['notLoggedInUsername'];
 
 require 'Slim/Slim.php';
 \Slim\Slim::registerAutoloader();
@@ -26,7 +28,7 @@ $app->post('/logout', 'logout');
 
 $app->run();
 
-session_destroy();
+//session_destroy();
 
 function getConnection($user = 'root', $pw = 'root', $host = 'localhost') {
     $dbConnection = new mysqli($host, $user, $pw, 'PantryQuest'); //put in your password
@@ -61,7 +63,7 @@ function deleteFavorites()
 {
     try
     {   
-        if ($_SESSION['id'] == 1) //you can only do thos if you are logged in 
+        if (isset($_SESSION['id'])) //you can only do thos if you are logged in 
         {
             $user = 'loggedIn';
             $pw = '123';
@@ -461,9 +463,9 @@ function getResult() {
 
         }
         
-            if(array_key_exists("filter", $part ))
+            if(array_key_exists("restriction", $part ))
         {
-            $filter = $con->real_escape_string($part['filter']);
+            $filter = $con->real_escape_string($part['restriction']);
             $filters[] = $filter; 
                 //echo $part['filter']; 
         }
@@ -500,7 +502,7 @@ function getResult() {
         searchDB($filters, $part, $methods, $time, $calories);
     }
    
-    if ($_SESSION['id'] == 1)
+    if (isset($_SESSION['id']))
     {
         //echo "inside";
     //check what of the results you have favorited 
@@ -666,6 +668,7 @@ function searchDB($filters, $ingredients, $methods, $time, $calories)
 //serach the table and 
 function searchInsert($sql, $ingredients)
 {
+    echo $sql;
     $con = getConnection();
     try
     {
