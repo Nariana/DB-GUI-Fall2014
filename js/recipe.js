@@ -31,23 +31,23 @@ function load(){
            
             if(result.instruction != undefined){
               $.each(instructions, function(i,text){
-                console.log(text);
+               // console.log(text);
                 $("#instr").append("<li>"+text+"</li>");
               })
             }
             else{
-              console.log(result.instruction);
+              //console.log(result.instruction);
             }
 
             if(result.ingredients != undefined){
               var ingredients = result.ingredients.split("\n");
               $.each(ingredients, function(i,text){
                 $("#ingr").append("<li>"+text+"</li>");
-                console.log(text);
+                //console.log(text);
               })
             }
             else{
-              console.log(result.ingredients);
+              //console.log(result.ingredients);
             }
 
             $("#rate").append(result["rating"]);

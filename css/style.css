@@ -51,13 +51,6 @@ img{
 	padding: 40px;
 }
 
-#resultListDiv table {
-	width: 100%;
-	background-color: white;
-	/*padding: 40px;*/
-
-}
-
 #content > div {
 	float: left;
 }
@@ -143,6 +136,7 @@ margin-top: 75px;
 }
 
 .button-div {
+	margin-top: 30px;
 	position: fixed;
 	bottom: 0px;
 	left: 0px;
@@ -151,7 +145,7 @@ margin-top: 75px;
 	width: 100%;
 }
 
-.button-div *{
+.button-div button{
 	float: left;
 	margin-left: 20%;
 	margin-top:.5em;
@@ -159,7 +153,7 @@ margin-top: 75px;
 }
 
 .resultDiv {
-	width: 30%;
+	width: 28%;
 	float: left;
 	position: relative;
 	background-color: white;
@@ -186,4 +180,8 @@ margin-top: 75px;
 
 #no-result{
 	margin-left: 60px;
+}
+
+#recipeButtons {
+	margin-bottom: 200px;
 }

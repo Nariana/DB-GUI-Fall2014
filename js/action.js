@@ -58,9 +58,19 @@ function clickAdd(inputted){
   console.log(inputted);
   $('#textIngredient').val(""); 
 
-  if(inputted != ""){
+  var query = [];
+  var fields = $(".ingredient");
+  $.each(fields, function(i, v) {
+    query.push(v.textContent);
+  });
+  var isCopy = false;
+  for (i = 0; i < query.length; i++) {
+    if (inputted == query[i]) {isCopy = true;}
+  }
+  if(inputted != "" && !isCopy){
     $('#ingredientList').append("<li class='ingredient'>"+ inputted + "</li>");
   }
+  
   console.log($($('#textIngredient')[0]));
   $($('#textIngredient')[0]).val("");
 }

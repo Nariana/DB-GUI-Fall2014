@@ -1230,7 +1230,9 @@ LOCK TABLES `searchHistory` WRITE;
 
 INSERT INTO `searchHistory` (`id`, `username`)
 VALUES
-	(67,'kskatteboe ');
+	(67,'kskatteboe '),
+    (67,'karo@me.com'),
+    (82,'karo@me.com');
 
 /*!40000 ALTER TABLE `searchHistory` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -1268,7 +1270,7 @@ UNLOCK TABLES;
 
 
 #create logged in user 
-drop user 'loggedIn'@'localhost';
+#drop user 'loggedIn'@'localhost';
 FLUSH PRIVILEGES;
 
 CREATE USER 'loggedIn'@'localhost' IDENTIFIED BY '123';
@@ -1282,7 +1284,7 @@ grant update, select, insert on PantryQuest.recipe to 'loggedIn'@'localhost';
 
 
 #Create unlogged in user
-drop user 'unLoggedIn'@'localhost';
+#drop user 'unLoggedIn'@'localhost';
 FLUSH PRIVILEGES;
 CREATE USER 'unLoggedIn'@'localhost' IDENTIFIED BY '123';
 

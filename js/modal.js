@@ -158,6 +158,16 @@
           dataType: "json",
           success: function (result) {
               console.log(result);
+              if(result[0] === "Invalid login"){
+                alert("Invalid Login! Try again!");
+              }
+              else{
+                console.log("logged in to " + result[0]);
+                localStorage.setItem("username", result[0]);
+                localStorage.setItem("name", result[1]);
+                location.reload();
+              }
+
             },
           error: function(jqXHR, textStatus, errorThrown){
              console.log(jqXHR, textStatus, errorThrown);
@@ -178,7 +188,7 @@
         width: 580,
         modal: true,
         buttons: {
-          Cancel: function() {
+          Close: function() {
             dialogAnalytics.dialog( "close" );
           }
         },
@@ -210,6 +220,28 @@
           dataType: "json",
           success: function (result) {
               console.log(result);
+
+              $("#analytics-form ol").remove();
+
+              $("#analytics-form").append("Most searched ingredients: <ol id='searchedfor'></ol>");
+              $("#analytics-form").append("Most viewed recipes: <ol id='recipesviewed'></ol>");
+              $("#analytics-form").append("Favorite recipes: <ol id='favoriterecipes'></ol>");
+
+              var searchedfor = result[0];
+              for(var i=0; i<5; i++){
+                $("#searchedfor").append("<li class='analytic'>"+ searchedfor[i].foodName +"</li>");
+              }
+
+              var recipesviewed = result[1];
+              for(var i=0; i<5; i++){
+                $("#recipesviewed").append("<li class='analytic'>"+ recipesviewed[i].recipeName +"</li>");
+              }
+
+              var favoriterecipes = result[2];
+              for(var i=0; i<5; i++){
+                $("#favoriterecipes").append("<li class='analytic'>"+ favoriterecipes[i].recipeName +"</li>");
+              }
+              
             },
           error: function(jqXHR, textStatus, errorThrown){
              console.log(jqXHR, textStatus, errorThrown);
@@ -218,14 +250,81 @@
       }
   });
 
+  /****** GET FAVORITES  *****/
+  dialogFav = $( "#fav-form" ).dialog({
+        autoOpen: false,
+        height: 500,
+        width: 580,
+        modal: true,
+        buttons: {
+          Close: function() {
+            dialogAnalytics.dialog( "close" );
+          }
+        },
+        close: function() {
+          form[ 0 ].reset();
+          allFields.removeClass( "ui-state-error" );
+        }
+    });
+ 
+    $( "#favorites" ).button().on( "click", function() {
+      console.log("should show favorites");
+      console.log(dialogFav);
+      dialogFav.dialog( "open" );
+      favorites();
+    });
+
+
+    function favorites(){
+      console.log("favorites");
+
+      var username = localStorage.getItem("username");
+      var send = {username: username};
+
+        $.ajax({
+          type: "GET",
+          url: rootURL+"/displayFavorites",
+          dataType: "json",
+          data: send,
+          success: function (result) {
+              console.log(result);
+            },
+          error: function(jqXHR, textStatus, errorThrown){
+             console.log(jqXHR, textStatus, errorThrown);
+        }});
+
+      }
+
+
+  /***end of favorites ****/
+
+$("#logout").on("click", function(){
+  console.log("logging out");
+
+  $.ajax({
+    type: "POST",
+    url: rootURL+"/logout",
+    success: function (result) {
+      console.log(result);
+      localStorage.setItem("username", null);
+      localStorage.setItem("name", null);
+      location.reload();
+        },
+    error: function(jqXHR, textStatus, errorThrown){
+      console.log(jqXHR, textStatus, errorThrown);
+    }});
+});
 
 
 
-  if(!localStorage.getItem("username")){
+
+  if(localStorage.getItem("username")=== null || localStorage.getItem("username")==="null"){
     $("#favorites").hide();
     $("#welcome").hide();
+    $("#logout").hide();
   }
   else{
     $("#login").hide();
     $("#register").hide();
+    $("#welcome").append(localStorage.getItem("name"));
   }
