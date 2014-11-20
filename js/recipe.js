@@ -64,13 +64,12 @@ function load(){
 }
 
 /* go back to results */
-$("#back").off("click").on("click", function(){
-  localStorage.removeItem("selectedRecipe");
+$("#backButton").button().off("click").on("click", function(){
   window.location.href = "results.html";
 });
 
 /* go to front page (clear localstorage also?) */
-$("#newButton").off("click").on("click", function(){
+$("#newButton").button().off("click").on("click", function(){
   localStorage.removeItem("selectedRecipe");
   window.location.href = "index.html";
 });
