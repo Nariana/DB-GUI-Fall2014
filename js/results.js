@@ -10,7 +10,6 @@ $(document).ready(function(){
 
 function getResults(){
 
-
   $(".resultDiv").remove();
   console.log("show table");
 
@@ -35,7 +34,6 @@ function getResults(){
   send[i+1] = { "time": $( "#slider-time" ).slider( "value" )};
 
   console.log(send);
-
     $.ajax({
         type: "GET",
         url: rootURL+"/getResult",
@@ -43,7 +41,7 @@ function getResults(){
         data: send,
         success: function (result) {
             console.log(result);
-            $("table .resultRow").remove();
+            $(".resultDiv").remove();
             if(result.length === 0){
               console.log("no results");
                $("#resultListDiv").append("<div class='resultDiv'><p id='no-result'>sorry, no results<p></div>");
@@ -104,6 +102,7 @@ function addListeners(){
 
   });
 
+  $("#filters input").off("change");
   $("#filters input").on("change", function() {
     console.log("change filters");
     getResults();
