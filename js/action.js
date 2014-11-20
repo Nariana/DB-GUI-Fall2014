@@ -49,7 +49,7 @@ function getIngredients(){
 
 console.log("in action");
 
-$('#addIngredient').click(function(){
+$('#addIngredient').off("click").on("click", function(){
   clickAdd($('#textIngredient').val());
 });
 
@@ -75,7 +75,7 @@ function clickAdd(inputted){
   $($('#textIngredient')[0]).val("");
 }
 
-$("#search").click(function(){
+$("#search").off("click").on("click",function(){
 	console.log("go to results");
   var query = [];
   var fields = $(".ingredient");
@@ -98,7 +98,7 @@ $("#search").click(function(){
 $(function() {
     $( "input[type=submit], a, button" ) 
       .button()
-      .click(function( event ) {
+      .on("click",function( event ) {
         event.preventDefault();
       });
 });

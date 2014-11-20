@@ -104,7 +104,7 @@ function addListeners(){
 
   });
 
-  $("#filters input").on("change", function() {
+  $("#filters input").off("change").on("change", function() {
     console.log("change filters");
     getResults();
   });
@@ -125,7 +125,6 @@ function addListeners(){
   e.stopPropagation();
 });
 
-  $("i").unbind();
   $("i .thumb").off("click").on("click", function(){
     console.log($(this));
     thumbClick(this);
@@ -136,7 +135,7 @@ function addListeners(){
     $(this).css("color","black");
   });
 
-  $("#back").on("click",function(){
+  $("#back").off("click").on("click",function(){
     localStorage.clear();
     window.location = "index.html";
   });
