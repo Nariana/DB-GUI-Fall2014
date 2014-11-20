@@ -158,6 +158,7 @@
           dataType: "json",
           success: function (result) {
               console.log(result);
+              
             },
           error: function(jqXHR, textStatus, errorThrown){
              console.log(jqXHR, textStatus, errorThrown);

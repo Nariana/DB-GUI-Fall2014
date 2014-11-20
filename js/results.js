@@ -54,7 +54,16 @@ function getResults(){
               for (var i = 0; i < result.length ; i++) {
                 //console.log(result[i]);
                 var percent = Math.floor(result[i].rankingPoints*100);
-                var add = "<div id='recipe"+i+"' class='resultDiv'><ul class='resultList'><h5 class='name'>"+result[i].recipeName+"</h5><li class='rating'>"+result[i].rating+"</li><li class='time'>"+result[i].time+" minutes</li><li class='percent'>"+percent+"%</li><li class='thumb-col'><i class='thumb fa fa-thumbs-o-up fa-2x'></i></li></ul></div>";
+                var add = "<div id='recipe"+i+"' class='resultDiv'><ul class='resultList'><h5 class='name'>"+result[i].recipeName+"</h5><li class='rating'>"+result[i].rating+"</li><li class='time'>"+result[i].time+" minutes</li><li class='percent'>"+percent+"%</li></ul></div>";
+                
+                if(localStorage.getItem("username")){              
+                  var lists = $(".resultList");
+                  $.each(lists, function(index, t){
+                    console.log(t);
+                    $(t).append("<li class='thumb-col'><i class='thumb fa fa-thumbs-o-up fa-2x'></i></li>");
+                  });
+                }
+                    
                 $("#resultListDiv").append(add);
 
                 addListeners();
@@ -96,7 +105,7 @@ function addListeners(){
     getResults();
   });
 
-  $(".resultDiv").on("click", function(){
+  $(".resultDiv").off("click").on("click", function(){
     console.log($(this));
 
     //var clickClass = $(this).attr("class");
@@ -108,28 +117,14 @@ function addListeners(){
     }
 }).on("click", ".thumb-col", function(e){
   console.log("thumb blicked");
+  thumbClick(this);
   e.stopPropagation();
 });
 
   $("i").unbind();
-  $("i .thumb").on("click", function(){
+  $("i .thumb").off("click").on("click", function(){
     console.log($(this));
-    var recipe = $(this).parent().parent().find("h5").html();
-    var send = {"recipeName": recipe};
-    console.log(send);
-
-    $.ajax({
-        type: "GET",
-        url: rootURL+"/saveRecipe",
-        data: send,
-        success: function (result) {
-            console.log(result);
-          },
-        error: function(jqXHR, textStatus, errorThrown){
-          console.log(jqXHR, textStatus, errorThrown);
-      }});
-
-
+    thumbClick(this);
   });
   $(".thumb").hover(function(){
     $(this).css("color","white");
@@ -137,7 +132,7 @@ function addListeners(){
     $(this).css("color","black");
   });
 
-  $("#back").click(function(){
+  $("#back").on("click",function(){
     localStorage.clear();
     window.location = "index.html";
   });
@@ -151,6 +146,23 @@ function addListeners(){
 
 }
 
+function thumbClick(t){
+    console.log(t);
+    var recipe = $(t).parent().parent().find("h5").html();
+    var send = {"recipeName": recipe};
+    console.log(send);
+
+    $.ajax({
+        type: "GET",
+        url: rootURL+"/saveRecipe",
+        data: send,
+        success: function (result) {
+            console.log(result);
+          },
+        error: function(jqXHR, textStatus, errorThrown){
+          console.log(jqXHR, textStatus, errorThrown);
+      }});
+}
 
 function load(){
     $( "#slider-calories" ).slider({
@@ -169,9 +181,9 @@ function load(){
 
     $( "#slider-time" ).slider({
       range: "min",
-      value: 30,
+      value: 90,
       min: 5,
-      max: 120,
+      max: 150,
       slide: function( event, ui ) {
         $( "#time" ).val( ui.value + " minutes" );
       },
