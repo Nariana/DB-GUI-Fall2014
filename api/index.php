@@ -2,8 +2,8 @@
 session_start();
 
 $_SESSION['id'];
-$_SESSION['notLoggedInUsername'];
-$_SESSION['notLoggedInUsername'];
+// $_SESSION['notLoggedInUsername'] = 'unLoggedIn';
+// $_SESSION['loggedInUsername'] = 'loggedIn';
 
 require 'Slim/Slim.php';
 \Slim\Slim::registerAutoloader();
