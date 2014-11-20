@@ -506,7 +506,7 @@ function getResult() {
     {
         //echo "inside";
     //check what of the results you have favorited 
-    $result1= $con->query("select recipeName from recipe inner join  searchHistory on  recipe.recipeID = SearchHistory.ID where username = '".$_SESSION['username']."'"); //execute query 
+    $result1= $con->query("select distinct recipeName from recipe inner join  searchHistory on  recipe.recipeID = SearchHistory.ID where username = '".$_SESSION['username']."'"); //execute query 
     
     if (!$result1)
     {
@@ -522,7 +522,7 @@ function getResult() {
         } 
     }    
     }
-                   
+      //print_r($saved);             
     $result= $con->query("select distinct recipeName, time, recipe.rating, rankingPoints, calories, picture from recipe inner join  results on results.recipeID =  recipe.recipeID inner join filter on results.recipeID = filter.recipeID order by rankingPoints desc"); //execute query 
         
         //check what of the results you have favorited 
@@ -532,39 +532,48 @@ function getResult() {
         throw new Exception(mysqli_error($con));
     }
     
+        $issaved = FALSE;
+        
     if (mysqli_num_rows($result) != 0)
     {
-            //loop through saved to see if a recipe is already saved 
+             //loop through saved to see if a recipe is already saved 
    	    while($r = mysqli_fetch_assoc($result)) 
    	    {
+            $issaved = FALSE;
+            
             if(!empty($saved))
             {
                 foreach ($saved as $recipe)
                 {
-                    //print_r($recipe);
+                    //echo $r['recipeName'];
+                    //echo $recipe['recipeName'];
                     if($recipe['recipeName'] == $r['recipeName']) //if that recipe is in the saved list 
                     {
-                        $r['saved'] = 'true';
-                        $results[] = $r;
-                    }
-                else
-                    {
-                        $r['saved'] = 'false';
-                        $results[] = $r;
+                        $issaved = true; 
                     }
                 }
+                if($issaved)
+                {
+                    $r['saved'] = 'true';
+                    $results[] = $r;
+                }
+                else 
+                {
+                    $r['saved'] = 'false';
+                    $results[] = $r;
+                }
             }
+        
             else
             {
                 $r['saved'] = 'false';
                 $results[] = $r;
                 //$results[] = 'notSaved'; 
             }
-        } 
-    } 
+             }
+        }
+        }
         
-
-    }
     catch (Exception $e)
     {
         $e->getMessage();
