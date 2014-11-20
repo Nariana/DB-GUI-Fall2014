@@ -158,7 +158,15 @@
           dataType: "json",
           success: function (result) {
               console.log(result);
-              
+              if(result[0] === "Invalid login"){
+                alert("Invalid Login! Try again!");
+              }
+              else{
+                console.log("logged in to " + result[0]);
+                localStorage.setItem("username", result[0]);
+                location.reload();
+              }
+
             },
           error: function(jqXHR, textStatus, errorThrown){
              console.log(jqXHR, textStatus, errorThrown);
@@ -219,12 +227,29 @@
       }
   });
 
+$("#logout").on("click", function(){
+  console.log("logging out");
+
+  $.ajax({
+    type: "POST",
+    url: rootURL+"/logout",
+    success: function (result) {
+      console.log(result);
+      localStorage.setItem("username", null);
+      location.reload();
+        },
+    error: function(jqXHR, textStatus, errorThrown){
+      console.log(jqXHR, textStatus, errorThrown);
+    }});
+});
+
 
 
 
   if(!localStorage.getItem("username")){
     $("#favorites").hide();
     $("#welcome").hide();
+    $("#logout").hide();
   }
   else{
     $("#login").hide();

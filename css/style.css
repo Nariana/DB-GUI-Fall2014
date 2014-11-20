@@ -145,7 +145,7 @@ margin-top: 75px;
 	width: 100%;
 }
 
-.button-div *{
+.button-div button{
 	float: left;
 	margin-left: 20%;
 	margin-top:.5em;
@@ -153,7 +153,7 @@ margin-top: 75px;
 }
 
 .resultDiv {
-	width: 30%;
+	width: 28%;
 	float: left;
 	position: relative;
 	background-color: white;
@@ -180,4 +180,8 @@ margin-top: 75px;
 
 #no-result{
 	margin-left: 60px;
+}
+
+#recipeButtons {
+	margin-bottom: 80px;
 }

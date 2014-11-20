@@ -59,8 +59,10 @@ function getResults(){
                 if(localStorage.getItem("username")){              
                   var lists = $(".resultList");
                   $.each(lists, function(index, t){
-                    console.log(t);
-                    $(t).append("<li class='thumb-col'><i class='thumb fa fa-thumbs-o-up fa-2x'></i></li>");
+                    //console.log(t);
+                    if(!$(t).has("i")){
+                     $(t).append("<li class='thumb-col'><i class='thumb fa fa-thumbs-o-up fa-2x'></i></li>");
+                   }
                   });
                 }
                     
