@@ -34,8 +34,9 @@ function getIngredients(){
               select: function(event, ui){
                 //console.log();
                 clickAdd(ui.item.value);
-                $(ui.item).val("");
                 console.log("clearing");
+                $(this).val(''); 
+                return false;
               }
             });
           },
@@ -110,6 +111,10 @@ $("#search").hover(
 },  function(){
 		$(this).css("color","white");
 });
+
+$("#ingredientList").on("contentChange", function(){
+  console.log("content changed");
+})
 
 $(function() {
     var tooltips = $( "[title]" ).tooltip({
