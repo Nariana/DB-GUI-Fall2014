@@ -301,12 +301,13 @@ $("#logout").button();
               $("#favTab").append("")
               $.each(result, function(index, recipe){
                 console.log(recipe);
-                var s = $("#favTab").append("<tr></tr>");
-                $.each(recipe, function(index, t){
-                  console.log(t);
-                  s.find("tr").append("<td>"+t+"</td>")
-                });
+                var s = $("#favTab").append("<ul id='favRecipe"+index+"' class='favList'></ul>");
+                $("#favRecipe"+index).append(recipe[0]);
+                $("#favRecipe"+index).append("<li>"+recipe[1]+" minutes</li>");
+                $("#favRecipe"+index).append("<li>Rating: "+recipe[2]+"</li>")
               });
+
+              addFavListeners();
             },
           error: function(jqXHR, textStatus, errorThrown){
              console.log(jqXHR, textStatus, errorThrown);
@@ -334,6 +335,14 @@ $("#logout").on("click", function(){
     }});
 });
 
+function addFavListeners(){
+  var list = $(".favList");
+
+  $(".favList").on("hover", function(){
+    $(this).css("background-color", "grey");
+  }); 
+
+}
 
 
 
