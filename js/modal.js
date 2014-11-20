@@ -1,9 +1,9 @@
 //XAMPP
-var rootURL = "http://localhost/DB-GUI-Fall2014/api/index.php";
+//var rootURL = "http://localhost/DB-GUI-Fall2014/api/index.php";
 //MAMP
 // var rootURL = "http://localhost:8888/DB-GUI-Fall2014/api/index.php";
 // var rootURL = "http://localhost/api/index.php";
- // var rootURL = "http://localhost:8888/DB-GUI-Fall2014/api/index.php";
+ var rootURL = "http://localhost:8888/DB-GUI-Fall2014/api/index.php";
 //var rootURL = "http://localhost/api/index.php";
 
 $("#favorites").button();
@@ -298,6 +298,15 @@ $("#logout").button();
           data: send,
           success: function (result) {
               console.log(result);
+              $("#favTab").append("")
+              $.each(result, function(index, recipe){
+                console.log(recipe);
+                var s = $("#favTab").append("<tr></tr>");
+                $.each(recipe, function(index, t){
+                  console.log(t);
+                  console.log(s);
+                });
+              });
             },
           error: function(jqXHR, textStatus, errorThrown){
              console.log(jqXHR, textStatus, errorThrown);

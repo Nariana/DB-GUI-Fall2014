@@ -1,7 +1,9 @@
 <?php
-
 session_start();
-$_SESSION['id'] = 0;
+
+$_SESSION['id'];
+$_SESSION['notLoggedInUsername'];
+$_SESSION['notLoggedInUsername'];
 
 require 'Slim/Slim.php';
 \Slim\Slim::registerAutoloader();
@@ -26,7 +28,7 @@ $app->post('/logout', 'logout');
 
 $app->run();
 
-session_destroy();
+//session_destroy();
 
 function getConnection($user = 'root', $pw = 'root', $host = 'localhost') {
     $dbConnection = new mysqli($host, $user, $pw, 'PantryQuest'); //put in your password
@@ -61,7 +63,7 @@ function deleteFavorites()
 {
     try
     {   
-        if ($_SESSION['id'] == 1) //you can only do thos if you are logged in 
+        if (isset($_SESSION['id'])) //you can only do thos if you are logged in 
         {
             $user = 'loggedIn';
             $pw = '123';
@@ -200,6 +202,7 @@ function saveRecipe()
     {
         $con = getConnection();
         $recipeName = $_GET['recipeName'];
+        echo $recipeName;
         
         // if ($_SESSION['id'] == TRUE)
         // {
@@ -227,16 +230,25 @@ function saveRecipe()
 
             if ($count == 0) //you have not saved that before 
             {
-                $username = $_SESSION['username'];
-                $query = "insert into searchHistory (username, id) values ('".$username.",'".$recipeID;
-                $con->query($query);
-                //increment number of times that recipe has been saved
-                $other_query = "select rating from recipe where recipeName ='".$recipeName;
-                $rating = $con->query($other_query);
-                $rating = $rating + 1;
-                $query = "update recipe set rating ='".$rating."where recipeName = '".$recipeName;
-                $con->query($query);    
-            }
+                //prepare statement 
+                $sql = $con->prepare("INSERT INTO savedRecipes(username, id) values (?, ?)");    
+                $sql->bind_param('ss', $_SESSION['username'], $id);
+                $sql->execute();
+                    
+                //increment number of times that recipe has been saved 
+                $stmt = $con->prepare("select rating from recipe where recipeName = ?");
+                $stmt->bind_param('s', $recipeName);
+                $stmt->execute(); 
+                    $rating;
+                $stmt->bind_result($rating);
+                while ($stmt->fetch())
+                {
+                    $rating = $rating + 1;    
+                }                    
+                    $sql2 = $con->prepare("UPDATE recipe SET rating = ? where recipeName = ? ");
+                    $sql2->bind_param('is', $rating, $recipeName);
+                    $sql2->execute();        
+                }
         // }
 
     }
@@ -451,9 +463,9 @@ function getResult() {
 
         }
         
-            if(array_key_exists("filter", $part ))
+            if(array_key_exists("restriction", $part ))
         {
-            $filter = $con->real_escape_string($part['filter']);
+            $filter = $con->real_escape_string($part['restriction']);
             $filters[] = $filter; 
                 //echo $part['filter']; 
         }
@@ -490,7 +502,7 @@ function getResult() {
         searchDB($filters, $part, $methods, $time, $calories);
     }
    
-    if ($_SESSION['id'] == 1)
+    if (isset($_SESSION['id']))
     {
         //echo "inside";
     //check what of the results you have favorited 
@@ -656,6 +668,7 @@ function searchDB($filters, $ingredients, $methods, $time, $calories)
 //serach the table and 
 function searchInsert($sql, $ingredients)
 {
+    //echo $sql;
     $con = getConnection();
     try
     {
