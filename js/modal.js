@@ -221,6 +221,8 @@
           success: function (result) {
               console.log(result);
 
+              $("#analytics-form ol").remove();
+
               $("#analytics-form").append("Most searched ingredients: <ol id='searchedfor'></ol>");
               $("#analytics-form").append("Most viewed recipes: <ol id='recipesviewed'></ol>");
               $("#analytics-form").append("Favorite recipes: <ol id='favoriterecipes'></ol>");
