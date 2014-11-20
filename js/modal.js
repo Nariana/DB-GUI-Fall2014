@@ -188,7 +188,7 @@
         width: 580,
         modal: true,
         buttons: {
-          Cancel: function() {
+          Close: function() {
             dialogAnalytics.dialog( "close" );
           }
         },
@@ -220,6 +220,26 @@
           dataType: "json",
           success: function (result) {
               console.log(result);
+
+              $("#analytics-form").append("Most searched ingredients: <ol id='searchedfor'></ol>");
+              $("#analytics-form").append("Most viewed recipes: <ol id='recipesviewed'></ol>");
+              $("#analytics-form").append("Favorite recipes: <ol id='favoriterecipes'></ol>");
+
+              var searchedfor = result[0];
+              for(var i=0; i<5; i++){
+                $("#searchedfor").append("<li class='analytic'>"+ searchedfor[i].foodName +"</li>");
+              }
+
+              var recipesviewed = result[1];
+              for(var i=0; i<5; i++){
+                $("#recipesviewed").append("<li class='analytic'>"+ recipesviewed[i].recipeName +"</li>");
+              }
+
+              var favoriterecipes = result[2];
+              for(var i=0; i<5; i++){
+                $("#favoriterecipes").append("<li class='analytic'>"+ favoriterecipes[i].recipeName +"</li>");
+              }
+              
             },
           error: function(jqXHR, textStatus, errorThrown){
              console.log(jqXHR, textStatus, errorThrown);
