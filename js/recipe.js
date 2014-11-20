@@ -64,13 +64,13 @@ function load(){
 }
 
 /* go back to results */
-$("#backButton").off("click").on("click", function(){
-  localStorage.selectedRecipe.clear();
+$("#back").off("click").on("click", function(){
+  localStorage.removeItem("selectedRecipe");
   window.location.href = "results.html";
 });
 
 /* go to front page (clear localstorage also?) */
 $("#newButton").off("click").on("click", function(){
-  localStorage.clear();
+  localStorage.removeItem("selectedRecipe");
   window.location.href = "index.html";
 });
