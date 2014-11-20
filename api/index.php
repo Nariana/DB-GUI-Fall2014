@@ -200,7 +200,7 @@ function saveRecipe()
     
     try
     {
-        echo "HERE";
+        
         $con = getConnection();
         $recipeName = $_GET['recipeName'];
         echo $recipeName;
