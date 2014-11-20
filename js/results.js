@@ -21,7 +21,7 @@ function getResults(){
 
   $.each(selected, function(){
     //console.log($(this).attr("class"));
-    var key = $(this).attr("class");
+    var key = $(this).attr("name");
     var value = $(this).val();
 
     console.log(key, value);

@@ -1273,7 +1273,7 @@ UNLOCK TABLES;
 #drop user 'loggedIn'@'localhost';
 FLUSH PRIVILEGES;
 
-CREATE USER 'loggedIn'@'localhost' IDENTIFIED BY '123';
+#CREATE USER 'loggedIn'@'localhost' IDENTIFIED BY '123';
 
 grant select, insert, delete on PantryQuest.results to 'loggedIn'@'localhost';
 grant select, insert on PantryQuest.SearchHistory to 'loggedIn'@'localhost';
@@ -1286,7 +1286,7 @@ grant update, select, insert on PantryQuest.recipe to 'loggedIn'@'localhost';
 #Create unlogged in user
 #drop user 'unLoggedIn'@'localhost';
 FLUSH PRIVILEGES;
-CREATE USER 'unLoggedIn'@'localhost' IDENTIFIED BY '123';
+#CREATE USER 'unLoggedIn'@'localhost' IDENTIFIED BY '123';
 
 grant select, insert, delete on PantryQuest.results to 'unLoggedIn'@'localhost';
 grant select on PantryQuest.SearchHistory to 'unLoggedIn'@'localhost';
