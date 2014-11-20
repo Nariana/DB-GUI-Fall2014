@@ -164,6 +164,7 @@
               else{
                 console.log("logged in to " + result[0]);
                 localStorage.setItem("username", result[0]);
+                localStorage.setItem("name", result[1]);
                 location.reload();
               }
 
@@ -236,6 +237,9 @@ $("#logout").on("click", function(){
     success: function (result) {
       console.log(result);
       localStorage.setItem("username", null);
+      localStorage.setItem("name", null);
+      var u = localStorage.getItem("username");
+      alert(u);
       location.reload();
         },
     error: function(jqXHR, textStatus, errorThrown){
@@ -246,7 +250,7 @@ $("#logout").on("click", function(){
 
 
 
-  if(!localStorage.getItem("username")){
+  if(localStorage.getItem("username")=== null || localStorage.getItem("username")==="null"){
     $("#favorites").hide();
     $("#welcome").hide();
     $("#logout").hide();
@@ -254,4 +258,5 @@ $("#logout").on("click", function(){
   else{
     $("#login").hide();
     $("#register").hide();
+    $("#welcome").append(localStorage.getItem("name"));
   }

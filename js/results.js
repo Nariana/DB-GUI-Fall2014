@@ -56,12 +56,13 @@ function getResults(){
                 var percent = Math.floor(result[i].rankingPoints*100);
                 var add = "<div id='recipe"+i+"' class='resultDiv'><ul class='resultList'><h5 class='name'>"+result[i].recipeName+"</h5><li class='rating'>"+result[i].rating+"</li><li class='time'>"+result[i].time+" minutes</li><li class='percent'>"+percent+"%</li></ul></div>";
                 
-                if(localStorage.getItem("username")){              
+                if(localStorage.getItem("username") != null){   
+                  console.log("logged in, adding thumbs");           
                   var lists = $(".resultList");
                   $.each(lists, function(index, t){
-                    console.log($(t).has("i"));
+                    //console.log($(t).has("i"));
                     if(!$(t).has("i").length>0){
-                      console.log("adding thumb")
+                      //console.log("adding thumb")
                      $(t).append("<li class='thumb-col'><i class='thumb fa fa-thumbs-o-up fa-2x'></i></li>");
                    }
                   });
