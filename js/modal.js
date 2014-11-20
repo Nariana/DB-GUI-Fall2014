@@ -278,20 +278,22 @@
     function favorites(){
       console.log("favorites");
 
+      var username = localStorage.getItem("username");
+      var send = {username: username};
+
         $.ajax({
           type: "GET",
-          url: rootURL+"/getFavorites",
+          url: rootURL+"/displayFavorites",
           dataType: "json",
+          data: send,
           success: function (result) {
               console.log(result);
-              
             },
           error: function(jqXHR, textStatus, errorThrown){
              console.log(jqXHR, textStatus, errorThrown);
         }});
 
       }
-  });
 
 
   /***end of favorites ****/
