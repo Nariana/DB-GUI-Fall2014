@@ -162,7 +162,7 @@ function thumbClick(t){
         url: rootURL+"/saveRecipe",
         data: send,
         success: function (result) {
-            //console.log(result);
+            console.log("showing" + result);
           },
         error: function(jqXHR, textStatus, errorThrown){
           console.log(jqXHR, textStatus, errorThrown);
