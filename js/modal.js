@@ -8,7 +8,6 @@
 
 $("#favorites").button();
 $("#logout").button();
-
   $(function() {
     var dialog, form,
  
@@ -239,17 +238,17 @@ $("#logout").button();
               $("#analytics-form").append("Favorite recipes: <ol id='favoriterecipes'></ol>");
 
               var searchedfor = result[0];
-              for(var i=0; i<searchedfor.length; i++){
+              for(var i=0; i<5; i++){
                 $("#searchedfor").append("<li class='analytic'>"+ searchedfor[i].foodName +"</li>");
               }
 
               var recipesviewed = result[1];
-              for(var i=0; i<recipesviewed.length; i++){
+              for(var i=0; i<5; i++){
                 $("#recipesviewed").append("<li class='analytic'>"+ recipesviewed[i].recipeName +"</li>");
               }
 
               var favoriterecipes = result[2];
-              for(var i=0; i<favoriterecipes.length; i++){
+              for(var i=0; i<5; i++){
                 $("#favoriterecipes").append("<li class='analytic'>"+ favoriterecipes[i].recipeName +"</li>");
               }
               
@@ -278,7 +277,7 @@ $("#logout").button();
         }
     });
  
-    $( "#favorites" ).off("click").on( "click", function() {
+    $( "#favorites" ).button().on( "click", function() {
       console.log("should show favorites");
       console.log(dialogFav);
       dialogFav.dialog( "open" );
@@ -291,8 +290,6 @@ $("#logout").button();
 
       var username = localStorage.getItem("username");
       var send = {username: username};
-
-      console.log(send);
 
         $.ajax({
           type: "GET",
@@ -311,8 +308,7 @@ $("#logout").button();
 
   /***end of favorites ****/
 
-
-$("#logout").off("click").on("click", function(){
+$("#logout").on("click", function(){
   console.log("logging out");
 
   $.ajax({
