@@ -200,12 +200,11 @@ function saveRecipe()
     
     try
     {
+        echo "HERE";
         $con = getConnection();
         $recipeName = $_GET['recipeName'];
         echo $recipeName;
         
-        // if ($_SESSION['id'] == TRUE)
-        // {
             $tempID;
             $result = $con->prepare("SELECT recipeID FROM recipe WHERE recipeName = ?");
             $result->bind_param('s', $recipeName);
@@ -231,7 +230,7 @@ function saveRecipe()
             if ($count == 0) //you have not saved that before 
             {
                 //prepare statement 
-                $sql = $con->prepare("INSERT INTO savedRecipes(username, id) values (?, ?)");    
+                $sql = $con->prepare("INSERT INTO searchHistory (username, id) values (?, ?)");    
                 $sql->bind_param('ss', $_SESSION['username'], $id);
                 $sql->execute();
                     
@@ -249,7 +248,6 @@ function saveRecipe()
                     $sql2->bind_param('is', $rating, $recipeName);
                     $sql2->execute();        
                 }
-        // }
 
     }
     catch (Exception $e)
