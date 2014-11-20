@@ -734,6 +734,7 @@ LOCK TABLES `recipeConnection` WRITE;
 INSERT INTO `recipeConnection` (`recipeID`, `foodName`, `value`)
 VALUES
 	(1,'baking soda',10),
+	(1,'carrot',10),
 	(1,'cream cheese',5),
 	(1,'egg',10),
 	(1,'flour',8),
@@ -746,6 +747,7 @@ VALUES
 	(2,'tomato',5),
 	(3,'bread',2),
 	(3,'egg',10),
+	(3,'feta',5),
 	(3,'spinach',5),
 	(3,'tomato',10),
 	(4,'egg',10),
@@ -754,6 +756,8 @@ VALUES
 	(4,'vegetable oil',8),
 	(5,'basil',5),
 	(5,'cabbage',10),
+	(5,'carrot',10),
+	(5,'chicken stock',5),
 	(5,'garlic',2),
 	(5,'olive oil',8),
 	(5,'onion',5),
@@ -771,6 +775,7 @@ VALUES
 	(6,'vinegar',8),
 	(6,'worcestershire sauce',5),
 	(7,'buttermilk',8),
+	(7,'chicken breast',10),
 	(7,'chicken broth',8),
 	(7,'cornstarch',10),
 	(7,'flour',10),
@@ -806,6 +811,8 @@ VALUES
 	(13,'parsley',5),
 	(13,'squash',7),
 	(13,'zucchini',7),
+	(14,'cherry tomato',3),
+	(14,'chicken breast',10),
 	(14,'garlic',2),
 	(14,'kale',10),
 	(14,'lemon',2),
@@ -814,6 +821,7 @@ VALUES
 	(14,'potatoes',7),
 	(14,'salad',5),
 	(15,'bell pepper',3),
+	(15,'cheddar cheese',7),
 	(15,'filet mignon',10),
 	(15,'flour',7),
 	(15,'milk',7),
@@ -823,6 +831,7 @@ VALUES
 	(15,'onion',5),
 	(16,'banana',5),
 	(16,'cashew',3),
+	(16,'chocolate chip',5),
 	(16,'cinnamon',5),
 	(16,'coconut',5),
 	(16,'coconut milk',7),
@@ -838,6 +847,7 @@ VALUES
 	(17,'maple syrup',3),
 	(17,'walnut',5),
 	(18,'avocado',3),
+	(18,'carrot',3),
 	(18,'cucumber',3),
 	(18,'nori',7),
 	(18,'salmon',7),
@@ -852,6 +862,7 @@ VALUES
 	(19,'tomato',7),
 	(19,'zucchini',7),
 	(20,'anchovy',2),
+	(20,'beef tenderloin',10),
 	(20,'caper',5),
 	(20,'dijon mustard',5),
 	(20,'egg',10),
@@ -866,6 +877,7 @@ VALUES
 	(21,'potato',10),
 	(21,'salt',5),
 	(21,'sour cream',5),
+	(22,'chocolate chip',10),
 	(22,'condensed milk',10),
 	(22,'vanilla extract',10),
 	(22,'walnut',7),
@@ -887,6 +899,7 @@ VALUES
 	(24,'water',10),
 	(25,'breadcrumbs',8),
 	(25,'butter',8),
+	(25,'chicken',10),
 	(25,'egg',8),
 	(25,'mozzarella',9),
 	(25,'parmesan',9),
@@ -939,6 +952,7 @@ VALUES
 	(32,'sugar',8),
 	(32,'vanilla bean',5),
 	(33,'cheese',10),
+	(33,'chicken',2),
 	(33,'macaroni',10),
 	(33,'peas',5),
 	(33,'pepper',5),
@@ -949,6 +963,7 @@ VALUES
 	(34,'oreo',10),
 	(34,'pancake mix',8),
 	(34,'vegetable oil',10),
+	(35,'chicken',10),
 	(35,'egg',6),
 	(35,'garlic',6),
 	(35,'oil',9),
@@ -973,19 +988,23 @@ VALUES
 	(38,'lemon juice',10),
 	(38,'sugar',6),
 	(38,'water',10),
+	(39,'chocolate chip',10),
 	(39,'graham cracker',8),
 	(39,'marshmallow',8),
 	(39,'white chocolate chip',8),
+	(40,'chocolate chip',10),
 	(40,'heavy cream',7),
 	(40,'sugar',8),
 	(40,'unsalted butter',7),
 	(61,'cheese',4),
 	(61,'egg',10),
+	(61,'feta',3),
 	(61,'milk',8),
 	(61,'mushroom',5),
 	(61,'onion',4),
 	(61,'pie crust ',10),
 	(61,'spinach',6),
+	(62,'artichoke',4),
 	(62,'cheese',7),
 	(62,'lasgana noodles ',10),
 	(62,'onion',2),
@@ -1001,6 +1020,7 @@ VALUES
 	(64,'bell pepper',5),
 	(64,'broccoli',5),
 	(64,'brown rice',7),
+	(64,'carrot',5),
 	(64,'mushroom',5),
 	(64,'onion',1),
 	(64,'rice',10),
@@ -1054,6 +1074,7 @@ VALUES
 	(70,'honey',3),
 	(70,'vinegar',4),
 	(71,'canned tomatoes',9),
+	(71,'carrot',8),
 	(71,'celery',6),
 	(71,'clam juice',7),
 	(71,'fish',10),
@@ -1063,6 +1084,7 @@ VALUES
 	(71,'sherry',2),
 	(71,'shrimp',9),
 	(71,'wine',4),
+	(72,'carrot',7),
 	(72,'celery',6),
 	(72,'fish',8),
 	(72,'lemon',4),
@@ -1270,10 +1292,10 @@ UNLOCK TABLES;
 
 
 #create logged in user 
-#drop user 'loggedIn'@'localhost';
+drop user 'loggedIn'@'localhost';
 FLUSH PRIVILEGES;
 
-#CREATE USER 'loggedIn'@'localhost' IDENTIFIED BY '123';
+CREATE USER 'loggedIn'@'localhost' IDENTIFIED BY '123';
 
 grant select, insert, delete on PantryQuest.results to 'loggedIn'@'localhost';
 grant select, insert on PantryQuest.SearchHistory to 'loggedIn'@'localhost';
@@ -1284,9 +1306,9 @@ grant update, select, insert on PantryQuest.recipe to 'loggedIn'@'localhost';
 
 
 #Create unlogged in user
-#drop user 'unLoggedIn'@'localhost';
+drop user 'unLoggedIn'@'localhost';
 FLUSH PRIVILEGES;
-#CREATE USER 'unLoggedIn'@'localhost' IDENTIFIED BY '123';
+CREATE USER 'unLoggedIn'@'localhost' IDENTIFIED BY '123';
 
 grant select, insert, delete on PantryQuest.results to 'unLoggedIn'@'localhost';
 grant select on PantryQuest.SearchHistory to 'unLoggedIn'@'localhost';

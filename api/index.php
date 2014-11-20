@@ -668,7 +668,7 @@ function searchDB($filters, $ingredients, $methods, $time, $calories)
 //serach the table and 
 function searchInsert($sql, $ingredients)
 {
-    //echo $sql;
+    echo $sql;
     $con = getConnection();
     try
     {
