@@ -59,8 +59,9 @@ function getResults(){
                 if(localStorage.getItem("username")){              
                   var lists = $(".resultList");
                   $.each(lists, function(index, t){
-                    //console.log(t);
-                    if(!$(t).has("i")){
+                    console.log($(t).has("i"));
+                    if(!$(t).has("i").length>0){
+                      console.log("adding thumb")
                      $(t).append("<li class='thumb-col'><i class='thumb fa fa-thumbs-o-up fa-2x'></i></li>");
                    }
                   });
