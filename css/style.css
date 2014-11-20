@@ -185,3 +185,7 @@ margin-top: 75px;
 #recipeButtons {
 	margin-bottom: 200px;
 }
+
+#welcome{
+	position: fixed;
+}
