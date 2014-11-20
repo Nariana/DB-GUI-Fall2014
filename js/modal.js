@@ -238,17 +238,17 @@ $("#logout").button();
               $("#analytics-form").append("Favorite recipes: <ol id='favoriterecipes'></ol>");
 
               var searchedfor = result[0];
-              for(var i=0; i<5; i++){
+              for(var i=0; i<searchedfor.length; i++){
                 $("#searchedfor").append("<li class='analytic'>"+ searchedfor[i].foodName +"</li>");
               }
 
               var recipesviewed = result[1];
-              for(var i=0; i<5; i++){
+              for(var i=0; i<recipesviewed.length; i++){
                 $("#recipesviewed").append("<li class='analytic'>"+ recipesviewed[i].recipeName +"</li>");
               }
 
               var favoriterecipes = result[2];
-              for(var i=0; i<5; i++){
+              for(var i=0; i<favoriterecipes.length; i++){
                 $("#favoriterecipes").append("<li class='analytic'>"+ favoriterecipes[i].recipeName +"</li>");
               }
               
