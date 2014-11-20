@@ -225,8 +225,7 @@ function saveRecipe()
                 $count = $tempCount;
             }
             echo $count;
-<<<<<<< Updated upstream
-            
+
             if ($count == 0) //you have not saved that before 
             {
                 //prepare statement 
@@ -249,25 +248,7 @@ function saveRecipe()
                     $sql2->execute();        
                 }
         // }
-=======
 
-        //increment number of times that recipe has been saved 
-        $stmt = $con->prepare("select rating from recipe where recipeName = ?");
-        $stmt->bind_param('s', $recipeName);
-        $stmt->execute(); 
-            $rating;
-        $stmt->bind_result($rating);
-        while ($stmt->fetch())
-        {
-            $rating = $rating + 1;    
-        }                    
-            $sql2 = $con->prepare("UPDATE recipe SET rating = ? where recipeName = ? ");
-            $sql2->bind_param('is', $rating, $recipeName);
-            $sql2->execute();        
-
-        $con->close();
-
->>>>>>> Stashed changes
     }
     catch (Exception $e)
     {
