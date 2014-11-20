@@ -83,12 +83,13 @@ margin-top: 75px;
 
 #recipeImg {
 	float: right;
+	width: 30%;
 }
 
 
 /* selects the instructions p */
 #majorInfo ul {
-	width: 45%;
+	width: 30%;
 	float: left;
 	padding: 10px;
 	border: 1px solid white;

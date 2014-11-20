@@ -121,7 +121,7 @@ function addListeners(){
       localStorage.setItem("selectedRecipe", recipe);
       window.location.href = "recipe.html";
     }
-}).on("click", ".thumb-col", function(e){
+}).on("click", "i", function(e){
   console.log("thumb blicked");
   thumbClick(this);
   e.stopPropagation();
