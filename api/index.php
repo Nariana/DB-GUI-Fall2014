@@ -1,7 +1,6 @@
 <?php
-
 session_start();
-$_SESSION['id'] = 0;
+$_SESSION['id'];
 
 require 'Slim/Slim.php';
 \Slim\Slim::registerAutoloader();
@@ -26,7 +25,7 @@ $app->post('/logout', 'logout');
 
 $app->run();
 
-session_destroy();
+//session_destroy();
 
 function getConnection($user = 'root', $pw = 'root', $host = 'localhost') {
     $dbConnection = new mysqli($host, $user, $pw, 'PantryQuest'); //put in your password
@@ -49,11 +48,14 @@ function getIngredient() {
         $ingredient_list[] = $rows;
     }
     echo json_encode($ingredient_list);
+    
+    $con->close();
 }
 
 
 function logout()
 {
+    $_SESSION['id'] = 0;
     session_destroy();
 }
 
@@ -101,6 +103,7 @@ function deleteFavorites()
             $sql2 = $con->prepare("UPDATE recipe SET rating = ? where recipeName = ? ");       
             $sql2->bind_param('is', $rating, $recipeName);
             $sql2->execute();  
+            $con->close();
         }
     }
     catch (Exception $e)
@@ -134,7 +137,7 @@ function getAnalytics() {
         if (mysqli_num_rows($result) != 0)
         {
         //store information in results
-   	        while($counter < 5 && $r = mysqli_fetch_assoc($result)) 
+   	        while($counter < 10 && $r = mysqli_fetch_assoc($result)) 
    	        {
                 $foodNames[] = $r;
                 $counter += 1 ;
@@ -154,7 +157,7 @@ function getAnalytics() {
         if (mysqli_num_rows($result1) != 0)
         {
         //store information in results
-   	        while($counter < 5 && $r = mysqli_fetch_assoc($result1)) 
+   	        while($counter < 10 && $r = mysqli_fetch_assoc($result1)) 
    	        {
                 $mostClicked[] = $r;
                 $counter = $counter + 1 ;
@@ -173,12 +176,13 @@ function getAnalytics() {
         if (mysqli_num_rows($result2) != 0)
         {
         //store information in results
-   	        while($counter < 5 && $r = mysqli_fetch_assoc($result2)) 
+   	        while($counter < 10 && $r = mysqli_fetch_assoc($result2)) 
    	        {
                 $mostSaved[] = $r;
                 $counter = $counter + 1 ;
             } 
         }
+        $con->close();
     }
     catch (Exception $e)
     {
@@ -244,6 +248,11 @@ function saveRecipe()
             $sql2->execute();        
         }
         }
+        else 
+        {
+            echo "Not logged in";
+        }
+        $con->close();
     }
     catch (Exception $e)
     {
@@ -253,6 +262,7 @@ function saveRecipe()
 
 function login()
 {
+    
     $con = getConnection();
 	$app = \Slim\Slim::getInstance();
     $request = $app->request()->getBody();
@@ -278,13 +288,12 @@ function login()
     if (!isset($firstname))
     {
         
-        $_SESSION['id'] = false;
         //INVALID LOGIN
         $information[] = "Invalid login";
     }
     else
     {
-            $_SESSION['id'] = true;
+            $_SESSION['id'] = 1;
             $_SESSION['username'] = $name;
             //return name as well 
             $information[] = $name;
@@ -292,8 +301,10 @@ function login()
 
     }
     
-   
+   //echo  $_SESSION['id'];
     echo json_encode($information);
+    $con->close();
+   
 }
 
 function register()
@@ -337,6 +348,7 @@ function register()
         $information[] = "User already exists";
     }
     echo json_encode($information);
+    $con->close();
 }
 
 
@@ -383,14 +395,13 @@ function getRecipe()
     }
     
     
-    
+    $con->close();
 
         //echo print_r($results);
     echo json_encode($results);
 }
 
 function getResult() {
-    
     
 	$con = getConnection();
 	$app = \Slim\Slim::getInstance();
@@ -410,9 +421,6 @@ function getResult() {
     $results = array();
     $saved = array();
     $timesSearched;
-    
-    
-    //var_dump($_GET);
     
     //epty previous table 
     try
@@ -494,12 +502,13 @@ function getResult() {
     {
         searchDB($filters, $part, $methods, $time, $calories);
     }
+        
    
-    if ($_SESSION['id'] == 1)
+    if (isset($_SESSION['id']))
     {
-        //echo "inside";
     //check what of the results you have favorited 
-    $result1= $con->query("select recipeName from recipe inner join  results on results.recipeID =  recipe.recipeID inner join filter on results.recipeID = filter.recipeID inner join searchHistory on results.recipeID = searchHistory.ID where username = ".$_SESSION['username']."'"." order by rankingPoints desc"); //execute query 
+    $result1= $con->query("select recipeName from recipe inner join searchHistory on recipe.recipeID = searchHistory.ID where username = '".$_SESSION['username']."'"); //execute query 
+        
     
     if (!$result1)
     {
@@ -515,6 +524,8 @@ function getResult() {
         } 
     }    
     }
+        
+        
                    
     $result= $con->query("select recipeName, time, recipe.rating, rankingPoints, calories, picture from recipe inner join  results on results.recipeID =  recipe.recipeID inner join filter on results.recipeID = filter.recipeID order by rankingPoints desc"); //execute query 
         
@@ -527,14 +538,15 @@ function getResult() {
     
     if (mysqli_num_rows($result) != 0)
     {
+        
             //loop through saved to see if a recipe is already saved 
    	    while($r = mysqli_fetch_assoc($result)) 
-   	    {
+   	    { 
             if(!empty($saved))
             {
                 foreach ($saved as $recipe)
                 {
-                    if($recipe == $r[0]) //if that recipe is in the saved list 
+                    if($recipe['recipeName'] == $r['recipeName']) //if that recipe is in the saved list 
                     {
                         $r['saved'] = 'true';
                         $results[] = $r;
@@ -562,6 +574,13 @@ function getResult() {
         $e->getMessage();
     }
     //send back a json
+    /*
+    if(isset($_SESSION['id']))
+    {
+        echo $_SESSION['id'];
+        echo "is set";
+    }*/
+    
     echo json_encode($results);
     mysqli_close($con);
 }
@@ -712,6 +731,7 @@ function searchInsert($sql, $ingredients)
     {
         echo $e->getMessage();
     }
+    mysqli_close($con);
 }
 
 //create a list of subsets og a set as aelements in a set and call search for all of them 
