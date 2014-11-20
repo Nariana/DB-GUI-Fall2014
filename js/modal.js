@@ -164,6 +164,7 @@
               else{
                 console.log("logged in to " + result[0]);
                 localStorage.setItem("username", result[0]);
+                localStorage.setItem("name", result[1]);
                 location.reload();
               }
 
@@ -187,7 +188,7 @@
         width: 580,
         modal: true,
         buttons: {
-          Cancel: function() {
+          Close: function() {
             dialogAnalytics.dialog( "close" );
           }
         },
@@ -219,6 +220,28 @@
           dataType: "json",
           success: function (result) {
               console.log(result);
+
+              $("#analytics-form ol").remove();
+
+              $("#analytics-form").append("Most searched ingredients: <ol id='searchedfor'></ol>");
+              $("#analytics-form").append("Most viewed recipes: <ol id='recipesviewed'></ol>");
+              $("#analytics-form").append("Favorite recipes: <ol id='favoriterecipes'></ol>");
+
+              var searchedfor = result[0];
+              for(var i=0; i<5; i++){
+                $("#searchedfor").append("<li class='analytic'>"+ searchedfor[i].foodName +"</li>");
+              }
+
+              var recipesviewed = result[1];
+              for(var i=0; i<5; i++){
+                $("#recipesviewed").append("<li class='analytic'>"+ recipesviewed[i].recipeName +"</li>");
+              }
+
+              var favoriterecipes = result[2];
+              for(var i=0; i<5; i++){
+                $("#favoriterecipes").append("<li class='analytic'>"+ favoriterecipes[i].recipeName +"</li>");
+              }
+              
             },
           error: function(jqXHR, textStatus, errorThrown){
              console.log(jqXHR, textStatus, errorThrown);
@@ -236,6 +259,9 @@ $("#logout").on("click", function(){
     success: function (result) {
       console.log(result);
       localStorage.setItem("username", null);
+      localStorage.setItem("name", null);
+      var u = localStorage.getItem("username");
+      alert(u);
       location.reload();
         },
     error: function(jqXHR, textStatus, errorThrown){
@@ -246,7 +272,7 @@ $("#logout").on("click", function(){
 
 
 
-  if(!localStorage.getItem("username")){
+  if(localStorage.getItem("username")=== null || localStorage.getItem("username")==="null"){
     $("#favorites").hide();
     $("#welcome").hide();
     $("#logout").hide();
@@ -254,4 +280,5 @@ $("#logout").on("click", function(){
   else{
     $("#login").hide();
     $("#register").hide();
+    $("#welcome").append(localStorage.getItem("name"));
   }
