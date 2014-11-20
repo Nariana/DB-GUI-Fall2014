@@ -126,7 +126,7 @@ function getAnalytics() {
         
     //show the 5 most searched for ingredients 
         //don't need to make injection safe because the user is not inputed query 
-        $stmt = "select foodName from ingredient order by timesSearched desc";
+        $stmt = "select foodName, timesSearched from ingredient order by timesSearched desc";
         $result= $con->query($stmt);
         if (!$result)
         {
@@ -200,10 +200,9 @@ function saveRecipe()
     
     try
     {
-        
         $con = getConnection();
         $recipeName = $_GET['recipeName'];
-        echo $recipeName;
+        //echo $recipeName;
         
             $tempID;
             $result = $con->prepare("SELECT recipeID FROM recipe WHERE recipeName = ?");
@@ -225,25 +224,24 @@ function saveRecipe()
             {
                 $count = $tempCount;
             }
-            echo $count;
 
             if ($count == 0) //you have not saved that before 
             {
                 //prepare statement 
                 $sql = $con->prepare("INSERT INTO searchHistory (username, id) values (?, ?)");    
-                $sql->bind_param('ss', $_SESSION['username'], $id);
+                $sql->bind_param('ss', $_SESSION['username'], $recipeID);
                 $sql->execute();
-                    
+
                 //increment number of times that recipe has been saved 
                 $stmt = $con->prepare("select rating from recipe where recipeName = ?");
                 $stmt->bind_param('s', $recipeName);
                 $stmt->execute(); 
-                    $rating;
+                $rating;
                 $stmt->bind_result($rating);
                 while ($stmt->fetch())
                 {
                     $rating = $rating + 1;    
-                }                    
+                }   
                     $sql2 = $con->prepare("UPDATE recipe SET rating = ? where recipeName = ? ");
                     $sql2->bind_param('is', $rating, $recipeName);
                     $sql2->execute();        
