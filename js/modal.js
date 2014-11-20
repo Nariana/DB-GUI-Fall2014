@@ -114,6 +114,11 @@ $("#logout").button();
  
     $( "#register" ).button().on( "click", function() {
       dialog.dialog( "open" );
+    $('.ui-widget-overlay').off("click").on("click", function() {
+        //Close the dialog
+        console.log("clicked overlay");
+        dialog.dialog("close");
+      });  
     });
 
 
@@ -142,10 +147,16 @@ $("#logout").button();
     $( "#login" ).button().on( "click", function() {
 
       dialogLogin.dialog( "open" );
+      $('.ui-widget-overlay').off("click").on("click", function() {
+        //Close the dialog
+        console.log("clicked overlay");
+        dialogLogin.dialog("close");
+      });  
     });
 
 
     function login(){
+
       console.log("loggin in");
 
       var valid = true;
@@ -223,6 +234,12 @@ $("#logout").button();
 
     function analytics(){
 
+      $('.ui-widget-overlay').off("click").on("click", function() {
+        //Close the dialog
+        console.log("clicked overlay");
+        dialogAnalytics.dialog("close");
+      });  
+
       $( "#tabs" ).tabs({
         event: "mouseover"
       });
@@ -282,6 +299,13 @@ $("#logout").button();
 
 
     function favorites(){
+
+      $('.ui-widget-overlay').off("click").on("click", function() {
+        //Close the dialog
+        console.log("clicked overlay");
+        dialogFav.dialog("close");
+      });  
+
       console.log("favorites");
 
       var username = localStorage.getItem("username");
@@ -339,7 +363,6 @@ function addFavListeners(){
   }); 
 
 }
-
 
 
   if(localStorage.getItem("username")=== null || localStorage.getItem("username")==="null"){
