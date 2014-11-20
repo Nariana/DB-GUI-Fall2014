@@ -61,49 +61,55 @@ function logout()
 
 function deleteFavorites()
 {
-    try
-    {   
-        if (isset($_SESSION['id'])) //you can only do thos if you are logged in 
-        {
-            $user = 'loggedIn';
-            $pw = '123';
-            //get connection as a logged in user 
-            $con = getConnection($user, $pw);
-            $recipeName = $con->real_escape_string($_GET['recipeName']); 
+        try
+    {
+        $con = getConnection();
+        $recipeName = $_GET['recipeName'];
+        //echo $recipeName;
+        
+            $tempID;
+            $result = $con->prepare("SELECT recipeID FROM recipe WHERE recipeName = ?");
+            $result->bind_param('s', $recipeName);
+            $result->execute();
+            $result->bind_result($tempID);
             $recipeID;
-            
-            
-            $stmt =$con->prepare("select recipeID from recipe where recipeName = ? ");
-            $stmt->bind_param('s', $recipeName);
-            $stmt->execute(); 
-            $stmt->bind_result($tempID);
-            $recipeID;
-            while ($stmt->fetch())
+            while ($result->fetch()) 
             {
-            $recipeID = $tempID;
+                $recipeID = $tempID;
             }
-            
-            $stmt =$con->prepare("delete from searchHistory where username = ? and id = ?");
-            $stmt->bind_param('si', $_SESSION['username'], $recipeID);
-            $stmt->execute(); 
-            
-            
-
-            //Decrement the number and then delete from the result table 
-
-            $stmt1 = $con->prepare("select rating from recipe where recipeName = ?");
-            $stmt1->bind_param('s', $recipeName);
-            $stmt1->execute(); 
-            $stmt1->bind_result($rating);
-            $rating;
-            while ($stmt->fetch())
+            $tempCount;
+            $result = $con->prepare("SELECT COUNT(*) FROM searchHistory WHERE username = ? AND id = ?");
+            $result->bind_param('si', $_SESSION['username'], $recipeID);
+            $result->execute();
+            $result->bind_result($tempCount);
+            $count;
+            while ($result->fetch())
             {
-            $rating = $rating - 1;
-            }    
-            $sql2 = $con->prepare("UPDATE recipe SET rating = ? where recipeName = ? ");       
-            $sql2->bind_param('is', $rating, $recipeName);
-            $sql2->execute();  
-        }
+                $count = $tempCount;
+            }
+
+            if ($count != 0) //you have saved it so it can be unsaved 
+            {
+                //prepare statement 
+                $sql = $con->prepare("delete from searchHistory where username = ? and id = ?");    
+                $sql->bind_param('ss', $_SESSION['username'], $recipeID);
+                $sql->execute();
+
+                //increment number of times that recipe has been saved 
+                $stmt = $con->prepare("select rating from recipe where recipeName = ?");
+                $stmt->bind_param('s', $recipeName);
+                $stmt->execute(); 
+                $rating;
+                $stmt->bind_result($rating);
+                while ($stmt->fetch())
+                {
+                    $rating = $rating - 1;    
+                }   
+                    $sql2 = $con->prepare("UPDATE recipe SET rating = ? where recipeName = ? ");
+                    $sql2->bind_param('is', $rating, $recipeName);
+                    $sql2->execute();        
+                }
+
     }
     catch (Exception $e)
     {
