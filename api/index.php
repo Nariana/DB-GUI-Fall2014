@@ -200,7 +200,6 @@ function saveRecipe()
     {
         $con = getConnection();
         $recipeName = $_GET['recipeName'];
-        echo $recipeName;
         
         // if ($_SESSION['id'] == TRUE)
         // {
@@ -228,16 +227,15 @@ function saveRecipe()
 
             if ($count == 0) //you have not saved that before 
             {
-                $query = "insert into savedRecipes(username, id) values ('".$_SESSION['username']."',".$recipeID;
-                $result= $con->query($query);
-                echo $result;
+                $username = $_SESSION['username'];
+                $query = "insert into searchHistory (username, id) values ('".$username.",'".$recipeID;
+                $con->query($query);
                 //increment number of times that recipe has been saved
                 $other_query = "select rating from recipe where recipeName ='".$recipeName;
                 $rating = $con->query($other_query);
-                $rating = $rating + 1;         
-                $sql2 = $con->prepare("UPDATE recipe SET rating = ? where recipeName = ? ");
-                $sql2->bind_param('is', $rating, $recipeName);
-                $sql2->execute();        
+                $rating = $rating + 1;
+                $query = "update recipe set rating ='".$rating."where recipeName = '".$recipeName;
+                $con->query($query);    
             }
         // }
 
