@@ -65,7 +65,6 @@ function load(){
 
 /* go back to results */
 $("#backButton").off("click").on("click", function(){
-  localStorage.selectedRecipe.clear();
   window.location.href = "results.html";
 });
 
