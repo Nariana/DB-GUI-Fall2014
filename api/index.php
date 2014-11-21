@@ -2,8 +2,10 @@
 session_start();
 
 $_SESSION['id'];
-// $_SESSION['notLoggedInUsername'] = 'unLoggedIn';
-// $_SESSION['loggedInUsername'] = 'loggedIn';
+$_SESSION['notLoggedInUsername'] = 'unLoggedIn';
+$_SESSION['loggedInUsername'] = 'loggedIn';
+$_SESSION['notLoggedInPW'] = '123';
+$_SESSION['loggedInPW'] = '123';
 
 require 'Slim/Slim.php';
 \Slim\Slim::registerAutoloader();
@@ -152,7 +154,7 @@ function getAnalytics() {
     //show the 5 most clicked recipes 
         $counter = 0;
         //don't need to make injection safe because the user is not inputed query 
-        $stmt = "select recipeName from recipe order by timesClicked desc";
+        $stmt = "select recipeName, timesClicked from recipe order by timesClicked desc";
         $result1= $con->query($stmt);
         if (!$result1)
         {
@@ -171,7 +173,7 @@ function getAnalytics() {
     //show the 5 most saved recipes 
         $counter = 0;
         //don't need to make injection safe because the user is not inputed query 
-        $stmt = "select recipeName from recipe order by rating desc";
+        $stmt = "select recipeName, rating from recipe order by rating desc";
         $result2= $con->query($stmt);
         if (!$result2)
         {
