@@ -1,9 +1,7 @@
 //XAMPP
 var rootURL = "http://localhost/DB-GUI-Fall2014/api/index.php";
 //MAMP
-// var rootURL = "http://localhost:8888/DB-GUI-Fall2014/api/index.php";
-// var rootURL = "http://localhost/api/index.php";
-// var rootURL = "http://localhost:8888/DB-GUI-Fall2014/api/index.php";
+//var rootURL = "http://localhost:8888/DB-GUI-Fall2014/api/index.php";
 //var rootURL = "http://localhost/api/index.php";
 
 
@@ -34,8 +32,9 @@ function getIngredients(){
               select: function(event, ui){
                 //console.log();
                 clickAdd(ui.item.value);
-                $(ui.item).val("");
                 console.log("clearing");
+                $(this).val(''); 
+                return false;
               }
             });
           },
@@ -44,9 +43,6 @@ function getIngredients(){
       }});
 }
         
-
-
-
 console.log("in action");
 
 $('#addIngredient').off("click").on("click", function(){
@@ -110,6 +106,10 @@ $("#search").hover(
 },  function(){
 		$(this).css("color","white");
 });
+
+$("#ingredientList").on("contentChange", function(){
+  console.log("content changed");
+})
 
 $(function() {
     var tooltips = $( "[title]" ).tooltip({

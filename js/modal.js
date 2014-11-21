@@ -1,10 +1,18 @@
 //XAMPP
-//var rootURL = "http://localhost/DB-GUI-Fall2014/api/index.php";
+var rootURL = "http://localhost/DB-GUI-Fall2014/api/index.php";
 //MAMP
-// var rootURL = "http://localhost:8888/DB-GUI-Fall2014/api/index.php";
-// var rootURL = "http://localhost/api/index.php";
-var rootURL = "http://localhost:8888/DB-GUI-Fall2014/api/index.php";
-//var rootURL = "http://localhost/api/index.php";
+//var rootURL = "http://localhost:8888/DB-GUI-Fall2014/api/index.php";
+
+  if(localStorage.getItem("username")=== null || localStorage.getItem("username")==="null"){
+    $("#favorites").hide();
+    $("#welcome").hide();
+    $("#logout").hide();
+  }
+  else{
+    $("#login").hide();
+    $("#register").hide();
+    $("#welcome").append(localStorage.getItem("name"));
+  }
 
 $("#favorites").button();
 $("#logout").button();
@@ -114,6 +122,11 @@ $("#logout").button();
  
     $( "#register" ).button().on( "click", function() {
       dialog.dialog( "open" );
+    $('.ui-widget-overlay').off("click").on("click", function() {
+        //Close the dialog
+        console.log("clicked overlay");
+        dialog.dialog("close");
+      });  
     });
 
 
@@ -142,10 +155,16 @@ $("#logout").button();
     $( "#login" ).button().on( "click", function() {
 
       dialogLogin.dialog( "open" );
+      $('.ui-widget-overlay').off("click").on("click", function() {
+        //Close the dialog
+        console.log("clicked overlay");
+        dialogLogin.dialog("close");
+      });  
     });
 
 
     function login(){
+
       console.log("loggin in");
 
       var valid = true;
@@ -195,7 +214,7 @@ $("#logout").button();
       dialogAnalytics = $( "#analytics-form" ).dialog({
         autoOpen: false,
         height: 500,
-        width: 580,
+        width: 780,
         modal: true,
         buttons: {
           Close: function() {
@@ -222,6 +241,16 @@ $("#logout").button();
 
 
     function analytics(){
+
+      $('.ui-widget-overlay').off("click").on("click", function() {
+        //Close the dialog
+        console.log("clicked overlay");
+        dialogAnalytics.dialog("close");
+      });  
+
+      $( "#tabs" ).tabs({
+        event: "mouseover"
+      });
       console.log("analytics");
 
         $.ajax({
@@ -231,11 +260,7 @@ $("#logout").button();
           success: function (result) {
               console.log(result);
 
-              $("#analytics-form ol").remove();
-
-              $("#analytics-form").append("Most searched ingredients: <ol id='searchedfor'></ol>");
-              $("#analytics-form").append("Most viewed recipes: <ol id='recipesviewed'></ol>");
-              $("#analytics-form").append("Favorite recipes: <ol id='favoriterecipes'></ol>");
+              $("#analytics-form .analytic").remove();
 
               var searchedfor = result[0];
               for(var i=0; i<searchedfor.length; i++){
@@ -244,12 +269,12 @@ $("#logout").button();
 
               var recipesviewed = result[1];
               for(var i=0; i<recipesviewed.length; i++){
-                $("#recipesviewed").append("<li class='analytic'>"+ recipesviewed[i].recipeName +"</li>");
+                $("#mostviewed").append("<li class='analytic'>"+ recipesviewed[i].recipeName +"</li>");
               }
 
               var favoriterecipes = result[2];
               for(var i=0; i<favoriterecipes.length; i++){
-                $("#favoriterecipes").append("<li class='analytic'>"+ favoriterecipes[i].recipeName +"</li>");
+                $("#favrecipes").append("<li class='analytic'>"+ favoriterecipes[i].recipeName +"</li>");
               }
               
             },
@@ -270,10 +295,6 @@ $("#logout").button();
           Close: function() {
             dialogFav.dialog( "close" );
           }
-        },
-        close: function() {
-          form[ 0 ].reset();
-          allFields.removeClass( "ui-state-error" );
         }
     });
  
@@ -286,6 +307,13 @@ $("#logout").button();
 
 
     function favorites(){
+
+      $('.ui-widget-overlay').off("click").on("click", function() {
+        //Close the dialog
+        console.log("clicked overlay");
+        dialogFav.dialog("close");
+      });  
+
       console.log("favorites");
 
       var username = localStorage.getItem("username");
@@ -301,12 +329,13 @@ $("#logout").button();
               $("#favTab").append("")
               $.each(result, function(index, recipe){
                 console.log(recipe);
-                var s = $("#favTab").append("<tr></tr>");
-                $.each(recipe, function(index, t){
-                  console.log(t);
-                  s.find("tr").append("<td>"+t+"</td>")
-                });
+                var s = $("#favTab").append("<ul id='favRecipe"+index+"' class='favList'></ul>");
+                $("#favRecipe"+index).append(recipe[0]);
+                $("#favRecipe"+index).append("<li>"+recipe[1]+" minutes</li>");
+                $("#favRecipe"+index).append("<li>Rating: "+recipe[2]+"</li>")
               });
+
+              addFavListeners();
             },
           error: function(jqXHR, textStatus, errorThrown){
              console.log(jqXHR, textStatus, errorThrown);
@@ -334,16 +363,11 @@ $("#logout").on("click", function(){
     }});
 });
 
+function addFavListeners(){
+  var list = $(".favList");
 
+  $(".favList").on("hover", function(){
+    $(this).css("background-color", "grey");
+  }); 
 
-
-  if(localStorage.getItem("username")=== null || localStorage.getItem("username")==="null"){
-    $("#favorites").hide();
-    $("#welcome").hide();
-    $("#logout").hide();
-  }
-  else{
-    $("#login").hide();
-    $("#register").hide();
-    $("#welcome").append(localStorage.getItem("name"));
-  }
+}

@@ -1,7 +1,9 @@
 //XAMPP
 var rootURL = "http://localhost/DB-GUI-Fall2014/api/index.php";
 //MAMP
-// var rootURL = "http://localhost:8888/DB-GUI-Fall2014/api/index.php";
+//var rootURL = "http://localhost:8888/DB-GUI-Fall2014/api/index.php";
+
+var allIngredients = getIngredients();
 
 $(document).ready(function(){
   load();
@@ -65,8 +67,11 @@ function getResults(){
                   if($("#recipe"+i).has("i").length === 0){
                     //console.log($("#recipe"+i));
                     $("#recipe"+i +" >ul").append("<li class='thumb-col'><i class='thumb fa fa-thumbs-o-up fa-2x'></i></li>");
-                    if (result[i].saved) {
-                      $("#recipe"+i).children("i").css("color","yellow");
+                    console.log(result[i].saved);
+                    if (result[i].saved === "true") {
+                      console.log("changing "+i);
+                      $("#recipe"+i + " ul i").css("color","#8aa1ab");
+                      $("#recipe"+i + " ul i").addClass("saved");
                     }
 
                    }
@@ -121,7 +126,7 @@ function addListeners(){
       localStorage.setItem("selectedRecipe", recipe);
       window.location.href = "recipe.html";
     }
-}).on("click", ".thumb-col", function(e){
+}).on("click", "i", function(e){
   console.log("thumb blicked");
   thumbClick(this);
   e.stopPropagation();
@@ -134,11 +139,19 @@ function addListeners(){
   $(".thumb").hover(function(){
     $(this).css("color","white");
   }, function(){
-    $(this).css("color","black");
+    console.log($(this).hasClass("saved"));
+    if ($(this).hasClass("saved") === true) {
+     // console.log("changing "+i);
+      $(this).css("color","#8aa1ab");
+    }
+
+    else{
+      $(this).css("color","black");
+  }
+
   });
 
   $("#back").off("click").on("click",function(){
-    localStorage.clear();
     window.location = "index.html";
   });
 
@@ -162,7 +175,7 @@ function thumbClick(t){
         url: rootURL+"/saveRecipe",
         data: send,
         success: function (result) {
-            //console.log(result);
+            console.log("showing" + result);
           },
         error: function(jqXHR, textStatus, errorThrown){
           console.log(jqXHR, textStatus, errorThrown);
@@ -205,6 +218,7 @@ function load(){
 function showIngredients(){
 
   var ing = localStorage.getItem("ingredients");
+  console.log(ing);
   ing = ing.split(",");
   $.each(ing, function(key, value){
     $("#ingList").append('<li><input type="checkbox" class="ing" checked name="ing" value="'+value+'" id="ing'+key+'"><label for="ing'+key+'">'+value+'</label></li>');
@@ -219,3 +233,50 @@ $("#back").hover(
 },  function(){
     $(this).css("color","white");
 });
+
+function getIngredients(){
+
+  console.log("in get Ingredients");
+  console.log(rootURL+"/getIngredient");
+  var availableTags = [];
+  $.ajax({
+        type: "GET",
+        url: rootURL+"/getIngredient",
+        dataType: "json",
+        success: function (result) {
+            console.log(result);
+            for (var i = 0; i < result.length - 1; i++) {
+              availableTags[i] = result[i][0];
+            };
+            //console.log(availableTags);
+            //alert("done!"+ csvData.getAllResponseHeaders())
+            $( "#addIngredient" ).autocomplete({
+              source: availableTags,
+              select: function(event, ui){
+                //console.log();
+                var num = $(".ing").length;
+                $("#ingList").append('<li><input type="checkbox" class="ing" checked name="ing" value="'+ui.item.value+'" id="ing'+num+'"><label for="ing'+num+'">'+ui.item.value+'</label></li>');
+                $(this).val('');
+
+                var query = [];
+                var fields = $(".ing");
+                $.each(fields, function(i, v) {
+                  query.push(v.textContent);
+                }); 
+
+                if (query.length > 0) {
+                    localStorage.setItem("ingredients", query);
+                    getResults();
+                  }
+                else {
+                    console.log("cancel search - no ingredients");
+                }
+
+                return false;
+              }
+            });
+          },
+        error: function(jqXHR, textStatus, errorThrown){
+           console.log(jqXHR, textStatus, errorThrown);
+      }});
+}

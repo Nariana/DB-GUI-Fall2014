@@ -83,12 +83,13 @@ margin-top: 75px;
 
 #recipeImg {
 	float: right;
+	width: 30%;
 }
 
 
 /* selects the instructions p */
 #majorInfo ul {
-	width: 45%;
+	width: 30%;
 	float: left;
 	padding: 10px;
 	border: 1px solid white;
@@ -105,8 +106,9 @@ margin-top: 75px;
 */
 
 #recipeButtons{
-	float: left;
+	display: block;
 	width: 60%;
+	margin-bottom: 200px;
 }
 
 .filterTitle {
@@ -153,12 +155,13 @@ margin-top: 75px;
 }
 
 .resultDiv {
-	width: 28%;
-	float: left;
+	width: 214px;
+	display: inline-block;
 	position: relative;
 	background-color: white;
 	border: solid 1px black;
 	border-radius: 10px;
+	height: 162px;
 }
 
 .resultList{
@@ -182,6 +185,18 @@ margin-top: 75px;
 	margin-left: 60px;
 }
 
-#recipeButtons {
-	margin-bottom: 200px;
+#welcome{
+	position: fixed;
+}
+
+html body .ui-widget{
+	font-family: 'Raleway', sans-serif;
+}
+
+#tabs .ui-button-text{
+	font-size: 16px;
+}
+
+#logo{
+	width: 25%;
 }

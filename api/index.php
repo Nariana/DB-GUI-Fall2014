@@ -1,9 +1,11 @@
 <?php
 session_start();
 
-$_SESSION['id'];
-// $_SESSION['notLoggedInUsername'] = 'unLoggedIn';
-// $_SESSION['loggedInUsername'] = 'loggedIn';
+//$_SESSION['id'];
+$_SESSION['notLoggedInUsername'] = 'unLoggedIn';
+$_SESSION['loggedInUsername'] = 'loggedIn';
+$_SESSION['notLoggedInPW'] = '123';
+$_SESSION['loggedInPW'] = '123';
 
 require 'Slim/Slim.php';
 \Slim\Slim::registerAutoloader();
@@ -61,49 +63,55 @@ function logout()
 
 function deleteFavorites()
 {
-    try
-    {   
-        if (isset($_SESSION['id'])) //you can only do thos if you are logged in 
-        {
-            $user = 'loggedIn';
-            $pw = '123';
-            //get connection as a logged in user 
-            $con = getConnection($user, $pw);
-            $recipeName = $con->real_escape_string($_GET['recipeName']); 
+        try
+    {
+        $con = getConnection();
+        $recipeName = $_GET['recipeName'];
+        //echo $recipeName;
+        
+            $tempID;
+            $result = $con->prepare("SELECT recipeID FROM recipe WHERE recipeName = ?");
+            $result->bind_param('s', $recipeName);
+            $result->execute();
+            $result->bind_result($tempID);
             $recipeID;
-            
-            
-            $stmt =$con->prepare("select recipeID from recipe where recipeName = ? ");
-            $stmt->bind_param('s', $recipeName);
-            $stmt->execute(); 
-            $stmt->bind_result($tempID);
-            $recipeID;
-            while ($stmt->fetch())
+            while ($result->fetch()) 
             {
-            $recipeID = $tempID;
+                $recipeID = $tempID;
             }
-            
-            $stmt =$con->prepare("delete from searchHistory where username = ? and id = ?");
-            $stmt->bind_param('si', $_SESSION['username'], $recipeID);
-            $stmt->execute(); 
-            
-            
-
-            //Decrement the number and then delete from the result table 
-
-            $stmt1 = $con->prepare("select rating from recipe where recipeName = ?");
-            $stmt1->bind_param('s', $recipeName);
-            $stmt1->execute(); 
-            $stmt1->bind_result($rating);
-            $rating;
-            while ($stmt->fetch())
+            $tempCount;
+            $result = $con->prepare("SELECT COUNT(*) FROM searchHistory WHERE username = ? AND id = ?");
+            $result->bind_param('si', $_SESSION['username'], $recipeID);
+            $result->execute();
+            $result->bind_result($tempCount);
+            $count;
+            while ($result->fetch())
             {
-            $rating = $rating - 1;
-            }    
-            $sql2 = $con->prepare("UPDATE recipe SET rating = ? where recipeName = ? ");       
-            $sql2->bind_param('is', $rating, $recipeName);
-            $sql2->execute();  
-        }
+                $count = $tempCount;
+            }
+
+            if ($count != 0) //you have saved it so it can be unsaved 
+            {
+                //prepare statement 
+                $sql = $con->prepare("delete from searchHistory where username = ? and id = ?");    
+                $sql->bind_param('ss', $_SESSION['username'], $recipeID);
+                $sql->execute();
+
+                //increment number of times that recipe has been saved 
+                $stmt = $con->prepare("select rating from recipe where recipeName = ?");
+                $stmt->bind_param('s', $recipeName);
+                $stmt->execute(); 
+                $rating;
+                $stmt->bind_result($rating);
+                while ($stmt->fetch())
+                {
+                    $rating = $rating - 1;    
+                }   
+                    $sql2 = $con->prepare("UPDATE recipe SET rating = ? where recipeName = ? ");
+                    $sql2->bind_param('is', $rating, $recipeName);
+                    $sql2->execute();        
+                }
+
     }
     catch (Exception $e)
     {
@@ -126,7 +134,7 @@ function getAnalytics() {
         
     //show the 5 most searched for ingredients 
         //don't need to make injection safe because the user is not inputed query 
-        $stmt = "select foodName from ingredient order by timesSearched desc";
+        $stmt = "select foodName, timesSearched from ingredient order by timesSearched desc";
         $result= $con->query($stmt);
         if (!$result)
         {
@@ -146,7 +154,7 @@ function getAnalytics() {
     //show the 5 most clicked recipes 
         $counter = 0;
         //don't need to make injection safe because the user is not inputed query 
-        $stmt = "select recipeName from recipe order by timesClicked desc";
+        $stmt = "select recipeName, timesClicked from recipe order by timesClicked desc";
         $result1= $con->query($stmt);
         if (!$result1)
         {
@@ -165,7 +173,7 @@ function getAnalytics() {
     //show the 5 most saved recipes 
         $counter = 0;
         //don't need to make injection safe because the user is not inputed query 
-        $stmt = "select recipeName from recipe order by rating desc";
+        $stmt = "select recipeName, rating from recipe order by rating desc";
         $result2= $con->query($stmt);
         if (!$result2)
         {
@@ -202,10 +210,8 @@ function saveRecipe()
     {
         $con = getConnection();
         $recipeName = $_GET['recipeName'];
-        echo $recipeName;
+        //echo $recipeName;
         
-        // if ($_SESSION['id'] == TRUE)
-        // {
             $tempID;
             $result = $con->prepare("SELECT recipeID FROM recipe WHERE recipeName = ?");
             $result->bind_param('s', $recipeName);
@@ -226,30 +232,28 @@ function saveRecipe()
             {
                 $count = $tempCount;
             }
-            echo $count;
 
             if ($count == 0) //you have not saved that before 
             {
                 //prepare statement 
-                $sql = $con->prepare("INSERT INTO savedRecipes(username, id) values (?, ?)");    
-                $sql->bind_param('ss', $_SESSION['username'], $id);
+                $sql = $con->prepare("INSERT INTO searchHistory (username, id) values (?, ?)");    
+                $sql->bind_param('ss', $_SESSION['username'], $recipeID);
                 $sql->execute();
-                    
+
                 //increment number of times that recipe has been saved 
                 $stmt = $con->prepare("select rating from recipe where recipeName = ?");
                 $stmt->bind_param('s', $recipeName);
                 $stmt->execute(); 
-                    $rating;
+                $rating;
                 $stmt->bind_result($rating);
                 while ($stmt->fetch())
                 {
                     $rating = $rating + 1;    
-                }                    
+                }   
                     $sql2 = $con->prepare("UPDATE recipe SET rating = ? where recipeName = ? ");
                     $sql2->bind_param('is', $rating, $recipeName);
                     $sql2->execute();        
                 }
-        // }
 
     }
     catch (Exception $e)
@@ -506,7 +510,7 @@ function getResult() {
     {
         //echo "inside";
     //check what of the results you have favorited 
-    $result1= $con->query("select recipeName from recipe inner join  searchHistory on  recipe.recipeID = SearchHistory.ID where username = '".$_SESSION['username']."'"); //execute query 
+    $result1= $con->query("select distinct recipeName from recipe inner join  searchHistory on  recipe.recipeID = SearchHistory.ID where username = '".$_SESSION['username']."'"); //execute query 
     
     if (!$result1)
     {
@@ -522,7 +526,7 @@ function getResult() {
         } 
     }    
     }
-                   
+      //print_r($saved);             
     $result= $con->query("select distinct recipeName, time, recipe.rating, rankingPoints, calories, picture from recipe inner join  results on results.recipeID =  recipe.recipeID inner join filter on results.recipeID = filter.recipeID order by rankingPoints desc"); //execute query 
         
         //check what of the results you have favorited 
@@ -532,39 +536,48 @@ function getResult() {
         throw new Exception(mysqli_error($con));
     }
     
+        $issaved = FALSE;
+        
     if (mysqli_num_rows($result) != 0)
     {
-            //loop through saved to see if a recipe is already saved 
+             //loop through saved to see if a recipe is already saved 
    	    while($r = mysqli_fetch_assoc($result)) 
    	    {
+            $issaved = FALSE;
+            
             if(!empty($saved))
             {
                 foreach ($saved as $recipe)
                 {
-                    //print_r($recipe);
+                    //echo $r['recipeName'];
+                    //echo $recipe['recipeName'];
                     if($recipe['recipeName'] == $r['recipeName']) //if that recipe is in the saved list 
                     {
-                        $r['saved'] = 'true';
-                        $results[] = $r;
-                    }
-                else
-                    {
-                        $r['saved'] = 'false';
-                        $results[] = $r;
+                        $issaved = true; 
                     }
                 }
+                if($issaved)
+                {
+                    $r['saved'] = 'true';
+                    $results[] = $r;
+                }
+                else 
+                {
+                    $r['saved'] = 'false';
+                    $results[] = $r;
+                }
             }
+        
             else
             {
                 $r['saved'] = 'false';
                 $results[] = $r;
                 //$results[] = 'notSaved'; 
             }
-        } 
-    } 
+             }
+        }
+        }
         
-
-    }
     catch (Exception $e)
     {
         $e->getMessage();
