@@ -196,3 +196,7 @@ html body .ui-widget{
 #tabs .ui-button-text{
 	font-size: 16px;
 }
+
+#logo{
+	width: 25%;
+}

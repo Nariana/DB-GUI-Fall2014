@@ -6,6 +6,17 @@
 var rootURL = "http://localhost:8888/DB-GUI-Fall2014/api/index.php";
 //var rootURL = "http://localhost/api/index.php";
 
+  if(localStorage.getItem("username")=== null || localStorage.getItem("username")==="null"){
+    $("#favorites").hide();
+    $("#welcome").hide();
+    $("#logout").hide();
+  }
+  else{
+    $("#login").hide();
+    $("#register").hide();
+    $("#welcome").append(localStorage.getItem("name"));
+  }
+
 $("#favorites").button();
 $("#logout").button();
   $(function() {
@@ -363,15 +374,3 @@ function addFavListeners(){
   }); 
 
 }
-
-
-  if(localStorage.getItem("username")=== null || localStorage.getItem("username")==="null"){
-    $("#favorites").hide();
-    $("#welcome").hide();
-    $("#logout").hide();
-  }
-  else{
-    $("#login").hide();
-    $("#register").hide();
-    $("#welcome").append(localStorage.getItem("name"));
-  }

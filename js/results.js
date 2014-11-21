@@ -67,8 +67,11 @@ function getResults(){
                   if($("#recipe"+i).has("i").length === 0){
                     //console.log($("#recipe"+i));
                     $("#recipe"+i +" >ul").append("<li class='thumb-col'><i class='thumb fa fa-thumbs-o-up fa-2x'></i></li>");
-                    if (result[i].saved) {
-                      $("#recipe"+i).children("i").css("color","yellow");
+                    console.log(result[i].saved);
+                    if (result[i].saved === "true") {
+                      console.log("changing "+i);
+                      $("#recipe"+i + " ul i").css("color","#8aa1ab");
+                      $("#recipe"+i + " ul i").addClass("saved");
                     }
 
                    }
@@ -136,7 +139,16 @@ function addListeners(){
   $(".thumb").hover(function(){
     $(this).css("color","white");
   }, function(){
-    $(this).css("color","black");
+    console.log($(this).hasClass("saved"));
+    if ($(this).hasClass("saved") === true) {
+     // console.log("changing "+i);
+      $(this).css("color","#8aa1ab");
+    }
+
+    else{
+      $(this).css("color","black");
+  }
+
   });
 
   $("#back").off("click").on("click",function(){
@@ -207,6 +219,7 @@ function load(){
 function showIngredients(){
 
   var ing = localStorage.getItem("ingredients");
+  console.log(ing);
   ing = ing.split(",");
   $.each(ing, function(key, value){
     $("#ingList").append('<li><input type="checkbox" class="ing" checked name="ing" value="'+value+'" id="ing'+key+'"><label for="ing'+key+'">'+value+'</label></li>');
@@ -256,9 +269,9 @@ function getIngredients(){
                     localStorage.setItem("ingredients", query);
                     getResults();
                   }
-                  else {
+                else {
                     console.log("cancel search - no ingredients");
-                  }
+                }
 
                 return false;
               }
