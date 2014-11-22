@@ -33,8 +33,10 @@ function drawMostSearched(myData) {
 
   // Set chart options
   var options = {
-                 'width':600,
-                 'height':300};
+                 'width':780,
+                 'height':300,
+                 'pieSliceText':'value'
+                  };
 
   // Instantiate and draw our chart, passing in some options.
   var chart = new google.visualization.PieChart(document.getElementById('searchedfor'));
@@ -55,8 +57,10 @@ function drawMostViewed(myData) {
 
   // Set chart options
   var options = {
-                 'width':600,
-                 'height':300};
+                 'width':780,
+                 'height':300,
+                 'pieSliceText':'value',
+               };
 
   // Instantiate and draw our chart, passing in some options.
   var chart = new google.visualization.PieChart(document.getElementById('mostviewed'));
@@ -77,7 +81,8 @@ function drawFavorite(myData) {
 
   // Set chart options
   var options = {
-                 'width':600,
+                 'width':780,
+                 'pieSliceText':'value',
                  'height':300};
 
   // Instantiate and draw our chart, passing in some options.
