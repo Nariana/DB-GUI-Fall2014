@@ -3,6 +3,8 @@ var rootURL = "http://localhost/DB-GUI-Fall2014/api/index.php";
 //MAMP
 //var rootURL = "http://localhost:8888/DB-GUI-Fall2014/api/index.php";
 
+google.load('visualization', '1.0', {'packages':['corechart', 'table']});
+
   if(localStorage.getItem("username")=== null || localStorage.getItem("username")==="null"){
     $("#favorites").hide();
     $("#welcome").hide();
@@ -13,6 +15,72 @@ var rootURL = "http://localhost/DB-GUI-Fall2014/api/index.php";
     $("#register").hide();
     $("#welcome").append(localStorage.getItem("name"));
   }
+
+function drawMostSearched(myData) {
+  // Create the data table.
+  console.log("in drawMostSearched");
+  console.log(myData);
+  var data = new google.visualization.DataTable();
+  data.addColumn('string', 'Ingredient');
+  data.addColumn('number', 'Count');
+
+  $.each(myData, function(i, d) {
+    data.addRow([d.foodName, parseInt(d.timesSearched)]);
+  });
+
+  // Set chart options
+  var options = {
+                 'width':600,
+                 'height':300};
+
+  // Instantiate and draw our chart, passing in some options.
+  var chart = new google.visualization.PieChart(document.getElementById('searchedfor'));
+  chart.draw(data, options);
+}
+
+function drawMostViewed(myData) {
+  console.log("in drawMostViewed");
+    // Create the data table.
+  console.log(myData);
+  var data = new google.visualization.DataTable();
+  data.addColumn('string', 'Recipe');
+  data.addColumn('number', 'Count');
+
+  $.each(myData, function(i, d) {
+    data.addRow([d.recipeName, parseInt(d.timesClicked)]);
+  });
+
+  // Set chart options
+  var options = {
+                 'width':600,
+                 'height':300};
+
+  // Instantiate and draw our chart, passing in some options.
+  var chart = new google.visualization.PieChart(document.getElementById('mostviewed'));
+  chart.draw(data, options);
+}
+
+function drawFavorite(myData) {
+  console.log("in drawFavorite");
+
+  console.log(myData);
+  var data = new google.visualization.DataTable();
+  data.addColumn('string', 'Recipe');
+  data.addColumn('number', 'Count');
+
+  $.each(myData, function(i, d) {
+    data.addRow([d.recipeName, parseInt(d.rating)]);
+  });
+
+  // Set chart options
+  var options = {
+                 'width':600,
+                 'height':300};
+
+  // Instantiate and draw our chart, passing in some options.
+  var chart = new google.visualization.PieChart(document.getElementById('favrecipes'));
+  chart.draw(data, options);
+}
 
 $("#favorites").button();
 $("#logout").button();
@@ -276,6 +344,20 @@ $("#logout").button();
               for(var i=0; i<favoriterecipes.length; i++){
                 $("#favrecipes").append("<li class='analytic'>"+ favoriterecipes[i].recipeName +"</li>");
               }
+
+              google.setOnLoadCallback(drawCharts);
+
+              function drawCharts() {
+                console.log("draw charts");
+
+                drawMostSearched(searchedfor);
+                drawMostViewed(recipesviewed);
+                drawFavorite(favoriterecipes);
+              }
+
+              drawCharts();
+
+              console.log(google);
               
             },
           error: function(jqXHR, textStatus, errorThrown){
