@@ -170,6 +170,7 @@ function thumbClick(t){
     var recipe = $(t).parent().parent().find("h5").html();
     var send = {"recipeName": recipe};
     console.log(send);
+    $(t).css("color", "#8aa1ab");
 
     $.ajax({
         type: "GET",
