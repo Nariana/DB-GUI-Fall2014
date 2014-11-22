@@ -10,9 +10,21 @@
 package com.example.pantryquest;
 
 /* inclusions */
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
+import org.xmlpull.v1.XmlPullParserFactory;
+
 import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -33,6 +45,8 @@ public class Results extends Activity implements OnClickListener, OnItemClickLis
 	private String[] message;
 	// the Recipe activity intent contains a String[] of relevent info for the recipe
 	public final static String RECIPE_INFO = "com.example.PantryQuest.RECIPE_INFO";
+	// root URL for the server
+	private final static String rootUrl =  "the root url of the server";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +56,10 @@ public class Results extends Activity implements OnClickListener, OnItemClickLis
 		message = intent.getStringArrayExtra(MainActivity.EXTRA_MESSAGE);
 		/*
 		 * Make The Database Call Here
+		 */
+		
+		/*
+		 * 
 		 */
 		// create on click listener for bt
 		bt = (Button) findViewById(R.id.backButton);
@@ -75,9 +93,73 @@ public class Results extends Activity implements OnClickListener, OnItemClickLis
 		String[] info;
 		//intent.putExtra(RECIPE_INFO, info);
 	}
-	
-	
 
 }
 
-/* Implemment the REST api */
+/* Implemmentation based on a guide availble at:
+ * http://blog.strikeiron.com/bid/73189/Integrate-a-REST-API-into-Android-Application-in-less-than-15-minutes
+ * */
+
+final class CallAPIResult {
+	//contains the result
+	//What data type does the request return?
+}
+final class CallAPI extends AsyncTask<String, String, String> {
+	@Override
+	protected String doInBackground(String... params) {
+		String urlString = params[0]; //this is the url to call
+		String resultToDisplay = "";
+		InputStream in = null;
+		CallAPIResult result = null;
+		
+		// Http GET
+		try {
+			URL url = new URL(urlString);
+			HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+			in = new BufferedInputStream(urlConnection.getInputStream());
+		}
+		catch (Exception e) {
+			Log.e("API", e.getMessage());
+			return e.getMessage();
+		}
+		
+		// Parse XML
+		XmlPullParserFactory pullParserFactory;
+		try {
+			pullParserFactory = XmlPullParserFactory.newInstance();
+			XmlPullParser parser = pullParserFactory.newPullParser();
+			parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
+			parser.setInput(in, null);
+			result = parseXml(parser);
+		}
+		catch (XmlPullParserException e) {
+			e.printStackTrace();
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return resultToDisplay;
+	}
+	
+	private CallAPIResult parseXml(XmlPullParser parser) throws XmlPullParserException, IOException {
+		int eventType = parser.getEventType();
+		CallAPIResult result = new CallAPIResult();
+		while (eventType != XmlPullParser.END_DOCUMENT) {
+			String name = null;
+			switch (eventType) 
+			{
+			case XmlPullParser.START_TAG:
+				name = parser.getName();
+				if (name == "Error") {
+					Log.e("API", "Web API Error!");
+				}
+				break;
+			case XmlPullParser.END_TAG:
+				break;
+			}
+			eventType = parser.next();
+		}
+		return result;
+	}
+}

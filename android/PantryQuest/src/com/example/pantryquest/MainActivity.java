@@ -30,7 +30,7 @@ public class MainActivity extends Activity implements OnClickListener{
 	private EditText et;
 	// searchInput is a list containing the inputed ingredients
 	private List<String> searchInput = new ArrayList<String>();
-	// the Results activity intent is passed a String[] of the search queries
+	// the Results activity intent contains a String[] of the search queries
 	public final static String EXTRA_MESSAGE = "com.example.PantryQuest.MESSAGE";
 
     protected void onCreate(Bundle savedInstanceState) {
