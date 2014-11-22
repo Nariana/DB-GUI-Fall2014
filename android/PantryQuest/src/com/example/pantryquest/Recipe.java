@@ -7,7 +7,13 @@
 package com.example.pantryquest;
 
 /* inclusions */
+import java.io.InputStream;
+import java.net.URL;
+
 import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -35,13 +41,28 @@ public class Recipe extends Activity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_recipe);
 		
+		txtTitle = (TextView) findViewById(R.id.title);
+		txtDesc = (TextView) findViewById(R.id.description);
+		txtSteps = (TextView) findViewById(R.id.steps);
+		img = (ImageView) findViewById(R.id.image);
+		
 		// set bt
 		bt = (Button) findViewById(R.id.backButton);
 		bt.setOnClickListener(this);
 		
 		// retrieve message info from the intent
 		Intent intent = getIntent();
+		message = intent.getStringArrayExtra(Results.RECIPE_INFO);
 		
+		// in the code below, replace message[x] with correct index
+		// set all of the textviews and the imageview from passed strings
+		// txtTitle.setText(message[x]
+		// txtDesc.setText(message[x]
+		// txtSteps.setText(message[x]
+		
+		// set the image
+		//Bitmap bitmap = BitmapFactory.decodeStream((InputStream) new URL(message[x]).getContent());
+		//img.setImageBitmap(bitmap);
 	}
 
 	public void onClick(View v) {

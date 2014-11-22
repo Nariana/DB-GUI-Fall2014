@@ -29,11 +29,10 @@ public class Results extends Activity implements OnClickListener, OnItemClickLis
 	private ListView lv;
 	// adapter is used to populate the list view
 	private ArrayAdapter<String> adapter;
-	// message holds the query results, should be changed to a 
-	// 2D array when actually implemented
+	// message holds the query results
 	private String[] message;
 	// the Recipe activity intent contains a String[] of relevent info for the recipe
-	public final static String EXTRA_MESSAGE = "com.example.PantryQuest.MESSAGE";
+	public final static String RECIPE_INFO = "com.example.PantryQuest.RECIPE_INFO";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +61,23 @@ public class Results extends Activity implements OnClickListener, OnItemClickLis
 			this.finish();
 		}
 	}
-
+	
+	// on click listener for the ListView
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position,
+			long id) {
+		// create a Recipe activity intent and include all the recipe info inside it
+		Intent intent = new Intent(this, Recipe.class);
+		
+		/*
+		 * Make a String[] of recipe info to send
+		 */
+		String[] info;
+		//intent.putExtra(RECIPE_INFO, info);
+	}
+	
+	
 
 }
+
+/* Implemment the REST api */
