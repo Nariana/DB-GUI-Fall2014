@@ -6,6 +6,7 @@ $_SESSION['notLoggedInUsername'] = 'unLoggedIn';
 $_SESSION['loggedInUsername'] = 'loggedIn';
 $_SESSION['notLoggedInPW'] = '123';
 $_SESSION['loggedInPW'] = '123';
+$_SESSION['timestamp'] = 0;
 
 require 'Slim/Slim.php';
 \Slim\Slim::registerAutoloader();
@@ -30,6 +31,33 @@ $app->post('/logout', 'logout');
 
 $app->run();
 
+/*
+    AUTOMATIC LOG OUT AFTER A SET TIME 
+*/
+
+if(time() - $_SESSION['timestamp'] > 900 ) { //subtract new timestamp from the old one
+    //ob_start();
+    //$_SESSION['urlRedirect'] = 'http://localhost/api/index.php';
+        /*$app->request()->getPathInfo();*/
+    //$tmp = $_SESSION['urlRedirect'];
+    
+//unset($_SESSION['username'], $_SESSION['timestamp'],$_SESSION['id']);
+
+    /*$app->get('/', function() use ($app) {'localhost'})->name('root');
+    $app = \Slim\Slim::getInstance();
+    return $app->response()->redirect($app->urlFor('root', 303));*/
+    
+    //$app->redirect('/');
+    logout();
+    //and then need to call a page to reset in the html
+    
+    
+    //header('Location: index.html'); //redirect to index.php
+    //exit;
+} else {
+    $_SESSION['timestamp'] = time(); //set new timestamp
+}
+
 //session_destroy();
 
 function getConnection($user = 'root', $pw = 'root', $host = 'localhost') {
@@ -43,7 +71,7 @@ function getConnection($user = 'root', $pw = 'root', $host = 'localhost') {
 }
 
 function getIngredient() {
-    $con = getConnection();
+    $con = getConnection($_SESSION['notLoggedInUsername'], $_SESSION['notLoggedInPW']);
     $app = \Slim\Slim::getInstance();
     $request = $app->request()->getBody();
     $ingredient_list = array();
@@ -65,7 +93,7 @@ function deleteFavorites()
 {
         try
     {
-        $con = getConnection();
+        $con = getConnection($_SESSION['loggedInUsername'], $_SESSION['loggedInPW']);
         $recipeName = $_GET['recipeName'];
         //echo $recipeName;
         
@@ -130,7 +158,7 @@ function getAnalytics() {
     $counter = 0;
     try
     {
-        $con = getConnection();
+        $con = getConnection($_SESSION['notLoggedInUsername'], $_SESSION['notLoggedInPW']);
         
     //show the 5 most searched for ingredients 
         //don't need to make injection safe because the user is not inputed query 
@@ -208,7 +236,7 @@ function saveRecipe()
     
     try
     {
-        $con = getConnection();
+        $con = getConnection($_SESSION['loggedInUsername'], $_SESSION['loggedInPW']);
         $recipeName = $_GET['recipeName'];
         //echo $recipeName;
         
@@ -235,10 +263,13 @@ function saveRecipe()
 
             if ($count == 0) //you have not saved that before 
             {
+                //echo $_SESSION['username'];
                 //prepare statement 
                 $sql = $con->prepare("INSERT INTO searchHistory (username, id) values (?, ?)");    
-                $sql->bind_param('ss', $_SESSION['username'], $recipeID);
+                $sql->bind_param('si', $_SESSION['username'], $recipeID);
                 $sql->execute();
+                
+                
 
                 //increment number of times that recipe has been saved 
                 $stmt = $con->prepare("select rating from recipe where recipeName = ?");
@@ -354,7 +385,7 @@ function register()
 function getRecipe()
 {
 
-    $con = getConnection();
+    $con = getConnection($_SESSION['loggedInUsername'], $_SESSION['loggedInPW']);
 	$app = \Slim\Slim::getInstance();
     $timesClicked;
     
@@ -403,7 +434,7 @@ function getRecipe()
 function getResult() {
     
     
-	$con = getConnection();
+	$con = getConnection($_SESSION['loggedInUsername'], $_SESSION['loggedInPW']);
 	$app = \Slim\Slim::getInstance();
     //create variables to store information
 
@@ -666,8 +697,16 @@ function searchDB($filters, $ingredients, $methods, $time, $calories)
     {
         if(empty($ingredients) && empty($filters) && empty($methods))
         {
-        $sql = $sql." calories < ";
-        $sql = $sql.$calories;
+            if(!isset($time))
+            {
+                $sql = $sql." calories < ";
+                $sql = $sql.$calories;
+            }
+            else
+            {
+                $sql = $sql." and calories < ";
+                $sql = $sql.$calories;
+            }
         }
         else
         {
@@ -683,7 +722,7 @@ function searchDB($filters, $ingredients, $methods, $time, $calories)
 function searchInsert($sql, $ingredients)
 {
     //echo $sql;
-    $con = getConnection();
+    $con = getConnection($_SESSION['notLoggedInUsername'], $_SESSION['notLoggedInPW']);
     try
     {
         $result= $con->query($sql);
@@ -757,7 +796,7 @@ function createSubSet($in,$minLength = 1)
 
 function displayFavorites() 
 {
-    $con = getConnection();
+    $con = getConnection($_SESSION['loggedInUsername'], $_SESSION['loggedInPW']);
     $app = \Slim\Slim::getInstance();
     $request = $app->request()->getBody();
 
