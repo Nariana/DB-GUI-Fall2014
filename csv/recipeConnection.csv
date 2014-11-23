@@ -13,12 +13,12 @@ recipeID,foodName,value
 2,cheese,5
 3,egg,10
 3,tomato,10
-3,feta,5
+3,cheese,5
 3,spinach,5
 3,bread,2
 4,egg,10
 4,vegetable oil,8
-4,scallions,5
+4,scallion,5
 4,tomato,10
 5,carrot,10
 5,potato,10
@@ -47,7 +47,7 @@ recipeID,foodName,value
 7,cornstarch,10
 7,chicken broth,8
 7,onion,5
-7,green onion,5
+7,chive,5
 7,garlic,5
 7,milk,10
 8,yogurt,10
@@ -73,7 +73,7 @@ recipeID,foodName,value
 13,eggplant,7
 13,mushroom,7
 13,asparagus,7
-13,green onion,5
+13,chive,5
 13,garlic,5
 13,olive oil,5
 13,parsley,5
@@ -81,16 +81,16 @@ recipeID,foodName,value
 14,olive oil,5
 14,kale,10
 14,garlic,2
-14,chicken breast,10
+14,chicken,10
 14,salad,5
-14,cherry tomato,3
-14,parmesan,2
+14,tomato,3
+14,cheese,2
 14,lemon,2
 15,flour,7
 15,milk,7
-15,cheddar cheese,7
+15,cheese,7
 15,mustard,3
-15,filet mignon,10
+15,beef,10
 15,olive oil,5
 15,onion,5
 15,mushroom,3
@@ -310,7 +310,7 @@ recipeID,foodName,value
 145,chili,3
 145,rice vinegar,4
 145,sesame oil,5
-145,green onion,2
+145,chive,2
 146,sugar,2
 146,pepper,1
 146,oyster sauce,4
