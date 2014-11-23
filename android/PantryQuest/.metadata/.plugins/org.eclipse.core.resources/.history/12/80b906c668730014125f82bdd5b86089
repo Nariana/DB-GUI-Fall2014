@@ -125,7 +125,6 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
     			Log.d("getIng", "getIng");
     			
     			try {
-    				
     				// create http client
     				HttpClient client = new DefaultHttpClient();
     				// make post request
