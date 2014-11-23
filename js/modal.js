@@ -340,17 +340,17 @@ $("#logout").button();
 
               var searchedfor = result[0];
               for(var i=0; i<searchedfor.length; i++){
-                $("#searchedfor").append("<li class='analytic'>"+ searchedfor[i].foodName +"</li>");
+                //$("#searchedfor").append("<li class='analytic'>"+ searchedfor[i].foodName +"</li>");
               }
 
               var recipesviewed = result[1];
               for(var i=0; i<recipesviewed.length; i++){
-                $("#mostviewed").append("<li class='analytic'>"+ recipesviewed[i].recipeName +"</li>");
+                //$("#mostviewed").append("<li class='analytic'>"+ recipesviewed[i].recipeName +"</li>");
               }
 
               var favoriterecipes = result[2];
               for(var i=0; i<favoriterecipes.length; i++){
-                $("#favrecipes").append("<li class='analytic'>"+ favoriterecipes[i].recipeName +"</li>");
+                //$("#favrecipes").append("<li class='analytic'>"+ favoriterecipes[i].recipeName +"</li>");
               }
 
               google.setOnLoadCallback(drawCharts);
