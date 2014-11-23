@@ -48,7 +48,7 @@ if(time() - $_SESSION['timestamp'] > 900 ) { //subtract new timestamp from the o
     return $app->response()->redirect($app->urlFor('root', 303));*/
     
     //$app->redirect('/');
-    logout();
+    //logout();
     //and then need to call a page to reset in the html
     
     
@@ -122,7 +122,7 @@ function deleteFavorites()
             {
                 //prepare statement 
                 $sql = $con->prepare("delete from searchHistory where username = ? and id = ?");    
-                $sql->bind_param('ss', $_SESSION['username'], $recipeID);
+                $sql->bind_param('si', $_SESSION['username'], $recipeID);
                 $sql->execute();
 
                 //increment number of times that recipe has been saved 
@@ -536,7 +536,13 @@ function getResult() {
     {
         searchDB($filters, $part, $methods, $time, $calories);
     }
-   
+    if(empty($ingredients))
+    {
+        searchDB($filters, $ingredients, $methods, $time, $calories);
+    }
+    
+        
+        
     if (isset($_SESSION['id']))
     {
         //echo "inside";
@@ -625,7 +631,14 @@ function searchDB($filters, $ingredients, $methods, $time, $calories)
 
     $counter = 0;
     $counter1 = 0;
-    
+
+    if(empty($filters) && empty($ingredients) && empty($methods))
+    {
+        if(!isset($time) && !isset($calories))
+        {
+            $sql = "select distinct recipeID from recipe natural join filter natural join recipeConnection ";
+        }
+    }
     //create query with all information 
     //select distinct recipeName, ranking from recipe natural join filter natural join recipeConnection where vegetarian and foodName = 'egg' order by 'ranking' asc;
     $sql = "select distinct recipeID from recipe natural join filter natural join recipeConnection where "; //check if you need ''
@@ -634,6 +647,7 @@ function searchDB($filters, $ingredients, $methods, $time, $calories)
     foreach ($filters as $filter)
     {
         $sql = $sql.$filter." and ";
+        
     }
 
     foreach ($ingredients as $ingredient)
@@ -689,8 +703,16 @@ function searchDB($filters, $ingredients, $methods, $time, $calories)
         }
         else 
         {
-        $sql = $sql." and time < ";
-        $sql = $sql.$time;
+            if(empty($ingredients) && empty($method))
+            {       
+                $sql = $sql." time < ";
+                $sql = $sql.$time;
+            }
+            else 
+            {
+                $sql = $sql." and time < ";
+                $sql = $sql.$time;
+            }
         }
     }
     if(isset($calories))
@@ -802,19 +824,18 @@ function displayFavorites()
 
     $favoritesList = array();
 
-    if (isset($_SESSION['id'])) 
-    {
+
         $username = $_GET['username'];
         
         $query = "select recipeName, time, rating, picture from recipe inner join searchHistory on recipe.recipeID = searchHistory.id where username = '".$username."'";
+        //echo $query;
         
         $result = $con->query($query);
         while ($rows = mysqli_fetch_row($result)) 
         {
             $favoritesList[] = $rows;
         }
-        echo json_encode($favoritesList);
-
-    }
+        
+    echo json_encode($favoritesList);
 }
 
