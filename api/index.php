@@ -446,6 +446,7 @@ function getResult() {
     $points = array();
     $time;
     $calories;
+    $numberOfIngredients = 0;
     $counter = 0;
     //echo $counter;
     $rows = array();
@@ -514,9 +515,9 @@ function getResult() {
         {
             $time = $part['time'];
         }
-            if(array_key_exists("noingredient", $part ))
+            if(array_key_exists("noning", $part ))
         {
-            $noIngredient = $con->real_escape_string($part['noingredient']);
+            $noIngredient = $con->real_escape_string($part['noning']);
             $noIngredients[] = $noIngredient;
         }  
             if(array_key_exists("calories", $part ))
@@ -525,20 +526,30 @@ function getResult() {
                 //echo $part['calories'];
             $calories = (int)$part['calories'];
         } 
+            if(array_key_exists("numberOfIngredients", $part ))
+        {
+                //echo "inside cal";
+                //echo $part['calories'];
+            $numberOfIngredients = (int)$part['numberOfIngredients'];
+        } 
         
     }
-       // echo print_r($ingredients);
+       //echo print_r($ingredients);
     //create all possible subsets of the ingredients 
     $subset = createSubSet($ingredients);
-    
+        /*$numberOfIngredients = 10;
+        $noIngredients[] = 'egg';
+        echo $numberOfIngredients;
+        print_r($noIngredients); */
     //insert and search for all subsets 
     foreach ($subset as $part)
     {
-        searchDB($filters, $part, $methods, $time, $calories);
+        searchDB($filters, $part, $methods, $time, $calories, $noIngredients, $numberOfIngredients);
     }
     if(empty($ingredients))
     {
-        searchDB($filters, $ingredients, $methods, $time, $calories);
+        //echo "inside"; 
+        searchDB($filters, $ingredients, $methods, $time, $calories, $noIngredients, $numberOfIngredients);
     }
     
         
@@ -626,17 +637,22 @@ function getResult() {
 
 //HOW TO MAKE   this safe 
 //function that creates a query 
-function searchDB($filters, $ingredients, $methods, $time, $calories)
+function searchDB($filters, $ingredients, $methods, $time, $calories, $noIngredients, $numberOfIngredients)
 {
 
+    //echo "here";
+    
     $counter = 0;
     $counter1 = 0;
 
-    if(empty($filters) && empty($ingredients) && empty($methods))
+    if(empty($filters) && empty($ingredients) && empty($methods) && empty($noIngredients))
     {
-        if(!isset($time) && !isset($calories))
+        if(!isset($time) && !isset($calories) )
         {
-            $sql = "select distinct recipeID from recipe natural join filter natural join recipeConnection ";
+            if ($numberOfIngredients != 0)
+            {
+                $sql = "select distinct recipeID from recipe natural join filter natural join recipeConnection ";
+            }
         }
     }
     //create query with all information 
@@ -667,6 +683,12 @@ function searchDB($filters, $ingredients, $methods, $time, $calories)
         $counter++;
         
         //echo $sql;
+    }
+        foreach ($noIngredients as $noIngredient)
+    {
+            /////FIC THIS
+        $sql = $sql.$filter." and ";
+        
     }
 
     foreach ($methods as $method)
@@ -726,14 +748,51 @@ function searchDB($filters, $ingredients, $methods, $time, $calories)
             }
             else
             {
-                $sql = $sql." and calories < ";
-                $sql = $sql.$calories;
+                if(empty($method))
+                {
+                        $sql = $sql." calories < ";
+                        $sql = $sql.$calories;
+                }
+                else
+                {
+                    $sql = $sql." and calories < ";
+                    $sql = $sql.$calories;
+                }
             }
         }
         else
         {
         $sql = $sql." and calories < ";
         $sql = $sql.$calories;
+        }
+    }
+    if($numberOfIngredients != 0)
+    {
+        if(empty($ingredients) && empty($filters) && empty($methods))
+        {
+            if(!isset($time) && !isset($calories) )
+            {
+                $sql = $sql." numberOfIngredients <= ";
+                $sql = $sql.$numberOfIngredients;
+            }
+            else
+            {
+                if(empty($method))
+                {
+                        $sql = $sql." numberOfIngredients <= ";
+                        $sql = $sql.$numberOfIngredients;
+                }
+                else
+                {
+                    $sql = $sql." and numberOfIngredients <= ";
+                    $sql = $sql.$numberOfIngredients;
+                }
+            }
+        }
+        else
+        {
+            $sql = $sql." and numberOfIngredients <= ";
+            $sql = $sql.$numberOfIngredients;
         }
     }
 
