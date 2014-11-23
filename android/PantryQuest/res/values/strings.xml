@@ -29,6 +29,11 @@
     <string name="cals">Max Calories: 5000</string>
     <string name="time">Max PrepTime (Minutes): 1000</string>
     <string name="button_refresh">Refresh Search</string>
-    
+    <string name="welcome">Welcome, Guest, to PantryQuest!</string>
+    <string name="edit_username">Enter Your Username</string>
+    <string name="edit_password">Enter Your Password</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="logout">Logout</string>
 
 </resources>

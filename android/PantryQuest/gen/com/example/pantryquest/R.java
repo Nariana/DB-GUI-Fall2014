@@ -141,43 +141,49 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int view_background_drawable=0x7f020003;
     }
     public static final class id {
-        public static final int action_settings=0x7f050024;
-        public static final int backButton=0x7f05000d;
+        public static final int action_settings=0x7f05002a;
+        public static final int backButton=0x7f050013;
+        public static final int bt_login=0x7f05000f;
+        public static final int bt_logout=0x7f050011;
+        public static final int bt_register=0x7f050010;
         public static final int button=0x7f050009;
         public static final int button2=0x7f05000a;
-        public static final int calories=0x7f050021;
-        public static final int calsProgress=0x7f050020;
-        public static final int cb_bake=0x7f050014;
-        public static final int cb_boil=0x7f050015;
-        public static final int cb_fry=0x7f050019;
-        public static final int cb_gluten=0x7f05001e;
-        public static final int cb_grill=0x7f050016;
-        public static final int cb_lactose=0x7f05001b;
-        public static final int cb_nonuts=0x7f05001f;
-        public static final int cb_slowcook=0x7f050017;
-        public static final int cb_stovetop=0x7f050018;
-        public static final int cb_vegan=0x7f05001d;
-        public static final int cb_vegetarian=0x7f05001c;
-        public static final int cooking_methods=0x7f050013;
-        public static final int description=0x7f05000f;
-        public static final int diet_restrict=0x7f05001a;
+        public static final int calories=0x7f050027;
+        public static final int calsProgress=0x7f050026;
+        public static final int cb_bake=0x7f05001a;
+        public static final int cb_boil=0x7f05001b;
+        public static final int cb_fry=0x7f05001f;
+        public static final int cb_gluten=0x7f050024;
+        public static final int cb_grill=0x7f05001c;
+        public static final int cb_lactose=0x7f050021;
+        public static final int cb_nonuts=0x7f050025;
+        public static final int cb_slowcook=0x7f05001d;
+        public static final int cb_stovetop=0x7f05001e;
+        public static final int cb_vegan=0x7f050023;
+        public static final int cb_vegetarian=0x7f050022;
+        public static final int cooking_methods=0x7f050019;
+        public static final int description=0x7f050015;
+        public static final int diet_restrict=0x7f050020;
         public static final int drawer_layout=0x7f050006;
         public static final int edit_message=0x7f050008;
+        public static final int edit_password=0x7f05000e;
+        public static final int edit_username=0x7f05000d;
         public static final int fullscreen=0x7f050003;
-        public static final int image=0x7f05000c;
+        public static final int image=0x7f050012;
         public static final int left=0x7f050001;
-        public static final int left_drawer=0x7f050011;
+        public static final int left_drawer=0x7f050017;
         public static final int listView=0x7f05000b;
         public static final int logo=0x7f050007;
         public static final int margin=0x7f050004;
         public static final int none=0x7f050005;
-        public static final int refreshButton=0x7f050012;
+        public static final int refreshButton=0x7f050018;
         public static final int right=0x7f050002;
         public static final int selected_view=0x7f050000;
-        public static final int steps=0x7f050010;
-        public static final int time=0x7f050023;
-        public static final int timeProgress=0x7f050022;
-        public static final int title=0x7f05000e;
+        public static final int steps=0x7f050016;
+        public static final int time=0x7f050029;
+        public static final int timeProgress=0x7f050028;
+        public static final int title=0x7f050014;
+        public static final int welcome=0x7f05000c;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
@@ -214,10 +220,16 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int default_title=0x7f060009;
         public static final int diet_restrict=0x7f060013;
         public static final int edit_message=0x7f060005;
+        public static final int edit_password=0x7f06001e;
+        public static final int edit_username=0x7f06001d;
+        public static final int login=0x7f06001f;
         public static final int logo=0x7f060004;
+        public static final int logout=0x7f060021;
+        public static final int register=0x7f060020;
         public static final int time=0x7f06001a;
         public static final int title_activity_recipe=0x7f060003;
         public static final int title_activity_results=0x7f060002;
+        public static final int welcome=0x7f06001c;
     }
     public static final class style {
         /** 

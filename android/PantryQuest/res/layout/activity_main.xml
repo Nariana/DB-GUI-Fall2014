@@ -69,6 +69,37 @@
 		    android:layout_height="match_parent"
 		    android:background="@drawable/background_drawable" 
 		    android:orientation="vertical">
+	        <TextView 
+		        android:id="@+id/welcome"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="@string/welcome" />
+	        <EditText
+		        android:id="@+id/edit_username"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:hint="@string/edit_username" />
+	        <EditText
+		        android:id="@+id/edit_password"
+		        android:inputType="textPassword"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:hint="@string/edit_password" />
+	        <Button
+		        android:id="@+id/bt_login"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="@string/login" />
+	        <Button
+		        android:id="@+id/bt_register"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="@string/register" />
+	        <Button
+		        android:id="@+id/bt_logout"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="@string/logout" />
 	    </LinearLayout>
    </LinearLayout>
 </android.support.v4.widget.DrawerLayout>

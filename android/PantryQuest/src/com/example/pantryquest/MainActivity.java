@@ -24,6 +24,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 public class MainActivity extends Activity implements OnClickListener, OnItemClickListener {
 	
@@ -43,6 +44,12 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 	private ListView lv;
 	// adapter is used to populate the list view
 	private ArrayAdapter<String> adapter;
+	// tvLogin is the text view which should change to display account name
+	private TextView tvLogin;
+	// these are the EditText views for entering username and password
+	private EditText tUsr, tPass;
+	// these are the buttons for logging in/out and for opening the register view
+	private Button btLog, btOut, btReg;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,9 +62,20 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
         bt2 = (Button) findViewById(R.id.button2);
         dwr = (DrawerLayout) findViewById(R.id.drawer_layout);
         lv = (ListView) findViewById(R.id.listView);
+        tvLogin = (TextView) findViewById(R.id.welcome);
+        tUsr = (EditText) findViewById(R.id.edit_username);
+        tPass = (EditText) findViewById(R.id.edit_password);
+        btLog = (Button) findViewById(R.id.bt_login);
+        btReg = (Button) findViewById(R.id.bt_register);
+        btOut = (Button) findViewById(R.id.bt_logout);
         bt.setOnClickListener(this);
         bt2.setOnClickListener(this);
+        btLog.setOnClickListener(this);
+        btReg.setOnClickListener(this);
+        btOut.setOnClickListener(this);
         lv.setOnItemClickListener(this);
+        // hide btOut initially
+        btOut.setVisibility(View.GONE);
         // create the array with searchInput to populate listView
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, searchInput);
 		lv.setAdapter(adapter);
@@ -66,9 +84,11 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
     public void onClick(View v) {
     	// on bt click adds et contents to searchInput List
     	if (v.getId() == R.id.button) {
-    		searchInput.add(et.getText().toString());
-    		Log.d("PQ", "Adding ingredient: " + et.getText());
-    		et.setText("");
+    		if (!searchInput.contains(et.getText().toString())){
+    			searchInput.add(et.getText().toString());
+        		Log.d("PQ", "Adding ingredient: " + et.getText());
+        		et.setText("");
+    		}
     		adapter.notifyDataSetChanged();
     	}
     	// on bt2 click go to results page
@@ -82,6 +102,35 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
         		// call the results activity
         		startActivity(intent);
     		}
+    	}
+    	// clicked Login
+    	else if (v.getId() == R.id.bt_login) {
+    		String username = tUsr.getText().toString();
+    		String password = tPass.getText().toString();
+    		// log in and change the login screen
+    		// set tvLogin to say the account name
+    		tvLogin.setText("Welcome, " + username + ", to PantryQuest!");
+    		// hide the old elements
+    		tUsr.setVisibility(View.GONE);
+    		tPass.setVisibility(View.GONE);
+    		btLog.setVisibility(View.GONE);
+    		btReg.setVisibility(View.GONE);
+    		// show hidden elements
+    		btOut.setVisibility(View.VISIBLE);
+    	}
+    	// clicked Register
+    	else if (v.getId() == R.id.bt_register) {
+    		
+    	}
+    	// clicked logout
+    	else if (v.getId() == R.id.bt_logout) {
+    		// revert to before logging in
+    		btOut.setVisibility(View.GONE);
+    		tUsr.setVisibility(View.VISIBLE);
+    		tPass.setVisibility(View.VISIBLE);
+    		btLog.setVisibility(View.VISIBLE);
+    		btReg.setVisibility(View.VISIBLE);
+    		tvLogin.setText("Welcome, Guest, to PantryQuest!");
     	}
     }
 
