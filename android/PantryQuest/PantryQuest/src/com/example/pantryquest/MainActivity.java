@@ -1,0 +1,316 @@
+/* 
+ * MainActivity lets the user input ingredients via a 
+ * TextEdit which, when the add button is pressed, adds
+ * the entered string into an array of strings. When the
+ * search button is pressed, this array is passed in an
+ * intent to create a Results activity
+ */
+package com.example.pantryquest;
+
+/* inclusions */
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONObject;
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
+import org.xmlpull.v1.XmlPullParserFactory;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.TextView;
+
+public class MainActivity extends Activity implements OnClickListener, OnItemClickListener {
+	
+	// bt is the button to add ingredients to the search query
+	private Button bt;
+	// bt2 is the button to create an intent for the results page and start it
+	private Button bt2;
+	// et is the edittext where the user inputs ingredients
+	private EditText et;
+	// searchInput is a list containing the inputed ingredients
+	private List<String> searchInput = new ArrayList<String>();
+	// the Results activity intent contains a String[] of the search queries
+	public final static String EXTRA_MESSAGE = "com.example.PantryQuest.MESSAGE";
+	public static final String BASE_URL = "web/api_2/index.php/";
+	// dwr is the Drawer Layout encompassing the other views
+	private DrawerLayout dwr;
+	// lv is the listView containing the submitted ingredients
+	private ListView lv;
+	// adapter is used to populate the list view
+	private ArrayAdapter<String> adapter;
+	// tvLogin is the text view which should change to display account name
+	private TextView tvLogin;
+	// these are the EditText views for entering username and password
+	private EditText tUsr, tPass;
+	// these are the buttons for logging in/out and for opening the register view
+	private Button btLog, btOut, btReg;
+	// these EditTexts are on the register page
+	private EditText rName, rUsr, rPass;
+	// this button is tied to submitting when registering
+	private Button btRegSub;
+
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Log.d("PQ", "onCreate() Log Message");
+        setContentView(R.layout.activity_main);
+        
+        indexAPI i = null;
+        String a = i.doInBackground("");
+        
+        // set variables and create click listeners
+    	et = (EditText) findViewById(R.id.edit_message);
+        bt = (Button) findViewById(R.id.button);
+        bt2 = (Button) findViewById(R.id.button2);
+        dwr = (DrawerLayout) findViewById(R.id.drawer_layout);
+        lv = (ListView) findViewById(R.id.listView);
+        tvLogin = (TextView) findViewById(R.id.welcome);
+        tUsr = (EditText) findViewById(R.id.edit_username);
+        tPass = (EditText) findViewById(R.id.edit_password);
+        btLog = (Button) findViewById(R.id.bt_login);
+        btReg = (Button) findViewById(R.id.bt_register);
+        btOut = (Button) findViewById(R.id.bt_logout);
+        rName = (EditText) findViewById(R.id.register_name);
+        rUsr = (EditText) findViewById(R.id.register_username);
+        rPass = (EditText) findViewById(R.id.register_password);
+        btRegSub = (Button) findViewById(R.id.bt_regSubmit);
+        bt.setOnClickListener(this);
+        bt2.setOnClickListener(this);
+        btLog.setOnClickListener(this);
+        btReg.setOnClickListener(this);
+        btOut.setOnClickListener(this);
+        btRegSub.setOnClickListener(this);
+        lv.setOnItemClickListener(this);
+        // views hidden initially
+        btOut.setVisibility(View.GONE);
+        rName.setVisibility(View.GONE);
+        rUsr.setVisibility(View.GONE);
+        rPass.setVisibility(View.GONE);
+        btRegSub.setVisibility(View.GONE);
+        // create the array with searchInput to populate listView
+        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, searchInput);
+		lv.setAdapter(adapter);
+    }
+    
+    final class indexAPI extends AsyncTask<String, String, String> {
+    		
+    		protected JSONObject getIngredients() {
+    			
+    			Log.d("getIng", "getIng");
+    			
+    			try {
+    				// create http client
+    				HttpClient client = new DefaultHttpClient();
+    				// make post request
+    				HttpPost post = new HttpPost(MainActivity.BASE_URL + "login");
+    				// prepare information to be added
+    				JSONObject jsonIng = new JSONObject();
+    				post.setEntity(new StringEntity(jsonIng.toString()));
+    				post.setHeader("Accept", "application/json");
+    				post.setHeader("Content-type", "application/json");
+    				// get response
+    				HttpResponse response = client.execute(post);
+    				// receive response and set the content in the view
+    				String myResponse = MainActivity
+    						.getStringFromInputStream(response.getEntity()
+    								.getContent());
+    				JSONObject jsonResponse = new JSONObject(myResponse);
+    				return jsonResponse;
+    			}
+
+    			catch (Exception e) {
+    				Log.i("myDebugError", e.getMessage());
+    			}
+
+    			return null;
+    		}
+
+			@Override
+			protected String doInBackground(String... params) {
+				// TODO Auto-generated method stub
+				getIngredients();
+				return null;
+			}
+    		
+    	}
+    
+    
+    public void onClick(View v) {
+    	// on bt click adds et contents to searchInput List
+    	if (v.getId() == R.id.button) {
+    		if (!searchInput.contains(et.getText().toString())){
+    			searchInput.add(et.getText().toString());
+        		Log.d("PQ", "Adding ingredient: " + et.getText());
+        		et.setText("");
+    		}
+    		adapter.notifyDataSetChanged();
+    	}
+    	// on bt2 click go to results page
+    	else if (v.getId() == R.id.button2) {
+    		//go to results page
+    		Intent intent = new Intent(this, Results.class);
+    		// create an array from the searchInput list
+    		if (searchInput.size() > 0) {
+    			String[] inputArray = searchInput.toArray(new String[searchInput.size()]);
+        		intent.putExtra(EXTRA_MESSAGE, inputArray);
+        		// call the results activity
+        		startActivity(intent);
+    		}
+    	}
+    	// clicked Login
+    	else if (v.getId() == R.id.bt_login) {
+    		String username = tUsr.getText().toString();
+    		String password = tPass.getText().toString();
+    		// log in and change the login screen
+    		// set tvLogin to say the account name
+    		tvLogin.setText("Welcome, " + username + ", to PantryQuest!");
+    		// hide the old elements
+    		tUsr.setVisibility(View.GONE);
+    		tPass.setVisibility(View.GONE);
+    		btLog.setVisibility(View.GONE);
+    		btReg.setVisibility(View.GONE);
+    		// show hidden elements
+    		btOut.setVisibility(View.VISIBLE);
+    	}
+    	// clicked Register
+    	else if (v.getId() == R.id.bt_register) {
+    		// hide the old elements
+    		tUsr.setVisibility(View.GONE);
+    		tPass.setVisibility(View.GONE);
+    		btLog.setVisibility(View.GONE);
+    		btReg.setVisibility(View.GONE);
+    		tvLogin.setText("Please enter new account information.");
+    		// show hidden elements
+    		btRegSub.setVisibility(View.VISIBLE);
+    		rName.setVisibility(View.VISIBLE);
+    		rUsr.setVisibility(View.VISIBLE);
+    		rPass.setVisibility(View.VISIBLE);
+    	}
+    	// clicked logout
+    	else if (v.getId() == R.id.bt_logout) {
+    		// revert to before logging in
+    		btOut.setVisibility(View.GONE);
+    		tUsr.setVisibility(View.VISIBLE);
+    		tPass.setVisibility(View.VISIBLE);
+    		btLog.setVisibility(View.VISIBLE);
+    		btReg.setVisibility(View.VISIBLE);
+    		tvLogin.setText("Welcome, Guest, to PantryQuest!");
+    	}
+    	// clicked submit on register screen
+    	else if (v.getId() == R.id.bt_regSubmit) {
+    		// revert back to before registering
+    		btRegSub.setVisibility(View.GONE);
+    		rName.setVisibility(View.GONE);
+    		rUsr.setVisibility(View.GONE);
+    		rPass.setVisibility(View.GONE);
+    		tUsr.setVisibility(View.VISIBLE);
+    		tPass.setVisibility(View.VISIBLE);
+    		btLog.setVisibility(View.VISIBLE);
+    		btReg.setVisibility(View.VISIBLE);
+    		tvLogin.setText("Welcome, Guest, to PantryQuest!");
+    	}
+    }
+
+    @Override
+    protected void onStart() {
+    	super.onStart();
+    	Log.d("PQ", "MainActivity onStart() Log Message");
+    }
+    
+   @Override
+    protected void onResume() {
+    	super.onResume();
+    	Log.d("PQ", "MainActivity onResume() Log Message");
+    }
+    
+   @Override
+    protected void onPause() {
+    	super.onPause();
+    	Log.d("PQ", "MainActivity onPause() Log Message");
+    }
+   
+   @Override
+    protected void onStop() {
+    	super.onStop();
+    	Log.d("PQ", "MainActivity onStop() Log Message");
+    }
+   
+   @Override
+    protected void onRestart() {
+    	super.onRestart();
+    	Log.d("PQ", "MainActivity onRestart() Log Message");
+    }
+   
+   @Override
+    protected void onDestroy() {
+    	super.onDestroy();
+    	Log.d("PQ", "MainActivity onDestroy() Log Message");
+    }
+
+   	// remove searchInput element on click
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+		searchInput.remove(position);
+		adapter.notifyDataSetChanged();
+	}
+	
+	public static String getStringFromInputStream(InputStream is) 
+	{
+    	BufferedReader br = null;
+    	StringBuilder sb = new StringBuilder();	
+    	String line;
+    	
+    	try {
+    		br = new BufferedReader(new InputStreamReader(is));
+    		while ((line = br.readLine()) != null) 
+    			sb.append(line);	
+    	} 
+    	
+    	catch (IOException e) {
+    		e.printStackTrace();
+    	}
+    	
+    	finally {
+    		if (br != null) 
+    		{
+    			try 
+    			{
+    				br.close();
+    			}
+    			
+    			catch (IOException e) 
+    			{
+    				e.printStackTrace();
+    			}
+    		}
+    	}
+    	
+    	return sb.toString();
+    }
+}
