@@ -28,6 +28,7 @@
     <string name="cb_nonuts">No Nuts</string>
     <string name="cals">Max Calories: 5000</string>
     <string name="time">Max PrepTime (Minutes): 1000</string>
+    <string name="button_refresh">Refresh Search</string>
     
 
 </resources>

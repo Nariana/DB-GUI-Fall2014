@@ -41,6 +41,8 @@ public class Results extends Activity implements OnClickListener, OnItemClickLis
 
 	// bt is the button that, when pressed, returns to MainActivity
 	private Button bt;
+	// bt2 is the button that, when pressed, refreshes the search
+	private Button bt2;
 	// lv is the listview containing the ingredient search results
 	private ListView lv;
 	// adapter is used to populate the list view
@@ -103,6 +105,8 @@ public class Results extends Activity implements OnClickListener, OnItemClickLis
 		// create on click listener for bt
 		bt = (Button) findViewById(R.id.backButton);
 		bt.setOnClickListener(this);
+		bt2 = (Button) findViewById(R.id.refreshButton);
+		bt2.setOnClickListener(this);
 		// populate the ListView
 		lv = (ListView) findViewById(R.id.listView);
 		lv.setOnItemClickListener(this);
@@ -116,6 +120,9 @@ public class Results extends Activity implements OnClickListener, OnItemClickLis
 		// on bt click return to MainActivity
 		if (v.getId() == R.id.backButton) {
 			this.finish();
+		}
+		else if (v.getId() == R.id.refreshButton) {
+			// refresh search
 		}
 	}
 	
