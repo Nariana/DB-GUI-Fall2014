@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-//$_SESSION['id'];
+$_SESSION['id'];
 $_SESSION['notLoggedInUsername'] = 'unLoggedIn';
 $_SESSION['loggedInUsername'] = 'loggedIn';
 $_SESSION['notLoggedInPW'] = '123';
@@ -537,10 +537,7 @@ function getResult() {
        //echo print_r($ingredients);
     //create all possible subsets of the ingredients 
     $subset = createSubSet($ingredients);
-        /*$numberOfIngredients = 10;
-        $noIngredients[] = 'egg';
-        echo $numberOfIngredients;
-        print_r($noIngredients); */
+
     //insert and search for all subsets 
     foreach ($subset as $part)
     {
