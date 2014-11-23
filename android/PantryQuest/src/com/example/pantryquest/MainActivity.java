@@ -50,6 +50,10 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 	private EditText tUsr, tPass;
 	// these are the buttons for logging in/out and for opening the register view
 	private Button btLog, btOut, btReg;
+	// these EditTexts are on the register page
+	private EditText rName, rUsr, rPass;
+	// this button is tied to submitting when registering
+	private Button btRegSub;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,14 +72,23 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
         btLog = (Button) findViewById(R.id.bt_login);
         btReg = (Button) findViewById(R.id.bt_register);
         btOut = (Button) findViewById(R.id.bt_logout);
+        rName = (EditText) findViewById(R.id.register_name);
+        rUsr = (EditText) findViewById(R.id.register_username);
+        rPass = (EditText) findViewById(R.id.register_password);
+        btRegSub = (Button) findViewById(R.id.bt_regSubmit);
         bt.setOnClickListener(this);
         bt2.setOnClickListener(this);
         btLog.setOnClickListener(this);
         btReg.setOnClickListener(this);
         btOut.setOnClickListener(this);
+        btRegSub.setOnClickListener(this);
         lv.setOnItemClickListener(this);
-        // hide btOut initially
+        // views hidden initially
         btOut.setVisibility(View.GONE);
+        rName.setVisibility(View.GONE);
+        rUsr.setVisibility(View.GONE);
+        rPass.setVisibility(View.GONE);
+        btRegSub.setVisibility(View.GONE);
         // create the array with searchInput to populate listView
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, searchInput);
 		lv.setAdapter(adapter);
@@ -120,12 +133,35 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
     	}
     	// clicked Register
     	else if (v.getId() == R.id.bt_register) {
-    		
+    		// hide the old elements
+    		tUsr.setVisibility(View.GONE);
+    		tPass.setVisibility(View.GONE);
+    		btLog.setVisibility(View.GONE);
+    		btReg.setVisibility(View.GONE);
+    		tvLogin.setText("Please enter new account information.");
+    		// show hidden elements
+    		btRegSub.setVisibility(View.VISIBLE);
+    		rName.setVisibility(View.VISIBLE);
+    		rUsr.setVisibility(View.VISIBLE);
+    		rPass.setVisibility(View.VISIBLE);
     	}
     	// clicked logout
     	else if (v.getId() == R.id.bt_logout) {
     		// revert to before logging in
     		btOut.setVisibility(View.GONE);
+    		tUsr.setVisibility(View.VISIBLE);
+    		tPass.setVisibility(View.VISIBLE);
+    		btLog.setVisibility(View.VISIBLE);
+    		btReg.setVisibility(View.VISIBLE);
+    		tvLogin.setText("Welcome, Guest, to PantryQuest!");
+    	}
+    	// clicked submit on register screen
+    	else if (v.getId() == R.id.bt_regSubmit) {
+    		// revert back to before registering
+    		btRegSub.setVisibility(View.GONE);
+    		rName.setVisibility(View.GONE);
+    		rUsr.setVisibility(View.GONE);
+    		rPass.setVisibility(View.GONE);
     		tUsr.setVisibility(View.VISIBLE);
     		tPass.setVisibility(View.VISIBLE);
     		btLog.setVisibility(View.VISIBLE);

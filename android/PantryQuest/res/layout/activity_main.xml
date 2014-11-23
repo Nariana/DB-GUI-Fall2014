@@ -69,6 +69,7 @@
 		    android:layout_height="match_parent"
 		    android:background="@drawable/background_drawable" 
 		    android:orientation="vertical">
+	        <!--  these views are displayed when logged out  -->
 	        <TextView 
 		        android:id="@+id/welcome"
 		        android:layout_width="wrap_content"
@@ -95,11 +96,34 @@
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
 		        android:text="@string/register" />
+	        <!--  these views are displayed when logged in -->
 	        <Button
 		        android:id="@+id/bt_logout"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
 		        android:text="@string/logout" />
+	        <!--  these views are displayed when registering -->
+	        <EditText
+		        android:id="@+id/register_name"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:hint="@string/register_name" />
+	        <EditText
+		        android:id="@+id/register_username"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:hint="@string/register_usr" />
+	        <EditText
+		        android:id="@+id/register_password"
+		        android:inputType="textPassword"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:hint="@string/register_pass" />
+	        <Button
+		        android:id="@+id/bt_regSubmit"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="@string/subRegister" />
 	    </LinearLayout>
    </LinearLayout>
 </android.support.v4.widget.DrawerLayout>

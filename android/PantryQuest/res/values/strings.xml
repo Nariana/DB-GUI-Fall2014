@@ -35,5 +35,9 @@
     <string name="login">Login</string>
     <string name="register">Register</string>
     <string name="logout">Logout</string>
+    <string name="register_name">What\'s Your Name?</string>
+    <string name="register_usr">Enter a Username</string>
+    <string name="register_pass">Enter a Password</string>
+    <string name="subRegister">Submit and Register</string>
 
 </resources>
