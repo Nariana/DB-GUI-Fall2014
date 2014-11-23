@@ -109,6 +109,28 @@
 	            android:layout_width="match_parent"
 	            android:layout_height="wrap_content"
 	            android:text="@string/cb_nonuts" />
+	        
+	        <TextView
+	            android:id="@+id/calsProgress"
+	            android:text="@string/cals"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content" />
+	        <SeekBar 
+	            android:id="@+id/calories"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:max="5000" />
+	        
+	        <TextView
+	            android:id="@+id/timeProgress"
+	            android:text="@string/time"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content" />
+	        <SeekBar 
+	            android:id="@+id/time"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:max="1000" />
 	    </LinearLayout>
 	</LinearLayout>
 </android.support.v4.widget.DrawerLayout>

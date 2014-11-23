@@ -33,8 +33,11 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ListView;
+import android.widget.SeekBar;
+import android.widget.SeekBar.OnSeekBarChangeListener;
+import android.widget.TextView;
 
-public class Results extends Activity implements OnClickListener, OnItemClickListener{
+public class Results extends Activity implements OnClickListener, OnItemClickListener, OnSeekBarChangeListener 	{
 
 	// bt is the button that, when pressed, returns to MainActivity
 	private Button bt;
@@ -51,6 +54,14 @@ public class Results extends Activity implements OnClickListener, OnItemClickLis
 	// all of the filter checkboxes
 	private CheckBox cb_bake, cb_boil, cb_grill, cb_slowcook, cb_stovetop, cb_fry,
 		cb_lactose, cb_vegetarian, cb_vegan,cb_gluten, cb_nonuts;
+	// sbc is the SeekBar for the max calories selection
+	private SeekBar sbc;
+	// tvc is the TextView which will display the progress of sbc
+	private TextView tvc;
+	// sbt is the SeekBar for the max preptime
+	private SeekBar sbt;
+	// tvt is the TextView which will display the progress of sbt
+	private TextView tvt;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +69,14 @@ public class Results extends Activity implements OnClickListener, OnItemClickLis
 		setContentView(R.layout.activity_results);
 		Intent intent = getIntent();
 		message = intent.getStringArrayExtra(MainActivity.EXTRA_MESSAGE);
+		// set SeekBars and their TextViews
+		sbc = (SeekBar) findViewById(R.id.calories);
+		sbc.setProgress(5000);
+		tvc = (TextView) findViewById(R.id.calsProgress);
+		sbt = (SeekBar) findViewById(R.id.time);
+		sbt.setProgress(1000);
+		tvt = (TextView) findViewById(R.id.timeProgress);
+		//note: geet value with sbc.getProgress()
 		// set CheckBox objects to their respective view
 		cb_bake = (CheckBox) findViewById(R.id.cb_bake);
 		cb_boil = (CheckBox) findViewById(R.id.cb_boil);
@@ -70,7 +89,7 @@ public class Results extends Activity implements OnClickListener, OnItemClickLis
 		cb_vegan = (CheckBox) findViewById(R.id.cb_vegan);
 		cb_gluten = (CheckBox) findViewById(R.id.cb_gluten);
 		cb_nonuts = (CheckBox) findViewById(R.id.cb_nonuts);
-		//notee: get value with cb_boil.isEnabled()
+		//note: get value with cb_boil.isEnabled()
 		/*
 		 * Make The Database Call Here
 		 */
@@ -78,6 +97,9 @@ public class Results extends Activity implements OnClickListener, OnItemClickLis
 		/*
 		 * 
 		 */
+		// create listener for the SeekBars
+		sbc.setOnSeekBarChangeListener(this);
+		sbt.setOnSeekBarChangeListener(this);
 		// create on click listener for bt
 		bt = (Button) findViewById(R.id.backButton);
 		bt.setOnClickListener(this);
@@ -146,6 +168,23 @@ public class Results extends Activity implements OnClickListener, OnItemClickLis
     	super.onDestroy();
     	Log.d("PQ", "Results onDestroy() Log Message");
     }
+
+   	// to handle displaying the progress of the SeekBars
+	@Override
+	public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+		if (seekBar.getId() == R.id.calories) {
+			tvc.setText("Max Calories: " +progress);
+		}
+		else if (seekBar.getId() == R.id.time) {
+			tvt.setText("Max PrepTime (Minutes): " +progress);
+		}
+	}
+	
+	@Override
+	public void onStartTrackingTouch(SeekBar seekBar) {}
+	
+	@Override
+	public void onStopTrackingTouch(SeekBar seekBar) {}
 }
 
 /* Implemmentation based on a guide availble at:

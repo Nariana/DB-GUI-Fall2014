@@ -141,10 +141,12 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int view_background_drawable=0x7f020003;
     }
     public static final class id {
-        public static final int action_settings=0x7f05001f;
+        public static final int action_settings=0x7f050023;
         public static final int backButton=0x7f05000d;
         public static final int button=0x7f050009;
         public static final int button2=0x7f05000a;
+        public static final int calories=0x7f050020;
+        public static final int calsProgress=0x7f05001f;
         public static final int cb_bake=0x7f050013;
         public static final int cb_boil=0x7f050014;
         public static final int cb_fry=0x7f050018;
@@ -172,6 +174,8 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int right=0x7f050002;
         public static final int selected_view=0x7f050000;
         public static final int steps=0x7f050010;
+        public static final int time=0x7f050022;
+        public static final int timeProgress=0x7f050021;
         public static final int title=0x7f05000e;
     }
     public static final class layout {
@@ -190,6 +194,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int button_add=0x7f060006;
         public static final int button_back=0x7f060008;
         public static final int button_send=0x7f060007;
+        public static final int cals=0x7f060019;
         public static final int cb_bake=0x7f06000d;
         public static final int cb_boil=0x7f06000e;
         public static final int cb_fry=0x7f060012;
@@ -208,6 +213,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int diet_restrict=0x7f060013;
         public static final int edit_message=0x7f060005;
         public static final int logo=0x7f060004;
+        public static final int time=0x7f06001a;
         public static final int title_activity_recipe=0x7f060003;
         public static final int title_activity_results=0x7f060002;
     }

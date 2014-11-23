@@ -26,6 +26,8 @@
     <string name="cb_vegan">Vegan</string>
     <string name="cb_gluten">Gluten Free</string>
     <string name="cb_nonuts">No Nuts</string>
+    <string name="cals">Max Calories: 5000</string>
+    <string name="time">Max PrepTime (Minutes): 1000</string>
     
 
 </resources>
