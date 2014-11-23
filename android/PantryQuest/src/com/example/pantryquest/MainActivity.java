@@ -18,10 +18,14 @@ import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 
-public class MainActivity extends Activity implements OnClickListener{
+public class MainActivity extends Activity implements OnClickListener, OnItemClickListener {
 	
 	// bt is the button to add ingredients to the search query
 	private Button bt;
@@ -35,6 +39,10 @@ public class MainActivity extends Activity implements OnClickListener{
 	public final static String EXTRA_MESSAGE = "com.example.PantryQuest.MESSAGE";
 	// dwr is the Drawer Layout encompassing the other views
 	private DrawerLayout dwr;
+	// lv is the listView containing the submitted ingredients
+	private ListView lv;
+	// adapter is used to populate the list view
+	private ArrayAdapter<String> adapter;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,10 +54,13 @@ public class MainActivity extends Activity implements OnClickListener{
         bt = (Button) findViewById(R.id.button);
         bt2 = (Button) findViewById(R.id.button2);
         dwr = (DrawerLayout) findViewById(R.id.drawer_layout);
+        lv = (ListView) findViewById(R.id.listView);
         bt.setOnClickListener(this);
         bt2.setOnClickListener(this);
-        
-        
+        lv.setOnItemClickListener(this);
+        // create the array with searchInput to populate listView
+        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, searchInput);
+		lv.setAdapter(adapter);
     }
     
     public void onClick(View v) {
@@ -58,8 +69,7 @@ public class MainActivity extends Activity implements OnClickListener{
     		searchInput.add(et.getText().toString());
     		Log.d("PQ", "Adding ingredient: " + et.getText());
     		et.setText("");
-    		// redraw the screen, showing the drop-down ingredient list
-    		//
+    		adapter.notifyDataSetChanged();
     	}
     	// on bt2 click go to results page
     	else if (v.getId() == R.id.button2) {
@@ -110,4 +120,11 @@ public class MainActivity extends Activity implements OnClickListener{
     	super.onDestroy();
     	Log.d("PQ", "MainActivity onDestroy() Log Message");
     }
+
+   	// remove searchInput element on click
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+		searchInput.remove(position);
+		adapter.notifyDataSetChanged();
+	}
 }
