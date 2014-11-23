@@ -14,6 +14,7 @@ import java.util.List;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -32,6 +33,8 @@ public class MainActivity extends Activity implements OnClickListener{
 	private List<String> searchInput = new ArrayList<String>();
 	// the Results activity intent contains a String[] of the search queries
 	public final static String EXTRA_MESSAGE = "com.example.PantryQuest.MESSAGE";
+	// dwr is the Drawer Layout encompassing the other views
+	private DrawerLayout dwr;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,8 +45,11 @@ public class MainActivity extends Activity implements OnClickListener{
     	et = (EditText) findViewById(R.id.edit_message);
         bt = (Button) findViewById(R.id.button);
         bt2 = (Button) findViewById(R.id.button2);
+        dwr = (DrawerLayout) findViewById(R.id.drawer_layout);
         bt.setOnClickListener(this);
         bt2.setOnClickListener(this);
+        
+        
     }
     
     public void onClick(View v) {
