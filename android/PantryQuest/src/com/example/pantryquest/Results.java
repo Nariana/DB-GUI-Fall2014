@@ -31,6 +31,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ListView;
 
 public class Results extends Activity implements OnClickListener, OnItemClickListener{
@@ -47,6 +48,9 @@ public class Results extends Activity implements OnClickListener, OnItemClickLis
 	public final static String RECIPE_INFO = "com.example.PantryQuest.RECIPE_INFO";
 	// root URL for the server
 	private final static String rootUrl =  "the root url of the server";
+	// all of the filter checkboxes
+	private CheckBox cb_bake, cb_boil, cb_grill, cb_slowcook, cb_stovetop, cb_fry,
+		cb_lactose, cb_vegetarian, cb_vegan,cb_gluten, cb_nonuts;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +58,19 @@ public class Results extends Activity implements OnClickListener, OnItemClickLis
 		setContentView(R.layout.activity_results);
 		Intent intent = getIntent();
 		message = intent.getStringArrayExtra(MainActivity.EXTRA_MESSAGE);
+		// set CheckBox objects to their respective view
+		cb_bake = (CheckBox) findViewById(R.id.cb_bake);
+		cb_boil = (CheckBox) findViewById(R.id.cb_boil);
+		cb_grill = (CheckBox) findViewById(R.id.cb_grill);
+		cb_slowcook = (CheckBox) findViewById(R.id.cb_slowcook);
+		cb_stovetop = (CheckBox) findViewById(R.id.cb_stovetop);
+		cb_fry = (CheckBox) findViewById(R.id.cb_fry);
+		cb_lactose = (CheckBox) findViewById(R.id.cb_lactose);
+		cb_vegetarian = (CheckBox) findViewById(R.id.cb_vegetarian);
+		cb_vegan = (CheckBox) findViewById(R.id.cb_vegan);
+		cb_gluten = (CheckBox) findViewById(R.id.cb_gluten);
+		cb_nonuts = (CheckBox) findViewById(R.id.cb_nonuts);
+		//notee: get value with cb_boil.isEnabled()
 		/*
 		 * Make The Database Call Here
 		 */
@@ -94,6 +111,41 @@ public class Results extends Activity implements OnClickListener, OnItemClickLis
 		//intent.putExtra(RECIPE_INFO, info);
 	}
 
+	@Override
+    protected void onStart() {
+    	super.onStart();
+    	Log.d("PQ", "Results onStart() Log Message");
+    }
+    
+   @Override
+    protected void onResume() {
+    	super.onResume();
+    	Log.d("PQ", "Results onResume() Log Message");
+    }
+    
+   @Override
+    protected void onPause() {
+    	super.onPause();
+    	Log.d("PQ", "Results onPause() Log Message");
+    }
+   
+   @Override
+    protected void onStop() {
+    	super.onStop();
+    	Log.d("PQ", "Results onStop() Log Message");
+    }
+   
+   @Override
+    protected void onRestart() {
+    	super.onRestart();
+    	Log.d("PQ", "Results onRestart() Log Message");
+    }
+   
+   @Override
+    protected void onDestroy() {
+    	super.onDestroy();
+    	Log.d("PQ", "Results onDestroy() Log Message");
+    }
 }
 
 /* Implemmentation based on a guide availble at:
@@ -102,7 +154,7 @@ public class Results extends Activity implements OnClickListener, OnItemClickLis
 
 final class CallAPIResult {
 	//contains the result
-	//What data type does the request return?
+	//Probably a String[] that contains cycling recipe info, 
 }
 final class CallAPI extends AsyncTask<String, String, String> {
 	@Override
@@ -163,3 +215,4 @@ final class CallAPI extends AsyncTask<String, String, String> {
 		return result;
 	}
 }
+

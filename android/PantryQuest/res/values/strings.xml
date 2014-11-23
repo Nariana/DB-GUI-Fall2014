@@ -13,5 +13,19 @@
     <string name="default_title">Default Recipe Title</string>
     <string name="default_desc">Default Recipe Description</string>
     <string name="default_steps">Default Recipe Steps</string>
+    <string name="cooking_method">Cooking Method</string>
+    <string name="cb_bake">Bake</string>
+    <string name="cb_boil">Boil</string>
+    <string name="cb_grill">Grill</string>
+    <string name="cb_slowcook">Slowcook</string>
+    <string name="cb_stovetop">Stovetop</string>
+    <string name="cb_fry">Fry</string>
+    <string name="diet_restrict">Dietary Restrictions</string>
+    <string name="cb_lactose">Lactose Free</string>
+    <string name="cb_vegetarian">Vegetarian</string>
+    <string name="cb_vegan">Vegan</string>
+    <string name="cb_gluten">Gluten Free</string>
+    <string name="cb_nonuts">No Nuts</string>
+    
 
 </resources>

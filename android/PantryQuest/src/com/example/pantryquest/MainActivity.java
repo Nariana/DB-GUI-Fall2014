@@ -78,36 +78,36 @@ public class MainActivity extends Activity implements OnClickListener{
     @Override
     protected void onStart() {
     	super.onStart();
-    	Log.d("PQ", "onStart() Log Message");
+    	Log.d("PQ", "MainActivity onStart() Log Message");
     }
     
    @Override
     protected void onResume() {
     	super.onResume();
-    	Log.d("PQ", "onResume() Log Message");
+    	Log.d("PQ", "MainActivity onResume() Log Message");
     }
     
    @Override
     protected void onPause() {
     	super.onPause();
-    	Log.d("PQ", "onPause() Log Message");
+    	Log.d("PQ", "MainActivity onPause() Log Message");
     }
    
    @Override
     protected void onStop() {
     	super.onStop();
-    	Log.d("PQ", "onStop() Log Message");
+    	Log.d("PQ", "MainActivity onStop() Log Message");
     }
    
    @Override
     protected void onRestart() {
     	super.onRestart();
-    	Log.d("PQ", "onRestart() Log Message");
+    	Log.d("PQ", "MainActivity onRestart() Log Message");
     }
    
    @Override
     protected void onDestroy() {
     	super.onDestroy();
-    	Log.d("PQ", "onDestroy() Log Message");
+    	Log.d("PQ", "MainActivity onDestroy() Log Message");
     }
 }

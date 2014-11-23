@@ -4,6 +4,7 @@
  * button which, when pressed, returns to the Results
  * Activity.
  */
+//TODO: implement New Search button
 package com.example.pantryquest;
 
 /* inclusions */
@@ -15,6 +16,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -71,4 +73,40 @@ public class Recipe extends Activity implements OnClickListener {
 			this.finish();
 		}
 	}
+	
+	@Override
+    protected void onStart() {
+    	super.onStart();
+    	Log.d("PQ", "Recipe onStart() Log Message");
+    }
+    
+   @Override
+    protected void onResume() {
+    	super.onResume();
+    	Log.d("PQ", "Recipe onResume() Log Message");
+    }
+    
+   @Override
+    protected void onPause() {
+    	super.onPause();
+    	Log.d("PQ", "Recipe onPause() Log Message");
+    }
+   
+   @Override
+    protected void onStop() {
+    	super.onStop();
+    	Log.d("PQ", "Recipe onStop() Log Message");
+    }
+   
+   @Override
+    protected void onRestart() {
+    	super.onRestart();
+    	Log.d("PQ", "Recipe onRestart() Log Message");
+    }
+   
+   @Override
+    protected void onDestroy() {
+    	super.onDestroy();
+    	Log.d("PQ", "Recipe onDestroy() Log Message");
+    }
 }

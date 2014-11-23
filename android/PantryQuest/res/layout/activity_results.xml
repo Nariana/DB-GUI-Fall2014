@@ -36,5 +36,79 @@
         android:dividerHeight="0dp"
         android:background="#111"
         android:orientation="vertical" >
+	     <!--  LinearLayout to contain the filters -->
+	    <LinearLayout 
+	        android:layout_width="match_parent"
+		    android:layout_height="match_parent"
+		    android:background="@drawable/background_drawable" 
+		    android:orientation="vertical">
+		    
+	        <TextView 
+		        android:id="@+id/cooking_methods"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="@string/cooking_method" />
+	        <CheckBox
+	            android:id="@+id/cb_bake"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:text="@string/cb_bake" />
+	        <CheckBox
+	            android:id="@+id/cb_boil"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:text="@string/cb_boil" />
+	        <CheckBox
+	            android:id="@+id/cb_grill"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:text="@string/cb_grill" />
+	        <CheckBox
+	            android:id="@+id/cb_slowcook"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:text="@string/cb_slowcook" />
+	        <CheckBox
+	            android:id="@+id/cb_stovetop"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:text="@string/cb_stovetop" />
+	        <CheckBox
+	            android:id="@+id/cb_fry"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:text="@string/cb_fry" />
+	        
+	        <TextView 
+		        android:id="@+id/diet_restrict"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="@string/diet_restrict" />
+	        <CheckBox
+	            android:id="@+id/cb_lactose"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:text="@string/cb_lactose" />
+	        <CheckBox
+	            android:id="@+id/cb_vegetarian"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:text="@string/cb_vegetarian" />
+	        <CheckBox
+	            android:id="@+id/cb_vegan"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:text="@string/cb_vegan" />
+	        <CheckBox
+	            android:id="@+id/cb_gluten"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:text="@string/cb_gluten" />
+	        <CheckBox
+	            android:id="@+id/cb_nonuts"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:text="@string/cb_nonuts" />
+	    </LinearLayout>
 	</LinearLayout>
 </android.support.v4.widget.DrawerLayout>
