@@ -1,0 +1,4 @@
+INDEX VERSION 1.126+/Applications/MAMP_2014-10-13_22-03-03/htdocs/DB-GUI-Fall2014/android/PantryQuest/.metadata/.plugins/org.eclipse.jdt.core
+2335554896.index
+2569408658.index
+4169025749.index

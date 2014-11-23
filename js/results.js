@@ -9,6 +9,10 @@ $(document).ready(function(){
   load();
 });
 
+function colorThumbs(){
+
+}
+
 
 function getResults(){
 
@@ -200,9 +204,9 @@ function load(){
 
     $( "#slider-time" ).slider({
       range: "min",
-      value: 90,
+      value: 120,
       min: 5,
-      max: 150,
+      max: 240,
       slide: function( event, ui ) {
         $( "#time" ).val( ui.value + " minutes" );
       },
