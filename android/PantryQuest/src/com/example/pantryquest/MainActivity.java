@@ -25,6 +25,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends Activity implements OnClickListener, OnItemClickListener {
 	
@@ -102,6 +103,11 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
         		Log.d("PQ", "Adding ingredient: " + et.getText());
         		et.setText("");
     		}
+    		else {
+    			et.setText("");
+    			Toast toast = Toast.makeText(this, "You have already entered that ingredient!", Toast.LENGTH_SHORT);
+    			toast.show();
+    		}
     		adapter.notifyDataSetChanged();
     	}
     	// on bt2 click go to results page
@@ -114,6 +120,10 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
         		intent.putExtra(EXTRA_MESSAGE, inputArray);
         		// call the results activity
         		startActivity(intent);
+    		}
+    		else {
+    			Toast toast = Toast.makeText(this, "You cannot search without any ingredients!", Toast.LENGTH_SHORT);
+    			toast.show();
     		}
     	}
     	// clicked Login
