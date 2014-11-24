@@ -681,12 +681,6 @@ function searchDB($filters, $ingredients, $methods, $time, $calories, $noIngredi
         
         //echo $sql;
     }
-        foreach ($noIngredients as $noIngredient)
-    {
-            /////FIC THIS
-        $sql = $sql.$filter." and ";
-        
-    }
 
     foreach ($methods as $method)
     {
@@ -791,6 +785,18 @@ function searchDB($filters, $ingredients, $methods, $time, $calories, $noIngredi
             $sql = $sql." and numberOfIngredients <= ";
             $sql = $sql.$numberOfIngredients;
         }
+    $noIngCount = 0;
+    /*if(!empty($noIngredients))
+    {
+                    $sql = $sql." and recipeID not in (select recipeID from recipeConnection where foodName = "
+    }
+    foreach ($noIngredients as $noIngredient)
+    {
+        while($noIngCount < sizeof($noIngredients))
+        {
+            
+        }
+    }*/
     }
 
     SearchInsert($sql, $ingredients); //call search and insert 

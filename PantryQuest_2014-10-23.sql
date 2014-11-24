@@ -725,6 +725,7 @@ CREATE TABLE `recipeConnection` (
   `value` float DEFAULT NULL,
   PRIMARY KEY (`recipeID`,`foodName`),
   KEY `foodName` (`foodName`),
+  CONSTRAINT `recipeFK` FOREIGN KEY (`recipeID`) REFERENCES `recipe` (`recipeID`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `name FK` FOREIGN KEY (`foodName`) REFERENCES `ingredient` (`foodName`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
