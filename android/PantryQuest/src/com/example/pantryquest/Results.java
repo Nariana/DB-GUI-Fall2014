@@ -205,7 +205,7 @@ final class CallAPIResult {
 final class CallAPI extends AsyncTask<String, String, String> {
 	@Override
 	protected String doInBackground(String... params) {
-		String urlString = params[0]; //this is the url to call
+		String urlString = "http://localhost:8888/api/index.html"; //this is the url to call
 		String resultToDisplay = "";
 		InputStream in = null;
 		CallAPIResult result = null;
