@@ -725,31 +725,15 @@ function searchDB($filters, $ingredients, $methods, $time, $calories, $noIngredi
     }
     if(isset($calories))
     {
-        if(empty($ingredients) && empty($filters) && empty($methods))
+        if(empty($ingredients) && !isset($time))
         {
-            if(!isset($time))
-            {
-                $sql = $sql." calories < ";
-                $sql = $sql.$calories;
-            }
-            else
-            {
-                if(empty($method))
-                {
-                        $sql = $sql." calories < ";
-                        $sql = $sql.$calories;
-                }
-                else
-                {
-                    $sql = $sql." and calories < ";
-                    $sql = $sql.$calories;
-                }
-            }
+        $sql = $sql." calories < ";
+        $sql = $sql.$calories;
         }
         else
         {
-        $sql = $sql." and calories < ";
-        $sql = $sql.$calories;
+            $sql = $sql." and calories < ";
+            $sql = $sql.$calories;
         }
     }
     if($numberOfIngredients != 0)
@@ -780,18 +764,29 @@ function searchDB($filters, $ingredients, $methods, $time, $calories, $noIngredi
             $sql = $sql." and numberOfIngredients <= ";
             $sql = $sql.$numberOfIngredients;
         }
+    }
     $noIngCount = 0;
-    /*if(!empty($noIngredients))
+    if(!empty($noIngredients))
     {
-                    $sql = $sql." and recipeID not in (select recipeID from recipeConnection where foodName = "
+        $sql = $sql." and recipeID not in (select recipeID from recipeConnection where ";
     }
     foreach ($noIngredients as $noIngredient)
     {
-        while($noIngCount < sizeof($noIngredients))
+        if($noIngCount == 0  )
         {
-            
+            $sql = $sql."foodName = '".$noIngredient."' "; 
         }
-    }*/
+        else
+        {
+            $sql = $sql."and ";
+            $sql = $sql."foodName = '".$noIngredient."' ";
+        }
+            
+    $noIngCount = $noIngCount +1 ;
+    }
+     if(!empty($noIngredients))
+    {
+        $sql = $sql." )";
     }
 
     SearchInsert($sql, $ingredients); //call search and insert 
