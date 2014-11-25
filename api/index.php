@@ -47,7 +47,7 @@ if(time() - $_SESSION['timestamp'] > 900 ) { //subtract new timestamp from the o
     $app = \Slim\Slim::getInstance();
     return $app->response()->redirect($app->urlFor('root', 303));*/
     
-    //$app->redirect('/');
+    //$app->redirect('/index.php/');
     //logout();
     //and then need to call a page to reset in the html
     
@@ -656,11 +656,38 @@ function searchDB($filters, $ingredients, $methods, $time, $calories, $noIngredi
     //select distinct recipeName, ranking from recipe natural join filter natural join recipeConnection where vegetarian and foodName = 'egg' order by 'ranking' asc;
     $sql = "select distinct recipeID from recipe natural join filter natural join recipeConnection where "; //check if you need ''
 
+    foreach ($methods as $method)
+    {
 
+            
+        if($counter1 == 0)
+        {
+
+            $sql = $sql." method = '";
+            $sql = $sql.$method."'";
+        }
+        else 
+        {
+            
+            $sql = $sql." or method = '";
+            $sql = $sql.$method."'";
+        }
+        $counter1 = $counter1 + 1;
+    }
+    $methodCount = 0;
     foreach ($filters as $filter)
     {
+        if(!empty($methods) && $methodCount == 0)
+        {
+        $sql = $sql." and ";
         $sql = $sql.$filter." and ";
+        }
+        else
+        {
+        $sql = $sql.$filter." and ";
+        }
         
+    $methodCount = $methodCount + 1;
     }
 
     foreach ($ingredients as $ingredient)
@@ -682,50 +709,18 @@ function searchDB($filters, $ingredients, $methods, $time, $calories, $noIngredi
         //echo $sql;
     }
 
-    foreach ($methods as $method)
-    {
-        if(empty($ingredients) && empty($filters))
-        {
-            
-            $sql = $sql." method = '";
-            $sql = $sql.$method."'";
-            continue;
-        }
-            
-        if($counter1 == 0)
-        {
- 
-            $sql = $sql." and method = '";
-            $sql = $sql.$method."'";
-        }
-        else 
-        {
-            
-            $sql = $sql." or method = '";
-            $sql = $sql.$method."'";
-        }
-        $counter1 = $counter1 + 1;
-    }
 
     if(isset($time))
     {
-        if(empty($ingredients) && empty($filters) && empty($methods))
+        if(empty($ingredients))
         {
         $sql = $sql." time < ";
         $sql = $sql.$time;
         }
-        else 
+        else
         {
-            if(empty($ingredients) && empty($method))
-            {       
-                $sql = $sql." time < ";
-                $sql = $sql.$time;
-            }
-            else 
-            {
-                $sql = $sql." and time < ";
-                $sql = $sql.$time;
-            }
+             $sql = $sql." and time < ";
+            $sql = $sql.$time;
         }
     }
     if(isset($calories))
