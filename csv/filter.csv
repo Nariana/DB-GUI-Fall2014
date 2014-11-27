@@ -140,11 +140,11 @@ filterID,method,glutenFree,vegetarian,vegan,noNuts,lactoseFree,calories
 ,,,,,,,
 141,Steam,1,1,1,1,1,150
 142,Steam,0,1,0,1,0,180
-143,Steam,1,0,0,1,1,N/A
+143,Steam,1,0,0,1,1,0
 144,Steam,0,0,0,1,0,590
 145,Steam,1,1,0,1,1,150
 146,Steam,0,0,0,1,1,390
-147,,,,,,,
+147,Steam,0,0,0,1,0,370
 148,,,,,,,
 149,,,,,,,
 150,,,,,,,
