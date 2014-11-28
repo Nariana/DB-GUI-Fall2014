@@ -34,7 +34,7 @@ $app->run();
 /*
     AUTOMATIC LOG OUT AFTER A SET TIME 
 */
-
+/*
 if(time() - $_SESSION['timestamp'] > 900 ) { //subtract new timestamp from the old one
     //ob_start();
     //$_SESSION['urlRedirect'] = 'http://localhost/api/index.php';
@@ -54,9 +54,9 @@ if(time() - $_SESSION['timestamp'] > 900 ) { //subtract new timestamp from the o
     
     //header('Location: index.html'); //redirect to index.php
     //exit;
-} else {
+/*} else {
     $_SESSION['timestamp'] = time(); //set new timestamp
-}
+}*/
 
 //session_destroy();
 
@@ -655,7 +655,10 @@ function searchDB($filters, $ingredients, $methods, $time, $calories, $noIngredi
     //create query with all information 
     //select distinct recipeName, ranking from recipe natural join filter natural join recipeConnection where vegetarian and foodName = 'egg' order by 'ranking' asc;
     $sql = "select distinct recipeID from recipe natural join filter natural join recipeConnection where "; //check if you need ''
-
+    if(!empty($methods))
+    {
+        $sql = $sql."( ";
+    }
     foreach ($methods as $method)
     {
 
@@ -673,6 +676,10 @@ function searchDB($filters, $ingredients, $methods, $time, $calories, $noIngredi
             $sql = $sql.$method."'";
         }
         $counter1 = $counter1 + 1;
+    }
+    if(!empty($methods))
+    {
+        $sql = $sql.") ";
     }
     $methodCount = 0;
     foreach ($filters as $filter)
