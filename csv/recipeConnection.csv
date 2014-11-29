@@ -285,21 +285,20 @@ recipeID,foodName,value
 143,bean paste,7
 143,sake,8
 143,ginger,5
-143,chives,2
+143,chive,2
 143,olive oil,3
 143,sesame oil,3
-144,ground chuck,10
+144,beef,10
 144,Worcestershire sauce,5
 144,salt,1
 144,pepper,1
-144,cheddar cheese,1
+144,cheese,1
 144,roll,10
-145,dumplings,10
+145,dumpling,10
 145,vegetable oil,6
 145,mushroom,6
 145,garlic,4
-145,red pepper,5
-145,bell pepper,3
+145,bell pepper,5
 145,spinach,3
 145,bok choy,2
 145,cilantro,2
@@ -307,7 +306,7 @@ recipeID,foodName,value
 145,soy sauce,6
 145,pepper,1
 145,chili,3
-145,rice vinegar,4
+145,vinegar,4
 145,sesame oil,5
 145,chive,2
 146,sugar,2
@@ -316,7 +315,7 @@ recipeID,foodName,value
 146,canola oil,2
 146,garlic,4
 146,ginger,3
-146,scallions,6
+146,scallion,6
 146,salmon,10
 146,cilantro,1
 147,olive oil,1
