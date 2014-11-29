@@ -194,15 +194,15 @@ recipeID,foodName,value
 29,asparagus,10
 29,prosciutto,8
 29,olive oil,7
-29,cooking cr?me,7
+29,cream,7
 29,water,6
 30,onion,7
 30,oil,7
-30,garlic clove,7
-30,pepper jack,9
-30,diced tomato,8
+30,garlic,7
+30,cheese,9
+30,tomato,8
 30,cilantro,7
-30,tortilla chip,9
+30,tortilla,9
 31,cracker,10
 31,pizza sauce,8
 31,pepperoni,5
@@ -211,7 +211,7 @@ recipeID,foodName,value
 32,sugar,8
 32,salt,6
 32,milk,7
-32,Grand Marnier,10
+32,grand marnier,10
 32,baking soda,8
 32,vanilla bean,5
 32,canola oil,7
@@ -221,7 +221,7 @@ recipeID,foodName,value
 33,yogurt,6
 33,salt,5
 33,pepper,5
-33,peas,5
+33,pea,5
 33,chicken,2
 34,vegetable oil,10
 34,egg,8
