@@ -99,7 +99,7 @@ recipeID,foodName,value
 16,cashew,3
 16,date,3
 16,maple syrup,5
-16,chocolate chip,5
+16,chocolate,5
 16,banana,5
 16,cinnamon,5
 16,coconut milk,7
@@ -113,7 +113,7 @@ recipeID,foodName,value
 17,coconut milk,5
 17,maple syrup,3
 18,nori,7
-18,sushi rice,10
+18,rice,10
 18,tuna,7
 18,salmon,7
 18,cucumber,3
@@ -131,7 +131,7 @@ recipeID,foodName,value
 20,caper,5
 20,dijon mustard,5
 20,egg,10
-20,beef tenderloin,10
+20,beef,10
 20,onion,5
 20,parsley,3
 20,olive oil,5
@@ -143,9 +143,9 @@ recipeID,foodName,value
 21,salt,5
 21,pepper,5
 21,sour cream,5
-22,chocolate chip,10
+22,chocolate,10
 22,condensed milk,10
-22,vanilla extract,10
+22,vanilla,10
 22,walnut,7
 23,flour,10
 23,salt,6
@@ -160,7 +160,7 @@ recipeID,foodName,value
 24,shrimp,10
 24,water,10
 24,cornstarch,10
-24,eggs,10
+24,egg,10
 24,breadcrumbs,10
 24,oil,10
 25,chicken,10
@@ -179,7 +179,7 @@ recipeID,foodName,value
 26,celery,6
 26,corn,6
 26,kidney bean,6
-26,stewed tomato,6
+26,tomato,6
 26,water,10
 27,macaroni,10
 27,tomato,10
