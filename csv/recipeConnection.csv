@@ -253,17 +253,16 @@ recipeID,foodName,value
 38,basil,5
 38,water,10
 38,ice,9
-39,chocolate chip,10
-39,white chocolate chip,8
+39,chocolate,10
 39,graham cracker,8
 39,marshmallow,8
 40,heavy cream,7
-40,chocolate chip,10
+40,chocolate,10
 40,sugar,8
-40,unsalted butter,7
+40,butter,7
 141,spinach,10
 141,sesame oil,4
-141,rice vinegar,3
+141,vinegar,3
 141,sesame seed,1
 141,pepper,1
 141,salt,1
@@ -274,7 +273,7 @@ recipeID,foodName,value
 142,salt,1
 142,sesame oil,1
 142,cabbage,5
-142,spring onion,6
+142,onion,6
 142,ginger,5
 142,sugar,3
 142,oyster sauce,4
