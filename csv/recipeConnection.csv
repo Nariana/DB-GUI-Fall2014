@@ -140,7 +140,6 @@ recipeID,foodName,value
 21,potato,10
 21,butter,6
 21,cheese,5
-21,salt,5
 21,pepper,5
 21,sour cream,5
 22,chocolate,10
@@ -148,7 +147,6 @@ recipeID,foodName,value
 22,vanilla,10
 22,walnut,7
 23,flour,10
-23,salt,6
 23,baking soda,10
 23,sugar,9
 23,baking powder,10
@@ -164,7 +162,6 @@ recipeID,foodName,value
 24,breadcrumbs,10
 24,oil,10
 25,chicken,10
-25,salt,6
 25,pepper,6
 25,breadcrumbs,8
 25,egg,8
@@ -183,7 +180,6 @@ recipeID,foodName,value
 26,water,10
 27,macaroni,10
 27,tomato,10
-27,salt,5
 27,pepper,5
 28,filo pastry,10
 28,mozzarella,10
@@ -209,7 +205,6 @@ recipeID,foodName,value
 31,mozzarella,8
 32,flour,9
 32,sugar,8
-32,salt,6
 32,milk,7
 32,grand marnier,10
 32,baking soda,8
@@ -219,7 +214,6 @@ recipeID,foodName,value
 33,macaroni,10
 33,cheese,10
 33,yogurt,6
-33,salt,5
 33,pepper,5
 33,pea,5
 33,chicken,2
@@ -229,7 +223,6 @@ recipeID,foodName,value
 34,pancake mix,8
 34,oreo,10
 35,egg,6
-35,salt,6
 35,pepper,6
 35,sugar,6
 35,garlic,6
@@ -242,7 +235,6 @@ recipeID,foodName,value
 36,garlic,5
 36,tahini,10
 36,lemon juice,5
-36,salt,6
 36,olive oil,7
 37,corn,10
 37,lime,5
@@ -265,22 +257,17 @@ recipeID,foodName,value
 141,vinegar,3
 141,sesame seed,1
 141,pepper,1
-141,salt,1
 142,flour,10
 142,yeast,10
 142,baking powder,10
-142,sugar,6
-142,salt,1
 142,sesame oil,1
 142,cabbage,5
 142,onion,6
 142,ginger,5
-142,sugar,3
 142,oyster sauce,4
 142,soy sauce,2
 142,sesame oil,2
 143,fish,10
-143,salt,1
 143,pepper,1
 143,bean paste,7
 143,sake,8
@@ -290,7 +277,6 @@ recipeID,foodName,value
 143,sesame oil,3
 144,beef,10
 144,Worcestershire sauce,5
-144,salt,1
 144,pepper,1
 144,cheese,1
 144,roll,10
@@ -304,7 +290,6 @@ recipeID,foodName,value
 145,cilantro,2
 145,ginger,3
 145,soy sauce,6
-145,pepper,1
 145,chili,3
 145,vinegar,4
 145,sesame oil,5
@@ -328,5 +313,4 @@ recipeID,foodName,value
 147,parsley,1
 148,olive oil,1
 148,potato,1
-148,salt,1
 148,garlic,1
