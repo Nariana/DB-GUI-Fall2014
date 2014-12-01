@@ -1,102 +1,92 @@
 <?php
 session_start();
-
+//Initialize session ID
 $_SESSION['id'];
+
+//Create users for custom DB access
 $_SESSION['notLoggedInUsername'] = 'unLoggedIn';
 $_SESSION['loggedInUsername'] = 'loggedIn';
 $_SESSION['notLoggedInPW'] = '123';
 $_SESSION['loggedInPW'] = '123';
 $_SESSION['timestamp'] = 0;
 
+//Slim Framwork initialization
 require 'Slim/Slim.php';
 \Slim\Slim::registerAutoloader();
-
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
-
 $app = new \Slim\Slim(); //using the slim API
 
+
+//Get requests
 $app->get('/getIngredient', 'getIngredient');
 $app->get('/getResult', 'getResult');
 $app->get('/getRecipe', 'getRecipe');
-
 $app->get('/saveRecipe', 'saveRecipe');
 $app->get('/getAnalytics', 'getAnalytics');
-
 $app->get('/displayFavorites', 'displayFavorites');
 
+//post requests 
 $app->post('/login', 'login');
 $app->post('/register', 'register');
 $app->post('/logout', 'logout');
 
 $app->run();
 
-/*
-    AUTOMATIC LOG OUT AFTER A SET TIME 
-*/
-/*
-if(time() - $_SESSION['timestamp'] > 900 ) { //subtract new timestamp from the old one
-    //ob_start();
-    //$_SESSION['urlRedirect'] = 'http://localhost/api/index.php';
-        /*$app->request()->getPathInfo();*/
-    //$tmp = $_SESSION['urlRedirect'];
+//get DB connection, default root access.
+function getConnection($user = 'root', $pw = 'root', $host = 'localhost') 
+{
+    $dbConnection = new mysqli($host, $user, $pw, 'PantryQuest'); 
     
-//unset($_SESSION['username'], $_SESSION['timestamp'],$_SESSION['id']);
-
-    /*$app->get('/', function() use ($app) {'localhost'})->name('root');
-    $app = \Slim\Slim::getInstance();
-    return $app->response()->redirect($app->urlFor('root', 303));*/
-    
-    //$app->redirect('/index.php/');
-    //logout();
-    //and then need to call a page to reset in the html
-    
-    
-    //header('Location: index.html'); //redirect to index.php
-    //exit;
-/*} else {
-    $_SESSION['timestamp'] = time(); //set new timestamp
-}*/
-
-//session_destroy();
-
-function getConnection($user = 'root', $pw = 'root', $host = 'localhost') {
-    $dbConnection = new mysqli($host, $user, $pw, 'PantryQuest'); //put in your password
     // Check mysqli connection
-    if (mysqli_connect_errno()) {
+    if (mysqli_connect_errno()) 
+    {
         printf("Connect failed: %s\n", mysqli_connect_error());
         exit();
-  }
+    }
     return $dbConnection;
 }
 
-function getIngredient() {
+//Funtion to resutn all the ingredients in the DB
+function getIngredient() 
+{
+    //get DB connection with custom access 
     $con = getConnection($_SESSION['notLoggedInUsername'], $_SESSION['notLoggedInPW']);
     $app = \Slim\Slim::getInstance();
     $request = $app->request()->getBody();
+    
+    //initialise list 
     $ingredient_list = array();
+    
+    //query DB 
     $result = $con->query("SELECT * FROM ingredient");
+    
     while ($rows = mysqli_fetch_row($result)) 
     {
         $ingredient_list[] = $rows;
     }
+    //return the result 
     echo json_encode($ingredient_list);
-}
+    $con->close();
+}// end function getIngredient 
 
-
+//logout user
 function logout()
 {
+    //destroy session and reset session array 
     session_destroy();
 }
 
+//unfavorite a recipe 
 function deleteFavorites()
 {
         try
     {
+            //get custom connection as logged in user 
         $con = getConnection($_SESSION['loggedInUsername'], $_SESSION['loggedInPW']);
         $recipeName = $_GET['recipeName'];
-        //echo $recipeName;
         
+            //get the recipeId of the current recipe 
             $tempID;
             $result = $con->prepare("SELECT recipeID FROM recipe WHERE recipeName = ?");
             $result->bind_param('s', $recipeName);
@@ -107,6 +97,8 @@ function deleteFavorites()
             {
                 $recipeID = $tempID;
             }
+            
+            //check if the recipe is saved by that user 
             $tempCount;
             $result = $con->prepare("SELECT COUNT(*) FROM searchHistory WHERE username = ? AND id = ?");
             $result->bind_param('si', $_SESSION['username'], $recipeID);
@@ -118,14 +110,14 @@ function deleteFavorites()
                 $count = $tempCount;
             }
 
-            if ($count != 0) //you have saved it so it can be unsaved 
+            if ($count != 0) //check if it has actually been saved by you 
             {
                 //prepare statement 
                 $sql = $con->prepare("delete from searchHistory where username = ? and id = ?");    
                 $sql->bind_param('si', $_SESSION['username'], $recipeID);
                 $sql->execute();
 
-                //increment number of times that recipe has been saved 
+                //get current number of times that recipe has been saved 
                 $stmt = $con->prepare("select rating from recipe where recipeName = ?");
                 $stmt->bind_param('s', $recipeName);
                 $stmt->execute(); 
@@ -135,10 +127,13 @@ function deleteFavorites()
                 {
                     $rating = $rating - 1;    
                 }   
+                //decrement ranking 
                     $sql2 = $con->prepare("UPDATE recipe SET rating = ? where recipeName = ? ");
                     $sql2->bind_param('is', $rating, $recipeName);
                     $sql2->execute();        
                 }
+            //close connection
+            $con->close();
 
     }
     catch (Exception $e)
@@ -146,21 +141,26 @@ function deleteFavorites()
         $e->getMessage();
     }
     
-}
+}//end functon
 
-function getAnalytics() {
+//this function returns basic analytics from the applications 
+function getAnalytics() 
+{
     $app = \Slim\Slim::getInstance();
     $request = $app->request()->getBody();
+    //initialize arrays 
     $foodNames = array();
     $mostSaved = array ();
     $mostClicked = array();
     $return = array();
     $counter = 0;
+    
     try
     {
+        //get custom DB connection
         $con = getConnection($_SESSION['notLoggedInUsername'], $_SESSION['notLoggedInPW']);
         
-    //show the 5 most searched for ingredients 
+        //show the 5 most searched for ingredients 
         //don't need to make injection safe because the user is not inputed query 
         $stmt = "select foodName, timesSearched from ingredient order by timesSearched desc";
         $result= $con->query($stmt);
@@ -179,7 +179,7 @@ function getAnalytics() {
             } 
         }
         
-    //show the 5 most clicked recipes 
+        //show the 5 most clicked recipes 
         $counter = 0;
         //don't need to make injection safe because the user is not inputed query 
         $stmt = "select recipeName, timesClicked from recipe order by timesClicked desc";
@@ -198,7 +198,7 @@ function getAnalytics() {
                 $counter = $counter + 1 ;
             } 
         }
-    //show the 5 most saved recipes 
+        //show the 5 most saved recipes 
         $counter = 0;
         //don't need to make injection safe because the user is not inputed query 
         $stmt = "select recipeName, rating from recipe order by rating desc";
@@ -222,13 +222,16 @@ function getAnalytics() {
     {
         $e->getMessage();
     }
+    
     $return[] = $foodNames;
     $return[] = $mostClicked;
     $return[] = $mostSaved;
+    //return array to fron-end return empty array if nothing is saved and searched for
     echo json_encode($return);
     
-}
+}//end fucntion
 
+//this function saves a recipe 
 function saveRecipe()
 {
 	$app = \Slim\Slim::getInstance();
@@ -236,10 +239,11 @@ function saveRecipe()
     
     try
     {
+        //get custom DB connection
         $con = getConnection($_SESSION['loggedInUsername'], $_SESSION['loggedInPW']);
         $recipeName = $_GET['recipeName'];
-        //echo $recipeName;
         
+            //retrive the correspoding recipeId to that the recipeName 
             $tempID;
             $result = $con->prepare("SELECT recipeID FROM recipe WHERE recipeName = ?");
             $result->bind_param('s', $recipeName);
@@ -261,9 +265,8 @@ function saveRecipe()
                 $count = $tempCount;
             }
 
-            if ($count == 0) //you have not saved that before 
+            if ($count == 0) //ensure that each recipe can only be saved once by checking if it has already been saved by that user 
             {
-                //echo $_SESSION['username'];
                 //prepare statement 
                 $sql = $con->prepare("INSERT INTO searchHistory (username, id) values (?, ?)");    
                 $sql->bind_param('si', $_SESSION['username'], $recipeID);
@@ -271,12 +274,13 @@ function saveRecipe()
                 
                 
 
-                //increment number of times that recipe has been saved 
+                //retrive current rating 
                 $stmt = $con->prepare("select rating from recipe where recipeName = ?");
                 $stmt->bind_param('s', $recipeName);
                 $stmt->execute(); 
                 $rating;
                 $stmt->bind_result($rating);
+                //incrment rating 
                 while ($stmt->fetch())
                 {
                     $rating = $rating + 1;    
@@ -285,14 +289,17 @@ function saveRecipe()
                     $sql2->bind_param('is', $rating, $recipeName);
                     $sql2->execute();        
                 }
+        $con->close();
 
     }
     catch (Exception $e)
     {
         $e->getMessage();
     }
-}
+}//end function
 
+
+//this function validates a login attempt 
 function login()
 {
     $con = getConnection();
@@ -300,6 +307,7 @@ function login()
     $request = $app->request()->getBody();
     $information = array();
 
+    //encode types password so that it matches encryption
     $decodedPW = base64_encode($_POST['pw']);
     
     $name = $_POST['name'];
@@ -311,33 +319,33 @@ function login()
     $query->execute();
     $query->bind_result($temp);
     $firstname;
+    
+    //attempt to retrive first name from that user 
     while ($query->fetch())
     {
         $firstname = $temp;
     }
-    //$query->store_result();
     
+    //invalis login if firstName is not set 
     if (!isset($firstname))
     {
-        
         $_SESSION['id'] = false;
-        //INVALID LOGIN
         $information[] = "Invalid login";
     }
     else
     {
+        //valid login return username and name 
             $_SESSION['id'] = true;
             $_SESSION['username'] = $name;
-            //return name as well 
             $information[] = $name;
             $information[] = $firstname;
-
     }
     
-   
+    //return infromation
     echo json_encode($information);
-}
+}//end funtion
 
+//this function registers a new user 
 function register()
 {
     $con = getConnection();
@@ -345,7 +353,7 @@ function register()
     $request = $app->request()->getBody();
     $information = array();
     
-    
+    //default that the user doe not exist 
     $userExists = FALSE;
     
     $sql = $con->prepare("select * from users where username = ?");
@@ -353,34 +361,44 @@ function register()
     $sql->execute();
     $sql->store_result();
     
+    //chech if the username is already taken 
     if ($sql->num_rows != 0) {
         $userExists = TRUE;
     }
     
-    $sql->close();
     $con->close();
     $con = getConnection();
     
+    //only create a new user if it doesnt exist prior 
     if($userExists == FALSE)
     {
         $stmt = $con->prepare("INSERT into users (username, firstname, pw) values (?,?,?)");
+        
+        //encrypt typed password 
         $pwmd5 = base64_encode($_POST['pw']);
 
         $stmt->bind_param('sss', $_POST['username'], $_POST['name'], $pwmd5);
            
         $stmt->execute();
         
+        //store username and name 
         $information[] = $_POST['username'];
         $information[] = $_POST['name'];
         $_SESSION['username'] = $_POST['username'];
+        $con->close();
     }
     else
     {
+        //if the user already exsts return that information
         $information[] = "User already exists";
     }
+    
+    //return information
     echo json_encode($information);
 }
-
+/*
+NEED TO COMMENT FROM HERE 
+*/
 
 function getRecipe()
 {
