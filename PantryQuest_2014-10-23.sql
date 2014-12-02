@@ -1244,7 +1244,7 @@ CREATE TABLE `searchHistory` (
   `username` varchar(30) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`,`username`),
   KEY `usernmFK` (`username`),
-  CONSTRAINT `idFK` FOREIGN KEY (`id`) REFERENCES `filter` (`recipeID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `recipeIDFK` FOREIGN KEY (`id`) REFERENCES `recipe` (`recipeID`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `usernmFK` FOREIGN KEY (`username`) REFERENCES `users` (`username`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
