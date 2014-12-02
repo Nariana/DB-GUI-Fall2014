@@ -166,7 +166,7 @@ recipeID,foodName,value
 25,breadcrumbs,8
 25,egg,8
 25,butter,8
-25,spaghetti sauce,9
+25,tomato sauce,9
 25,cheese,9
 26,tofu,10
 26,chili powder,6
@@ -252,6 +252,206 @@ recipeID,foodName,value
 40,chocolate,10
 40,sugar,8
 40,butter,7
+61,cheese,4
+61,egg,10
+61,milk,8
+61,mushroom,5
+61,onion,4
+61,pie crust ,10
+61,spinach,6
+62,artichoke,4
+62,cheese,7
+62,noodle,10
+62,onion,2
+62,spinach,5
+62,tomato sauce,10
+62,vegetable broth,3
+63,basil,1
+63,bell pepper,7
+63,egg,10
+63,olive oil,1
+63,onion,5
+63,sweet potato,8
+64,bell pepper,5
+64,broccoli,5
+64,carrot,5
+64,mushroom,5
+64,onion,1
+64,rice,10
+64,vegetable broth,4
+65,bell pepper,1
+65,black bean,10
+65,bread,9
+65,chili,4
+65,cornstarch,8
+65,cumin,5
+65,garlic,1
+65,onion,7
+65,pepper,1
+66,garlic,3
+66,lemon ,3
+66,onion,5
+66,pasta,10
+66,bell pepper,7
+66,vegetable oil,1
+67,baking soda,9
+67,cocoa,9
+67,flour,10
+67,oil,7
+67,sugar,10
+67,vanilla,7
+67,vinegar,5
+68,baking powder,10
+68,flour,10
+68,lemon,1
+68,margarine,7
+68,soy milk,9
+68,sugar,9
+69,applesauce,7
+69,baking powder,9
+69,baking soda,9
+69,brown sugar,7
+69,cinnamon,5
+69,flour,10
+69,oil,7
+69,salt,1
+69,sugar,8
+69,vanilla,3
+69,zucchini,10
+70,almond meal,10
+70,baking soda,9
+70,banana,8
+70,blueberry,8
+70,egg,10
+70,honey,3
+70,vinegar,4
+71,tomato,9
+71,carrot,8
+71,celery,6
+71,clam juice,7
+71,fish,10
+71,garlic,3
+71,olive oil,6
+71,onion,3
+71,sherry,2
+71,shrimp,9
+71,wine,4
+72,carrot,7
+72,celery,6
+72,fish,8
+72,lemon,4
+72,mayonnaise,6
+72,onion,5
+72,pasta,10
+72,salmon,10
+73,dill,6
+73,mayonnaise,7
+73,onion,5
+73,potato,10
+74,broccoli,9
+74,cheese,7
+74,olive oil,4
+74,spaghetti,10
+74,tomato sauce,8
+75,bell pepper,10
+75,black bean,8
+75,tomato sauce,8
+75,vegetable broth,10
+76,brussel sprout,10
+76,butter,8
+76,mushroom,10
+77,bacon,3
+77,basil,1
+77,bouillon,10
+77,bell pepper,7
+77,tomato,10
+77,celery,5
+77,cheese,6
+77,chili bean,9
+77,corn chips,6
+77,cumin,3
+77,garlic,6
+77,sausage,10
+77,meat,10
+77,oregano,1
+77,sugar,4
+77,Tabasco sauce,7
+78,beef,10
+78,beef broth,7
+78,butter,3
+78,creme fraiche,8
+78,garlic,2
+78,mushroom,8
+78,oil,2
+78,onion,8
+78,wine,1
+79,tomato,4
+79,cheese,8
+79,egg,8
+79,garlic,3
+79,beef,10
+79,olive oil,5
+79,spaghetti,10
+79,sugar,1
+79,tomato paste,7
+80,cheese,2
+80,corn chips,8
+80,salad dressing,4
+80,beef,10
+80,lettuce,5
+80,onion,3
+80,pasta,8
+80,sour cream,4
+80,taco spice,8
+80,tomato,7
+81,baking powder,8
+81,baking soda,8
+81,banana,10
+81,brown sugar,8
+81,butter,8
+81,cinnamon,2
+81,egg,8
+81,flour,9
+81,sugar,8
+82,bell pepper,4
+82,chicken,10
+82,chive,3
+82,pea,4
+82,rice,10
+82,soy sauce,10
+83,cheese,3
+83,chicken soup,8
+83,macaroni,10
+83,onion,3
+83,tuna,8
+84,bread,10
+84,cinnamon,7
+84,egg,10
+84,flour,3
+84,sugar,5
+84,vanilla,3
+85,bread,8
+85,cheese,5
+85,chicken,10
+85,garlic,7
+85,olive oil,1
+86,beef broth,3
+86,broccoli,10
+86,flour,3
+86,garlic,7
+86,ginger,6
+86,soy sauce,6
+86,steak,3
+86,sugar,1
+87,bread,7
+87,butter,3
+87,egg,8
+87,milk,7
+87,pork,10
+88,cheese,7
+88,egg,10
+88,dough ,8
+88,sausage,10
 141,spinach,10
 141,sesame oil,4
 141,vinegar,3
