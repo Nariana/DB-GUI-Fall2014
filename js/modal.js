@@ -163,6 +163,9 @@ $("#logout").button();
           dataType: "json",
           success: function (result) {
               console.log(result);
+              localStorage.setItem("username", result[0]);
+              localStorage.setItem("name", result[1]);
+              location.reload();
             },
           error: function(jqXHR, textStatus, errorThrown){
              console.log(jqXHR, textStatus, errorThrown);
