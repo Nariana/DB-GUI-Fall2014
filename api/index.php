@@ -114,12 +114,12 @@ function deleteFavorites()
             if ($count != 0) //check if it has actually been saved by you 
             {
                 //prepare statement 
-                $sql = $con->prepare("delete from searchHistory where username = ? and id = ?");    
+                $sql = $con->prepare("DELETE FROM searchHistory WHERE username = ? AND id = ?");    
                 $sql->bind_param('si', $_SESSION['username'], $recipeID);
                 $sql->execute();
 
                 //get current number of times that recipe has been saved 
-                $stmt = $con->prepare("select rating from recipe where recipeName = ?");
+                $stmt = $con->prepare("SELECT rating FROM recipe WHERE recipeName = ?");
                 $stmt->bind_param('s', $recipeName);
                 $stmt->execute(); 
                 $rating;
