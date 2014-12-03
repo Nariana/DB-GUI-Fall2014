@@ -573,7 +573,7 @@ function getResult() {
     {
         //echo "inside";
     //check what of the results you have favorited 
-    $result1= $con->query("select distinct recipeName from recipe inner join  searchHistory on  recipe.recipeID = SearchHistory.ID where username = '".$_SESSION['username']."'"); //execute query 
+    $result1= $con->query("select distinct recipeName from recipe inner join  searchHistory on  recipe.recipeID = searchHistory.ID where username = '".$_SESSION['username']."'"); //execute query 
     
     if (!$result1)
     {
