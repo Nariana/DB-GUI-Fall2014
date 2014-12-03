@@ -1,5 +1,7 @@
 http://104.131.163.163
 
+http://54.69.70.135/DB-GUI-Fall2014/
+
 Testing user 
 
 email: karo@me.com
