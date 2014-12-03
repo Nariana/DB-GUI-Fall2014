@@ -168,13 +168,13 @@ function thumbClick(t){
     console.log(send);
     $(t).toggleClass("saved");
 
-    if($(t).hasClass("saved")){
+    if($(t).hasClass("saved")===false){
         $.ajax({
           type: "GET",
           url: rootURL+"/deleteFavorites",
           data: send,
           success: function (result) {
-              console.log("showing" + result);
+              console.log(result);
             },
           error: function(jqXHR, textStatus, errorThrown){
             console.log(jqXHR, textStatus, errorThrown);
