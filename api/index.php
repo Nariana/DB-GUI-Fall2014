@@ -113,6 +113,7 @@ function deleteFavorites()
 
             if ($count != 0) //check if it has actually been saved by you 
             {
+                
                 //prepare statement 
                 $sql = $con->prepare("DELETE FROM searchHistory WHERE username = ? AND id = ?");    
                 $sql->bind_param('si', $_SESSION['username'], $recipeID);

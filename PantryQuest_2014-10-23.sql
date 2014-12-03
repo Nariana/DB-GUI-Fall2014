@@ -1299,7 +1299,7 @@ FLUSH PRIVILEGES;
 CREATE USER 'loggedIn'@'localhost' IDENTIFIED BY '123';
 
 grant select, insert, delete, drop on PantryQuest.results to 'loggedIn'@'localhost';
-grant select, insert on PantryQuest.searchHistory to 'loggedIn'@'localhost';
+grant select, insert, delete on PantryQuest.searchHistory to 'loggedIn'@'localhost';
 grant select (foodName, timesSearched), update (timesSearched) on PantryQuest.ingredient to 'loggedIn'@'localhost';
 grant select on PantryQuest.filter to 'loggedIn'@'localhost';
 grant select on PantryQuest.recipeConnection to 'loggedIn'@'localhost';
