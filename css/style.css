@@ -201,11 +201,11 @@ html body .ui-widget{
 	width: 25%;
 }
 
-.saved {
+.saved .thumb{
 	color: "#8aa1ab";
 
 }
 
-.thumbHover .thumb{
+.thumbHover .thumb i{
 	color: white;
 }
