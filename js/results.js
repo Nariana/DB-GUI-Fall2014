@@ -142,17 +142,9 @@ function addListeners(){
     thumbClick(this);
   });
   $(".thumb").hover(function(){
-    $(this).css("color","white");
+    $(this).addClass("thumbHover");
   }, function(){
-    console.log($(this).hasClass("saved"));
-    if ($(this).hasClass("saved") === true) {
-     // console.log("changing "+i);
-      $(this).css("color","#8aa1ab");
-    }
-
-    else{
-      $(this).css("color","black");
-  }
+    $(this).removeClass("thumbHover");
 
   });
 
@@ -174,18 +166,32 @@ function thumbClick(t){
     var recipe = $(t).parent().parent().find("h5").html();
     var send = {"recipeName": recipe};
     console.log(send);
-    $(t).css("color", "#8aa1ab");
+    $(t).toggleClass("saved");
 
-    $.ajax({
-        type: "GET",
-        url: rootURL+"/saveRecipe",
-        data: send,
-        success: function (result) {
-            console.log("showing" + result);
-          },
-        error: function(jqXHR, textStatus, errorThrown){
-          console.log(jqXHR, textStatus, errorThrown);
-      }});
+    if($(t).hasClass("saved")){
+        $.ajax({
+          type: "GET",
+          url: rootURL+"/deleteFavorites",
+          data: send,
+          success: function (result) {
+              console.log("showing" + result);
+            },
+          error: function(jqXHR, textStatus, errorThrown){
+            console.log(jqXHR, textStatus, errorThrown);
+        }});
+    }
+    else{
+      $.ajax({
+          type: "GET",
+          url: rootURL+"/saveRecipe",
+          data: send,
+          success: function (result) {
+              console.log("showing" + result);
+            },
+          error: function(jqXHR, textStatus, errorThrown){
+            console.log(jqXHR, textStatus, errorThrown);
+        }});
+  }
 }
 
 function load(){

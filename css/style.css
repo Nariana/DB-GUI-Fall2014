@@ -200,3 +200,12 @@ html body .ui-widget{
 #logo{
 	width: 25%;
 }
+
+.saved {
+	color: "#8aa1ab";
+
+}
+
+.thumbHover .thumb{
+	color: white;
+}
