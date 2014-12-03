@@ -24,6 +24,7 @@ $app->get('/getResult', 'getResult');
 $app->get('/getRecipe', 'getRecipe');
 $app->get('/saveRecipe', 'saveRecipe');
 $app->get('/getAnalytics', 'getAnalytics');
+$app->get('/deleteFavorites', 'deleteFavorites');
 $app->get('/displayFavorites', 'displayFavorites');
 
 //post requests 
@@ -329,7 +330,6 @@ function login()
     //invalis login if firstName is not set 
     if (!isset($firstname))
     {
-        $_SESSION['id'] = false;
         $information[] = "Invalid login";
     }
     else
@@ -599,7 +599,7 @@ function getResult() {
         throw new Exception(mysqli_error($con));
     }
     
-        $issaved = FALSE;
+    $issaved = FALSE;
         
     if (mysqli_num_rows($result) != 0)
     {
