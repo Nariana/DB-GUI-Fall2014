@@ -67,7 +67,7 @@ function getResults(){
               for (var i = 0; i < result.length ; i++) {
                 //console.log(result[i]);
                 var percent = Math.floor(result[i].rankingPoints*100);
-                var add = "<div id='recipe"+i+"' class='resultDiv'><ul class='resultList'><h5 class='name'>"+result[i].recipeName+"</h5><li class='rating'>"+result[i].rating+"</li><li class='time'>"+result[i].time+" minutes</li><li class='percent'>"+percent+"%</li></ul></div>";
+                var add = "<div id='recipe"+i+"' class='resultDiv'><ul class='resultList'><h5 class='name'>"+result[i].recipeName+"</h5><li class='rating'>"+result[i].rating+" likes</li><li class='time'>"+result[i].time+" minutes</li><li class='percent'>"+percent+"% ingredient match</li></ul></div>";
                 
                 $("#resultListDiv").append(add);
 

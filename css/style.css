@@ -222,3 +222,7 @@ html body .ui-widget{
 #ingredientList{
 	list-style-type: none;
 }
+
+.resultList li {
+	font-size: 14px;
+}
