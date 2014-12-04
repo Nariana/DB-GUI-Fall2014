@@ -75,7 +75,6 @@ function getResults(){
                     console.log(result[i].saved);
                     if (result[i].saved === "true") {
                       console.log("changing "+i);
-                      $("#recipe"+i + " ul i").css("color","#8aa1ab");
                       $("#recipe"+i + " ul i").addClass("saved");
                     }
 

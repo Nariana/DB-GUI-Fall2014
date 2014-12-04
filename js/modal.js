@@ -417,7 +417,8 @@ $("#logout").button();
           data: send,
           success: function (result) {
               console.log(result);
-              $("#favTab").append("")
+              $("#favTab").append("");
+              $(".favList").remove();
               $.each(result, function(index, recipe){
                 console.log(recipe);
                 var s = $("#favTab").append("<ul id='favRecipe"+index+"' class='favList'></ul>");
