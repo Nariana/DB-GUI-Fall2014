@@ -456,10 +456,18 @@ $("#logout").on("click", function(){
 });
 
 function addFavListeners(){
-  var list = $(".favList");
 
-  $(".favList").on("hover", function(){
+  $(".favList").hover(function(){
     $(this).css("background-color", "grey");
+  }, function(){
+    $(this).css("background-color", "white");
   }); 
+
+  $(".favList").off("click").on("click", function(){
+      console.log($(this).find(".recName").html());
+      recipe = $(this).find(".recName").html();
+      localStorage.setItem("selectedRecipe", recipe);
+      window.location.href = "recipe.html";
+  });
 
 }

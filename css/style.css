@@ -212,6 +212,7 @@ html body .ui-widget{
 
 .favList{
 	list-style-type: none;
+	border-radius: 10px;
 }
 
 .recName {
