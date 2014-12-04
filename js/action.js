@@ -69,6 +69,11 @@ function clickAdd(inputted){
     $('.remove_ing').off("click").on("click", function(){
       $(this).parent().remove();
     });
+    $('.remove_ing').hover(function(){
+      $(this).css("color","white");
+    }, function(){
+      $(this).css("color","black");
+    });
   }
   
   console.log($($('#textIngredient')[0]));
