@@ -71,7 +71,7 @@ function getResults(){
                 
                 $("#resultListDiv").append(add);
 
-                if(localStorage.getItem("username") != null){   
+                if((localStorage.getItem("username") != null) && (localStorage.getItem("username") != "null")){   
                   //console.log("logged in, adding thumbs");           
                   //console.log(i);
                   //console.log($("#recipe"+i).has("i").length === 0);
