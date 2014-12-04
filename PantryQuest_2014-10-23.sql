@@ -112,7 +112,8 @@ VALUES
 	(85,'Bake',0,0,0,1,0,281),
 	(86,'Stovetop',0,0,0,1,1,178),
 	(87,'Bake',0,0,0,1,0,422),
-	(88,'Bake',0,0,0,1,0,341);
+	(88,'Bake',0,0,0,1,0,341),
+	(89,'Slowcook',0,0,0,1,1,390);
 
 /*!40000 ALTER TABLE `filter` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -612,7 +613,8 @@ VALUES
 	('taco spice',0),
 	('French salad dressing',0),
 	('chicken soup',0),
-	('roll dough ',0);
+	('roll dough ',0),
+	('chuck roast',0);
 
 /*!40000 ALTER TABLE `ingredient` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -708,8 +710,8 @@ VALUES
 	(85,'Baked Garlic Parmesan Chicken','DIRECTIONS:\n1.	Preheat oven to 350 degrees F (175 degrees C). Lightly grease a 9x13 inch baking dish.\n2.	In a bowl, blend the olive oil and garlic. In a separate bowl, mix the bread crumbs, Parmesan cheese, basil, and pepper. Dip each chicken breast in the oil mixture, then in the bread crumb mixture. Arrange the coated chicken breasts in the prepared baking dish, and top with any remaining bread crumb mixture.\n3.	Bake 30 minutes in the preheated oven, or until chicken is no longer pink and juices run clear.',45,6,13,'INGREDIENTS:\n2 tablespoons olive oil\n1 clove garlic, minced\n1 cup dry bread crumbs\n2/3 cup grated Parmesan cheese\n1 teaspoon dried basil leaves\n1/4 teaspoon ground black pepper\n6 skinless, boneless chicken breast\nhalves\n','http://images.media-allrecipes.com/userphotos/140x140/00/61/84/618489.jpg',0),
 	(86,'Broccoli Beef','DIRECTIONS:\n1.	In a small bowl, combine flour, broth, sugar, and soy sauce. Stir until sugar and flour are dissolved.\n2.	In a large skillet or wok over high heat, cook and stir beef 2 to 4 minutes, or until browned. Stir in broth mixture, ginger, garlic, and broccoli. Bring to a boil, then reduce heat. Simmer 5 to 10 minutes, or until sauce thickens.',30,6,14,'INGREDIENTS:\n1/4 cup all-purpose flour\n1 (10.5 ounce) can beef broth\n2 tablespoons white sugar\n2 tablespoons soy sauce\n1 pound boneless round steak, cut into\nbite size pieces\n1/4 teaspoon chopped fresh ginger root\n1 clove garlic, minced\n4 cups chopped fresh broccoli\n','http://images.media-allrecipes.com/userphotos/140x140/00/70/59/705947.jpg',0),
 	(87,'Oven Fried Pork Chops','DIRECTIONS:\n1.	Preheat oven to 425 degrees F (220 degrees C). Pour butter into a 9x13 inch baking pan.\n2.	Stir together egg, milk and pepper. Dip pork chops in egg mixture, coat with stuffing mix and place in pan.\n3.	Bake in preheated oven for 10 minutes. Turn chops and bake for another 10 minutes, or until no pink remains in the meat and juices run clear.',30,6,16,'INGREDIENTS:\n4 pork chops, trimmed\n2 tablespoons butter, melted\n1 egg, beaten\n2 tablespoons milk\n1/4 teaspoon black pepper\n1 cup herb-seasoned dry bread stuffing\nmix','http://images.media-allrecipes.com/userphotos/140x140/00/42/22/422232.jpg',0),
-	(88,'Egg and Sausage Casserole','DIRECTIONS:\n1.	Place sausage in a large, deep skillet. Cook over medium-high heat until evenly brown. Drain, crumble, and set aside.\n2.	Preheat oven to 325 degrees F (165 degrees C). Lightly grease a 9x13 inch baking dish.\n3.	Line the bottom of the prepared baking dish with crescent roll dough, and sprinkle with crumbled sausage. In a large bowl, mix beaten eggs, mozzarella, and Cheddar. Season the mixture with oregano, and pour over the sausage and crescent rolls.\n4.	Bake 25 to 30 minutes in the preheated oven, or until a knife inserted in the center comes out clean.',50,4,13,'INGREDIENTS:\n1 pound pork sausage\n1 (8 ounce) package refrigerated\ncrescent roll dough\n8 eggs, beaten\n2 cups shredded mozzarella cheese\n2 cups shredded Cheddar cheese\n1 teaspoon dried oregano','http://images.media-allrecipes.com/userphotos/140x140/01/59/80/1598004.jpg',0);
-
+	(88,'Egg and Sausage Casserole','DIRECTIONS:\n1.	Place sausage in a large, deep skillet. Cook over medium-high heat until evenly brown. Drain, crumble, and set aside.\n2.	Preheat oven to 325 degrees F (165 degrees C). Lightly grease a 9x13 inch baking dish.\n3.	Line the bottom of the prepared baking dish with crescent roll dough, and sprinkle with crumbled sausage. In a large bowl, mix beaten eggs, mozzarella, and Cheddar. Season the mixture with oregano, and pour over the sausage and crescent rolls.\n4.	Bake 25 to 30 minutes in the preheated oven, or until a knife inserted in the center comes out clean.',50,4,13,'INGREDIENTS:\n1 pound pork sausage\n1 (8 ounce) package refrigerated\ncrescent roll dough\n8 eggs, beaten\n2 cups shredded mozzarella cheese\n2 cups shredded Cheddar cheese\n1 teaspoon dried oregano','http://images.media-allrecipes.com/userphotos/140x140/01/59/80/1598004.jpg',0),
+	(89, 'Slow-Cooker Pot Roast','DIRECTIONS:\n1.	In slow cooker, stir together cornstarch and 2 tablespoons cold water until smooth. Add carrots and onions; season with salt and pepper, and toss.\n2.	Sprinkle roast with 1 teaspoon salt and 1/2 teaspoon pepper; place on top of vegetables, and drizzle with Worcestershire. Cover; cook on high, 6 hours (or on low, 10 hours).\n3.	Transfer roast to a cutting board; thinly slice against the grain. Place vegetables in a serving dish; pour pan juices through a fine-mesh sieve, if desired. Serve roast with vegetables and pan juices.',360,7,4,'INGREDIENTS:\n1 tbsp corn starch\n8 carrots (medium, cut into thirds)\n2 onion (medium, each cut into 8 wedges)\ncoarse salt\nground pepper\n1 chuck roast (3 pounds, trimmed of excess fat)\n2 tbsps worcestershire sauce','http://lh5.ggpht.com/ITme71YzE8sNA2vbvvJSw-YgEhEnQMifhJV_eq8CVHm6POeCnIKvM_bjPdB7zHwfrIlO2U-CbudrRuQfTErPvg=s730-c-e365',0);
 /*!40000 ALTER TABLE `recipe` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -871,7 +873,7 @@ VALUES
 	(20,'olive oil',5),
 	(20,'onion',5),
 	(20,'parsley',3),
-	(20,'Worcestershire sauce',3),
+	(20,'worcestershire sauce',3),
 	(21,'butter',6),
 	(21,'cheese',5),
 	(21,'pepper',5),
@@ -1201,7 +1203,14 @@ VALUES
 	(88,'cheese',7),
 	(88,'egg',10),
 	(88,'roll dough ',8),
-	(88,'sausage',10);
+	(88,'sausage',10),
+	(89,'cornstarch',5),
+	(89,'carrot',6),
+	(89,'onion',6),
+	(89,'salt',7),
+	(89,'pepper',7),
+	(89,'chuck roast',10),
+	(89,'worcestershire sauce',5);
 
 /*!40000 ALTER TABLE `recipeConnection` ENABLE KEYS */;
 UNLOCK TABLES;
