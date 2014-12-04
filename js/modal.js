@@ -422,7 +422,7 @@ $("#logout").button();
               $.each(result, function(index, recipe){
                 console.log(recipe);
                 var s = $("#favTab").append("<ul id='favRecipe"+index+"' class='favList'></ul>");
-                $("#favRecipe"+index).append(recipe[0]);
+                $("#favRecipe"+index).append("<li class='recName'>"+recipe[0]+"</li>");
                 $("#favRecipe"+index).append("<li>"+recipe[1]+" minutes</li>");
                 $("#favRecipe"+index).append("<li>Rating: "+recipe[2]+"</li>")
               });

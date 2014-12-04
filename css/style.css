@@ -209,3 +209,11 @@ html body .ui-widget{
 .thumbHover .thumb i{
 	color: white;
 }
+
+.favList{
+	list-style-type: none;
+}
+
+.recName {
+	font-weight: bold;
+}
