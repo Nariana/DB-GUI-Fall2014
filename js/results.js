@@ -10,7 +10,13 @@ $(document).ready(function(){
   load();
 });
 
-function colorThumbs(){
+function colorThumbs(t){
+  if($(t).hasClass("saved")){
+    $(t).css("color", "#8aa1ab");
+  }
+  else{
+    $(t).css("color", "black");
+  }
 
 }
 
@@ -76,6 +82,7 @@ function getResults(){
                     if (result[i].saved === "true") {
                       console.log("changing "+i);
                       $("#recipe"+i + " ul i").addClass("saved");
+                      $("#recipe"+i + " ul i").css("color", "#8aa1ab");
                     }
 
                    }
@@ -142,8 +149,11 @@ function addListeners(){
   });
   $(".thumb").hover(function(){
     $(this).addClass("thumbHover");
+    $(this).css("color", "white");
+
   }, function(){
     $(this).removeClass("thumbHover");
+    colorThumbs(this);
 
   });
 
@@ -174,6 +184,7 @@ function thumbClick(t){
           data: send,
           success: function (result) {
               console.log(result);
+              $(t).css("color", "black");
             },
           error: function(jqXHR, textStatus, errorThrown){
             console.log(jqXHR, textStatus, errorThrown);
@@ -186,6 +197,7 @@ function thumbClick(t){
           data: send,
           success: function (result) {
               console.log("showing" + result);
+              $(t).css("color", "#8aa1ab");
             },
           error: function(jqXHR, textStatus, errorThrown){
             console.log(jqXHR, textStatus, errorThrown);
