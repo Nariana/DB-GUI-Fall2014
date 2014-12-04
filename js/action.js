@@ -65,7 +65,7 @@ function clickAdd(inputted){
     if (inputted == query[i]) {isCopy = true;}
   }
   if(inputted != "" && !isCopy){
-    $('#ingredientList').append("<li class='ingredient'>"+ inputted + "</li>");
+    $('#ingredientList').append("<li class='ingredient'><i class='fa icon-remove-sign'></i>"+ inputted + "</li>");
   }
   
   console.log($($('#textIngredient')[0]));

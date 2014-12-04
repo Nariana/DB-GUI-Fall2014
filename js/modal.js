@@ -162,10 +162,15 @@ $("#logout").button();
           data: send,
           dataType: "json",
           success: function (result) {
+              if(result[0] === "User already exists"){
+                alert("Username already exists! Try Again!!!");
+              }
+              else{
               console.log(result);
               localStorage.setItem("username", result[0]);
               localStorage.setItem("name", result[1]);
               location.reload();
+            }
             },
           error: function(jqXHR, textStatus, errorThrown){
              console.log(jqXHR, textStatus, errorThrown);
