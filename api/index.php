@@ -710,19 +710,38 @@ function searchDB($filters, $ingredients, $methods, $time, $calories, $noIngredi
         }
         else
         {
-        $sql = $sql.$filter." and ";
+
+            $sql = $sql.$filter." and ";
         }
         
     $methodCount = $methodCount + 1;
     }
-
+    $counter = 0;
     foreach ($ingredients as $ingredient)
     {
         if($counter == 0)
         {
-            
+            if(empty($methods) && empty($filters))
+            {
+                $sql = $sql." foodName = '";
+                $sql = $sql.$ingredient."'";
+            }
+            else 
+            {
+                if(empty($filters))
+                {
+                $sql = $sql." and foodName = '";
+                $sql = $sql.$ingredient."'";
+                }
+                else 
+                {
+                                                
             $sql = $sql."foodName = '";
             $sql = $sql.$ingredient."'";
+                }
+
+            }
+
         }
         else 
         {
