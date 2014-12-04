@@ -224,7 +224,7 @@ function load(){
       range: "min",
       value: 120,
       min: 5,
-      max: 240,
+      max: 360,
       slide: function( event, ui ) {
         $( "#time" ).val( ui.value + " minutes" );
       },

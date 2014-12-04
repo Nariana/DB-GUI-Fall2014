@@ -218,3 +218,7 @@ html body .ui-widget{
 .recName {
 	font-weight: bold;
 }
+
+#ingredientList{
+	list-style-type: none;
+}
