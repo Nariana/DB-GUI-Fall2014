@@ -31,8 +31,8 @@ function drawMostSearched(myData) {
 
   // Set chart options
   var options = {
-                 'width':780,
-                 'height':300,
+                 'width':700,
+                 'height':280,
                  'pieSliceText':'value'
                   };
 
@@ -55,8 +55,8 @@ function drawMostViewed(myData) {
 
   // Set chart options
   var options = {
-                 'width':780,
-                 'height':300,
+                 'width':700,
+                 'height':280,
                  'pieSliceText':'value',
                };
 
@@ -79,9 +79,9 @@ function drawFavorite(myData) {
 
   // Set chart options
   var options = {
-                 'width':780,
+                 'width':700,
                  'pieSliceText':'value',
-                 'height':300};
+                 'height':280};
 
   // Instantiate and draw our chart, passing in some options.
   var chart = new google.visualization.PieChart(document.getElementById('favrecipes'));
@@ -290,7 +290,7 @@ $("#logout").button();
 
       dialogAnalytics = $( "#analytics-form" ).dialog({
         autoOpen: false,
-        height: 500,
+        height: 550,
         width: 780,
         modal: true,
         buttons: {
