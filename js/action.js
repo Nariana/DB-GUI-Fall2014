@@ -65,7 +65,15 @@ function clickAdd(inputted){
     if (inputted == query[i]) {isCopy = true;}
   }
   if(inputted != "" && !isCopy){
-    $('#ingredientList').append("<li class='ingredient'><i class='fa icon-remove-sign'></i>"+ inputted + "</li>");
+    $('#ingredientList').append("<li class='ingredient'><i class='fa-times fa remove_ing'></i>"+ inputted + "</li>");
+    $('.remove_ing').off("click").on("click", function(){
+      $(this).parent().remove();
+    });
+    $('.remove_ing').hover(function(){
+      $(this).css("color","white");
+    }, function(){
+      $(this).css("color","black");
+    });
   }
   
   console.log($($('#textIngredient')[0]));

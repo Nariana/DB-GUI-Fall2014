@@ -740,8 +740,17 @@ function searchDB($filters, $ingredients, $methods, $time, $calories, $noIngredi
     {
         if(empty($ingredients))
         {
-        $sql = $sql." time < ";
-        $sql = $sql.$time;
+            if(!empty($methods) && empty($filters))
+            {
+                $sql = $sql." and time < ";
+                $sql = $sql.$time;
+            }
+            else
+            {
+                $sql = $sql." time < ";
+                $sql = $sql.$time;
+            }
+
         }
         else
         {
