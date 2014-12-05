@@ -26,6 +26,7 @@ $app->get('/saveRecipe', 'saveRecipe');
 $app->get('/getAnalytics', 'getAnalytics');
 $app->get('/deleteFavorites', 'deleteFavorites');
 $app->get('/displayFavorites', 'displayFavorites');
+$app->get('/sendEmail', 'sendEmail');
 
 //post requests 
 $app->post('/login', 'login');
@@ -47,7 +48,50 @@ function getConnection($user = 'root', $pw = 'root', $host = 'localhost')
     }
     return $dbConnection;
 }
+//this function sends and email to a spesific username in the db with the password correpsoning 
+function sendEmail()
+{
 
+    //echo phpinfo();
+    $con = getConnection();
+    $username = "karo@me.com";
+    
+    $result = $con->prepare("SELECT pw, firstname FROM users WHERE username = ?");
+    $result->bind_param('s', $username);
+    $result->execute();
+    $result->bind_result($tempPW, $tempFN);
+    $encryptPW;
+    $name;
+    while ($result->fetch()) 
+    {
+        $encryptPW = $tempPW;
+        $name = $tempFN;
+    }
+    if(isset($encryptPW))
+    {
+       $pw = base64_decode($encryptPW);
+
+	   $to_add = "k_aroline@hotmail.com"; //<-- put your yahoo/gmail email address here
+        $from_add = "admin@pantryQuest.com";
+	   $subject = "Pantry Quest";
+	   $message = "Hello ".$name."\r\nThis is an email from PantryQuest userservice\r\nYour username is ".$to_add."\r\nyourpassword is ".$pw."\r\nPlease use our services again\r\n";
+    
+	   $headers = "From: $from_add \r\n";
+
+	   if(mail($to_add,$subject,$headers,$message)) 
+	   {
+		  $msg = "Mail sent OK";
+           echo json_encode($msg);
+	   } 
+	   else 
+	   {
+ 	      $msg = "Error sending email!";
+          echo json_encode($msg);
+	   }      
+}
+    
+    $con->close();
+}
 //Funtion to resutn all the ingredients in the DB
 function getIngredient() 
 {
