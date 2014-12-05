@@ -26,12 +26,13 @@ $app->get('/saveRecipe', 'saveRecipe');
 $app->get('/getAnalytics', 'getAnalytics');
 $app->get('/deleteFavorites', 'deleteFavorites');
 $app->get('/displayFavorites', 'displayFavorites');
-$app->get('/sendEmail', 'sendEmail');
+
 
 //post requests 
 $app->post('/login', 'login');
 $app->post('/register', 'register');
 $app->post('/logout', 'logout');
+$app->post('/sendEmail', 'sendEmail');
 
 $app->run();
 
@@ -54,6 +55,9 @@ function sendEmail()
 
     //echo phpinfo();
     $con = getConnection();
+    //$username = $_POST['username'];
+    $app = \Slim\Slim::getInstance();
+    $request = $app->request()->getBody();
     $username = "karo@me.com";
     
     $result = $con->prepare("SELECT pw, firstname FROM users WHERE username = ?");
@@ -74,7 +78,7 @@ function sendEmail()
 	   $to_add = "k_aroline@hotmail.com"; //<-- put your yahoo/gmail email address here
         $from_add = "admin@pantryQuest.com";
 	   $subject = "Pantry Quest";
-	   $message = "Hello ".$name."\r\nThis is an email from PantryQuest userservice\r\nYour username is ".$to_add."\r\nyourpassword is ".$pw."\r\nPlease use our services again\r\n";
+	   $message = "Hello ".$name."\r\nThis is an email from PantryQuest's userservice, you requested your login credentials.\r\nYour username is ".$username."\r\nYour password is ".$pw."\r\nPlease use our services again and have a merry Christmas\r\n";
     
 	   $headers = "From: $from_add \r\n";
 
