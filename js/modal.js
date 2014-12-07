@@ -246,12 +246,17 @@ $("#logout").button();
       console.log("in forgot password");
 
       var send = {};
-      send.username = localStorage.getItem("username");
+      send.username = $("#nameLogin").val();
+
+      alert("Email has been sent to "+send.username);
+
+      console.log(send);
 
       $.ajax({
         type: "POST",
         url: rootURL+"/sendEmail",
         data: send,
+        dataType: "json",
         success: function (result) {
           console.log(result);
             },
