@@ -219,9 +219,7 @@ $("#logout").button();
         modal: true,
         buttons: {
           "Login!": login,
-          Cancel: function() {
-            dialogLogin.dialog( "close" );
-          }
+          "Forgot password": forgotPassword,
         },
         close: function() {
           form[ 0 ].reset();
@@ -244,6 +242,25 @@ $("#logout").button();
       });  
     });
 
+    function forgotPassword(){
+      console.log("in forgot password");
+
+      var send = {};
+      send.username = localStorage.getItem("username");
+
+      $.ajax({
+        type: "POST",
+        url: rootURL+"/sendEmail",
+        data: send,
+        success: function (result) {
+          console.log(result);
+            },
+        error: function(jqXHR, textStatus, errorThrown){
+          console.log(jqXHR, textStatus, errorThrown);
+        }});
+
+
+    }
 
     function login(){
 

@@ -233,6 +233,8 @@ function load(){
       }
     });
     $( "#time" ).val($( "#slider-time" ).slider( "value" ) + " minutes");
+    $('#time').css("color", "white");
+    $("#calories").css("color", "white");
     addListeners();
     showIngredients();
     getResults();
