@@ -58,7 +58,7 @@ function sendEmail()
     //$username = $_POST['username'];
     $app = \Slim\Slim::getInstance();
     $request = $app->request()->getBody();
-    $username = "karo@me.com";
+    $username = $_POST['username'];
     
     $result = $con->prepare("SELECT pw, firstname FROM users WHERE username = ?");
     $result->bind_param('s', $username);
@@ -75,17 +75,17 @@ function sendEmail()
     {
        $pw = base64_decode($encryptPW);
 
-	   $to_add = "k_aroline@hotmail.com"; //<-- put your yahoo/gmail email address here
+	   $to_add = $username; //<-- put your yahoo/gmail email address here
         $from_add = "admin@pantryQuest.com";
 	   $subject = "Pantry Quest";
-	   $message = "Hello ".$name."\r\nThis is an email from PantryQuest's userservice, you requested your login credentials.\r\nYour username is ".$username."\r\nYour password is ".$pw."\r\nPlease use our services again and have a merry Christmas\r\n";
+	   $message = "Dear ".$name.",\n\nThank you for using Pantry Quest!\n\nYou recently requested your account credentials. Your username is ".$username." and your password is \"".$pw."\".\n\nIf you didn’t make this request, it's likely that another user has entered your email address by mistake and your account is still secure. If you believe an unauthorized person has accessed your account, you can reset your password by contacting us at kskatteboe@smu.edu\n\nPantry Quest Support";
     
 	   $headers = "From: $from_add \r\n";
 
 	   if(mail($to_add,$subject,$headers,$message)) 
 	   {
 		  $msg = "Mail sent OK";
-           echo json_encode($msg);
+            echo json_encode($msg);
 	   } 
 	   else 
 	   {
@@ -96,6 +96,25 @@ function sendEmail()
     
     $con->close();
 }
+function confirmationEmail($username, $name)
+{
+        $to_add = $username; //<-- put your yahoo/gmail email address here
+        $from_add = "admin@pantryQuest.com";
+	   $subject = "Pantry Quest Registration Confirmation";
+	   $message = "Dear ".$name.",\n\nWelcome to Pantry Quest and thanks for registering!\n\nYour account is now active. Your new Pantry Quest account can be used to save your favorite recipes for your future convenience.\n\nThe Pantry Quest Team";
+    
+
+	   if(mail($to_add,$subject,$message)) 
+	   {
+		  $msg = "Mail sent OK";
+	   } 
+	   else 
+	   {
+ 	      $msg = "Error sending email!";
+	   }      
+    
+}
+
 //Funtion to resutn all the ingredients in the DB
 function getIngredient() 
 {
@@ -434,6 +453,7 @@ function register()
         $information[] = $_POST['username'];
         $information[] = $_POST['name'];
         $_SESSION['username'] = $_POST['username'];
+        confirmationEmail($_POST['username'], $_POST['name']);
         $con->close();
     }
     else
@@ -809,19 +829,19 @@ function searchDB($filters, $ingredients, $methods, $time, $calories, $noIngredi
         {
             if(!empty($methods) && empty($filters))
             {
-                $sql = $sql." and time < ";
+                $sql = $sql." and time <= ";
                 $sql = $sql.$time;
             }
             else
             {
-                $sql = $sql." time < ";
+                $sql = $sql." time <= ";
                 $sql = $sql.$time;
             }
 
         }
         else
         {
-             $sql = $sql." and time < ";
+             $sql = $sql." and time <= ";
             $sql = $sql.$time;
         }
     }
@@ -880,7 +900,7 @@ function searchDB($filters, $ingredients, $methods, $time, $calories, $noIngredi
         }
         else
         {
-            $sql = $sql."and ";
+            $sql = $sql."or ";
             $sql = $sql."foodName = '".$noIngredient."' ";
         }
             
@@ -898,6 +918,7 @@ function searchDB($filters, $ingredients, $methods, $time, $calories, $noIngredi
 function searchInsert($sql, $ingredients)
 {
     //echo $sql;
+    
     $con = getConnection($_SESSION['notLoggedInUsername'], $_SESSION['notLoggedInPW']);
     try
     {

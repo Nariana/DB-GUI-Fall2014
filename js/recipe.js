@@ -51,7 +51,7 @@ function load(){
               //console.log(result.ingredients);
             }
 
-            $("#rate").append(result["rating"]);
+            $("#rate").prepend(result["rating"]);
             $("#time").prepend(result["time"]);
             $("#cals").prepend(result["calories"]);
             $("#recipeImg").attr("src",result["picture"]);
