@@ -44,6 +44,10 @@ function getResults(){
   });
   console.log(i);
 
+  localStorage.setItem("filters", JSON.stringify(send));
+//  console.log(localStorage.filters);
+
+
   send[i] = { "calories": $( "#slider-calories" ).slider( "value" )};
   send[i+1] = { "time": $( "#slider-time" ).slider( "value" )};
 
@@ -206,6 +210,7 @@ function thumbClick(t){
 }
 
 function load(){
+
     $( "#slider-calories" ).slider({
       range: "min",
       value: 1000,
@@ -235,6 +240,23 @@ function load(){
     $( "#time" ).val($( "#slider-time" ).slider( "value" ) + " minutes");
     $('#time').css("color", "white");
     $("#calories").css("color", "white");
+
+    var filters = JSON.parse(localStorage.filters);
+
+    $('.ingI').remove();
+    $('#noningList > li .ingI').remove();
+
+    $.each(filters, function(n,o){
+      $.each(o, function(k,v){
+        if(k === "method"){
+          $("#"+v).prop("checked",true);
+        }
+        if(k === "restriction"){
+          $("#"+v).prop("checked",true);
+        }
+      });
+    });
+
     addListeners();
     showIngredients();
     getResults();
@@ -246,7 +268,7 @@ function showIngredients(){
   console.log(ing);
   ing = ing.split(",");
   $.each(ing, function(key, value){
-    $("#ingList").append('<li><input type="checkbox" class="ing" checked name="ing" value="'+value+'" id="ing'+key+'"><label for="ing'+key+'">'+value+'</label></li>');
+    $("#ingList").append('<li class="ingI"><input type="checkbox" class="ing" checked name="ing" value="'+value+'" id="ing'+key+'"><label for="ing'+key+'">'+value+'</label></li>');
   });
 }
 
@@ -316,7 +338,7 @@ function getIngredients(){
                 }); 
 
                 if (query.length > 0) {
-                    localStorage.setItem("ingredients", query);
+                    localStorage.setItem("noningredients", query);
                     getResults();
                   }
                 else {

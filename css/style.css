@@ -150,6 +150,7 @@ margin-top: 75px;
 	background-color: white;
 	border-top: solid black 1px;
 	width: 100%;
+	z-index: 3;
 }
 
 .button-div button{
