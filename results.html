@@ -44,13 +44,17 @@
 						<li><input class="filter" type="checkbox" name="restriction" value="NoNuts" id="NoNuts"><label for="NoNuts">No Nuts</label></li>
 					</ul>
 
-					<label for="calories" class="filterTitle">Maximum calories:</label>
-  					<input type="text" id="calories" readonly class="filterField" style="border:0; color:#f6931f; font-weight:bold;">
-  					<div id="slider-calories"></div>
+					<span class="filterTitle">Maximum calories:</span>
+					<ul id="calorieList" class="sliderList">
+	  					<input type="text" id="calories" readonly class="filterField" style="border:0; color:#f6931f; font-weight:bold;">
+	  					<div id="slider-calories"></div>
+	  				</ul>
 
-  					<label for="time" class="filterTitle">Maximum Prep Time:</label>
-  					<input type="text" id="time" readonly class="filterField" style="border:0; color:#f6931f; font-weight:bold;">
-  					<div id="slider-time"></div>
+	  				<span class="filterTitle">Maximum Prep Time:</label>
+	  				<ul id="timeList" class="sliderList">
+	  					<li><input type="text" id="time" readonly class="filterField" style="border:0; color:#f6931f; font-weight:bold;"></li>
+	  					<li><div id="slider-time"></div></li>
+  					</ul>
 				</ul>
 			</div>
 

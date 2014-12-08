@@ -270,6 +270,9 @@ function showIngredients(){
     $("#ingList").append('<li class="ingI"><input type="checkbox" class="noning" checked name="noning" value="'+value+'" id="noning'+key+'"><label for="noning'+key+'">'+value+'</label></li>');
   });
 
+  if(localStorage.filters === undefined){
+    localStorage.filters = JSON.stringify({});
+  }
   console.log(localStorage.filters);
     var filters = JSON.parse(localStorage.filters);
 
