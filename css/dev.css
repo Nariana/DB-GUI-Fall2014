@@ -30,8 +30,10 @@ h1 {
     width: 100%;
     font-size: 60;
     padding-left: 400;
-    padding-top: 80;
-    font-weight: 200;
+    padding-top: 55;
+    font-weight: 220;
+    font-family: 'Open Sans', sans-serif;
+    letter-spacing: 6px;
 }
 
 .color-bar { 
@@ -51,7 +53,7 @@ h2 {
 	background-color: white;
 	margin-left: 400;
 	padding-left: 10;
-	padding-top: 100;
+	padding-top: 75;
 }
 
 .text-container ul {
