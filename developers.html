@@ -1,0 +1,55 @@
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="css/dev.css">
+	<link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Source+Code+Pro' rel='stylesheet' type='text/css'>
+	<meta charset="UTF-8">
+	<title>Developers</title>
+</head>
+<body>
+	<h1>
+		PantryQuest Recipe API
+		</br>
+		Documentation
+	</h1>
+	<img src="img/devHeader.jpg" alt="cutting board with vegetables">
+	<div class="color-bar"></div>
+	<div class="text-container">
+		<h2>
+			About the PantryQuest API
+		</h2>
+		<ul>
+			<li>
+				<strong>Protocol: </strong>The transport is HTTP. The PantryQuest API tries to conform to REST principles.
+			</li>
+			<li>
+				<strong>Response Format: </strong> The data returned by the API is encoded as JSON.
+			</li>
+			<li>
+				<strong>Web API Base URL: </strong> <p class="code"> http://54.69.70.135/DB-GUI-Fall2014/api/index.php</p>
+			</li>
+		</ul>
+		<h2>
+			Performing GET Requests
+		</h2>
+		<ul>
+			<li>
+				<strong>Get Ingredients:</strong> Returns ingredients in the PantryQuest database </br> The base url for Get Ingredients GET request is: </br><p class="code">http://54.69.70.135/DB-GUI-Fall2014/api/index.php/getIngredient</p>
+			</li>
+			<li>
+				<strong>Get Result:</strong> Searches the PantryQuest database for recipes matching the search criteria.
+			</li>
+			<li>
+				<strong>Get Recipe:</strong> Returns the recipe name, ingredients, method, picture, time, and rating of a particular recipe.
+			</li>
+			<li>
+				<strong>Get Analytics:</strong> Returns the 5 most searched for ingredients, the 5 most clicked on recipes and the 5 most saved recipes on PantryQuest.
+			</li>
+			<li>
+				<strong>Display Favorites:</strong> Returns all recipes favorited by a particular user.
+			</li>
+		</ul>
+	</div>
+	
+</body>
+</html>
