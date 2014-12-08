@@ -219,6 +219,9 @@ function thumbClick(t){
 
 function load(){
 
+  $( ".filterTitle" ).tooltip({
+  });
+
     $( "#slider-calories" ).slider({
       range: "min",
       value: 1000,

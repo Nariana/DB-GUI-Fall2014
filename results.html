@@ -17,14 +17,15 @@
 
 			<div id="filters">
 				<ul>
-					<span class="filterTitle">Add/Remove Ingredients</span>
+					<span class="filterTitle" title="Type in the fields to add ingredients you would like to use (or exclude)">Add/Remove Ingredients</span>
 					<ul id="ingList">
 						<li><input type="text" name="addIngredient" id="addIngredient" placeholder="New Ingredient..."></li>
 					</ul>
 					<ul id="noningList">	
 						<li><input type="text" name="excludeIngredient" id="excludeIngredient" placeholder="Ingredients to exclude..."></li>
 					</ul>
-					<span class="filterTitle">Cook method</span>
+
+					<span class="filterTitle" title="You will recieve results that use ANY of the selected methods">Cook method</span>
 					<ul id="cookmethod">
 						<li><input class="filter" type="checkbox" name="method" value="Bake" id="Bake"><label for="Bake">Bake</label></li>
 						<li><input class="filter" type="checkbox" name="method" value="Boil" id="Boil"><label for="Boil">Boil</label></li>
@@ -35,7 +36,7 @@
 						<li><input class="filter" type="checkbox" name="method" value="Microwave" id="Microwave"><label for="Microwave">Microwave</label></li>
 						<li><input class="filter" type="checkbox" name="method" value="Raw" id="Raw"><label for="Raw">Raw</label></li>
 					</ul>
-					<span class="filterTitle">Dietary Restrictions</span>
+					<span class="filterTitle" title="You will recieve results that are under ANY of the selected restrictions">Dietary Restrictions</span>
 					<ul> 
 						<li><input class="filter" type="checkbox" name="restriction" value="LactoseFree" id="LactoseFree"><label for="LactoseFree">Lactose Free</label></li>
 						<li><input class="filter" type="checkbox" name="restriction" value="Vegetarian" id="Vegetarian"><label for="Vegetarian">Vegetarian</label></li>
@@ -44,13 +45,13 @@
 						<li><input class="filter" type="checkbox" name="restriction" value="NoNuts" id="NoNuts"><label for="NoNuts">No Nuts</label></li>
 					</ul>
 
-					<span class="filterTitle">Maximum calories:</span>
+					<span class="filterTitle" title="Filter recipes by max calories per serving">Maximum calories:</span>
 					<ul id="calorieList" class="sliderList">
 	  					<input type="text" id="calories" readonly class="filterField" style="border:0; color:#f6931f; font-weight:bold;">
 	  					<div id="slider-calories"></div>
 	  				</ul>
 
-	  				<span class="filterTitle">Maximum Prep Time:</label>
+	  				<span class="filterTitle" title="Filter recipes by prep time">Maximum Prep Time:</label>
 	  				<ul id="timeList" class="sliderList">
 	  					<li><input type="text" id="time" readonly class="filterField" style="border:0; color:#f6931f; font-weight:bold;"></li>
 	  					<li><div id="slider-time"></div></li>
