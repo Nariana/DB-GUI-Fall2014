@@ -444,15 +444,24 @@ $("#logout").button();
           data: send,
           success: function (result) {
               console.log(result);
-              $("#favTab").append("");
-              $(".favList").remove();
-              $.each(result, function(index, recipe){
-                console.log(recipe);
-                var s = $("#favTab").append("<ul id='favRecipe"+index+"' class='favList'></ul>");
-                $("#favRecipe"+index).append("<li class='recName'>"+recipe[0]+"</li>");
-                $("#favRecipe"+index).append("<li>"+recipe[1]+" minutes</li>");
-                $("#favRecipe"+index).append("<li>Rating: "+recipe[2]+"</li>")
-              });
+              if(result.length === 0){
+                $("#favTab").append("");
+                $("#favTab ul").remove();
+                var s = $("#favTab").append("<ul id='favRecipeNone' style='list-style-type:none;'><li class='recName'>You haven't liked any recipes yet!</li></ul>");
+
+              }
+              else{
+                $("#favTab").append("");
+                $(".favList").remove();
+                $("#favTab ul").remove();
+                $.each(result, function(index, recipe){
+                  console.log(recipe);
+                  var s = $("#favTab").append("<ul id='favRecipe"+index+"' class='favList'></ul>");
+                  $("#favRecipe"+index).append("<li class='recName'>"+recipe[0]+"</li>");
+                  $("#favRecipe"+index).append("<li>"+recipe[1]+" minutes</li>");
+                  $("#favRecipe"+index).append("<li>Rating: "+recipe[2]+"</li>")
+                });
+              }
 
               addFavListeners();
             },

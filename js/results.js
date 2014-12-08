@@ -300,6 +300,32 @@ function getIngredients(){
                 return false;
               }
             });
+
+            $( "#excludeIngredient" ).autocomplete({
+              source: availableTags,
+              select: function(event, ui){
+                //console.log();
+                var num = $(".noning").length;
+                $("#noningList").append('<li><input type="checkbox" class="noning" checked name="noning" value="'+ui.item.value+'" id="noning'+num+'"><label for="noning'+num+'">'+ui.item.value+'</label></li>');
+                $(this).val('');
+
+                var query = [];
+                var fields = $(".noning");
+                $.each(fields, function(i, v) {
+                  query.push(v.textContent);
+                }); 
+
+                if (query.length > 0) {
+                    localStorage.setItem("ingredients", query);
+                    getResults();
+                  }
+                else {
+                    console.log("cancel search - no ingredients");
+                }
+
+                return false;
+              }
+            });
           },
         error: function(jqXHR, textStatus, errorThrown){
            console.log(jqXHR, textStatus, errorThrown);
