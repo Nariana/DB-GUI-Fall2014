@@ -20,12 +20,8 @@ function colorThumbs(t){
 
 }
 
+function getFilters(){
 
-function getResults(){
-
-
-  $(".resultDiv").remove();
-  console.log("show table");
 
   var send = new Object();
 
@@ -51,6 +47,18 @@ function getResults(){
   send[i] = { "calories": $( "#slider-calories" ).slider( "value" )};
   send[i+1] = { "time": $( "#slider-time" ).slider( "value" )};
 
+  return send;
+
+}
+
+
+function getResults(){
+
+
+  $(".resultDiv").remove();
+  console.log("show table");
+
+  var send = getFilters();
   console.log(send);
 
     $.ajax({
@@ -241,10 +249,29 @@ function load(){
     $('#time').css("color", "white");
     $("#calories").css("color", "white");
 
-    var filters = JSON.parse(localStorage.filters);
+    addListeners();
+    showIngredients();
+    getResults();
+}
 
-    $('.ingI').remove();
-    $('#noningList > li .ingI').remove();
+function showIngredients(){
+
+  var ing = localStorage.getItem("ingredients");
+  var noning = localStorage.getItem("noningredients");
+  console.log(noning);
+  ing = ing.split(",");
+
+  $('#noningList > li .ingI').remove();
+  $.each(ing, function(key, value){
+    $("#ingList").append('<li class="ingI"><input type="checkbox" class="ing" checked name="ing" value="'+value+'" id="ing'+key+'"><label for="ing'+key+'">'+value+'</label></li>');
+  });
+
+  $.each(noning, function(key, value){
+    $("#ingList").append('<li class="ingI"><input type="checkbox" class="noning" checked name="noning" value="'+value+'" id="noning'+key+'"><label for="noning'+key+'">'+value+'</label></li>');
+  });
+
+  console.log(localStorage.filters);
+    var filters = JSON.parse(localStorage.filters);
 
     $.each(filters, function(n,o){
       $.each(o, function(k,v){
@@ -256,20 +283,6 @@ function load(){
         }
       });
     });
-
-    addListeners();
-    showIngredients();
-    getResults();
-}
-
-function showIngredients(){
-
-  var ing = localStorage.getItem("ingredients");
-  console.log(ing);
-  ing = ing.split(",");
-  $.each(ing, function(key, value){
-    $("#ingList").append('<li class="ingI"><input type="checkbox" class="ing" checked name="ing" value="'+value+'" id="ing'+key+'"><label for="ing'+key+'">'+value+'</label></li>');
-  });
 }
 
 /* hover color change for the back button */

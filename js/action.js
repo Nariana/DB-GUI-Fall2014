@@ -5,7 +5,7 @@ var rootURL = "http://localhost:8888/DB-GUI-Fall2014/api/index.php";
 //var rootURL = "http://localhost/api/index.php";
 //var rootURL = "api/index.php"
 
-
+localStorage.removeItem("filters");
 var allIngredients = getIngredients();
 
 $( ".textIngredient" ).on( "autocompleteselect", function( event, ui ) {
