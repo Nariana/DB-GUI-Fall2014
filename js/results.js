@@ -258,6 +258,7 @@ function showIngredients(){
 
   var ing = localStorage.getItem("ingredients");
   var noning = localStorage.getItem("noningredients");
+  console.log(ing);
   console.log(noning);
   ing = ing.split(",");
 
@@ -266,9 +267,12 @@ function showIngredients(){
     $("#ingList").append('<li class="ingI"><input type="checkbox" class="ing" checked name="ing" value="'+value+'" id="ing'+key+'"><label for="ing'+key+'">'+value+'</label></li>');
   });
 
-  $.each(noning, function(key, value){
-    $("#ingList").append('<li class="ingI"><input type="checkbox" class="noning" checked name="noning" value="'+value+'" id="noning'+key+'"><label for="noning'+key+'">'+value+'</label></li>');
-  });
+  if(noning != null){
+    noning = noning.split(",");
+    $.each(noning, function(key, value){
+      $("#noningList").append('<li class="ingI"><input type="checkbox" class="noning" checked name="noning" value="'+value+'" id="noning'+key+'"><label for="noning'+key+'">'+value+'</label></li>');
+    });
+}
 
   if(localStorage.filters === undefined){
     localStorage.filters = JSON.stringify({});
@@ -347,14 +351,16 @@ function getIngredients(){
                 $("#noningList").append('<li><input type="checkbox" class="noning" checked name="noning" value="'+ui.item.value+'" id="noning'+num+'"><label for="noning'+num+'">'+ui.item.value+'</label></li>');
                 $(this).val('');
 
-                var query = [];
+                console.log()
+                var queryNon = [];
                 var fields = $(".noning");
                 $.each(fields, function(i, v) {
-                  query.push(v.textContent);
+                  queryNon.push(v.value);
+                  console.log(queryNon);
                 }); 
 
-                if (query.length > 0) {
-                    localStorage.setItem("noningredients", query);
+                if (queryNon.length > 0) {
+                    localStorage.setItem("noningredients", queryNon);
                     getResults();
                   }
                 else {
