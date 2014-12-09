@@ -314,7 +314,7 @@ function getIngredients(){
                 var query = [];
                 var fields = $(".ing");
                 $.each(fields, function(i, v) {
-                  query.push(v.textContent);
+                  query.push(v.value);
                 }); 
 
                 if (query.length > 0) {
