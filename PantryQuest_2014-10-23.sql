@@ -1262,7 +1262,6 @@ LOCK TABLES `searchHistory` WRITE;
 
 INSERT INTO `searchHistory` (`id`, `username`)
 VALUES
-	(67,'kskatteboe '),
     (67,'karo@me.com'),
     (82,'karo@me.com');
 
@@ -1280,20 +1279,18 @@ CREATE TABLE `users` (
   `username` varchar(30) DEFAULT NULL,
   `pw` varchar(100) DEFAULT NULL,
   `firstname` varchar(30) DEFAULT NULL,
+  `timeForEmail` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `USername` (`username`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 
-INSERT INTO `users` (`id`, `username`, `pw`, `firstname`)
+INSERT INTO `users` (`id`, `username`, `pw`, `firstname`, `timeForEmail`)
 VALUES
-	(1,'kskatteboe','123','Karoline '),
-	(2,'tom','123','Tom'),
-	(10,'karoline@me.com','$2y$10$vngp8LR5seXRdC0mjudWb.HoBImp0ifPhVaDd9TpmYQ1PeNBn5dK6','karo'),
-	(11,'karo@me.com','MTIzNDU=','karro'),
-	(12,'karoska@me.com','cGFzc3dvcmQ=','karo');
+	(11,'karo@me.com','MTIzNDU=','karro','2014-12-08 17:41:51'),
+	(12,'karoska@me.com','cGFzc3dvcmQ=','karo','2014-12-08 17:01:45');
 
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;

@@ -50,12 +50,13 @@ function getConnection($user = 'root', $pw = 'root', $host = 'localhost')
     return $dbConnection;
 }
 //this function sends and email to a spesific username in the db with the password correpsoning 
+//this function sends and email to a spesific username in the db with the password correpsoning 
 function sendEmail()
 {
 
     //echo phpinfo();
     $con = getConnection();
-    //$username = $_POST['username'];
+    //$username = 'karo@me.com';
     $app = \Slim\Slim::getInstance();
     $request = $app->request()->getBody();
     $username = $_POST['username'];
@@ -63,7 +64,14 @@ function sendEmail()
     $result = $con->prepare("SELECT pw, firstname FROM users WHERE username = ?");
     $result->bind_param('s', $username);
     $result->execute();
+    $result->store_result();
+    $num_of_rows = $result->num_rows;  
     $result->bind_result($tempPW, $tempFN);
+    
+    if($num_of_rows == 0)
+    {
+        echo json_encode("Username does not exist, please try again");
+    }
     $encryptPW;
     $name;
     while ($result->fetch()) 
@@ -76,26 +84,48 @@ function sendEmail()
        $pw = base64_decode($encryptPW);
 
 	   $to_add = $username; //<-- put your yahoo/gmail email address here
-        $from_add = "admin@pantryQuest.com";
-	   $subject = "Pantry Quest";
+	   $subject = "Pantry Quest Credentials";
 	   $message = "Dear ".$name.",\n\nThank you for using Pantry Quest!\n\nYou recently requested your account credentials. Your username is ".$username." and your password is \"".$pw."\".\n\nIf you didn’t make this request, it's likely that another user has entered your email address by mistake and your account is still secure. If you believe an unauthorized person has accessed your account, you can reset your password by contacting us at kskatteboe@smu.edu\n\nPantry Quest Support";
+        
+        $sql = $con->prepare("SELECT firstname FROM users WHERE username = ? and NOW() - timeForEmail >= 600;");
+        $sql->bind_param('s', $username);
+        $sql->execute();
+        $sql->store_result();
     
-	   $headers = "From: $from_add \r\n";
-
-	   if(mail($to_add,$subject,$headers,$message)) 
-	   {
-		  $msg = "Mail sent OK";
-            echo json_encode($msg);
-	   } 
-	   else 
-	   {
- 	      $msg = "Error sending email!";
-          echo json_encode($msg);
-	   }      
+        //you have sendt email in last 10 min so dont send again
+        if ($sql->num_rows == 0) 
+        {
+            $message = 'An email has been sendt to this account within the last 10 minutes, if you did not recive an email try again later';
+            echo json_encode($message);
+        }
+        else
+        {
+            if(mail($to_add,$subject,$message)) 
+	       {
+		          $msg = "Email sent successfully!";
+                echo json_encode($msg);
+                //update timestamp for latest sent email
+                $q1 = $con->prepare("UPDATE users set timeForEmail = now() where username = ?");
+                $q1->bind_param('s', $username);
+            $q1->execute();
+	       }  
+            else 
+	       {
+ 	          $msg = "Error when sending email, please try again later";
+                echo json_encode($msg);
+	       } 
+        }
+        
+        //check if email has been sent the last 30 min
+        
+        $q1 = $con->prepare("UPDATE users set timeForEmail = now() where username = ?");
+        $q1->bind_param('s', $username);
+        $q1->execute(); 
 }
     
     $con->close();
 }
+
 function confirmationEmail($username, $name)
 {
         $to_add = $username; //<-- put your yahoo/gmail email address here
@@ -127,7 +157,7 @@ function getIngredient()
     $ingredient_list = array();
     
     //query DB 
-    $result = $con->query("SELECT * FROM ingredient");
+    $result = $con->query(  "SELECT * FROM ingredient");
     
     while ($rows = mysqli_fetch_row($result)) 
     {
