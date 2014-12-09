@@ -48,7 +48,7 @@ img{
 	width: 60%;
 	height: auto;
 	margin: 0 auto;
-	padding: 40px;
+	padding: 65px;
 }
 
 #content > div {
@@ -237,6 +237,11 @@ html body .ui-widget{
 	color: white;
 }
 
+#calorieList, #timeList { 
+	padding-left: 0;
+	padding-bottom: 10px;
+}
+
 #timeList{
 	margin-bottom: 100px;
 }
@@ -247,4 +252,8 @@ html body .ui-widget{
 
 #headerInfo * {
 	color: white;
+}
+
+li > #back button {
+	width: 100%;
 }

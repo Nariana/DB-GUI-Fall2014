@@ -14,10 +14,10 @@
 
 		
 		<div id="content">
-			<i id="back" class="fa fa-arrow-circle-left fa-3x" style="color: rgb(255, 255, 255);"></i>
 
 			<div id="filters">
 				<ul>
+					<li><button  id="back" type="button"><i class="fa fa-refresh"></i>   Start new search</button></li>
 					<span class="filterTitle" title="Type in the fields to add ingredients you would like to use (or exclude)">Add/Remove Ingredients</span>
 					<ul id="ingList">
 						<li><input type="text" name="addIngredient" id="addIngredient" placeholder="New Ingredient..."></li>
@@ -37,7 +37,7 @@
 						<li><input class="filter" type="checkbox" name="method" value="Microwave" id="Microwave"><label for="Microwave">Microwave</label></li>
 						<li><input class="filter" type="checkbox" name="method" value="Raw" id="Raw"><label for="Raw">Raw</label></li>
 					</ul>
-					<span class="filterTitle" title="You will recieve results that are under ANY of the selected restrictions">Dietary Restrictions</span>
+					<span class="filterTitle" title="You will recieve results that have ALL of the selected restrictions">Dietary Restrictions</span>
 					<ul> 
 						<li><input class="filter" type="checkbox" name="restriction" value="LactoseFree" id="LactoseFree"><label for="LactoseFree">Lactose Free</label></li>
 						<li><input class="filter" type="checkbox" name="restriction" value="Vegetarian" id="Vegetarian"><label for="Vegetarian">Vegetarian</label></li>

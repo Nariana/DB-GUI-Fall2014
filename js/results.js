@@ -172,14 +172,6 @@ function addListeners(){
   $("#back").off("click").on("click",function(){
     window.location = "index.html";
   });
-
-  $("#back").hover(function(){
-    $(this).css("color", "#EDE297");
-  }, function(){
-    $(this).css("color", "white");
-  });
-
-
 }
 
 function thumbClick(t){
@@ -294,15 +286,6 @@ function showIngredients(){
       });
     });
 }
-
-/* hover color change for the back button */
-$("#back").hover(
-  function(){
-    $(this).css("color","#fae59d");
-    //$(this).css("color","#8aa1ab");
-},  function(){
-    $(this).css("color","white");
-});
 
 function getIngredients(){
 
