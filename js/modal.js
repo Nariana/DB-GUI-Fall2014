@@ -90,6 +90,11 @@ function drawFavorite(myData) {
 
 $("#favorites").button();
 $("#logout").button();
+$("#developers").button().off("click").on("click", function(){
+  window.location.href = "developers.html";
+});
+
+
   $(function() {
     var dialog, form,
  
