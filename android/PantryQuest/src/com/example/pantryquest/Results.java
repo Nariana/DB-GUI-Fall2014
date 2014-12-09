@@ -140,42 +140,6 @@ public class Results extends Activity implements OnClickListener, OnItemClickLis
 		//intent.putExtra(RECIPE_INFO, info);
 	}
 
-	@Override
-    protected void onStart() {
-    	super.onStart();
-    	Log.d("PQ", "Results onStart() Log Message");
-    }
-    
-   @Override
-    protected void onResume() {
-    	super.onResume();
-    	Log.d("PQ", "Results onResume() Log Message");
-    }
-    
-   @Override
-    protected void onPause() {
-    	super.onPause();
-    	Log.d("PQ", "Results onPause() Log Message");
-    }
-   
-   @Override
-    protected void onStop() {
-    	super.onStop();
-    	Log.d("PQ", "Results onStop() Log Message");
-    }
-   
-   @Override
-    protected void onRestart() {
-    	super.onRestart();
-    	Log.d("PQ", "Results onRestart() Log Message");
-    }
-   
-   @Override
-    protected void onDestroy() {
-    	super.onDestroy();
-    	Log.d("PQ", "Results onDestroy() Log Message");
-    }
-
    	// to handle displaying the progress of the SeekBars
 	@Override
 	public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {

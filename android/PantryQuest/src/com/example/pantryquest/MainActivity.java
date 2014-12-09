@@ -6,29 +6,26 @@
  * intent to create a Results activity
  */
 package com.example.pantryquest;
+// TODO: Fix the AutoCompleteTextView
 
 /* inclusions */
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
+import org.apache.http.StatusLine;
+import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.json.JSONObject;
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
-import org.xmlpull.v1.XmlPullParserFactory;
+import org.json.JSONArray;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -41,6 +38,7 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -53,7 +51,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 	// bt2 is the button to create an intent for the results page and start it
 	private Button bt2;
 	// et is the edittext where the user inputs ingredients
-	private EditText et;
+	private AutoCompleteTextView et;
 	// searchInput is a list containing the inputed ingredients
 	private List<String> searchInput = new ArrayList<String>();
 	// the Results activity intent contains a String[] of the search queries
@@ -75,20 +73,19 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 	private EditText rName, rUsr, rPass;
 	// this button is tied to submitting when registering
 	private Button btRegSub;
-	// i is the indexAPI object
-	private indexAPI i = null;
-	// String a be used for the autocomplete EditText
-	String a;
+	// this is the json array that holds the total list of ingredients
+	private JSONArray jsonIngredients;
+	// this is the list that contains the strings from ingredients
+	private List<String> ingredients;
+	// this ArrayAdapter populates the AutoCompleteTextView
+	private ArrayAdapter<String> suggestions; 
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d("PQ", "onCreate() Log Message");
         setContentView(R.layout.activity_main);
-        
-        // start doInBackground for a
-        //i.doInBackground(a);
-        // set variables and create click listeners
-    	et = (EditText) findViewById(R.id.edit_message);
+
+    	et = (AutoCompleteTextView) findViewById(R.id.edit_message);
         bt = (Button) findViewById(R.id.button);
         bt2 = (Button) findViewById(R.id.button2);
         dwr = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -103,6 +100,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
         rUsr = (EditText) findViewById(R.id.register_username);
         rPass = (EditText) findViewById(R.id.register_password);
         btRegSub = (Button) findViewById(R.id.bt_regSubmit);
+        
         bt.setOnClickListener(this);
         bt2.setOnClickListener(this);
         btLog.setOnClickListener(this);
@@ -110,60 +108,29 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
         btOut.setOnClickListener(this);
         btRegSub.setOnClickListener(this);
         lv.setOnItemClickListener(this);
+        
         // views hidden initially
         btOut.setVisibility(View.GONE);
         rName.setVisibility(View.GONE);
         rUsr.setVisibility(View.GONE);
         rPass.setVisibility(View.GONE);
         btRegSub.setVisibility(View.GONE);
+        
+        // set up the autocomplete textview
+        callAPI a = new callAPI();
+        try {
+			a.execute().get();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			e.printStackTrace();
+		}
+        suggestions = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, ingredients);
+    	et.setAdapter(suggestions);
         // create the array with searchInput to populate listView
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, searchInput);
 		lv.setAdapter(adapter);
     }
-    
-    final class indexAPI extends AsyncTask<String, String, String> {
-    		
-    		protected JSONObject getIngredients() {
-    			
-    			Log.d("getIng", "getIng");
-    			
-    			try {
-    				
-    				// create http client
-    				HttpClient client = new DefaultHttpClient();
-    				// make post request
-    				HttpPost post = new HttpPost(MainActivity.BASE_URL + "login");
-    				// prepare information to be added
-    				JSONObject jsonIng = new JSONObject();
-    				post.setEntity(new StringEntity(jsonIng.toString()));
-    				post.setHeader("Accept", "application/json");
-    				post.setHeader("Content-type", "application/json");
-    				// get response
-    				HttpResponse response = client.execute(post);
-    				// receive response and set the content in the view
-    				String myResponse = MainActivity
-    						.getStringFromInputStream(response.getEntity()
-    								.getContent());
-    				JSONObject jsonResponse = new JSONObject(myResponse);
-    				return jsonResponse;
-    			}
-
-    			catch (Exception e) {
-    				Log.i("myDebugError", e.getMessage());
-    			}
-
-    			return null;
-    		}
-
-			@Override
-			protected String doInBackground(String... params) {
-				// TODO Auto-generated method stub
-				getIngredients();
-				return null;
-			}
-    		
-    	}
-    
     
     public void onClick(View v) {
     	// on bt click adds et contents to searchInput List
@@ -240,43 +207,67 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
     		tvLogin.setText("Welcome, Guest, to PantryQuest!");
     	}
     }
-
-    @Override
-    protected void onStart() {
-    	super.onStart();
-    	Log.d("PQ", "MainActivity onStart() Log Message");
-    }
     
-   @Override
-    protected void onResume() {
-    	super.onResume();
-    	Log.d("PQ", "MainActivity onResume() Log Message");
+    public String getStringFromUrl(String url) {
+    	String string;
+    	StringBuilder builder = new StringBuilder();
+    	HttpClient client = new DefaultHttpClient();
+    	HttpGet httpGet = new HttpGet(url);
+    	try {
+    		HttpResponse response = client.execute(httpGet);
+    		StatusLine statusLine = response.getStatusLine();
+    		int statusCode = statusLine.getStatusCode();
+    		if (statusCode == 200) {
+    			HttpEntity entity = response.getEntity();
+    			InputStream stream = entity.getContent();
+    			BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
+    			while ((string = reader.readLine()) != null) {
+    				builder.append(string);
+    			}
+    		}
+    		else {
+    			Log.e("API", "error reading from file.");
+    		}
+    	}
+    	catch (ClientProtocolException e) {
+    		e.printStackTrace();
+    	}
+    	catch (IOException e) {
+    		e.printStackTrace();
+    	}
+    	return builder.toString();
     }
-    
-   @Override
-    protected void onPause() {
-    	super.onPause();
-    	Log.d("PQ", "MainActivity onPause() Log Message");
-    }
-   
-   @Override
-    protected void onStop() {
-    	super.onStop();
-    	Log.d("PQ", "MainActivity onStop() Log Message");
-    }
-   
-   @Override
-    protected void onRestart() {
-    	super.onRestart();
-    	Log.d("PQ", "MainActivity onRestart() Log Message");
-    }
-   
-   @Override
-    protected void onDestroy() {
-    	super.onDestroy();
-    	Log.d("PQ", "MainActivity onDestroy() Log Message");
+    public void setUpAutoComplete() {
+    	String string = getStringFromUrl("http://54.69.70.135/DB-GUI-Fall2014/api/index.php/getIngredient");
+    	try {
+    		jsonIngredients = new JSONArray(string);
+    		Log.i("MainActivity - Parsing to Json", jsonIngredients.toString());
+    		// populate ingredients list from the json object
+    		Iterator x;
+    		for (int i = 0; i < jsonIngredients.length(); i++) {
+    			x = jsonIngredients.getJSONObject(i).keys();
+    			while (x.hasNext()) {
+    				ingredients.add((String)x.next());
+    			}
+    		}
+    		Log.i("MainActivity - Parsing Json", ingredients.toString());
+    	}
+    	catch (Exception e) {
+    		e.printStackTrace();
+    	}
     }
 
+    final class callAPI extends AsyncTask<Void, Void, Void> {
+    	
+		@Override
+		protected Void doInBackground(Void... params) {
+			setUpAutoComplete();
+			return null;
+		}
+		public void goToResults() {
+			
+		}
+    }
    	// remove searchInput element on click
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -284,36 +275,4 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 		adapter.notifyDataSetChanged();
 	}
 	
-	public static String getStringFromInputStream(InputStream is) 
-	{
-    	BufferedReader br = null;
-    	StringBuilder sb = new StringBuilder();	
-    	String line;
-    	
-    	try {
-    		br = new BufferedReader(new InputStreamReader(is));
-    		while ((line = br.readLine()) != null) 
-    			sb.append(line);	
-    	} 
-    	
-    	catch (IOException e) {
-    		e.printStackTrace();
-    	}
-    	
-    	finally {
-    		if (br != null) 
-    		{
-    			try 
-    			{
-    				br.close();
-    			}
-    			
-    			catch (IOException e) 
-    			{
-    				e.printStackTrace();
-    			}
-    		}
-    	}
-    	return sb.toString();
-    }
 }
