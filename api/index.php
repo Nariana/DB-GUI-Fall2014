@@ -50,7 +50,7 @@ function getConnection($user = 'root', $pw = 'root', $host = 'localhost')
     return $dbConnection;
 }
 //this function sends and email to a spesific username in the db with the password correpsoning 
-//this function sends and email to a spesific username in the db with the password correpsoning 
+
 function sendEmail()
 {
 
@@ -87,6 +87,33 @@ function sendEmail()
 	   $subject = "Pantry Quest Credentials";
 	   $message = "Dear ".$name.",\n\nThank you for using Pantry Quest!\n\nYou recently requested your account credentials. Your username is ".$username." and your password is \"".$pw."\".\n\nIf you didn’t make this request, it's likely that another user has entered your email address by mistake and your account is still secure. If you believe an unauthorized person has accessed your account, you can reset your password by contacting us at kskatteboe@smu.edu\n\nPantry Quest Support";
         
+        //new user that can send email the first time 
+        $sq1 = $con->prepare("SELECT username FROM users WHERE notSentEmail AND username = ? ");
+        $sq1->bind_param('s', $username);
+        $sq1->execute();
+        $sq1->store_result();
+        if($sq1->num_rows != 0)
+        {
+            if(mail($to_add,$subject,$message)) 
+	       {
+		          $msg = "Email sent successfully!";
+                //update timestamp for latest sent email
+                $q1 = $con->prepare("UPDATE users set timeForEmail = now() where username = ?");
+                $q1->bind_param('s', $username);
+                $q1->execute();
+                
+                $sq = $con->prepare("UPDATE users SET notSentEmail = 0 WHERE username = ? ");
+                $sq->bind_param('s', $username);
+                $sq->execute();
+                echo json_encode($msg);
+                return;
+	       }
+            
+        }
+        
+        
+        
+        
         $sql = $con->prepare("SELECT firstname FROM users WHERE username = ? and NOW() - timeForEmail >= 600;");
         $sql->bind_param('s', $username);
         $sql->execute();
@@ -103,11 +130,11 @@ function sendEmail()
             if(mail($to_add,$subject,$message)) 
 	       {
 		          $msg = "Email sent successfully!";
-                echo json_encode($msg);
                 //update timestamp for latest sent email
                 $q1 = $con->prepare("UPDATE users set timeForEmail = now() where username = ?");
                 $q1->bind_param('s', $username);
-            $q1->execute();
+                $q1->execute();
+                echo json_encode($msg);
 	       }  
             else 
 	       {
@@ -115,12 +142,6 @@ function sendEmail()
                 echo json_encode($msg);
 	       } 
         }
-        
-        //check if email has been sent the last 30 min
-        
-        $q1 = $con->prepare("UPDATE users set timeForEmail = now() where username = ?");
-        $q1->bind_param('s', $username);
-        $q1->execute(); 
 }
     
     $con->close();

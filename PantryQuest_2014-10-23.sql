@@ -1280,17 +1280,18 @@ CREATE TABLE `users` (
   `pw` varchar(100) DEFAULT NULL,
   `firstname` varchar(30) DEFAULT NULL,
   `timeForEmail` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `initialConfirmation` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   KEY `USername` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 
-INSERT INTO `users` (`id`, `username`, `pw`, `firstname`, `timeForEmail`)
+INSERT INTO `users` (`id`, `username`, `pw`, `firstname`, `timeForEmail`, `initialConfirmation`)
 VALUES
-	(11,'karo@me.com','MTIzNDU=','karro','2014-12-08 17:41:51'),
-	(12,'karoska@me.com','cGFzc3dvcmQ=','karo','2014-12-08 17:01:45');
+	(11,'karo@me.com','MTIzNDU=','karro','2014-12-08 20:11:57',1),
+	(12,'karoska@me.com','cGFzc3dvcmQ=','karo','2014-12-08 20:11:58',1);
 
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
