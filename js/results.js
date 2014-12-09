@@ -2,7 +2,7 @@
 //var rootURL = "http://localhost/DB-GUI-Fall2014/api/index.php";
 //MAMP
 var rootURL = "http://localhost:8888/DB-GUI-Fall2014/api/index.php";
-//var rootURL = "api/index.php"
+
 
 var allIngredients = getIngredients();
 
@@ -29,7 +29,6 @@ function getFilters(){
   var i = 0;
 
   $.each(selected, function(){
-    //console.log($(this).attr("class"));
     var key = $(this).attr("name");
     var value = $(this).val();
 
@@ -41,7 +40,6 @@ function getFilters(){
   console.log(i);
 
   localStorage.setItem("filters", JSON.stringify(send));
-//  console.log(localStorage.filters);
 
 
   send[i] = { "calories": $( "#slider-calories" ).slider( "value" )};
@@ -77,18 +75,13 @@ function getResults(){
             if(result != 0){
               console.log(result.length);
               for (var i = 0; i < result.length ; i++) {
-                //console.log(result[i]);
                 var percent = Math.floor(result[i].rankingPoints*100);
                 var add = "<div id='recipe"+i+"' class='resultDiv'><ul class='resultList'><h5 class='name'>"+result[i].recipeName+"</h5><li class='rating'>"+result[i].rating+" likes</li><li class='time'>"+result[i].time+" minutes</li><li class='percent'>"+percent+"% ingredient match</li></ul></div>";
                 
                 $("#resultListDiv").append(add);
 
                 if((localStorage.getItem("username") != null) && (localStorage.getItem("username") != "null")){   
-                  //console.log("logged in, adding thumbs");           
-                  //console.log(i);
-                  //console.log($("#recipe"+i).has("i").length === 0);
                   if($("#recipe"+i).has("i").length === 0){
-                    //console.log($("#recipe"+i));
                     $("#recipe"+i +" >ul").append("<li class='thumb-col'><i class='thumb fa fa-thumbs-o-up fa-2x'></i></li>");
                     console.log(result[i].saved);
                     if (result[i].saved === "true") {
@@ -103,7 +96,6 @@ function getResults(){
                 addListeners();
               }
             }
-            //alert("done!"+ csvData.getAllResponseHeaders())
           },
         error: function(jqXHR, textStatus, errorThrown){
           $("#resultListDiv").append("<div class='resultDiv'><p id='no-result'>sorry, no results</p></div>");
@@ -127,10 +119,8 @@ $(function() {
 function addListeners(){
   $(".resultDiv").hover(function(){
     $(this).css("background-color","grey");
-    //$(this).css("border","solid black 1px");
   }, function(){
     $(this).css("background-color","white");
-    //$(this).css("border","none");
 
   });
 
@@ -142,7 +132,6 @@ function addListeners(){
   $(".resultDiv").off("click").on("click", function(){
     console.log($(this));
 
-    //var clickClass = $(this).attr("class");
     if($(this).hasClass("thumb") === false){
       console.log($(this).find("h5").html());
       recipe = $(this).find("h5").html();
@@ -301,12 +290,9 @@ function getIngredients(){
             for (var i = 0; i < result.length - 1; i++) {
               availableTags[i] = result[i][0];
             };
-            //console.log(availableTags);
-            //alert("done!"+ csvData.getAllResponseHeaders())
             $( "#addIngredient" ).autocomplete({
               source: availableTags,
               select: function(event, ui){
-                //console.log();
                 var num = $(".ing").length;
                 $("#ingList").append('<li><input type="checkbox" class="ing" checked name="ing" value="'+ui.item.value+'" id="ing'+num+'"><label for="ing'+num+'">'+ui.item.value+'</label></li>');
                 $(this).val('');
@@ -332,7 +318,6 @@ function getIngredients(){
             $( "#excludeIngredient" ).autocomplete({
               source: availableTags,
               select: function(event, ui){
-                //console.log();
                 var num = $(".noning").length;
                 $("#noningList").append('<li><input type="checkbox" class="noning" checked name="noning" value="'+ui.item.value+'" id="noning'+num+'"><label for="noning'+num+'">'+ui.item.value+'</label></li>');
                 $(this).val('');
