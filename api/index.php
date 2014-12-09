@@ -26,6 +26,8 @@ $app->get('/saveRecipe', 'saveRecipe');
 $app->get('/getAnalytics', 'getAnalytics');
 $app->get('/deleteFavorites', 'deleteFavorites');
 $app->get('/displayFavorites', 'displayFavorites');
+$app->get('/displayRecipes', 'displayRecipes');
+
 
 
 //post requests 
@@ -49,8 +51,41 @@ function getConnection($user = 'root', $pw = 'root', $host = 'localhost')
     }
     return $dbConnection;
 }
-//this function sends and email to a spesific username in the db with the password correpsoning 
+//this function return recipes for the scrolling bar on the homepage 
+function displayRecipes()
+{
+    $con = getConnection();
+    
+    $app = \Slim\Slim::getInstance();
+    $request = $app->request()->getBody();
+    
+    //initialise list 
+    $recipe_list = array();
+    
+    //query DB 
+    $result = $con->query( "SELECT picture, recipeName FROM recipe");
+    $counter = 0;
+    while ($rows = mysqli_fetch_row($result)) 
+    {
+        if($counter < 10)
+        {
+            $recipe_list[] = $rows;
+        }
+        else 
+        {
+            break;
+        }
+        
+        $counter = $counter + 1;
+    }
+    //return the result 
+    echo json_encode($recipe_list);
+    $con->close();
+    
+    
+}
 
+//this function sends and email to a spesific username in the db with the password correpsoning 
 function sendEmail()
 {
 
