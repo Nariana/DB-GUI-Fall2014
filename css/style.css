@@ -219,6 +219,8 @@ html body .ui-widget{
 .favList{
 	list-style-type: none;
 	border-radius: 10px;
+	padding-left: 0;
+	padding: 10px;
 }
 
 .recName {
@@ -261,4 +263,13 @@ li > #back button {
 
 h5, h2{
 	font-family: 'Open Sans', sans-serif;
+}
+
+#makeMeScrollable div.scrollableArea *
+{
+	position: relative;
+	display: block
+	float: left;
+	margin: 0;
+	padding: 0;
 }

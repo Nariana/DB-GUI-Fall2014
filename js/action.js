@@ -8,6 +8,7 @@ var rootURL = "http://localhost:8888/DB-GUI-Fall2014/api/index.php";
 localStorage.removeItem("filters");
 localStorage.removeItem("noningredients");
 var allIngredients = getIngredients();
+showRecipes();
 
 $( ".textIngredient" ).on( "autocompleteselect", function( event, ui ) {
   $('#textIngredient').val("");
@@ -128,6 +129,41 @@ $(function() {
         at: "right+5 top-5"
       }
 })});
+
+function showRecipes(){
+  console.log("in show Recipes");
+  console.log(rootURL+"/displayRecipes");
+  $.ajax({
+        type: "GET",
+        url: rootURL+"/displayRecipes",
+        dataType: "json",
+        success: function (result) {
+            console.log(result);
+            var url="";
+            var name = "";
+            for (var i = 0; i < result.length ; i++) {
+              url = result[i].url;
+              name = result[i].name;
+              $("#displayRecipes").append('<img src="'+url+'" alt="'+name+'" id="'+name+'" class="scrollableRecipe"/>');
+            }
+
+
+            $("#displayRecipes").smoothDivScroll({
+                mousewheelScrolling: "allDirections",
+                manualContinuousScrolling: true,
+                autoScrollingMode: "onStart"
+              });
+
+            $(".scrollableRecipe").off("click").on("click", function(){
+              localStorage.setItem("selectedRecipe", $(this).attr("alt"));
+              window.location.href = "recipe.html";
+            });
+
+          },
+        error: function(jqXHR, textStatus, errorThrown){
+           console.log(jqXHR, textStatus, errorThrown);
+      }});
+}
 
 
 
