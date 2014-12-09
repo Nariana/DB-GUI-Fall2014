@@ -139,8 +139,9 @@ margin-top: 75px;
 }
 
 
-.ui-slider-horizontal .ui-state-default {
-	background: white url(img/LadelIcon.png) no-repeat scroll 50% 50%;
+#timeList span, #calorieList span {
+	background: #ffffff url("../img/LadleIcon.png") no-repeat right top;
+	background-size: 100% 100%;
 }
 
 .button-div {
@@ -265,11 +266,13 @@ h5, h2{
 	font-family: 'Open Sans', sans-serif;
 }
 
-#makeMeScrollable div.scrollableArea *
-{
-	position: relative;
-	display: block
-	float: left;
-	margin: 0;
-	padding: 0;
+div#displayRecipes { 
+    position:relative; 
+    width:400px; 
+    height:400px; 
+    overflow:hidden;
+}
+
+#scrollContent img{
+	border-top: white solid 5px;
 }

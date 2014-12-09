@@ -142,20 +142,31 @@ function showRecipes(){
             var url="";
             var name = "";
             for (var i = 0; i < result.length ; i++) {
-              url = result[i].url;
-              name = result[i].name;
-              $("#displayRecipes").append('<img src="'+url+'" alt="'+name+'" id="'+name+'" class="scrollableRecipe"/>');
+              url = result[i][0];
+              name = result[i][1];
+              $("#scrollContent").append('<img src="'+url+'" alt="'+name+'" id="image'+i+'" class="scrollableRecipe"/>');
             }
 
 
-            $("#displayRecipes").smoothDivScroll({
-                mousewheelScrolling: "allDirections",
-                manualContinuousScrolling: true,
-                autoScrollingMode: "onStart"
-              });
+            console.log(DYN_WEB);
+           if ( DYN_WEB.Scroll_Div.isSupported() ) {
+                // arguments: id of scroll area div, id of content div
+                var wndo = new DYN_WEB.Scroll_Div('displayRecipes', 'scrollContent');
+                console.log($("#scrollContent"));
+                wndo.makeSmoothAuto( {
+                  axis:'v', // scroll axis: 'h' or 'v' for horizontal or vertical
+                  bRepeat:true, // repeat scrolling in a continuous loop
+                  repeatId:'image0', // id attached to repeated first element
+                  speed:800, // scroll speed
+                  bPauseResume:false // pause/resume on mouseover/mouseout
+                  } );
+                  console.log(wndo);
+            }
 
             $(".scrollableRecipe").off("click").on("click", function(){
-              localStorage.setItem("selectedRecipe", $(this).attr("alt"));
+              var recipe = $(this).attr("alt")
+              console.log("clicked on " + recipe);
+              localStorage.setItem("selectedRecipe", recipe);
               window.location.href = "recipe.html";
             });
 
