@@ -248,7 +248,7 @@ $("#logout").button();
       var send = {};
       send.username = $("#nameLogin").val();
 
-      alert("Email has been sent to "+send.username);
+      //alert("Email has been sent to "+send.username);
 
       console.log(send);
 
@@ -259,6 +259,7 @@ $("#logout").button();
         dataType: "json",
         success: function (result) {
           console.log(result);
+          alert(result);
             },
         error: function(jqXHR, textStatus, errorThrown){
           console.log(jqXHR, textStatus, errorThrown);

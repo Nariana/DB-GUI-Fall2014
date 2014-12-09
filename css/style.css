@@ -114,6 +114,7 @@ margin-top: 75px;
 
 .filterTitle {
 	color: #EDE297;
+	font-family: 'Open Sans', sans-serif;
 }
 
 #back{
@@ -256,4 +257,8 @@ html body .ui-widget{
 
 li > #back button {
 	width: 100%;
+}
+
+h5, h2{
+	font-family: 'Open Sans', sans-serif;
 }
