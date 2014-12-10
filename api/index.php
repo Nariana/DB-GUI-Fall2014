@@ -1,7 +1,7 @@
 <?php
 session_start();
 //Initialize session ID
-$_SESSION['id'];
+//$_SESSION['id'];
 
 //Create users for custom DB access
 $_SESSION['notLoggedInUsername'] = 'unLoggedIn';

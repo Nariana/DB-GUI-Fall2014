@@ -1,7 +1,7 @@
 //XAMPP
-//var rootURL = "http://localhost/DB-GUI-Fall2014/api/index.php";
+var rootURL = "http://localhost/DB-GUI-Fall2014/api/index.php";
 //MAMP
-var rootURL = "http://localhost:8888/DB-GUI-Fall2014/api/index.php";
+//var rootURL = "http://localhost:8888/DB-GUI-Fall2014/api/index.php";
 
 
 var allIngredients = getIngredients();
@@ -82,7 +82,7 @@ function getResults(){
 
                 if((localStorage.getItem("username") != null) && (localStorage.getItem("username") != "null")){   
                   if($("#recipe"+i).has("i").length === 0){
-                    $("#recipe"+i +" >ul").append("<li class='thumb-col'><i class='thumb fa fa-thumbs-o-up fa-2x'></i></li>");
+                    $("#recipe"+i +" >ul").append("<li class='thumb-col'><i class='thumb fa fa-star-o fa-2x'></i></li>");
                     console.log(result[i].saved);
                     if (result[i].saved === "true") {
                       console.log("changing "+i);
