@@ -83,7 +83,7 @@ function getResults(){
 
                 if((localStorage.getItem("username") != null) && (localStorage.getItem("username") != "null")){   
                   if($("#recipe"+i).has("i").length === 0){
-                    $("#recipe"+i +" >ul").append("<li class='thumb-col'><i class='thumb fa fa-star-o fa-2x'></i>   Favorite this!</li>");
+                    $("#recipe"+i +" >ul").append("<li class='thumb-col'><i class='thumb fa fa-star-o fa-2x'></i>  </li>");
                     console.log(result[i].saved);
                     if (result[i].saved === "true") {
                       console.log("changing "+i);
@@ -177,8 +177,10 @@ function thumbClick(t){
           url: rootURL+"/deleteFavorites",
           data: send,
           success: function (result) {
-              console.log(result);
+              //console.log(result);
               $(t).css("color", "black");
+              var newRating = parseInt($(t).parent().parent().find(".rating").text()) -1;
+              $(t).parent().parent().find(".rating").text(newRating + " likes");
             },
           error: function(jqXHR, textStatus, errorThrown){
             console.log(jqXHR, textStatus, errorThrown);
@@ -190,10 +192,12 @@ function thumbClick(t){
           url: rootURL+"/saveRecipe",
           data: send,
           success: function (result) {
-              console.log("showing" + result);
+              //console.log(t);
               $(t).css("color", "#8aa1ab");
-            },
-          error: function(jqXHR, textStatus, errorThrown){
+              var newRating = parseInt($(t).parent().parent().find(".rating").text()) + 1;
+              $(t).parent().parent().find(".rating").text(newRating + " likes");
+            }, 
+           error: function(jqXHR, textStatus, errorThrown){
             console.log(jqXHR, textStatus, errorThrown);
         }});
   }

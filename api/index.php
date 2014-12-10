@@ -1073,8 +1073,8 @@ function searchInsert($sql, $ingredients)
                 
               //  echo "changing";
                 $sq2 = $con->prepare("UPDATE results SET rankingPoints = ? WHERE recipeID = ?");
-                $sq2->bind_param('di', $ranking, $recipeID);
-                $sq2->execute();
+                //$sq2->bind_param('di', $ranking, $recipeID);
+                //$sq2->execute();
             }
 
                
