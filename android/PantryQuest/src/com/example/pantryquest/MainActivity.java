@@ -14,7 +14,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -26,9 +25,9 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
-import org.json.JSONException;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -44,6 +43,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends Activity implements OnClickListener, OnItemClickListener {
 	
@@ -82,6 +82,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 	private ArrayAdapter<String> suggestions; 
 	// this is a string that gets populated with search results
 	private String results;
+	// used for Toast messages
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -136,12 +137,28 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
     }
     
     public void onClick(View v) {
+    	Context context = getApplicationContext();
+    	CharSequence text;
+    	int duration = Toast.LENGTH_SHORT;
+    	Toast toast;
     	// on bt click adds et contents to searchInput List
     	if (v.getId() == R.id.button) {
     		if (!searchInput.contains(et.getText().toString())){
-    			searchInput.add(et.getText().toString());
-        		Log.d("PQ", "Adding ingredient: " + et.getText());
-        		et.setText("");
+    			if (ingredients.contains(et.getText().toString())) {
+	    			searchInput.add(et.getText().toString());
+	        		Log.d("PQ", "Adding ingredient: " + et.getText());
+	        		et.setText("");
+    			}
+    			else {
+    				text = "Please enter a valid ingredient.";
+        			toast = Toast.makeText(context, text, duration);
+        			toast.show();
+    			}
+    		}
+    		else {
+    			text = "You have already entered " + et.getText().toString();
+    			toast = Toast.makeText(context, text, duration);
+    			toast.show();
     		}
     		adapter.notifyDataSetChanged();
     	}
