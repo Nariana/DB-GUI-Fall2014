@@ -1,7 +1,7 @@
 <?php
 session_start();
 //Initialize session ID
-$_SESSION['id'];
+//$_SESSION['id'];
 
 //Create users for custom DB access
 $_SESSION['notLoggedInUsername'] = 'unLoggedIn';
@@ -1027,7 +1027,7 @@ function searchInsert($sql, $ingredients)
             $row = mysqli_fetch_row($result2);
             $totalPoints = $row[0]; //save the ranking points
             
-            
+            $ingredientPoints;
             
             foreach ($ingredients as $ingredient)
             {
@@ -1036,6 +1036,8 @@ function searchInsert($sql, $ingredients)
             $row = mysqli_fetch_row($result1);
             $ingredientPoints = ($ingredientPoints + $row[0]);
             }
+            //echo $ingredientPoints;
+            //echo "break\n";
            
             $ranking = $ingredientPoints / $totalPoints;
             
