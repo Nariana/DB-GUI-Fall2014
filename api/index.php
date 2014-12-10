@@ -1067,11 +1067,17 @@ function searchInsert($sql, $ingredients)
             {
                 $RP = $tempRP;
             }
+            //echo $RP;
             if($RP < $ranking)
             {
-                $sq2 = $con->prepare("update results set rankingPoints = ? where recipeID = ?");
+              //  echo "changing";
+                $sq2 = $con->prepare("UPDATE results SET rankingPoints = ? WHERE recipeID = ?");
                 $sq2->bind_param('di', $ranking, $recipeID);
                 $sq2->execute();
+            }
+            else
+            {
+                //echo "XXXXXXXXXXXX";
             }
                
         
