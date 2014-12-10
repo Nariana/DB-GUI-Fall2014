@@ -1082,7 +1082,7 @@ CREATE TABLE `users` (
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 
-INSERT INTO `users` (`id`, `username`, `pw`, `firstname`, `timeForEmail`, `initialConfirmation`)
+INSERT INTO `users` (`id`, `username`, `pw`, `firstname`, `timeForEmail`, `notSentEmail`)
 VALUES
 	(11,'karo@me.com','MTIzNDU=','karro','2014-12-08 20:11:57',1),
 	(12,'karoska@me.com','cGFzc3dvcmQ=','karo','2014-12-08 20:11:58',1);

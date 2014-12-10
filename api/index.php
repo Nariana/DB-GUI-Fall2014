@@ -551,10 +551,8 @@ function register()
     //return information
     echo json_encode($information);
 }
-/*
-NEED TO COMMENT FROM HERE 
-*/
 
+//get the recie when clicken on 
 function getRecipe()
 {
 
