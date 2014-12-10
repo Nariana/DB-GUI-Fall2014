@@ -14,7 +14,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -28,6 +27,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -43,6 +43,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends Activity implements OnClickListener, OnItemClickListener {
 	
@@ -76,9 +77,12 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 	// this is the json array that holds the total list of ingredients
 	private JSONArray jsonIngredients;
 	// this is the list that contains the strings from ingredients
-	private List<String> ingredients;
+	private List<String> ingredients = new ArrayList<String>();
 	// this ArrayAdapter populates the AutoCompleteTextView
 	private ArrayAdapter<String> suggestions; 
+	// this is a string that gets populated with search results
+	private String results;
+	// used for Toast messages
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -125,7 +129,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 		} catch (ExecutionException e) {
 			e.printStackTrace();
 		}
-        suggestions = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, ingredients);
+        suggestions = new ArrayAdapter<String>(this, android.R.layout.select_dialog_item, ingredients);
     	et.setAdapter(suggestions);
         // create the array with searchInput to populate listView
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, searchInput);
@@ -133,12 +137,28 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
     }
     
     public void onClick(View v) {
+    	Context context = getApplicationContext();
+    	CharSequence text;
+    	int duration = Toast.LENGTH_SHORT;
+    	Toast toast;
     	// on bt click adds et contents to searchInput List
     	if (v.getId() == R.id.button) {
     		if (!searchInput.contains(et.getText().toString())){
-    			searchInput.add(et.getText().toString());
-        		Log.d("PQ", "Adding ingredient: " + et.getText());
-        		et.setText("");
+    			if (ingredients.contains(et.getText().toString())) {
+	    			searchInput.add(et.getText().toString());
+	        		Log.d("PQ", "Adding ingredient: " + et.getText());
+	        		et.setText("");
+    			}
+    			else {
+    				text = "Please enter a valid ingredient.";
+        			toast = Toast.makeText(context, text, duration);
+        			toast.show();
+    			}
+    		}
+    		else {
+    			text = "You have already entered " + et.getText().toString();
+    			toast = Toast.makeText(context, text, duration);
+    			toast.show();
     		}
     		adapter.notifyDataSetChanged();
     	}
@@ -241,20 +261,19 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
     	String string = getStringFromUrl("http://54.69.70.135/DB-GUI-Fall2014/api/index.php/getIngredient");
     	try {
     		jsonIngredients = new JSONArray(string);
+    		JSONArray jsonArray = new JSONArray();
     		Log.i("MainActivity - Parsing to Json", jsonIngredients.toString());
     		// populate ingredients list from the json object
-    		Iterator x;
     		for (int i = 0; i < jsonIngredients.length(); i++) {
-    			x = jsonIngredients.getJSONObject(i).keys();
-    			while (x.hasNext()) {
-    				ingredients.add((String)x.next());
-    			}
+    			jsonArray = jsonIngredients.getJSONArray(i);
+    			ingredients.add(jsonArray.getString(0));
     		}
     		Log.i("MainActivity - Parsing Json", ingredients.toString());
     	}
     	catch (Exception e) {
     		e.printStackTrace();
     	}
+    	
     }
 
     final class callAPI extends AsyncTask<Void, Void, Void> {
@@ -263,9 +282,6 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 		protected Void doInBackground(Void... params) {
 			setUpAutoComplete();
 			return null;
-		}
-		public void goToResults() {
-			
 		}
     }
    	// remove searchInput element on click

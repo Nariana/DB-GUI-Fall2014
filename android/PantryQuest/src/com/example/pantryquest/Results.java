@@ -11,11 +11,23 @@ package com.example.pantryquest;
 
 /* inclusions */
 import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.StatusLine;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONArray;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
@@ -47,8 +59,8 @@ public class Results extends Activity implements OnClickListener, OnItemClickLis
 	private ListView lv;
 	// adapter is used to populate the list view
 	private ArrayAdapter<String> adapter;
-	// message holds the query results
-	private String[] message;
+	// message holds the ingredients to query
+	private String[] ingredients;
 	// the Recipe activity intent contains a String[] of relevent info for the recipe
 	public final static String RECIPE_INFO = "com.example.PantryQuest.RECIPE_INFO";
 	// root URL for the server
@@ -70,7 +82,7 @@ public class Results extends Activity implements OnClickListener, OnItemClickLis
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_results);
 		Intent intent = getIntent();
-		message = intent.getStringArrayExtra(MainActivity.EXTRA_MESSAGE);
+		ingredients = intent.getStringArrayExtra(MainActivity.EXTRA_MESSAGE);
 		// set SeekBars and their TextViews
 		sbc = (SeekBar) findViewById(R.id.calories);
 		sbc.setProgress(5000);
@@ -78,7 +90,7 @@ public class Results extends Activity implements OnClickListener, OnItemClickLis
 		sbt = (SeekBar) findViewById(R.id.time);
 		sbt.setProgress(1000);
 		tvt = (TextView) findViewById(R.id.timeProgress);
-		//note: geet value with sbc.getProgress()
+		//note: get value with sbc.getProgress()
 		// set CheckBox objects to their respective view
 		cb_bake = (CheckBox) findViewById(R.id.cb_bake);
 		cb_boil = (CheckBox) findViewById(R.id.cb_boil);
@@ -92,13 +104,7 @@ public class Results extends Activity implements OnClickListener, OnItemClickLis
 		cb_gluten = (CheckBox) findViewById(R.id.cb_gluten);
 		cb_nonuts = (CheckBox) findViewById(R.id.cb_nonuts);
 		//note: get value with cb_boil.isEnabled()
-		/*
-		 * Make The Database Call Here
-		 */
-		
-		/*
-		 * 
-		 */
+
 		// create listener for the SeekBars
 		sbc.setOnSeekBarChangeListener(this);
 		sbt.setOnSeekBarChangeListener(this);
@@ -112,7 +118,7 @@ public class Results extends Activity implements OnClickListener, OnItemClickLis
 		lv.setOnItemClickListener(this);
 		// !need to create a String[] just for the Titles of the recipes when
 		// actually implementing this part.
-		adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, message);
+		adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, ingredients);
 		lv.setAdapter(adapter);
 	}
 	
@@ -156,73 +162,62 @@ public class Results extends Activity implements OnClickListener, OnItemClickLis
 	
 	@Override
 	public void onStopTrackingTouch(SeekBar seekBar) {}
-}
-
-/* Implemmentation based on a guide availble at:
- * http://blog.strikeiron.com/bid/73189/Integrate-a-REST-API-into-Android-Application-in-less-than-15-minutes
- * */
-
-final class CallAPIResult {
-	//contains the result
-	//Probably a String[] that contains cycling recipe info, 
-}
-final class CallAPI extends AsyncTask<String, String, String> {
-	@Override
-	protected String doInBackground(String... params) {
-		String urlString = "http://localhost:8888/api/index.html"; //this is the url to call
-		String resultToDisplay = "";
-		InputStream in = null;
-		CallAPIResult result = null;
-		
-		// Http GET
-		try {
-			URL url = new URL(urlString);
-			HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-			in = new BufferedInputStream(urlConnection.getInputStream());
-		}
-		catch (Exception e) {
-			Log.e("API", e.getMessage());
-			return e.getMessage();
-		}
-		
-		// Parse XML
-		XmlPullParserFactory pullParserFactory;
-		try {
-			pullParserFactory = XmlPullParserFactory.newInstance();
-			XmlPullParser parser = pullParserFactory.newPullParser();
-			parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
-			parser.setInput(in, null);
-			result = parseXml(parser);
-		}
-		catch (XmlPullParserException e) {
-			e.printStackTrace();
-		}
-		catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		return resultToDisplay;
-	}
 	
-	private CallAPIResult parseXml(XmlPullParser parser) throws XmlPullParserException, IOException {
-		int eventType = parser.getEventType();
-		CallAPIResult result = new CallAPIResult();
-		while (eventType != XmlPullParser.END_DOCUMENT) {
-			String name = null;
-			switch (eventType) 
-			{
-			case XmlPullParser.START_TAG:
-				name = parser.getName();
-				if (name == "Error") {
-					Log.e("API", "Web API Error!");
-				}
-				break;
-			case XmlPullParser.END_TAG:
-				break;
-			}
-			eventType = parser.next();
-		}
-		return result;
-	}
-}
+	public String getStringFromUrl(String url) {
+    	String string;
+    	StringBuilder builder = new StringBuilder();
+    	HttpClient client = new DefaultHttpClient();
+    	HttpGet httpGet = new HttpGet(url);
+    	try {
+    		HttpResponse response = client.execute(httpGet);
+    		StatusLine statusLine = response.getStatusLine();
+    		int statusCode = statusLine.getStatusCode();
+    		if (statusCode == 200) {
+    			HttpEntity entity = response.getEntity();
+    			InputStream stream = entity.getContent();
+    			BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
+    			while ((string = reader.readLine()) != null) {
+    				builder.append(string);
+    			}
+    		}
+    		else {
+    			Log.e("API", "error reading from file.");
+    		}
+    	}
+    	catch (ClientProtocolException e) {
+    		e.printStackTrace();
+    	}
+    	catch (IOException e) {
+    		e.printStackTrace();
+    	}
+    	return builder.toString();
+    }
+    public void setUpAutoComplete() {
+    	String string = getStringFromUrl("http://54.69.70.135/DB-GUI-Fall2014/api/index.php/getIngredient");
+    	try {
+    		List<String> ingredients = new ArrayList<String>();
+    		JSONArray jsonIngredients = new JSONArray(string);
+    		JSONArray jsonArray = new JSONArray();
+    		Log.i("MainActivity - Parsing to Json", jsonIngredients.toString());
+    		// populate ingredients list from the json object
+    		for (int i = 0; i < jsonIngredients.length(); i++) {
+    			jsonArray = jsonIngredients.getJSONArray(i);
+    			ingredients.add(jsonArray.getString(0));
+    		}
+    		Log.i("MainActivity - Parsing Json", ingredients.toString());
+    	}
+    	catch (Exception e) {
+    		e.printStackTrace();
+    	}
+    	
+    }
 
+    final class callAPI extends AsyncTask<Void, Void, Void> {
+    	
+		@Override
+		protected Void doInBackground(Void... params) {
+			setUpAutoComplete();
+			return null;
+		}
+    }
+}

@@ -712,6 +712,8 @@ function getResult() {
     //insert and search for all subsets 
     foreach ($subset as $part)
     {
+        //echo "new";
+        //print_r($part);
         searchDB($filters, $part, $methods, $time, $calories, $noIngredients, $numberOfIngredients);
     }
     if(empty($ingredients))
@@ -994,7 +996,7 @@ function searchDB($filters, $ingredients, $methods, $time, $calories, $noIngredi
     {
         $sql = $sql." )";
     }
-
+    
     SearchInsert($sql, $ingredients); //call search and insert 
 }
 
@@ -1007,7 +1009,6 @@ function searchInsert($sql, $ingredients)
     try
     {
         $result= $con->query($sql);
-        $sql = $con->prepare("INSERT INTO results(recipeID, rankingPoints) values (?,?)");
 
      if (!$result)
     {
@@ -1026,24 +1027,62 @@ function searchInsert($sql, $ingredients)
             $result2= $con->query($stmt);
             $row = mysqli_fetch_row($result2);
             $totalPoints = $row[0]; //save the ranking points
+            //echo "total points";
+            //echo $totalPoints;
+            //echo "recipeID";
+            //echo $recipeID;
             
             $ingredientPoints;
-            
+            //print_r($ingredients);
+            //echo "NEW TIME";
             foreach ($ingredients as $ingredient)
             {
+                
+                //echo "previous ing point";
+                //echo $ingredientPoints;
                 $stmt = "select value from recipeConnection where recipeID = ".$recipeID." and foodName = '".$ingredient."'";
             $result1= $con->query($stmt);
             $row = mysqli_fetch_row($result1);
-            $ingredientPoints = ($ingredientPoints + $row[0]);
+            $ingredientPoints = $ingredientPoints + $row[0];
+                //echo $stmt;
+                //echo $ingredientPoints;
+                
             }
-            //echo $ingredientPoints;
-            //echo "break\n";
-           
+            
             $ranking = $ingredientPoints / $totalPoints;
+
+            $sq = $con->prepare("select rankingPoints from results where recipeID =  ?");
+            $sq->execute();
+            $sq->store_result();
+            $num_of_rows = $sq->num_rows;  
+            $sq->bind_result($tempRP);
+            $RP = 0;
+            if ($num_of_rows == 0)
+            {
+                $sql = $con->prepare("INSERT INTO results(recipeID, rankingPoints) values (?,?)");
+                $sql->bind_param('id', $recipeID, $ranking);
+                $sql->execute();
+            }
+            while ($sq->fetch()) 
+            {
+                $RP = $tempRP;
+            }
+            //echo $RP;
+            if($RP < $ranking)
+            {
+              //  echo "changing";
+                $sq2 = $con->prepare("UPDATE results SET rankingPoints = ? WHERE recipeID = ?");
+                $sq2->bind_param('di', $ranking, $recipeID);
+                $sq2->execute();
+            }
+            else
+            {
+                //echo "XXXXXXXXXXXX";
+            }
+               
+        
             
-            $sql->bind_param('id', $recipeID, $ranking);
-            
-            $sql->execute();
+
         }
     }
     else 
