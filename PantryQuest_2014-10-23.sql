@@ -114,7 +114,15 @@ VALUES
 	(67,'Bake',0,0,0,1,0,422),
 	(68,'Bake',0,0,0,1,0,341),
 	(69,'Slowcook',0,0,0,1,1,390),
-	(70,'Slowcook',0,0,0,1,1,530);
+	(70,'Slowcook',0,0,0,1,1,530),
+	(141,'Boil',1,1,1,1,1,55),
+	(142,'Boil',0,1,1,0,0,350),
+	(143,'Stovetop',0,1,1,0,1,222),
+	(144,'Stovetop',1,0,0,0,0,212),
+	(145,'Stovetop',0,0,0,1,0,175),
+	(146,'Stovetop',1,0,0,1,1,312),
+	(147,'Stovetop',0,0,0,1,0,213),
+	(148,'Stovetop',1,1,1,1,1,222);
 
 /*!40000 ALTER TABLE `filter` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -1074,7 +1082,7 @@ CREATE TABLE `users` (
   `pw` varchar(100) DEFAULT NULL,
   `firstname` varchar(30) DEFAULT NULL,
   `timeForEmail` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `initialConfirmation` tinyint(1) NOT NULL DEFAULT '1',
+  `notSentEmail` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   KEY `USername` (`username`)
 ) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
