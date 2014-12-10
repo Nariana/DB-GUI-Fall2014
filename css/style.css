@@ -110,6 +110,7 @@ margin-top: 75px;
 	display: block;
 	width: 60%;
 	margin-bottom: 200px;
+	font-size: 14px
 }
 
 .filterTitle {
@@ -120,6 +121,7 @@ margin-top: 75px;
 #back{
 	display: block;
 	float: left;
+	font-size: 14px;
 }
 
 #recipeInfo{

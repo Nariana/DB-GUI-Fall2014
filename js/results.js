@@ -83,7 +83,7 @@ function getResults(){
 
                 if((localStorage.getItem("username") != null) && (localStorage.getItem("username") != "null")){   
                   if($("#recipe"+i).has("i").length === 0){
-                    $("#recipe"+i +" >ul").append("<li class='thumb-col'><i class='thumb fa fa-star-o fa-2x'></i></li>");
+                    $("#recipe"+i +" >ul").append("<li class='thumb-col'><i class='thumb fa fa-star-o fa-2x'></i>   Favorite this!</li>");
                     console.log(result[i].saved);
                     if (result[i].saved === "true") {
                       console.log("changing "+i);
