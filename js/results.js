@@ -1,8 +1,8 @@
 //XAMPP
-var rootURL = "http://localhost/DB-GUI-Fall2014/api/index.php";
+//var rootURL = "http://localhost/DB-GUI-Fall2014/api/index.php";
 //var rootURL = "http://localhost/api/index.php";
 //MAMP
-//var rootURL = "http://localhost:8888/DB-GUI-Fall2014/api/index.php";
+var rootURL = "http://localhost:8888/DB-GUI-Fall2014/api/index.php";
 
 
 var allIngredients = getIngredients();

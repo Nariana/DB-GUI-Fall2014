@@ -1,7 +1,7 @@
 //XAMPP
-var rootURL = "http://localhost/DB-GUI-Fall2014/api/index.php";
+//var rootURL = "http://localhost/DB-GUI-Fall2014/api/index.php";
 //MAMP
-//var rootURL = "http://localhost:8888/DB-GUI-Fall2014/api/index.php";
+var rootURL = "http://localhost:8888/DB-GUI-Fall2014/api/index.php";
 //var rootURL = "api/index.php"
 //var rootURL = "http://localhost/api/index.php";
 
@@ -104,7 +104,8 @@ $("#developers").button().off("click").on("click", function(){
       name = $( "#name" ),
       email = $( "#email" ),
       password = $( "#password" ),
-      allFields = $( [] ).add( name ).add( email ).add( password ),
+      passwordConf = $("#passwordConf"),
+      allFields = $( [] ).add( name ).add( email ).add( password ).add( passwordConf ),
       tips = $( ".validateTips" );
  
     function updateTips( t ) {
@@ -149,6 +150,13 @@ $("#developers").button().off("click").on("click", function(){
       valid = valid && checkRegexp( name, /^[a-z]([0-9a-z_\s])+$/i, "Username may consist of a-z, 0-9, underscores, spaces and must begin with a letter." );
       valid = valid && checkRegexp( email, emailRegex, "eg. ui@jquery.com" );
       valid = valid && checkRegexp( password, /^([0-9a-zA-Z])+$/, "Password field only allow : a-z 0-9" );
+      if (!(password.val() === passwordConf.val())){
+        console.log(password.value);
+        valid = false;
+        password.addClass( "ui-state-error" );
+        passwordConf.addClass( "ui-state-error" );
+        updateTips("Passwords do not match!");
+      }
  
       var send = new Object();
 
@@ -172,6 +180,7 @@ $("#developers").button().off("click").on("click", function(){
                 alert("Username already exists! Try Again!!!");
               }
               else{
+              alert("Successfully registered! Check your email for information!");
               console.log(result);
               localStorage.setItem("username", result[0]);
               localStorage.setItem("name", result[1]);
@@ -188,8 +197,8 @@ $("#developers").button().off("click").on("click", function(){
  
     dialog = $( "#register-form" ).dialog({
       autoOpen: false,
-      height: 300,
-      width: 380,
+      height: 390,
+      width: 400,
       modal: true,
       buttons: {
         "Create an account": addUser,

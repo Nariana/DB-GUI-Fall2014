@@ -278,3 +278,7 @@ div#displayRecipes {
 #scrollContent img{
 	border-top: white solid 5px;
 }
+
+#name, #email, #password, #passwordConf {
+	right: 0px;
+}
