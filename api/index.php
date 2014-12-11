@@ -400,7 +400,7 @@ function saveRecipe()
         
             //retrive the correspoding recipeId to that the recipeName 
             $tempID;
-            $result = $con->prepare("SELECT recipeID FROM recipe WHERE recipeName = ?");
+            $result = $con->prepare("SELECT recipeID FROM recipe WHERE recipeName = ? ");
             $result->bind_param('s', $recipeName);
             $result->execute();
             $result->bind_result($tempID);
@@ -442,7 +442,14 @@ function saveRecipe()
                 }   
                     $sql2 = $con->prepare("UPDATE recipe SET rating = ? where recipeName = ? ");
                     $sql2->bind_param('is', $rating, $recipeName);
-                    $sql2->execute();        
+                    if($sql2->execute())
+                    {
+                        echo json_encode("Saved");
+                    }
+                else 
+                {
+                    echo json_encode("Error saving recipe");
+                }
                 }
         $con->close();
 

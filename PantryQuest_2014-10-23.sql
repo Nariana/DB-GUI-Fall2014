@@ -1072,8 +1072,7 @@ LOCK TABLES `searchHistory` WRITE;
 
 INSERT INTO `searchHistory` (`id`, `username`)
 VALUES
-    (67,'karo@me.com'),
-    (82,'karo@me.com');
+    (67,'karo@me.com');
 
 /*!40000 ALTER TABLE `searchHistory` ENABLE KEYS */;
 UNLOCK TABLES;
