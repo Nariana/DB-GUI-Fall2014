@@ -294,3 +294,15 @@ div#displayRecipes {
 #name, #email, #password, #passwordConf {
 	right: 0px;
 }
+
+
+#openButtonList li{
+	display: inline;
+	list-style-type: none;
+
+}
+
+#textIngredient {
+	margin-top: 12px;
+	margin-right: 4px;
+}

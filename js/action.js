@@ -12,7 +12,7 @@ var rootURL = "http://localhost:8888/DB-GUI-Fall2014/api/index.php";
 localStorage.removeItem("filters");
 localStorage.removeItem("noningredients");
 var allIngredients = getIngredients();
-showRecipes();
+//showRecipes();
 
 $( ".textIngredient" ).on( "autocompleteselect", function( event, ui ) {
   $('#textIngredient').val("");
@@ -134,6 +134,7 @@ $(function() {
       }
 })});
 
+/*
 function showRecipes(){
   console.log("in show Recipes");
   console.log(rootURL+"/displayRecipes");
@@ -179,6 +180,7 @@ function showRecipes(){
            console.log(jqXHR, textStatus, errorThrown);
       }});
 }
+*/
 
 
 
