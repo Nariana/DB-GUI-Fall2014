@@ -827,7 +827,17 @@ function searchDB($filters, $ingredients, $methods, $time, $calories, $noIngredi
     }
     //create query with all information 
     //select distinct recipeName, ranking from recipe natural join filter natural join recipeConnection where vegetarian and foodName = 'egg' order by 'ranking' asc;
-    $sql = "select distinct recipeID from recipe natural join filter natural join recipeConnection where "; //check if you need ''
+    $sql = "select distinct recipeID FROM recipe natural join filter "; //check if you need ''
+        $counter = 0;
+    foreach ($ingredients as $ingredient)
+    {
+        $sql = $sql." natural join (select recipeID from recipeConnection WHERE foodName = '";
+        $sql = $sql.$ingredient."' ) as table";
+        $sql = $sql.$counter;
+        $counter++;
+        
+    }
+    $sql = $sql." where ";
     if(!empty($methods))
     {
         $sql = $sql."( ";
@@ -870,66 +880,29 @@ function searchDB($filters, $ingredients, $methods, $time, $calories, $noIngredi
         
     $methodCount = $methodCount + 1;
     }
-    $counter = 0;
-    foreach ($ingredients as $ingredient)
-    {
-        if($counter == 0)
-        {
-            if(empty($methods) && empty($filters))
-            {
-                $sql = $sql." foodName = '";
-                $sql = $sql.$ingredient."'";
-            }
-            else 
-            {
-                if(empty($filters))
-                {
-                $sql = $sql." and foodName = '";
-                $sql = $sql.$ingredient."'";
-                }
-                else 
-                {
-                                                
-            $sql = $sql."foodName = '";
-            $sql = $sql.$ingredient."'";
-                }
-
-            }
-
-        }
-        else 
-        {
-            
-            $sql = $sql." and foodName = '";
-            $sql = $sql.$ingredient."'";
-        }
-        $counter++;
-        
-        //echo $sql;
-    }
 
 
     if(isset($time))
     {
-        if(empty($ingredients))
-        {
-            if(!empty($methods) && empty($filters))
-            {
-                $sql = $sql." and time <= ";
-                $sql = $sql.$time;
-            }
-            else
+            if(!empty($filters))
             {
                 $sql = $sql." time <= ";
                 $sql = $sql.$time;
             }
+            else
+            {
+                if(empty($methods))
+                {
+                    $sql = $sql." time <= ";
+                    $sql = $sql.$time;
+                }
+                else
+                {
+                $sql = $sql." and time <= ";
+                $sql = $sql.$time;
+                }
+            }
 
-        }
-        else
-        {
-             $sql = $sql." and time <= ";
-            $sql = $sql.$time;
-        }
     }
     if(isset($calories))
     {
@@ -996,6 +969,12 @@ function searchDB($filters, $ingredients, $methods, $time, $calories, $noIngredi
     {
         $sql = $sql." )";
     }
+    /*
+    foreach ($ingredients as $ing)
+    {
+        echo $ing;
+            echo "\n";
+    }*/
     
     SearchInsert($sql, $ingredients); //call search and insert 
 }
@@ -1003,6 +982,9 @@ function searchDB($filters, $ingredients, $methods, $time, $calories, $noIngredi
 //serach the table and 
 function searchInsert($sql, $ingredients)
 {
+    //echo "I am given this:";
+    //echo var_dump($ingredients);
+    
     //echo $sql;
     
     $con = getConnection($_SESSION['notLoggedInUsername'], $_SESSION['notLoggedInPW']);
@@ -1033,8 +1015,10 @@ function searchInsert($sql, $ingredients)
             //echo $recipeID;
             
             $ingredientPoints;
-            //print_r($ingredients);
-            //echo "NEW TIME";
+
+            //echo "And the I only have this";
+            //echo var_dump($ingredients);
+
             foreach ($ingredients as $ingredient)
             {
                 
@@ -1050,7 +1034,8 @@ function searchInsert($sql, $ingredients)
             }
             
             $ranking = $ingredientPoints / $totalPoints;
-
+            //echo $ranking;
+            
             $sq = $con->prepare("select rankingPoints from results where recipeID =  ?");
             $sq->execute();
             $sq->store_result();
@@ -1075,10 +1060,8 @@ function searchInsert($sql, $ingredients)
                 $sq2 = $con->prepare("UPDATE results SET rankingPoints = ? WHERE recipeID = ?");
                 //$sq2->bind_param('di', $ranking, $recipeID);
                 //$sq2->execute();
-            }
 
-               
-        
+            }
             
 
         }
