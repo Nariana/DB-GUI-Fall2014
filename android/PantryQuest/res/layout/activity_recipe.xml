@@ -54,21 +54,4 @@
 	        android:text="@string/default_steps" />
 	
 	</RelativeLayout>
-	<LinearLayout
-	    android:layout_width="240dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="end"
-        android:choiceMode="singleChoice"
-        android:divider="@android:color/transparent"
-        android:dividerHeight="0dp"
-        android:background="#111"
-        android:orientation="vertical" >
-	     <!--  LinearLayout to contain the login info -->
-	    <LinearLayout 
-	        android:layout_width="match_parent"
-		    android:layout_height="match_parent"
-		    android:background="@drawable/background_drawable" 
-		    android:orientation="vertical">
-	    </LinearLayout>
-   </LinearLayout>
 </android.support.v4.widget.DrawerLayout>

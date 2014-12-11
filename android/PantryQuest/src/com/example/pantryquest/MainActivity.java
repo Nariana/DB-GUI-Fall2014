@@ -6,7 +6,6 @@
  * intent to create a Results activity
  */
 package com.example.pantryquest;
-// TODO: Fix the AutoCompleteTextView
 
 /* inclusions */
 import java.io.BufferedReader;
@@ -172,6 +171,11 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
         		intent.putExtra(EXTRA_MESSAGE, inputArray);
         		// call the results activity
         		startActivity(intent);
+    		}
+    		else {
+    			text = "Please enter at least one ingredient " + et.getText().toString();
+    			toast = Toast.makeText(context, text, duration);
+    			toast.show();
     		}
     	}
     	// clicked Login
