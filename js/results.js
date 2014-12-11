@@ -208,8 +208,9 @@ function thumbClick(t){
           type: "GET",
           url: rootURL+"/saveRecipe",
           data: send,
+          dataType: json,
           success: function (result) {
-              //console.log(t);
+              console.log(result);
               $(t).css("color", "#8aa1ab");
               var newRating = parseInt($(t).parent().parent().find(".rating").text()) + 1;
               $(t).parent().parent().find(".rating").text(newRating + " likes");
