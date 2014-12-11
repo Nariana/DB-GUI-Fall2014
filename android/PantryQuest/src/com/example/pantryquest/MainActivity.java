@@ -6,7 +6,6 @@
  * intent to create a Results activity
  */
 package com.example.pantryquest;
-// TODO: Fix the AutoCompleteTextView
 
 /* inclusions */
 import java.io.BufferedReader;
@@ -58,31 +57,16 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 	// the Results activity intent contains a String[] of the search queries
 	public final static String EXTRA_MESSAGE = "com.example.PantryQuest.MESSAGE";
 	public static final String BASE_URL = "web/api_2/index.php/";
-	// dwr is the Drawer Layout encompassing the other views
-	private DrawerLayout dwr;
 	// lv is the listView containing the submitted ingredients
 	private ListView lv;
 	// adapter is used to populate the list view
 	private ArrayAdapter<String> adapter;
-	// tvLogin is the text view which should change to display account name
-	private TextView tvLogin;
-	// these are the EditText views for entering username and password
-	private EditText tUsr, tPass;
-	// these are the buttons for logging in/out and for opening the register view
-	private Button btLog, btOut, btReg;
-	// these EditTexts are on the register page
-	private EditText rName, rUsr, rPass;
-	// this button is tied to submitting when registering
-	private Button btRegSub;
 	// this is the json array that holds the total list of ingredients
 	private JSONArray jsonIngredients;
 	// this is the list that contains the strings from ingredients
 	private List<String> ingredients = new ArrayList<String>();
 	// this ArrayAdapter populates the AutoCompleteTextView
 	private ArrayAdapter<String> suggestions; 
-	// this is a string that gets populated with search results
-	private String results;
-	// used for Toast messages
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,33 +76,11 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
     	et = (AutoCompleteTextView) findViewById(R.id.edit_message);
         bt = (Button) findViewById(R.id.button);
         bt2 = (Button) findViewById(R.id.button2);
-        dwr = (DrawerLayout) findViewById(R.id.drawer_layout);
         lv = (ListView) findViewById(R.id.listView);
-        tvLogin = (TextView) findViewById(R.id.welcome);
-        tUsr = (EditText) findViewById(R.id.edit_username);
-        tPass = (EditText) findViewById(R.id.edit_password);
-        btLog = (Button) findViewById(R.id.bt_login);
-        btReg = (Button) findViewById(R.id.bt_register);
-        btOut = (Button) findViewById(R.id.bt_logout);
-        rName = (EditText) findViewById(R.id.register_name);
-        rUsr = (EditText) findViewById(R.id.register_username);
-        rPass = (EditText) findViewById(R.id.register_password);
-        btRegSub = (Button) findViewById(R.id.bt_regSubmit);
         
         bt.setOnClickListener(this);
         bt2.setOnClickListener(this);
-        btLog.setOnClickListener(this);
-        btReg.setOnClickListener(this);
-        btOut.setOnClickListener(this);
-        btRegSub.setOnClickListener(this);
         lv.setOnItemClickListener(this);
-        
-        // views hidden initially
-        btOut.setVisibility(View.GONE);
-        rName.setVisibility(View.GONE);
-        rUsr.setVisibility(View.GONE);
-        rPass.setVisibility(View.GONE);
-        btRegSub.setVisibility(View.GONE);
         
         // set up the autocomplete textview
         callAPI a = new callAPI();
@@ -173,58 +135,11 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
         		// call the results activity
         		startActivity(intent);
     		}
-    	}
-    	// clicked Login
-    	else if (v.getId() == R.id.bt_login) {
-    		String username = tUsr.getText().toString();
-    		String password = tPass.getText().toString();
-    		// log in and change the login screen
-    		// set tvLogin to say the account name
-    		tvLogin.setText("Welcome, " + username + ", to PantryQuest!");
-    		// hide the old elements
-    		tUsr.setVisibility(View.GONE);
-    		tPass.setVisibility(View.GONE);
-    		btLog.setVisibility(View.GONE);
-    		btReg.setVisibility(View.GONE);
-    		// show hidden elements
-    		btOut.setVisibility(View.VISIBLE);
-    	}
-    	// clicked Register
-    	else if (v.getId() == R.id.bt_register) {
-    		// hide the old elements
-    		tUsr.setVisibility(View.GONE);
-    		tPass.setVisibility(View.GONE);
-    		btLog.setVisibility(View.GONE);
-    		btReg.setVisibility(View.GONE);
-    		tvLogin.setText("Please enter new account information.");
-    		// show hidden elements
-    		btRegSub.setVisibility(View.VISIBLE);
-    		rName.setVisibility(View.VISIBLE);
-    		rUsr.setVisibility(View.VISIBLE);
-    		rPass.setVisibility(View.VISIBLE);
-    	}
-    	// clicked logout
-    	else if (v.getId() == R.id.bt_logout) {
-    		// revert to before logging in
-    		btOut.setVisibility(View.GONE);
-    		tUsr.setVisibility(View.VISIBLE);
-    		tPass.setVisibility(View.VISIBLE);
-    		btLog.setVisibility(View.VISIBLE);
-    		btReg.setVisibility(View.VISIBLE);
-    		tvLogin.setText("Welcome, Guest, to PantryQuest!");
-    	}
-    	// clicked submit on register screen
-    	else if (v.getId() == R.id.bt_regSubmit) {
-    		// revert back to before registering
-    		btRegSub.setVisibility(View.GONE);
-    		rName.setVisibility(View.GONE);
-    		rUsr.setVisibility(View.GONE);
-    		rPass.setVisibility(View.GONE);
-    		tUsr.setVisibility(View.VISIBLE);
-    		tPass.setVisibility(View.VISIBLE);
-    		btLog.setVisibility(View.VISIBLE);
-    		btReg.setVisibility(View.VISIBLE);
-    		tvLogin.setText("Welcome, Guest, to PantryQuest!");
+    		else {
+    			text = "Please enter at least one ingredient " + et.getText().toString();
+    			toast = Toast.makeText(context, text, duration);
+    			toast.show();
+    		}
     	}
     }
     

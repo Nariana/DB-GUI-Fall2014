@@ -5,6 +5,7 @@
     tools:context="com.example.pantryquest.Results" 
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
+    
     <!--  the main content view  -->
 	<RelativeLayout 
 	    android:layout_width="match_parent"

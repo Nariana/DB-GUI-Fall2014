@@ -19,6 +19,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -28,9 +29,12 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
+
+import com.example.pantryquest.MainActivity.callAPI;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -63,8 +67,6 @@ public class Results extends Activity implements OnClickListener, OnItemClickLis
 	private String[] ingredients;
 	// the Recipe activity intent contains a String[] of relevent info for the recipe
 	public final static String RECIPE_INFO = "com.example.PantryQuest.RECIPE_INFO";
-	// root URL for the server
-	private final static String rootUrl =  "the root url of the server";
 	// all of the filter checkboxes
 	private CheckBox cb_bake, cb_boil, cb_grill, cb_slowcook, cb_stovetop, cb_fry,
 		cb_lactose, cb_vegetarian, cb_vegan,cb_gluten, cb_nonuts;
@@ -76,11 +78,17 @@ public class Results extends Activity implements OnClickListener, OnItemClickLis
 	private SeekBar sbt;
 	// tvt is the TextView which will display the progress of sbt
 	private TextView tvt;
+	// this is a JSONArray containing the search results
+	private JSONArray jsonResults;
+	// this is a arraylist containing the resulting recipe names
+	private List<String> recipeNames = new ArrayList<String>();
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_results);
+		getActionBar().setTitle("Swipe right for filters! ->");
+		// get info from MainActivity
 		Intent intent = getIntent();
 		ingredients = intent.getStringArrayExtra(MainActivity.EXTRA_MESSAGE);
 		// set SeekBars and their TextViews
@@ -104,7 +112,15 @@ public class Results extends Activity implements OnClickListener, OnItemClickLis
 		cb_gluten = (CheckBox) findViewById(R.id.cb_gluten);
 		cb_nonuts = (CheckBox) findViewById(R.id.cb_nonuts);
 		//note: get value with cb_boil.isEnabled()
-
+		// get recipes from ingredients and filters
+        callAPI a = new callAPI();
+        try {
+			a.execute().get();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			e.printStackTrace();
+		}
 		// create listener for the SeekBars
 		sbc.setOnSeekBarChangeListener(this);
 		sbt.setOnSeekBarChangeListener(this);
@@ -116,9 +132,7 @@ public class Results extends Activity implements OnClickListener, OnItemClickLis
 		// populate the ListView
 		lv = (ListView) findViewById(R.id.listView);
 		lv.setOnItemClickListener(this);
-		// !need to create a String[] just for the Titles of the recipes when
-		// actually implementing this part.
-		adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, ingredients);
+		adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, recipeNames);
 		lv.setAdapter(adapter);
 	}
 	
@@ -129,6 +143,15 @@ public class Results extends Activity implements OnClickListener, OnItemClickLis
 		}
 		else if (v.getId() == R.id.refreshButton) {
 			// refresh search
+			callAPI a = new callAPI();
+	        try {
+				a.execute().get();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			} catch (ExecutionException e) {
+				e.printStackTrace();
+			}
+	        adapter.notifyDataSetChanged();
 		}
 	}
 	
@@ -136,14 +159,17 @@ public class Results extends Activity implements OnClickListener, OnItemClickLis
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
-		// create a Recipe activity intent and include all the recipe info inside it
+		// create a Recipe activity intent and include the recipe name inside it
 		Intent intent = new Intent(this, Recipe.class);
-		
-		/*
-		 * Make a String[] of recipe info to send
-		 */
-		String[] info;
-		//intent.putExtra(RECIPE_INFO, info);
+		try {
+			String recipeName = jsonResults.getJSONObject(position).getString("recipeName");
+			intent.putExtra(RECIPE_INFO, recipeName);
+			// start the intent
+			startActivity(intent);
+		}
+		catch (JSONException e) {
+			e.printStackTrace();
+		}
 	}
 
    	// to handle displaying the progress of the SeekBars
@@ -192,31 +218,85 @@ public class Results extends Activity implements OnClickListener, OnItemClickLis
     	}
     	return builder.toString();
     }
-    public void setUpAutoComplete() {
-    	String string = getStringFromUrl("http://54.69.70.135/DB-GUI-Fall2014/api/index.php/getIngredient");
-    	try {
-    		List<String> ingredients = new ArrayList<String>();
-    		JSONArray jsonIngredients = new JSONArray(string);
-    		JSONArray jsonArray = new JSONArray();
-    		Log.i("MainActivity - Parsing to Json", jsonIngredients.toString());
-    		// populate ingredients list from the json object
-    		for (int i = 0; i < jsonIngredients.length(); i++) {
-    			jsonArray = jsonIngredients.getJSONArray(i);
-    			ingredients.add(jsonArray.getString(0));
-    		}
-    		Log.i("MainActivity - Parsing Json", ingredients.toString());
+    public void setUpRecipeList() {
+    	String string = "http://54.69.70.135/DB-GUI-Fall2014/api/index.php/getResult?";
+    	recipeNames.clear();
+    	int i = 0;
+    	// add ingredients to url
+    	while( i < ingredients.length) {
+    		string = string + i + "[ing]=" + ingredients[i] + "&";
+    		i++;
     	}
-    	catch (Exception e) {
+    	// add checkboxes to url
+    	if (cb_bake.isEnabled()) {
+    		string = string + i + "[Bake]=true&";
+    		i++;
+    	}
+    	if (cb_boil.isEnabled()) {
+    		string = string + i + "[Boil]=true&";
+    		i++;
+    	}
+    	if (cb_grill.isEnabled()) {
+    		string = string + i + "[Grill]=true&";
+    		i++;
+    	}
+    	if (cb_slowcook.isEnabled()) {
+    		string = string + i + "[Slowcook]=true&";
+    		i++;
+    	}
+    	if (cb_stovetop.isEnabled()) {
+    		string = string + i + "[Stovetop]=true&";
+    		i++;
+    	}
+    	if (cb_fry.isEnabled()) {
+    		string = string + i + "[Fry]=true&";
+    		i++;
+    	}
+    	if (cb_lactose.isEnabled()) {
+    		string = string + i + "[LactoseFree]=true&";
+    		i++;
+    	}
+    	if (cb_vegetarian.isEnabled()) {
+    		string = string + i + "[Vegetarian]=true&";
+    		i++;
+    	}
+    	if (cb_vegan.isEnabled()) {
+    		string = string + i + "[Vegan]=true&";
+    		i++;
+    	}
+    	if (cb_gluten.isEnabled()) {
+    		string = string + i + "[GlutenFree]=true&";
+    		i++;
+    	}
+    	if (cb_nonuts.isEnabled()) {
+    		string = string + i + "[NoNuts]=true&";
+    		i++;
+    	}
+    	// add seekbars to url
+    	string = string + i + "[calories]=" + sbc.getProgress() + "&";
+    	i++;
+    	string = string + i + "[time]=" + sbt.getProgress();
+    	Log.i("Results - this is the search url", string);
+    	// replace spaces with +
+    	string = string.replace(' ', '+');
+    	string = getStringFromUrl(string);
+    	Log.i("Results - this is the result of the search", string);
+    	try {
+    		jsonResults = new JSONArray(string);
+    		for (int j = 0; j < jsonResults.length(); j++) {
+    			recipeNames.add(jsonResults.getJSONObject(j).getString("recipeName"));
+    		}
+    	}
+    	catch (JSONException e) {
     		e.printStackTrace();
     	}
-    	
     }
 
     final class callAPI extends AsyncTask<Void, Void, Void> {
     	
 		@Override
 		protected Void doInBackground(Void... params) {
-			setUpAutoComplete();
+			setUpRecipeList();
 			return null;
 		}
     }
