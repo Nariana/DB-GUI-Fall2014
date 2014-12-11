@@ -208,7 +208,7 @@ function thumbClick(t){
           type: "GET",
           url: rootURL+"/saveRecipe",
           data: send,
-          dataType: json,
+          dataType: "json",
           success: function (result) {
               console.log(result);
               $(t).css("color", "#8aa1ab");
