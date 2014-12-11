@@ -1,402 +1,172 @@
-almond
-almond meal
-amaretti
-anchovy
-anise
-apple juice
-applesauce
-artichoke
-asparagus
-avocado
-bacon
-baguette
-baked bean
-baking soda
-baking powder
-bamboo
-banana
-bap
-basil
-bay leaf
-bean
-beef
-beef broth
-beef stock
-bell pepper
-berry
-biscuit
-black bean
-black olive
-black-eyed pea
-blueberry
-bouillon
-bourbon
-bran
-brandy
-bread
-breadcrumbs
-brown sugar
-brussel sprout
-bbq sauce
-habanero sauce
-brie
-brine
-broccoli
-buckwheat
-buffalo
-bun
-butter
-buttermilk
-butterscotch
-cabbage
-cake
-candy
-cannellini
-canola oil
-caper
-caramel
-caraway seed
-cardamom
-carrot
-cashew
-cayenne pepper
-celeriac
-celery
-cereal
-champagne
-chard
-cheese
-cherry
-chestnut
-chicken
-chicken soup
-chickpea
-chicory
-chile
-chili bean
-chili powder
-chili 
-chipotle
-chip
-chive
-chocolate
-chop
-choy
-chutney
-ciabatta
-cider
-cilantro
-cinnamon
-clam
-clam juice
-clove
-cocoa
-coconut
-coconut milk
-coconut oil
-cod
-coffee
-coleslaw
-condensed milk
-coriander
-corn
-corn chips
-cornflour
-cornmeal
-cornstarch
-courgette
-couscous
-cracker
-cranberry
-cranberry juice
-cream
-cream cheese
-creme fraiche
-sour cream
-crisp
-crust
-cucumber
-cumin
-custard
-date
-dijon mustard
-dill
-dough
-duck
-edamame bean
-egg
-eggplant
-espresso
-fennel
-fig
-filo pastry
-fish
-flank
-flax
-flour
-focaccia
-foie gras
-fruit
-fudge
-garlic
-gelatine
-gin
-ginger
-glucose
-golden syrup
-gorgonzola
-gouda
-graham cracker
-grand marnier
-granola
-grape
-grapefruit
-green olive
-gruyere
-haddock
-ham
-harissa
-heavy cream
-herbs
-hoisin sauce
-honey
-honeydew melon
-horseradish
-hot sauce
-ice
-jalapeno
-juice
-julienne
-kalamata olives
-kale
-ketchup
-kidney bean
-lager
-lamb
-lard
-lardons
-lasagne
-lavender
-leek
-lemon
-lemongrass
-lemon juice
-lentil
-lettuce
-lime
-limoncello
-lobster
-loin
-lychee
-macadamia nut
-macaroni
-malt
-mangetout
-bok choy
-mango
-maple syrup
-margarine
-marinara
-marshmallow
-marzano
-mascarpone
-mayonnaise
-meat
-melon
-milk
-mince
-mint
-miso soup
-molasses
-monterey jack
-mozzarella
-mushroom
-mustard
-noodle
-nori
-nutella
-nutmeg
-nut
-oat
-oil
-okra
-olive oil
-olive
-onion
-onion ring
-orange
-orange juice
-oregano
-oreo
-oyster
-pak choi
-pancake mix
-pancetta
-panko
-papaya
-paprika
-parma ham
-parsley
-parsnip
-passion fruit
-pasta
-pastry
-pea
-peach
-peaches
-peanut
-pear
-pea
-pecan
-pecorino
-penne
-pepper
-peppercorn
-pepperoni
-peppers
-pesto
-pickle
-pickled gherkin
-pickled onion
-pie crust
-pine nut
-pineapple
-pistachio
-pita
-pitted olive
-pizza
-pizza sauce
-plantain
-plum
-poblano
-pod
-polenta
-pomegranate
-popcorn
-pork
-pork chop
-porridge
-potato
-prawn
-prosciutto
-prosciutto ham
-provolone
-pumpkin
-quail
-radicchio
-radish
-rapeseed oil
-raspberries
-raspberry
-relish
-rhubarb
-rib
-rice
-rice flower
-ricotta
-rocket
-roll
-rose
-rosemary
-russet
-saffron
-sage
-sake
-salad
-salad dressing
-salami
-salmon
-salsa
-sauce
-sausage
-savoy cabbage
-scallion
-scallop
-schnapps
-semolina
-serrano ham
-sesame seed
-shallot
-shaohsing
-sherry
-shortcrust pastry
-shrimp
-slaw
-snapper
-sourdough
-soy milk
-soy sauce
-spaghetti
-spice
-spinach
-sponge
-sprout
-squash
-squid
-sriracha
-steak
-stock
-stout
-strawberry
-stuffing
-sugar
-sultana
-sunflower oil
-sweet potato
-sweets
-swordfish
-Tabasco sauce
-taco spice
-tahini
-tangerine
-tapioca
-tarragon
-tartar
-tea
-tequila
-thyme
-toast
-toffee
-tofu
-tomatillos
-tomato
-tomato puree
-tomato sauce
-tortilla
-treacle
-tuna
-turkey
-turmeric
-turnip
-vanilla
-vanilla bean
-vanilla pod
-veal
-vegetable broth
-vegetable oil
-vermouth
-vinaigrette
-vinegar
-vodka
-waffle
-water
-walnut
-watercress
-watermelon
-white rice
-wine
-worcestershire sauce
-yeast
-zucchini
-greek yogurt
-oyster sauce
-bean paste
-yogurt
-sesame oil
-dumpling
-guanciale
-bucatini
-parmesan
-romano
-quinoa
-powdered sugar
+almond,0
+almond meal,0
+anchovy,0
+applesauce,0
+artichoke,0
+asparagus,0
+avocado,0
+bacon,0
+baking soda,0
+baking powder,0
+banana,0
+basil,0
+bean,0
+beef,0
+beef broth,0
+bell pepper,0
+black bean,0
+blueberry,0
+bouillon,0
+bread,0
+breadcrumbs,0
+brown sugar,0
+brussel sprout,0
+broccoli,0
+bun,0
+butter,0
+buttermilk,0
+cabbage,0
+canola oil,0
+caper,0
+carrot,12
+cashew,0
+celery,0
+cheese,0
+chicken,2
+chicken soup,0
+chickpea,0
+chili bean,0
+chili powder,0
+chili ,0
+chip,0
+chive,0
+chocolate,0
+choy,0
+cilantro,0
+cinnamon,0
+clam juice,0
+cocoa,0
+coconut,0
+coconut milk,0
+coconut oil,0
+condensed milk,0
+corn,0
+corn chips,0
+cornstarch,0
+cracker,0
+cream cheese,0
+creme fraiche,0
+sour cream,0
+cucumber,0
+cumin,0
+date,0
+dijon mustard,0
+dill,0
+dough,0
+egg,639
+eggplant,0
+fig,0
+filo pastry,0
+fish,0
+flax,0
+flour,162
+garlic,0
+ginger,0
+graham cracker,0
+grand marnier,0
+granola,0
+heavy cream,0
+honey,0
+hot sauce,0
+ice,0
+jalapeno,0
+kale,0
+kidney bean,0
+lemon,0
+lemon juice,0
+lettuce,0
+lime,0
+macaroni,0
+bok choy,0
+mango,0
+maple syrup,0
+margarine,0
+marshmallow,0
+mayonnaise,0
+meat,0
+milk,0
+mozzarella,0
+mushroom,0
+mustard,0
+noodle,0
+nori,0
+olive oil,0
+onion,0
+oregano,0
+oreo,0
+pancake mix,0
+parsley,0
+pasta,0
+pea,0
+peach,0
+peanut,0
+pepper,0
+pepperoni,0
+pie crust,0
+pizza sauce,0
+pork,0
+potato,0
+prosciutto,0
+rice,0
+rice flower,0
+roll,0
+sage,0
+sake,0
+salad,0
+salad dressing,0
+salmon,0
+salsa,0
+sausage,0
+scallion,0
+sesame seed,0
+sherry,0
+shrimp,0
+soy milk,0
+soy sauce,0
+spaghetti,7
+spinach,0
+squash,0
+steak,0
+strawberry,0
+sugar,0
+sweet potato,0
+Tabasco sauce,0
+taco spice,0
+tahini,0
+thyme,0
+tomato,0
+tomato sauce,0
+tortilla,0
+tuna,0
+turnip,0
+vanilla,0
+vanilla bean,0
+vegetable broth,0
+vegetable oil,0
+vinegar,0
+water,0
+walnut,0
+wine,0
+worcestershire sauce,0
+yeast,0
+zucchini,0
+oyster sauce,0
+bean paste,0
+yogurt,0
+sesame oil,0
+dumpling,0
+guanciale,0
+bucatini,0
+parmesan,0
+romano,0
+powdered sugar,0

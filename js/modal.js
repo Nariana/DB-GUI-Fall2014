@@ -3,6 +3,7 @@
 //MAMP
 var rootURL = "http://localhost:8888/DB-GUI-Fall2014/api/index.php";
 //var rootURL = "api/index.php"
+//var rootURL = "http://localhost/api/index.php";
 
 google.load('visualization', '1.0', {'packages':['corechart', 'table']});
 
@@ -90,6 +91,11 @@ function drawFavorite(myData) {
 
 $("#favorites").button();
 $("#logout").button();
+$("#developers").button().off("click").on("click", function(){
+  window.location.href = "developers.html";
+});
+
+
   $(function() {
     var dialog, form,
  
@@ -98,7 +104,8 @@ $("#logout").button();
       name = $( "#name" ),
       email = $( "#email" ),
       password = $( "#password" ),
-      allFields = $( [] ).add( name ).add( email ).add( password ),
+      passwordConf = $("#passwordConf"),
+      allFields = $( [] ).add( name ).add( email ).add( password ).add( passwordConf ),
       tips = $( ".validateTips" );
  
     function updateTips( t ) {
@@ -143,6 +150,13 @@ $("#logout").button();
       valid = valid && checkRegexp( name, /^[a-z]([0-9a-z_\s])+$/i, "Username may consist of a-z, 0-9, underscores, spaces and must begin with a letter." );
       valid = valid && checkRegexp( email, emailRegex, "eg. ui@jquery.com" );
       valid = valid && checkRegexp( password, /^([0-9a-zA-Z])+$/, "Password field only allow : a-z 0-9" );
+      if (!(password.val() === passwordConf.val())){
+        console.log(password.value);
+        valid = false;
+        password.addClass( "ui-state-error" );
+        passwordConf.addClass( "ui-state-error" );
+        updateTips("Passwords do not match!");
+      }
  
       var send = new Object();
 
@@ -166,6 +180,7 @@ $("#logout").button();
                 alert("Username already exists! Try Again!!!");
               }
               else{
+              alert("Successfully registered! Check your email for information!");
               console.log(result);
               localStorage.setItem("username", result[0]);
               localStorage.setItem("name", result[1]);
@@ -182,8 +197,8 @@ $("#logout").button();
  
     dialog = $( "#register-form" ).dialog({
       autoOpen: false,
-      height: 300,
-      width: 380,
+      height: 390,
+      width: 400,
       modal: true,
       buttons: {
         "Create an account": addUser,
@@ -248,7 +263,7 @@ $("#logout").button();
       var send = {};
       send.username = $("#nameLogin").val();
 
-      alert("Email has been sent to "+send.username);
+      //alert("Email has been sent to "+send.username);
 
       console.log(send);
 
@@ -259,6 +274,7 @@ $("#logout").button();
         dataType: "json",
         success: function (result) {
           console.log(result);
+          alert(result);
             },
         error: function(jqXHR, textStatus, errorThrown){
           console.log(jqXHR, textStatus, errorThrown);

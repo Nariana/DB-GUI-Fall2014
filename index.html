@@ -5,6 +5,7 @@
 	<title>Pantry Quest</title>
 	<link rel="stylesheet" href="fonts/font-awesome/css/font-awesome.min.css" >
 	<link href='http://fonts.googleapis.com/css?family=Raleway:400,700' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css" >
 	<link rel="shortcut icon" href="img/PQ.png" >
 </head>
@@ -19,6 +20,12 @@
 				<i id="search" class="fa fa-arrow-circle-right fa-3x"></i>
 				<ul id="ingredientList"></ul>
 			</div>
+
+			<div id="displayRecipes" >
+				<div id="scrollContent">
+
+				</div>
+			</div>
 		</div>
 
 		<div id="register-form" title="Create new user" hidden="true">
@@ -26,12 +33,14 @@
 		 
 		  <form>
 		    <fieldset>
-		      <label for="name">Name</label>
+		      <label for="name">First Name</label>
 		      <input type="text" name="name" id="name" value="" class="text ui-widget-content ui-corner-all">
 		      <label for="email">Email</label>
 		      <input type="text" name="email" id="email" value="" class="text ui-widget-content ui-corner-all">
 		      <label for="password">Password</label>
 		      <input type="password" name="password" id="password" value="" class="text ui-widget-content ui-corner-all">
+		      <label for="passwordConf">Confirm Pass</label>
+		      <input type="password" name="passwordConf" id="passwordConf" value="" class="text ui-widget-content ui-corner-all">
 		 
 		      <!-- Allow form submission with keyboard without duplicating the dialog button -->
 		      <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
@@ -81,12 +90,13 @@
 			<button id="login" class="modal-button"><i class="fa fa-sign-in"></i> Login</button>
 			<button id="register" class="modal-button"><i class="fa fa-child"></i> Register</button>
 			<button id="logout" class="modal-button"><i class="fa fa-sign-out"></i> Logout</button>
-			<button onclick="window.location.href='developers.html'" id="developers" class="modal-button"><i class="fa fa-desktop"></i> Developers</button>
+			<button id="developers" class="modal-button"><i class="fa fa-desktop"></i> Developers</button>
 		</div>
 
 	</body>
 
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script src="js/dw_con_scroller.js" type="text/javascript"></script>
   	<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
   	<script src="http://code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
   	<script type="text/javascript" src="https://www.google.com/jsapi"></script>

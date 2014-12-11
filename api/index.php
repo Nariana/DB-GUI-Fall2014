@@ -26,6 +26,8 @@ $app->get('/saveRecipe', 'saveRecipe');
 $app->get('/getAnalytics', 'getAnalytics');
 $app->get('/deleteFavorites', 'deleteFavorites');
 $app->get('/displayFavorites', 'displayFavorites');
+$app->get('/displayRecipes', 'displayRecipes');
+
 
 
 //post requests 
@@ -49,13 +51,47 @@ function getConnection($user = 'root', $pw = 'root', $host = 'localhost')
     }
     return $dbConnection;
 }
+//this function return recipes for the scrolling bar on the homepage 
+function displayRecipes()
+{
+    $con = getConnection();
+    
+    $app = \Slim\Slim::getInstance();
+    $request = $app->request()->getBody();
+    
+    //initialise list 
+    $recipe_list = array();
+    
+    //query DB 
+    $result = $con->query( "SELECT picture, recipeName FROM recipe");
+    $counter = 0;
+    while ($rows = mysqli_fetch_row($result)) 
+    {
+        if($counter < 10)
+        {
+            $recipe_list[] = $rows;
+        }
+        else 
+        {
+            break;
+        }
+        
+        $counter = $counter + 1;
+    }
+    //return the result 
+    echo json_encode($recipe_list);
+    $con->close();
+    
+    
+}
+
 //this function sends and email to a spesific username in the db with the password correpsoning 
 function sendEmail()
 {
 
     //echo phpinfo();
     $con = getConnection();
-    //$username = $_POST['username'];
+    //$username = 'karo@me.com';
     $app = \Slim\Slim::getInstance();
     $request = $app->request()->getBody();
     $username = $_POST['username'];
@@ -63,7 +99,14 @@ function sendEmail()
     $result = $con->prepare("SELECT pw, firstname FROM users WHERE username = ?");
     $result->bind_param('s', $username);
     $result->execute();
+    $result->store_result();
+    $num_of_rows = $result->num_rows;  
     $result->bind_result($tempPW, $tempFN);
+    
+    if($num_of_rows == 0)
+    {
+        echo json_encode("Username does not exist, please try again");
+    }
     $encryptPW;
     $name;
     while ($result->fetch()) 
@@ -76,26 +119,69 @@ function sendEmail()
        $pw = base64_decode($encryptPW);
 
 	   $to_add = $username; //<-- put your yahoo/gmail email address here
-        $from_add = "admin@pantryQuest.com";
-	   $subject = "Pantry Quest";
+	   $subject = "Pantry Quest Credentials";
 	   $message = "Dear ".$name.",\n\nThank you for using Pantry Quest!\n\nYou recently requested your account credentials. Your username is ".$username." and your password is \"".$pw."\".\n\nIf you didn’t make this request, it's likely that another user has entered your email address by mistake and your account is still secure. If you believe an unauthorized person has accessed your account, you can reset your password by contacting us at kskatteboe@smu.edu\n\nPantry Quest Support";
+        
+        //new user that can send email the first time 
+        $sq1 = $con->prepare("SELECT username FROM users WHERE notSentEmail AND username = ? ");
+        $sq1->bind_param('s', $username);
+        $sq1->execute();
+        $sq1->store_result();
+        if($sq1->num_rows != 0)
+        {
+            if(mail($to_add,$subject,$message)) 
+	       {
+		          $msg = "Email sent successfully!";
+                //update timestamp for latest sent email
+                $q1 = $con->prepare("UPDATE users set timeForEmail = now() where username = ?");
+                $q1->bind_param('s', $username);
+                $q1->execute();
+                
+                $sq = $con->prepare("UPDATE users SET notSentEmail = 0 WHERE username = ? ");
+                $sq->bind_param('s', $username);
+                $sq->execute();
+                echo json_encode($msg);
+                return;
+	       }
+            
+        }
+        
+        
+        
+        
+        $sql = $con->prepare("SELECT firstname FROM users WHERE username = ? and NOW() - timeForEmail >= 600;");
+        $sql->bind_param('s', $username);
+        $sql->execute();
+        $sql->store_result();
     
-	   $headers = "From: $from_add \r\n";
-
-	   if(mail($to_add,$subject,$headers,$message)) 
-	   {
-		  $msg = "Mail sent OK";
-            echo json_encode($msg);
-	   } 
-	   else 
-	   {
- 	      $msg = "Error sending email!";
-          echo json_encode($msg);
-	   }      
+        //you have sendt email in last 10 min so dont send again
+        if ($sql->num_rows == 0) 
+        {
+            $message = 'An email has been sendt to this account within the last 10 minutes, if you did not recive an email try again later';
+            echo json_encode($message);
+        }
+        else
+        {
+            if(mail($to_add,$subject,$message)) 
+	       {
+		          $msg = "Email sent successfully!";
+                //update timestamp for latest sent email
+                $q1 = $con->prepare("UPDATE users set timeForEmail = now() where username = ?");
+                $q1->bind_param('s', $username);
+                $q1->execute();
+                echo json_encode($msg);
+	       }  
+            else 
+	       {
+ 	          $msg = "Error when sending email, please try again later";
+                echo json_encode($msg);
+	       } 
+        }
 }
     
     $con->close();
 }
+
 function confirmationEmail($username, $name)
 {
         $to_add = $username; //<-- put your yahoo/gmail email address here
@@ -127,7 +213,7 @@ function getIngredient()
     $ingredient_list = array();
     
     //query DB 
-    $result = $con->query("SELECT * FROM ingredient");
+    $result = $con->query(  "SELECT * FROM ingredient");
     
     while ($rows = mysqli_fetch_row($result)) 
     {
@@ -465,10 +551,8 @@ function register()
     //return information
     echo json_encode($information);
 }
-/*
-NEED TO COMMENT FROM HERE 
-*/
 
+//get the recie when clicken on 
 function getRecipe()
 {
 
@@ -628,6 +712,8 @@ function getResult() {
     //insert and search for all subsets 
     foreach ($subset as $part)
     {
+        //echo "new";
+        //print_r($part);
         searchDB($filters, $part, $methods, $time, $calories, $noIngredients, $numberOfIngredients);
     }
     if(empty($ingredients))
@@ -741,7 +827,17 @@ function searchDB($filters, $ingredients, $methods, $time, $calories, $noIngredi
     }
     //create query with all information 
     //select distinct recipeName, ranking from recipe natural join filter natural join recipeConnection where vegetarian and foodName = 'egg' order by 'ranking' asc;
-    $sql = "select distinct recipeID from recipe natural join filter natural join recipeConnection where "; //check if you need ''
+    $sql = "select distinct recipeID FROM recipe natural join filter "; //check if you need ''
+        $counter = 0;
+    foreach ($ingredients as $ingredient)
+    {
+        $sql = $sql." natural join (select recipeID from recipeConnection WHERE foodName = '";
+        $sql = $sql.$ingredient."' ) as table";
+        $sql = $sql.$counter;
+        $counter++;
+        
+    }
+    $sql = $sql." where ";
     if(!empty($methods))
     {
         $sql = $sql."( ";
@@ -784,66 +880,29 @@ function searchDB($filters, $ingredients, $methods, $time, $calories, $noIngredi
         
     $methodCount = $methodCount + 1;
     }
-    $counter = 0;
-    foreach ($ingredients as $ingredient)
-    {
-        if($counter == 0)
-        {
-            if(empty($methods) && empty($filters))
-            {
-                $sql = $sql." foodName = '";
-                $sql = $sql.$ingredient."'";
-            }
-            else 
-            {
-                if(empty($filters))
-                {
-                $sql = $sql." and foodName = '";
-                $sql = $sql.$ingredient."'";
-                }
-                else 
-                {
-                                                
-            $sql = $sql."foodName = '";
-            $sql = $sql.$ingredient."'";
-                }
-
-            }
-
-        }
-        else 
-        {
-            
-            $sql = $sql." and foodName = '";
-            $sql = $sql.$ingredient."'";
-        }
-        $counter++;
-        
-        //echo $sql;
-    }
 
 
     if(isset($time))
     {
-        if(empty($ingredients))
-        {
-            if(!empty($methods) && empty($filters))
-            {
-                $sql = $sql." and time <= ";
-                $sql = $sql.$time;
-            }
-            else
+            if(!empty($filters))
             {
                 $sql = $sql." time <= ";
                 $sql = $sql.$time;
             }
+            else
+            {
+                if(empty($methods))
+                {
+                    $sql = $sql." time <= ";
+                    $sql = $sql.$time;
+                }
+                else
+                {
+                $sql = $sql." and time <= ";
+                $sql = $sql.$time;
+                }
+            }
 
-        }
-        else
-        {
-             $sql = $sql." and time <= ";
-            $sql = $sql.$time;
-        }
     }
     if(isset($calories))
     {
@@ -910,20 +969,28 @@ function searchDB($filters, $ingredients, $methods, $time, $calories, $noIngredi
     {
         $sql = $sql." )";
     }
-
+    /*
+    foreach ($ingredients as $ing)
+    {
+        echo $ing;
+            echo "\n";
+    }*/
+    
     SearchInsert($sql, $ingredients); //call search and insert 
 }
 
 //serach the table and 
 function searchInsert($sql, $ingredients)
 {
+    //echo "I am given this:";
+    //echo var_dump($ingredients);
+    
     //echo $sql;
     
     $con = getConnection($_SESSION['notLoggedInUsername'], $_SESSION['notLoggedInPW']);
     try
     {
         $result= $con->query($sql);
-        $sql = $con->prepare("INSERT INTO results(recipeID, rankingPoints) values (?,?)");
 
      if (!$result)
     {
@@ -942,22 +1009,66 @@ function searchInsert($sql, $ingredients)
             $result2= $con->query($stmt);
             $row = mysqli_fetch_row($result2);
             $totalPoints = $row[0]; //save the ranking points
+            //echo "total points";
+            //echo $totalPoints;
+            //echo "recipeID";
+            //echo $recipeID;
             
-            
-            
+            $ingredientPoints;
+
+           // echo "And the I only have this";
+            //echo var_dump($ingredients);
+
             foreach ($ingredients as $ingredient)
             {
+                
+                //echo "previous ing point";
+                //echo $ingredientPoints;
                 $stmt = "select value from recipeConnection where recipeID = ".$recipeID." and foodName = '".$ingredient."'";
             $result1= $con->query($stmt);
             $row = mysqli_fetch_row($result1);
-            $ingredientPoints = ($ingredientPoints + $row[0]);
+            $ingredientPoints = $ingredientPoints + $row[0];
+                //echo $stmt;
+                //echo $ingredientPoints;
+                
             }
-           
+            
             $ranking = $ingredientPoints / $totalPoints;
+            /*echo "RANKING";
+            echo $ranking;
+            echo "ID";
+            echo $recipeID;*/
             
-            $sql->bind_param('id', $recipeID, $ranking);
+            $sq = $con->prepare("select rankingPoints from results where recipeID =  ?");
+            $sq->execute();
+            $sq->store_result();
+            $num_of_rows = $sq->num_rows;  
+            $sq->bind_result($tempRP);
+            $RP = 0;
+            if ($num_of_rows == 0)
+            {
+                $sql = $con->prepare("INSERT INTO results(recipeID, rankingPoints) values (?,?)");
+                $sql->bind_param('id', $recipeID, $ranking);
+                $sql->execute();
+            }
+            while ($sq->fetch()) 
+            {
+                $RP = $tempRP;
+            }
+           // echo $RP;
+            //echo $RP;
+            if($RP < $ranking)
+            {
+                
+              //  echo "changing";
+                $sq2 = $con->prepare("UPDATE results SET rankingPoints = ? WHERE recipeID = ?");
+                $sq2->bind_param('di', $ranking, $recipeID);
+                $sq2->execute();
+                //printf("%d Row inserted.\n", $sql->affected_rows);
+
+            }
             
-            $sql->execute();
+
         }
     }
     else 

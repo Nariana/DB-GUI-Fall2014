@@ -7,6 +7,7 @@
 	<link rel="stylesheet" href="fonts/font-awesome/css/font-awesome.min.css" >
 	<link rel="shortcut icon" href="img/PQ.png" >
 	<link href='http://fonts.googleapis.com/css?family=Raleway:400,700' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
 </head>
 <body>
 	<div id="headerInfo">
@@ -23,8 +24,8 @@
 		<ul id="ingr"></ul>
 	</div>
 	<div id="recipeButtons">
-		<button type="button" id="backButton"><i class="fa fa-arrow-left"></i></button>
-		<button type="button" id="newButton"><i id="newButton" class="fa fa-refresh"></i></button>
+		<button type="button" id="backButton"><i class="fa fa-arrow-left"></i>   Back to results</button>
+		<button type="button" id="newButton"><i id="newButton" class="fa fa-refresh"></i>   Start new search</button>
 	</div>
 
 
@@ -39,7 +40,9 @@
 		      <input type="text" name="email" id="email" value="" class="text ui-widget-content ui-corner-all">
 		      <label for="password">Password</label>
 		      <input type="password" name="password" id="password" value="" class="text ui-widget-content ui-corner-all">
-		 
+		 	  <input type="password" name="passwordConf" id="passwordConf" value="" class="text ui-widget-content ui-corner-all">
+
+
 		      <!-- Allow form submission with keyboard without duplicating the dialog button -->
 		      <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
 		    </fieldset>
@@ -83,11 +86,12 @@
 
 		<div class="button-div">
 			<p id="welcome" class="modal-button">Welcome, </p>
-			<button id="analytics" class="modal-button"><i class="fa fa-pie-chart"></i>Analytics</button>
-			<button id="favorites" class="modal-button"><i class="fa fa-bookmark"></i>My Liked Recipes</button>
-			<button id="login" class="modal-button"><i class="fa fa-sign-in"></i>Login</button>
-			<button id="register" class="modal-button"><i class="fa fa-child"></i>Register</button>
-			<button id="logout" class="modal-button"><i class="fa fa-sign-out"></i>Logout</button>
+			<button id="analytics" class="modal-button"><i class="fa fa-pie-chart"></i> Analytics</button>
+			<button id="favorites" class="modal-button"><i class="fa fa-bookmark"></i> My Liked Recipes</button>
+			<button id="login" class="modal-button"><i class="fa fa-sign-in"></i> Login</button>
+			<button id="register" class="modal-button"><i class="fa fa-child"></i> Register</button>
+			<button id="logout" class="modal-button"><i class="fa fa-sign-out"></i> Logout</button>
+			<button id="developers" class="modal-button"><i class="fa fa-desktop"></i> Developers</button>
 		</div>
 
 </body>

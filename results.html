@@ -4,7 +4,9 @@
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<title>Pantry Quest</title>
 	<link href='http://fonts.googleapis.com/css?family=Raleway:400,700' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="fonts/font-awesome/css/font-awesome.min.css" >
+	<link rel="shortcut icon" href="img/PQ.png" >
 </head>
 
 
@@ -13,19 +15,19 @@
 
 		
 		<div id="content">
-			<i id="back" class="fa fa-arrow-circle-left fa-3x" style="color: rgb(255, 255, 255);"></i>
 
 			<div id="filters">
 				<ul>
-					<span class="filterTitle" title="Type in the fields to add ingredients you would like to use (or exclude)">Add/Remove Ingredients</span>
+					<li><button  id="back" type="button"><i class="fa fa-refresh"></i>   Start new search</button></li>
+					<span class="filterTitle" title="Type in the fields to add or remove ingredients">Add/Remove Ingredients</span>
 					<ul id="ingList">
-						<li><input type="text" name="addIngredient" id="addIngredient" placeholder="New Ingredient..."></li>
+						<li><input type="text" name="addIngredient" id="addIngredient" placeholder="Add ingredients"></li>
 					</ul>
 					<ul id="noningList">	
-						<li><input type="text" name="excludeIngredient" id="excludeIngredient" placeholder="Ingredients to exclude..."></li>
+						<li><input type="text" name="excludeIngredient" id="excludeIngredient" placeholder="Remove ingredients"></li>
 					</ul>
 
-					<span class="filterTitle" title="You will recieve results that use ANY of the selected methods">Cook method</span>
+					<span class="filterTitle" title="Filter results that use ANY of the selected methods">Cook method</span>
 					<ul id="cookmethod">
 						<li><input class="filter" type="checkbox" name="method" value="Bake" id="Bake"><label for="Bake">Bake</label></li>
 						<li><input class="filter" type="checkbox" name="method" value="Boil" id="Boil"><label for="Boil">Boil</label></li>
@@ -36,7 +38,7 @@
 						<li><input class="filter" type="checkbox" name="method" value="Microwave" id="Microwave"><label for="Microwave">Microwave</label></li>
 						<li><input class="filter" type="checkbox" name="method" value="Raw" id="Raw"><label for="Raw">Raw</label></li>
 					</ul>
-					<span class="filterTitle" title="You will recieve results that are under ANY of the selected restrictions">Dietary Restrictions</span>
+					<span class="filterTitle" title="Filter results that have ALL of the selected restrictions">Dietary Restrictions</span>
 					<ul> 
 						<li><input class="filter" type="checkbox" name="restriction" value="LactoseFree" id="LactoseFree"><label for="LactoseFree">Lactose Free</label></li>
 						<li><input class="filter" type="checkbox" name="restriction" value="Vegetarian" id="Vegetarian"><label for="Vegetarian">Vegetarian</label></li>
@@ -51,7 +53,7 @@
 	  					<div id="slider-calories"></div>
 	  				</ul>
 
-	  				<span class="filterTitle" title="Filter recipes by prep time">Maximum Prep Time:</label>
+	  				<span class="filterTitle" title="Filter recipes by prep time">Maximum Prep Time:</label></span>
 	  				<ul id="timeList" class="sliderList">
 	  					<li><input type="text" id="time" readonly class="filterField" style="border:0; color:#f6931f; font-weight:bold;"></li>
 	  					<li><div id="slider-time"></div></li>
@@ -65,7 +67,7 @@
 
 
 
-					<div id="register-form" title="Create new user">
+		<div id="register-form" title="Create new user">
 		  <p class="validateTips">All form fields are required.</p>
 		 
 		  <form>
@@ -76,7 +78,8 @@
 		      <input type="text" name="email" id="email" value="" class="text ui-widget-content ui-corner-all">
 		      <label for="password">Password</label>
 		      <input type="password" name="password" id="password" value="" class="text ui-widget-content ui-corner-all">
-		 
+		 	  <input type="password" name="passwordConf" id="passwordConf" value="" class="text ui-widget-content ui-corner-all">
+
 		      <!-- Allow form submission with keyboard without duplicating the dialog button -->
 		      <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
 		    </fieldset>
@@ -118,18 +121,15 @@
 
 		</div>
 
-		
-		<!--
-		<div id="pic-modal"><img id="img-modal"src="img/Logo2.png"></div>
-	-->
 
 		<div class="button-div">
 			<p id="welcome" class="modal-button">Welcome, </p>
-			<button id="analytics" class="modal-button"><i class="fa fa-pie-chart"></i>Analytics</button>
-			<button id="favorites" class="modal-button"><i class="fa fa-bookmark"></i>My Liked Recipes</button>
-			<button id="login" class="modal-button"><i class="fa fa-sign-in"></i>Login</button>
-			<button id="register" class="modal-button"><i class="fa fa-child"></i>Register</button>
-			<button id="logout" class="modal-button"><i class="fa fa-sign-out"></i>Logout</button>
+			<button id="analytics" class="modal-button"><i class="fa fa-pie-chart"></i> Analytics</button>
+			<button id="favorites" class="modal-button"><i class="fa fa-bookmark"></i> My Liked Recipes</button>
+			<button id="login" class="modal-button"><i class="fa fa-sign-in"></i> Login</button>
+			<button id="register" class="modal-button"><i class="fa fa-child"></i> Register</button>
+			<button id="logout" class="modal-button"><i class="fa fa-sign-out"></i> Logout</button>
+			<button id="developers" class="modal-button"><i class="fa fa-desktop"></i> Developers</button>
 		</div>
 
 		</div>

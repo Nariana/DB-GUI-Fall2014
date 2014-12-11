@@ -1,8 +1,9 @@
 //XAMPP
 //var rootURL = "http://localhost/DB-GUI-Fall2014/api/index.php";
+//var rootURL = "http://localhost/api/index.php";
 //MAMP
 var rootURL = "http://localhost:8888/DB-GUI-Fall2014/api/index.php";
-//var rootURL = "api/index.php"
+
 
 var allIngredients = getIngredients();
 
@@ -29,7 +30,6 @@ function getFilters(){
   var i = 0;
 
   $.each(selected, function(){
-    //console.log($(this).attr("class"));
     var key = $(this).attr("name");
     var value = $(this).val();
 
@@ -41,7 +41,6 @@ function getFilters(){
   console.log(i);
 
   localStorage.setItem("filters", JSON.stringify(send));
-//  console.log(localStorage.filters);
 
 
   send[i] = { "calories": $( "#slider-calories" ).slider( "value" )};
@@ -77,19 +76,14 @@ function getResults(){
             if(result != 0){
               console.log(result.length);
               for (var i = 0; i < result.length ; i++) {
-                //console.log(result[i]);
                 var percent = Math.floor(result[i].rankingPoints*100);
                 var add = "<div id='recipe"+i+"' class='resultDiv'><ul class='resultList'><h5 class='name'>"+result[i].recipeName+"</h5><li class='rating'>"+result[i].rating+" likes</li><li class='time'>"+result[i].time+" minutes</li><li class='percent'>"+percent+"% ingredient match</li></ul></div>";
                 
                 $("#resultListDiv").append(add);
 
                 if((localStorage.getItem("username") != null) && (localStorage.getItem("username") != "null")){   
-                  //console.log("logged in, adding thumbs");           
-                  //console.log(i);
-                  //console.log($("#recipe"+i).has("i").length === 0);
                   if($("#recipe"+i).has("i").length === 0){
-                    //console.log($("#recipe"+i));
-                    $("#recipe"+i +" >ul").append("<li class='thumb-col'><i class='thumb fa fa-thumbs-o-up fa-2x'></i></li>");
+                    $("#recipe"+i +" >ul").append("<li class='thumb-col'><i class='thumb fa fa-star-o fa-2x'></i>  </li>");
                     console.log(result[i].saved);
                     if (result[i].saved === "true") {
                       console.log("changing "+i);
@@ -103,7 +97,6 @@ function getResults(){
                 addListeners();
               }
             }
-            //alert("done!"+ csvData.getAllResponseHeaders())
           },
         error: function(jqXHR, textStatus, errorThrown){
           $("#resultListDiv").append("<div class='resultDiv'><p id='no-result'>sorry, no results</p></div>");
@@ -127,10 +120,8 @@ $(function() {
 function addListeners(){
   $(".resultDiv").hover(function(){
     $(this).css("background-color","grey");
-    //$(this).css("border","solid black 1px");
   }, function(){
     $(this).css("background-color","white");
-    //$(this).css("border","none");
 
   });
 
@@ -142,7 +133,6 @@ function addListeners(){
   $(".resultDiv").off("click").on("click", function(){
     console.log($(this));
 
-    //var clickClass = $(this).attr("class");
     if($(this).hasClass("thumb") === false){
       console.log($(this).find("h5").html());
       recipe = $(this).find("h5").html();
@@ -172,14 +162,6 @@ function addListeners(){
   $("#back").off("click").on("click",function(){
     window.location = "index.html";
   });
-
-  $("#back").hover(function(){
-    $(this).css("color", "#EDE297");
-  }, function(){
-    $(this).css("color", "white");
-  });
-
-
 }
 
 function thumbClick(t){
@@ -195,8 +177,10 @@ function thumbClick(t){
           url: rootURL+"/deleteFavorites",
           data: send,
           success: function (result) {
-              console.log(result);
+              //console.log(result);
               $(t).css("color", "black");
+              var newRating = parseInt($(t).parent().parent().find(".rating").text()) -1;
+              $(t).parent().parent().find(".rating").text(newRating + " likes");
             },
           error: function(jqXHR, textStatus, errorThrown){
             console.log(jqXHR, textStatus, errorThrown);
@@ -208,10 +192,12 @@ function thumbClick(t){
           url: rootURL+"/saveRecipe",
           data: send,
           success: function (result) {
-              console.log("showing" + result);
+              //console.log(t);
               $(t).css("color", "#8aa1ab");
-            },
-          error: function(jqXHR, textStatus, errorThrown){
+              var newRating = parseInt($(t).parent().parent().find(".rating").text()) + 1;
+              $(t).parent().parent().find(".rating").text(newRating + " likes");
+            }, 
+           error: function(jqXHR, textStatus, errorThrown){
             console.log(jqXHR, textStatus, errorThrown);
         }});
   }
@@ -295,15 +281,6 @@ function showIngredients(){
     });
 }
 
-/* hover color change for the back button */
-$("#back").hover(
-  function(){
-    $(this).css("color","#fae59d");
-    //$(this).css("color","#8aa1ab");
-},  function(){
-    $(this).css("color","white");
-});
-
 function getIngredients(){
 
   console.log("in get Ingredients");
@@ -318,12 +295,9 @@ function getIngredients(){
             for (var i = 0; i < result.length - 1; i++) {
               availableTags[i] = result[i][0];
             };
-            //console.log(availableTags);
-            //alert("done!"+ csvData.getAllResponseHeaders())
             $( "#addIngredient" ).autocomplete({
               source: availableTags,
               select: function(event, ui){
-                //console.log();
                 var num = $(".ing").length;
                 $("#ingList").append('<li><input type="checkbox" class="ing" checked name="ing" value="'+ui.item.value+'" id="ing'+num+'"><label for="ing'+num+'">'+ui.item.value+'</label></li>');
                 $(this).val('');
@@ -331,7 +305,7 @@ function getIngredients(){
                 var query = [];
                 var fields = $(".ing");
                 $.each(fields, function(i, v) {
-                  query.push(v.textContent);
+                  query.push(v.value);
                 }); 
 
                 if (query.length > 0) {
@@ -349,7 +323,6 @@ function getIngredients(){
             $( "#excludeIngredient" ).autocomplete({
               source: availableTags,
               select: function(event, ui){
-                //console.log();
                 var num = $(".noning").length;
                 $("#noningList").append('<li><input type="checkbox" class="noning" checked name="noning" value="'+ui.item.value+'" id="noning'+num+'"><label for="noning'+num+'">'+ui.item.value+'</label></li>');
                 $(this).val('');

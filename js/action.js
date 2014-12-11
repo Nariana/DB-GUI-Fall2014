@@ -3,11 +3,16 @@
 //MAMP
 var rootURL = "http://localhost:8888/DB-GUI-Fall2014/api/index.php";
 //var rootURL = "http://localhost/api/index.php";
+
+
+
+
 //var rootURL = "api/index.php"
 
 localStorage.removeItem("filters");
 localStorage.removeItem("noningredients");
 var allIngredients = getIngredients();
+showRecipes();
 
 $( ".textIngredient" ).on( "autocompleteselect", function( event, ui ) {
   $('#textIngredient').val("");
@@ -128,6 +133,52 @@ $(function() {
         at: "right+5 top-5"
       }
 })});
+
+function showRecipes(){
+  console.log("in show Recipes");
+  console.log(rootURL+"/displayRecipes");
+  $.ajax({
+        type: "GET",
+        url: rootURL+"/displayRecipes",
+        dataType: "json",
+        success: function (result) {
+            console.log(result);
+            var url="";
+            var name = "";
+            for (var i = 0; i < result.length ; i++) {
+              url = result[i][0];
+              name = result[i][1];
+              $("#scrollContent").append('<img src="'+url+'" alt="'+name+'" id="image'+i+'" class="scrollableRecipe"/>');
+            }
+
+
+            console.log(DYN_WEB);
+           if ( DYN_WEB.Scroll_Div.isSupported() ) {
+                // arguments: id of scroll area div, id of content div
+                var wndo = new DYN_WEB.Scroll_Div('displayRecipes', 'scrollContent');
+                console.log($("#scrollContent"));
+                wndo.makeSmoothAuto( {
+                  axis:'v', // scroll axis: 'h' or 'v' for horizontal or vertical
+                  bRepeat:true, // repeat scrolling in a continuous loop
+                  repeatId:'image0', // id attached to repeated first element
+                  speed:800, // scroll speed
+                  bPauseResume:false // pause/resume on mouseover/mouseout
+                  } );
+                  console.log(wndo);
+            }
+
+            $(".scrollableRecipe").off("click").on("click", function(){
+              var recipe = $(this).attr("alt")
+              console.log("clicked on " + recipe);
+              localStorage.setItem("selectedRecipe", recipe);
+              window.location.href = "recipe.html";
+            });
+
+          },
+        error: function(jqXHR, textStatus, errorThrown){
+           console.log(jqXHR, textStatus, errorThrown);
+      }});
+}
 
 
 
