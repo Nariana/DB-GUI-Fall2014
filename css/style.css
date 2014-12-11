@@ -188,11 +188,21 @@ left: 0;
 	background-color: white;
 	border: solid 1px black;
 	border-radius: 10px;
+
+	font-size: 18px;
+
+	color: black;
+    text-shadow:
+    -1px -1px 0 #FFF,
+    1px -1px 0 #FFF,
+    -1px 1px 0 #FFF,
+    1px 1px 0 #FFF;  
 }
 
 .resultList{
 	list-style-type: none;
 	margin-right: 25px;
+
 }
 
 .name{

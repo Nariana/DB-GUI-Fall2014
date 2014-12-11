@@ -1,8 +1,8 @@
 //XAMPP
-var rootURL = "http://localhost/DB-GUI-Fall2014/api/index.php";
+//var rootURL = "http://localhost/DB-GUI-Fall2014/api/index.php";
 // var rootURL = "http://localhost/api/index.php";
 //MAMP
-// var rootURL = "http://localhost:8888/DB-GUI-Fall2014/api/index.php";
+ var rootURL = "http://localhost:8888/DB-GUI-Fall2014/api/index.php";
 
 
 var allIngredients = getIngredients();
@@ -81,6 +81,10 @@ function getResults(){
                 var add = "<div id='recipe"+i+"' class='resultDiv'><ul class='resultList'><h5 class='name'>"+result[i].recipeName+"</h5><li class='rating'>"+result[i].rating+" likes</li><li class='time'>"+result[i].time+" minutes</li><li class='percent'>"+percent+"% ingredient match</li></ul></div>";
                 
                 $("#resultListDiv").append(add);
+
+                $("#recipe"+i).css("background-image", "url('"+result[i].picture+"')");
+                $("#recipe"+i).css("background-size", "100%");
+                $("#recipe"+i).css("opactiy", .25);
 
                 if((localStorage.getItem("username") != null) && (localStorage.getItem("username") != "null")){   
                   if($("#recipe"+i).has("i").length === 0){
