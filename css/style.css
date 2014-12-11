@@ -81,14 +81,12 @@ margin-top: 75px;
 /* for recipe.html */
 
 #headerInfo {
-	text-align: center;
 	margin-left: auto;
     margin-right: auto;
-    width: 70%;
-    color: white;
-    /*background-color: white;
-    color: black;*/
-
+    width: 65%;
+    color: #7B7B7B;
+    background-color: #F2F1EC;
+    height: 400px;
 }
 
 #recipeImg {

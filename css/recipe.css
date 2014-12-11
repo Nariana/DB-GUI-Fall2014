@@ -1,0 +1,17 @@
+* {
+   margin: 0px;
+   padding: 0px;
+}
+
+::selection {
+  background: #89A9B7;
+  color: white;
+}
+
+#headerInfo {
+	font-size: 30px;
+}
+
+#headerInfo img {
+
+}
