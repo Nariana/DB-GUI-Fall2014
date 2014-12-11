@@ -1016,7 +1016,7 @@ function searchInsert($sql, $ingredients)
             
             $ingredientPoints;
 
-            //echo "And the I only have this";
+           // echo "And the I only have this";
             //echo var_dump($ingredients);
 
             foreach ($ingredients as $ingredient)
@@ -1034,7 +1034,10 @@ function searchInsert($sql, $ingredients)
             }
             
             $ranking = $ingredientPoints / $totalPoints;
-            //echo $ranking;
+            /*echo "RANKING";
+            echo $ranking;
+            echo "ID";
+            echo $recipeID;*/
             
             $sq = $con->prepare("select rankingPoints from results where recipeID =  ?");
             $sq->execute();
@@ -1052,14 +1055,16 @@ function searchInsert($sql, $ingredients)
             {
                 $RP = $tempRP;
             }
+           // echo $RP;
             //echo $RP;
             if($RP < $ranking)
             {
                 
               //  echo "changing";
                 $sq2 = $con->prepare("UPDATE results SET rankingPoints = ? WHERE recipeID = ?");
-                //$sq2->bind_param('di', $ranking, $recipeID);
-                //$sq2->execute();
+                $sq2->bind_param('di', $ranking, $recipeID);
+                $sq2->execute();
+                //printf("%d Row inserted.\n", $sql->affected_rows);
 
             }
             
