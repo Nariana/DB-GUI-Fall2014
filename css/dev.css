@@ -8,17 +8,20 @@
   color: white;
 }
 
-img {
-	width: 100%;
+.header-container {
 	height: 300px;
-    padding: 0;
-    margin: auto 0;
-    position: static;
+	background: url(../img/devHeader.jpg) no-repeat;
+ 	background-size: 100%;
 }
 
 body {
 	font-family: 'Lato', sans-serif;
 	background-color: #F2F1EC;
+}
+
+a {
+	text-decoration: none;
+	color: #7B7B7B;
 }
 
 h1 {
@@ -27,16 +30,16 @@ h1 {
     position:absolute;
     text-align:left;
     top: 30px;
-    width: 100%;
     font-size: 60;
     padding-left: 400;
     padding-top: 55;
-    font-weight: 220;
+    font-weight: 200;
     font-family: 'Open Sans', sans-serif;
-    letter-spacing: 6px;
+    letter-spacing: 1px;
 }
 
 .color-bar { 
+	width: 100%;
 	background-color: #8AA1AB;
 	height: 15px;
 }
@@ -48,19 +51,53 @@ h2 {
 	padding-bottom: 35;
 }
 
+h3 {
+	color: #8AA1AB;
+	font-weight: 350;
+	font-size: 28;
+}
+
+.menu {
+	width: 40%;
+	float: left;
+}
+.menu hr {
+	margin-left: 400;
+	margin-top: 115;
+	position: fixed;
+	width: 210px;
+}
+
+.menu h2 {
+	margin-left: 400;
+	margin-top: 75;
+	color: #7B7B7B;
+	position: fixed;
+	display: inline-block;
+}
+
+.menu h3 {
+	position: fixed;
+	display: inline-block;
+	margin-left: 400;
+	margin-top: 125;
+	font-size: 23;
+}
+
 .text-container {
 	display: inline-block;
-	background-color: white;
-	margin-left: 400;
-	padding-left: 10;
+	background-color: #F7F7F7;
+	padding-left: 30;
 	padding-top: 75;
+	float: right;
+	width: 58%;
 }
 
 .text-container ul {
 	padding-left: 20;
 	font-size: 20;
 	padding-bottom: 50;
-	width: 870;
+	line-height: 200%;
 }
 
 .text-container ul li {
@@ -69,6 +106,65 @@ h2 {
 
 .code {
 	font-family: 'Source Code Pro', monospace;
-	display: inline;
+	display: inline-block;
 	background-color: #F2F1EC;
+	padding: 10;
+	color: black;
+	border-style: solid;
+    border-width: 2px;
+    border-radius: 8;
+    border-color: #F2F1EC;
+}
+
+.small-code {
+	font-family: 'Source Code Pro', monospace;
+	display: inline-block;
+	background-color: #F2F1EC;
+	padding: 10;
+	color: black;
+	border-style: solid;
+    border-width: 2px;
+    border-radius: 8;
+    border-color: #F2F1EC;
+	font-size: 18;
+}
+.right-dev {
+	padding-top: 40px;
+}
+
+.left-dev {
+	padding-top: 40px;
+}
+
+.left-dev img {
+	float: left;
+}
+
+.right-dev img {
+	float: right;
+}
+
+.circle-pic {
+	border-radius:50% 50% 50% 50%;  
+	width:200px;
+	height:200px;
+	padding: 5px;
+}
+
+.left-dev h3 {
+	display: inline;
+	margin-left: -30px;
+}
+
+.right-dev h3 {
+	text-align: right;
+}
+
+.left-dev p {
+	font-size: 20;
+}
+
+.right-dev p {
+	text-align: right;
+	font-size: 20;
 }

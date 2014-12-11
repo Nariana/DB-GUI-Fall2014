@@ -1,5 +1,8 @@
 <html>
 <head>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  	<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+	<script type="text/javascript" src="js/animate.js"></script>
 	<link rel="stylesheet" type="text/css" href="css/dev.css">
 	<link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Source+Code+Pro' rel='stylesheet' type='text/css'>
@@ -9,13 +12,25 @@
 </head>
 <body>
 	<h1>
-		PantryQuest Recipe API
+		PANTRYQUEST RECIPE API
 		</br>
-		Documentation
+		DOCUMENTATION
 	</h1>
-	<img src="img/devHeader.jpg" alt="cutting board with vegetables">
+	<div class="header-container"></div>
 	<div class="color-bar"></div>
+	<div class="menu">
+		<h2>Menu</h2>
+		<hr>
+		<h3><a href="#about">About</a></h3>
+		</br>
+		</br>
+		<h3><a href="#get">GET Requests</a></h3>
+		</br>
+		</br>
+		<h3><a href="#dev">Meet the Dev Team</a></h3>
+	</div>
 	<div class="text-container">
+		<a id="about"></a>
 		<h2>
 			About the PantryQuest API
 		</h2>
@@ -30,6 +45,7 @@
 				<strong>Web API Base URL: </strong> <p class="code"> http://54.69.70.135/DB-GUI-Fall2014/api/index.php</p>
 			</li>
 		</ul>
+		<a id="get"></a>
 		<h2>
 			Performing GET Requests
 		</h2>
@@ -38,19 +54,50 @@
 				<strong>Get Ingredients:</strong> Returns ingredients in the PantryQuest database </br> The base url for Get Ingredients GET request is: </br><p class="code">http://54.69.70.135/DB-GUI-Fall2014/api/index.php/getIngredient</p>
 			</li>
 			<li>
-				<strong>Get Result:</strong> Searches the PantryQuest database for recipes matching the search criteria.
+				<strong>Get Result:</strong> Searches the PantryQuest database for recipes matching the search criteria. The parameter for Get Result is a GET array specifying your search criteria. </br> The base URL for Get Result GET request is: </br><p class="code">http://54.69.70.135/DB-GUI-Fall2014/api/index.php/getResult/</br>?0[ing]=your_ing&1[calories]=your_calories&2[time]=your_time</p></br> Where <strong>your_ing</strong> is an ingredient you want all recipes returned to have, <strong>your_calories</strong> is maximum number of calories for recipes, and <strong>your_time</strong> is maximum prep time (in minutes) for recipes.
 			</li>
 			<li>
-				<strong>Get Recipe:</strong> Returns the recipe name, ingredients, method, picture, time, and rating of a particular recipe.
+				<strong>Get Recipe:</strong> Returns the recipe name, ingredients, method, picture, time, and rating of a particular recipe. </br> The base URL for Get Recipe GET request is: </br><p class="code">http://54.69.70.135/DB-GUI-Fall2014/api/index.php/getRecipe?recipeName=your_recipe_name</p> Where <strong>your_recipe_name </strong> is a recipe in the PantryQuest database.
 			</li>
 			<li>
-				<strong>Get Analytics:</strong> Returns the 5 most searched for ingredients, the 5 most clicked on recipes and the 5 most saved recipes on PantryQuest.
+				<strong>Get Analytics:</strong> Returns the 5 most searched for ingredients, the 5 most clicked on recipes and the 5 most saved recipes on PantryQuest. </br> The base URL for Get Analytics GET request is <p class="code">http://54.69.70.135/DB-GUI-Fall2014/api/index.php/getAnalytics</p>
 			</li>
 			<li>
-				<strong>Display Favorites:</strong> Returns all recipes favorited by a particular user.
+				<strong>Display Favorites:</strong> Returns all recipes favorited by a particular user. </br> The base URL for Display Favorites is <p class="small-code">http://54.69.70.135/DB-GUI-Fall2014/api/index.php/displayFavorites?username=your_username</p></br> Where <strong>your_username</strong> is a valid PantryQuest username.
 			</li>
+
 		</ul>
+		<a id="dev"></a>
+		<h2>The Dev Team</h2>
+		<div class="left-dev">
+			<img src="img/Brando.png" class="circle-pic">
+			<h3>Brandon Guerra</h3>
+			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut vel repellat omnis quo. Blanditiis ad laudantium, fuga praesentium fugit, minus repellat enim id rerum tenetur unde a quibusdam iusto, eos?</p>
+		</div>
+		<div style="clear: both;"></div>
+		<div class="right-dev">
+			<img src="img/Karo.jpg" class="circle-pic">
+			<h3>Karoline Skatteboe</h3>
+			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur vero aliquam est, unde placeat assumenda tempora deleniti, numquam earum modi dignissimos. Eligendi hic totam consequuntur ab illum, delectus tempora blanditiis!</p>
+		</div>
+		<div style="clear: both;"></div>
+		<div class="left-dev">
+			<img src="img/Jacob.png" class="circle-pic">
+			<h3>Jacob Adkins</h3>
+			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet corporis laborum laboriosam doloremque inventore reprehenderit voluptatibus ipsum, necessitatibus provident a at dolore deserunt nisi culpa doloribus alias optio, in sapiente.</p>
+		</div>
+		<div style="clear: both;"></div>
+		<div class="right-dev">
+			<img src="img/Nari.png" class="circle-pic">
+			<h3>Nariana Sands</h3>
+			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur vero aliquam est, unde placeat assumenda tempora deleniti, numquam earum modi dignissimos. Eligendi hic totam consequuntur ab illum, delectus tempora blanditiis!</p>
+		</div>
+		<div style="clear: both;"></div>
+		<div class="left-dev">
+			<img src="img/Mike.png" class="circle-pic">
+			<h3>Michael Devitt</h3>
+			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet corporis laborum laboriosam doloremque inventore reprehenderit voluptatibus ipsum, necessitatibus provident a at dolore deserunt nisi culpa doloribus alias optio, in sapiente.</p>
+		</div>
 	</div>
-	
 </body>
 </html>
