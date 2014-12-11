@@ -75,6 +75,7 @@ function getResults(){
 
             if(result != 0){
               console.log(result.length);
+             
               for (var i = 0; i < result.length ; i++) {
                 var percent = Math.floor(result[i].rankingPoints*100);
                 var add = "<div id='recipe"+i+"' class='resultDiv'><ul class='resultList'><h5 class='name'>"+result[i].recipeName+"</h5><li class='rating'>"+result[i].rating+" likes</li><li class='time'>"+result[i].time+" minutes</li><li class='percent'>"+percent+"% ingredient match</li></ul></div>";
@@ -96,6 +97,22 @@ function getResults(){
 
                 addListeners();
               }
+
+              var divs = $(".resultDiv");
+              var maxHeight = 0;
+
+              $.each(divs, function(){
+                var thisHeight = $(this).height();
+                console.log(thisHeight);
+                if ( thisHeight > maxHeight){
+                  maxHeight = thisHeight;
+                  console.log("changing to " + thisHeight);
+                }
+              });
+
+              $.each(divs, function(){
+                $(this).height(maxHeight);
+              });
             }
           },
         error: function(jqXHR, textStatus, errorThrown){

@@ -166,7 +166,8 @@ margin-top: 75px;
 
 .resultDiv {
 	width: 30%;
-	display: inline-block;
+	/*display: inline-block;*/
+	float: left;
 	position: relative;
 	background-color: white;
 	border: solid 1px black;
