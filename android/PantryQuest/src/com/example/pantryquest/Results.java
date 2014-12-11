@@ -67,8 +67,6 @@ public class Results extends Activity implements OnClickListener, OnItemClickLis
 	private String[] ingredients;
 	// the Recipe activity intent contains a String[] of relevent info for the recipe
 	public final static String RECIPE_INFO = "com.example.PantryQuest.RECIPE_INFO";
-	// root URL for the server
-	private final static String rootUrl =  "the root url of the server";
 	// all of the filter checkboxes
 	private CheckBox cb_bake, cb_boil, cb_grill, cb_slowcook, cb_stovetop, cb_fry,
 		cb_lactose, cb_vegetarian, cb_vegan,cb_gluten, cb_nonuts;
@@ -222,10 +220,57 @@ public class Results extends Activity implements OnClickListener, OnItemClickLis
     	String string = "http://54.69.70.135/DB-GUI-Fall2014/api/index.php/getResult?";
     	recipeNames.clear();
     	int i = 0;
+    	// add ingredients to url
     	while( i < ingredients.length) {
     		string = string + i + "[ing]=" + ingredients[i] + "&";
     		i++;
     	}
+    	// add checkboxes to url
+    	if (cb_bake.isEnabled()) {
+    		string = string + i + "[Bake]=true&";
+    		i++;
+    	}
+    	if (cb_boil.isEnabled()) {
+    		string = string + i + "[Boil]=true&";
+    		i++;
+    	}
+    	if (cb_grill.isEnabled()) {
+    		string = string + i + "[Grill]=true&";
+    		i++;
+    	}
+    	if (cb_slowcook.isEnabled()) {
+    		string = string + i + "[Slowcook]=true&";
+    		i++;
+    	}
+    	if (cb_stovetop.isEnabled()) {
+    		string = string + i + "[Stovetop]=true&";
+    		i++;
+    	}
+    	if (cb_fry.isEnabled()) {
+    		string = string + i + "[Fry]=true&";
+    		i++;
+    	}
+    	if (cb_lactose.isEnabled()) {
+    		string = string + i + "[LactoseFree]=true&";
+    		i++;
+    	}
+    	if (cb_vegetarian.isEnabled()) {
+    		string = string + i + "[Vegetarian]=true&";
+    		i++;
+    	}
+    	if (cb_vegan.isEnabled()) {
+    		string = string + i + "[Vegan]=true&";
+    		i++;
+    	}
+    	if (cb_gluten.isEnabled()) {
+    		string = string + i + "[GlutenFree]=true&";
+    		i++;
+    	}
+    	if (cb_nonuts.isEnabled()) {
+    		string = string + i + "[NoNuts]=true&";
+    		i++;
+    	}
+    	// add seekbars to url
     	string = string + i + "[calories]=" + sbc.getProgress() + "&";
     	i++;
     	string = string + i + "[time]=" + sbt.getProgress();

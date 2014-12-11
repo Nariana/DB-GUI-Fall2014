@@ -29,6 +29,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -50,6 +51,8 @@ public class Recipe extends Activity implements OnClickListener {
 	private TextView txtIngr;
 	// txtSteps is the the textView containing the steps for the recipe
 	private TextView txtSteps;
+	// txtDesc is the textview containing the description of the recipe
+	private TextView txtDesc;
 	// message is a String[] built in Results that contains the recipe info
 	private String recipeName;
 	// recipeDesc is a string detailing the recipe's time, cals, etc. . .
@@ -61,9 +64,16 @@ public class Recipe extends Activity implements OnClickListener {
 		setContentView(R.layout.activity_recipe);
 		
 		txtTitle = (TextView) findViewById(R.id.title);
-		txtIngr = (TextView) findViewById(R.id.description);
+		txtDesc = (TextView) findViewById(R.id.description);
+		txtIngr = (TextView) findViewById(R.id.ingredients);
 		txtSteps = (TextView) findViewById(R.id.steps);
 		img = (ImageView) findViewById(R.id.image);
+		
+		// set text color
+		txtTitle.setTextColor(Color.BLACK);
+		txtDesc.setTextColor(Color.BLACK);
+		txtIngr.setTextColor(Color.BLACK);
+		txtSteps.setTextColor(Color.BLACK);
 		
 		// set bt
 		bt = (Button) findViewById(R.id.backButton);
@@ -134,12 +144,14 @@ public class Recipe extends Activity implements OnClickListener {
     	try {
     		JSONObject jsonRecipe = new JSONObject(string);
     		txtTitle.setText(jsonRecipe.optString("recipeName"));
-    		txtIngr.setText(jsonRecipe.optString("ingredients"));
-    		txtSteps.setText(jsonRecipe.optString("instruction"));
     		recipeDesc = "Time: " + jsonRecipe.optInt("time");
     		recipeDesc = recipeDesc + ", Calories: " + jsonRecipe.optInt("calories");
     		recipeDesc = recipeDesc + ", Rating: " + jsonRecipe.optInt("rating");
+    		txtDesc.setText(recipeDesc);
+    		txtIngr.setText(jsonRecipe.optString("ingredients"));
+    		txtSteps.setText(jsonRecipe.optString("instruction"));
     		Log.i("Description: ", recipeDesc);
+    		
     		// set the image
     		Bitmap bitmap = BitmapFactory.decodeStream((InputStream) new URL(jsonRecipe.optString("picture")).getContent());
     		img.setImageBitmap(bitmap);

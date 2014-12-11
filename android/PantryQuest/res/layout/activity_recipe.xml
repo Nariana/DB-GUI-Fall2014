@@ -44,12 +44,20 @@
 	        android:layout_below="@+id/title"
 	        android:layout_centerHorizontal="true"
 	        android:text="@string/default_desc" />
+	    
+	    <TextView
+	        android:id="@+id/ingredients"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_below="@+id/description"
+	        android:layout_centerHorizontal="true"
+	        android:text="@string/default_ingr" />
 	
 	    <TextView
 	        android:id="@+id/steps"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:layout_below="@+id/description"
+	        android:layout_below="@+id/ingredients"
 	        android:layout_centerHorizontal="true"
 	        android:text="@string/default_steps" />
 	
