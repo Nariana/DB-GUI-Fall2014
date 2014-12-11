@@ -81,7 +81,7 @@ margin-top: 75px;
 /* for recipe.html */
 
 #headerInfo {
-	float: left;
+	text-align: center;
 	margin-left: auto;
     margin-right: auto;
     width: 70%;
