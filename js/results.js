@@ -103,10 +103,10 @@ function getResults(){
 
               $.each(divs, function(){
                 var thisHeight = $(this).height();
-                console.log(thisHeight);
+                //console.log(thisHeight);
                 if ( thisHeight > maxHeight){
                   maxHeight = thisHeight;
-                  console.log("changing to " + thisHeight);
+                  //console.log("changing to " + thisHeight);
                 }
               });
 
@@ -176,7 +176,7 @@ function addListeners(){
 
   });
 
-  $("#back").off("click").on("click",function(){
+  $("#back").button().off("click").on("click",function(){
     window.location = "index.html";
   });
 }

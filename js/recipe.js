@@ -52,9 +52,27 @@ function load(){
             }
 
             $("#rate").prepend(result["rating"]);
-            $("#time").prepend(result["time"]);
+            $("#rectime").prepend(result["time"]);
             $("#cals").prepend(result["calories"]);
             $("#recipeImg").attr("src",result["picture"]);
+
+              if((localStorage.getItem("username") != null) && (localStorage.getItem("username") != "null")){   
+                  if($("#recipeInfo").has("i").length === 0){
+                    $("#recipeInfo").append("<li class='thumb-col'><i class='thumb fa fa-star-o fa-2x'></i>  </li>");
+                    console.log(result.saved);
+                    if (result.saved === "true") {
+                      console.log("changing "+i);
+                      $("#recipeInfo i").addClass("saved");
+                      $("#recipeInfo i").css("color", "#8aa1ab");
+                    }
+
+                    $(".thumb").hover(function(){
+                      $(this).addClass("thumbHover");
+                      $(this).css("color", "black");
+                    });
+
+                   }
+                }
           },
         error: function(jqXHR, textStatus, errorThrown){
           alert("No recipe found! Let's go back!");
@@ -75,3 +93,52 @@ $("#newButton").button().off("click").on("click", function(){
   localStorage.removeItem("selectedRecipe");
   window.location.href = "index.html";
 });
+
+function colorThumbs(t){
+  if($(t).hasClass("saved")){
+    $(t).css("color", "");
+  }
+  else{
+    $(t).css("color", "black");
+  }
+
+}
+
+function thumbClick(t){
+    console.log(t);
+    var recipe = $(t).parent().parent().find("h5").html();
+    var send = {"recipeName": recipe};
+    console.log(send);
+    $(t).toggleClass("saved");
+
+    if($(t).hasClass("saved")===false){
+        $.ajax({
+          type: "GET",
+          url: rootURL+"/deleteFavorites",
+          data: send,
+          success: function (result) {
+              //console.log(result);
+              $(t).css("color", "black");
+              var newRating = parseInt($(t).parent().parent().find(".rating").text()) -1;
+              $(t).parent().parent().find(".rating").text(newRating + " likes");
+            },
+          error: function(jqXHR, textStatus, errorThrown){
+            console.log(jqXHR, textStatus, errorThrown);
+        }});
+    }
+    else{
+      $.ajax({
+          type: "GET",
+          url: rootURL+"/saveRecipe",
+          data: send,
+          success: function (result) {
+              //console.log(t);
+              $(t).css("color", "#8aa1ab");
+              var newRating = parseInt($(t).parent().parent().find(".rating").text()) + 1;
+              $(t).parent().parent().find(".rating").text(newRating + " likes");
+            }, 
+           error: function(jqXHR, textStatus, errorThrown){
+            console.log(jqXHR, textStatus, errorThrown);
+        }});
+  }
+}
