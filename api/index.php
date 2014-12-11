@@ -281,11 +281,11 @@ function deleteFavorites()
                 //decrement ranking 
                     $sql2 = $con->prepare("UPDATE recipe SET rating = ? where recipeName = ? ");
                     $sql2->bind_param('is', $rating, $recipeName);
-                    $sql2->execute();        
-                }
+                    $sql2->execute();
+
             //close connection
             $con->close();
-
+            }
     }
     catch (Exception $e)
     {
@@ -442,10 +442,10 @@ function saveRecipe()
                     {
                         echo json_encode("Saved");
                     }
-                else 
-                {
-                    echo json_encode("Error saving recipe");
-                }
+                    else 
+                    {
+                        echo json_encode("Error saving recipe");
+                    }
                 }
         $con->close();
 
