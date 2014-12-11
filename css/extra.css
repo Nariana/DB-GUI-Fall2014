@@ -1,0 +1,33 @@
+* {
+   margin: 0px;
+   padding: 0px;
+}
+
+::selection {
+  background: #89A9B7;
+  color: white;
+}
+
+.big-header-container {
+	height: 900px;
+	background: url(../img/newHeader.png) no-repeat;
+ 	background-size: 100%;
+}
+
+#logo {
+	padding-top: 40px;
+}
+
+.main-text {
+	color: white;
+	font-size: 35px;
+	position: absolute;
+	text-align: center;
+	margin-left: 240px;
+	margin-top: 50px;
+}
+
+#insert {
+	margin-top: 160px;
+	margin-left: 40px;
+}
