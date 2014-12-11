@@ -67,8 +67,15 @@ function load(){
                     }
 
                     $(".thumb").hover(function(){
+                      console.log($(this));
                       $(this).addClass("thumbHover");
                       $(this).css("color", "black");
+                    }, function(){
+                      colorThumbs(this)
+                    });
+
+                    $(".thumb").off("click").on("click", function(){
+                      thumbClick(this);
                     });
 
                    }
@@ -95,18 +102,19 @@ $("#newButton").button().off("click").on("click", function(){
 });
 
 function colorThumbs(t){
+  console.log("in color thumbs");
   if($(t).hasClass("saved")){
-    $(t).css("color", "");
+    $(t).css("color", "#EDE297");
   }
   else{
-    $(t).css("color", "black");
+    $(t).css("color", "white");
   }
 
 }
 
 function thumbClick(t){
     console.log(t);
-    var recipe = $(t).parent().parent().find("h5").html();
+    var recipe = localStorage.selectedRecipe;
     var send = {"recipeName": recipe};
     console.log(send);
     $(t).toggleClass("saved");
