@@ -2,6 +2,7 @@ body {
 	background-color: #8aa1ab;
 	/* bold font for easier reading	 */
 	font-family: 'Raleway', sans-serif;
+	font-size: 16px;
 }
 
 img{
@@ -82,7 +83,7 @@ left: 0;
 /* for recipe.html */
 
 #headerInfo {
-	float: left;
+	text-align: center;
 	margin-left: auto;
     margin-right: auto;
     width: 70%;
