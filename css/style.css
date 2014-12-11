@@ -55,6 +55,12 @@ img{
 	float: left;
 }
 
+#info {
+	margin: 150px;
+	text-align: center;
+	font-weight: 600;
+}
+
 #resultTable {
 //border: 1px solid black;
 //padding: 15px;
