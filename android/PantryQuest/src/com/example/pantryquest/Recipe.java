@@ -32,6 +32,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -74,6 +75,10 @@ public class Recipe extends Activity implements OnClickListener {
 		txtDesc.setTextColor(Color.BLACK);
 		txtIngr.setTextColor(Color.BLACK);
 		txtSteps.setTextColor(Color.BLACK);
+		
+		// set ingredients and directions to scroll
+		txtIngr.setMovementMethod(new ScrollingMovementMethod());
+		txtSteps.setMovementMethod(new ScrollingMovementMethod());
 		
 		// set bt
 		bt = (Button) findViewById(R.id.backButton);

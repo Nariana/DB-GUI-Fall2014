@@ -87,6 +87,8 @@ public class Results extends Activity implements OnClickListener, OnItemClickLis
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_results);
+		getActionBar().setTitle("Swipe right for filters! ->");
+		// get info from MainActivity
 		Intent intent = getIntent();
 		ingredients = intent.getStringArrayExtra(MainActivity.EXTRA_MESSAGE);
 		// set SeekBars and their TextViews
