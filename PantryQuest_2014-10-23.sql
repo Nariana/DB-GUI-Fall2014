@@ -1115,7 +1115,7 @@ FLUSH PRIVILEGES;
 
 CREATE USER 'loggedIn'@'localhost' IDENTIFIED BY '123';
 
-grant select, insert, delete, drop on PantryQuest.results to 'loggedIn'@'localhost';
+grant select, insert, delete, update, drop on PantryQuest.results to 'loggedIn'@'localhost';
 grant select, insert, delete on PantryQuest.searchHistory to 'loggedIn'@'localhost';
 grant select (foodName, timesSearched), update (timesSearched) on PantryQuest.ingredient to 'loggedIn'@'localhost';
 grant select on PantryQuest.filter to 'loggedIn'@'localhost';
@@ -1128,7 +1128,7 @@ drop user 'unLoggedIn'@'localhost';
 FLUSH PRIVILEGES;
 CREATE USER 'unLoggedIn'@'localhost' IDENTIFIED BY '123';
 
-grant select, insert, delete, drop on PantryQuest.results to 'unLoggedIn'@'localhost';
+grant select, insert, delete, update, drop on PantryQuest.results to 'unLoggedIn'@'localhost';
 grant select on PantryQuest.searchHistory to 'unLoggedIn'@'localhost';
 grant select (foodName, timesSearched), update (timesSearched) on PantryQuest.ingredient to 'unLoggedIn'@'localhost';
 grant select on PantryQuest.filter to 'unLoggedIn'@'localhost';
