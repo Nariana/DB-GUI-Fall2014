@@ -142,7 +142,7 @@ function thumbClick(t){
           data: send,
           success: function (result) {
               //console.log(t);
-              $(t).css("color", "#8aa1ab");
+              $(t).css("color", "#EDE297");
               var newRating = parseInt($(t).parent().parent().find(".rating").text()) + 1;
               $(t).parent().parent().find(".rating").text(newRating + " likes");
             }, 
