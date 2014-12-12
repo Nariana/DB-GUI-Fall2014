@@ -55,8 +55,6 @@ import android.widget.TextView;
 
 public class Results extends Activity implements OnClickListener, OnItemClickListener, OnSeekBarChangeListener 	{
 
-	// bt is the button that, when pressed, returns to MainActivity
-	private Button bt;
 	// bt2 is the button that, when pressed, refreshes the search
 	private Button bt2;
 	// lv is the listview containing the ingredient search results
@@ -111,7 +109,7 @@ public class Results extends Activity implements OnClickListener, OnItemClickLis
 		cb_vegan = (CheckBox) findViewById(R.id.cb_vegan);
 		cb_gluten = (CheckBox) findViewById(R.id.cb_gluten);
 		cb_nonuts = (CheckBox) findViewById(R.id.cb_nonuts);
-		//note: get value with cb_boil.isEnabled()
+		//note: get value with cb_boil.isChecked()
 		// get recipes from ingredients and filters
         callAPI a = new callAPI();
         try {
@@ -125,8 +123,6 @@ public class Results extends Activity implements OnClickListener, OnItemClickLis
 		sbc.setOnSeekBarChangeListener(this);
 		sbt.setOnSeekBarChangeListener(this);
 		// create on click listener for bt
-		bt = (Button) findViewById(R.id.backButton);
-		bt.setOnClickListener(this);
 		bt2 = (Button) findViewById(R.id.refreshButton);
 		bt2.setOnClickListener(this);
 		// populate the ListView
@@ -137,11 +133,7 @@ public class Results extends Activity implements OnClickListener, OnItemClickLis
 	}
 	
 	public void onClick(View v) {
-		// on bt click return to MainActivity
-		if (v.getId() == R.id.backButton) {
-			this.finish();
-		}
-		else if (v.getId() == R.id.refreshButton) {
+		if (v.getId() == R.id.refreshButton) {
 			// refresh search
 			callAPI a = new callAPI();
 	        try {
@@ -228,48 +220,48 @@ public class Results extends Activity implements OnClickListener, OnItemClickLis
     		i++;
     	}
     	// add checkboxes to url
-    	if (cb_bake.isEnabled()) {
-    		string = string + i + "[Bake]=true&";
+    	if (cb_bake.isChecked()) {
+    		string = string + i + "[method]=bake&";
     		i++;
     	}
-    	if (cb_boil.isEnabled()) {
-    		string = string + i + "[Boil]=true&";
+    	if (cb_boil.isChecked()) {
+    		string = string + i + "[method]=boil&";
     		i++;
     	}
-    	if (cb_grill.isEnabled()) {
-    		string = string + i + "[Grill]=true&";
+    	if (cb_grill.isChecked()) {
+    		string = string + i + "[method]=grill&";
     		i++;
     	}
-    	if (cb_slowcook.isEnabled()) {
-    		string = string + i + "[Slowcook]=true&";
+    	if (cb_slowcook.isChecked()) {
+    		string = string + i + "[method]=slowcook&";
     		i++;
     	}
-    	if (cb_stovetop.isEnabled()) {
-    		string = string + i + "[Stovetop]=true&";
+    	if (cb_stovetop.isChecked()) {
+    		string = string + i + "[method]=stovetop&";
     		i++;
     	}
-    	if (cb_fry.isEnabled()) {
-    		string = string + i + "[Fry]=true&";
+    	if (cb_fry.isChecked()) {
+    		string = string + i + "[method]=fry&";
     		i++;
     	}
-    	if (cb_lactose.isEnabled()) {
-    		string = string + i + "[LactoseFree]=true&";
+    	if (cb_lactose.isChecked()) {
+    		string = string + i + "[restriction]=lactosefree&";
     		i++;
     	}
-    	if (cb_vegetarian.isEnabled()) {
-    		string = string + i + "[Vegetarian]=true&";
+    	if (cb_vegetarian.isChecked()) {
+    		string = string + i + "[restriction]=vegetarian&";
     		i++;
     	}
-    	if (cb_vegan.isEnabled()) {
-    		string = string + i + "[Vegan]=true&";
+    	if (cb_vegan.isChecked()) {
+    		string = string + i + "[restriction]=vegan&";
     		i++;
     	}
-    	if (cb_gluten.isEnabled()) {
-    		string = string + i + "[GlutenFree]=true&";
+    	if (cb_gluten.isChecked()) {
+    		string = string + i + "[restriction]=glutenfree&";
     		i++;
     	}
-    	if (cb_nonuts.isEnabled()) {
-    		string = string + i + "[NoNuts]=true&";
+    	if (cb_nonuts.isChecked()) {
+    		string = string + i + "[restriction]=nonuts&";
     		i++;
     	}
     	// add seekbars to url
