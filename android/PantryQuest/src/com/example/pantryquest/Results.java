@@ -10,13 +10,10 @@
 package com.example.pantryquest;
 
 /* inclusions */
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -30,19 +27,18 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
-import org.xmlpull.v1.XmlPullParserFactory;
-
-import com.example.pantryquest.MainActivity.callAPI;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
@@ -81,6 +77,7 @@ public class Results extends Activity implements OnClickListener, OnItemClickLis
 	// this is a arraylist containing the resulting recipe names
 	private List<String> recipeNames = new ArrayList<String>();
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -128,7 +125,8 @@ public class Results extends Activity implements OnClickListener, OnItemClickLis
 		// populate the ListView
 		lv = (ListView) findViewById(R.id.listView);
 		lv.setOnItemClickListener(this);
-		adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, recipeNames);
+		//adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, recipeNames);
+		adapter = new CustomListAdapter(this, R.layout.custom_list, recipeNames);
 		lv.setAdapter(adapter);
 	}
 	
@@ -292,4 +290,40 @@ public class Results extends Activity implements OnClickListener, OnItemClickLis
 			return null;
 		}
     }
+    
+ // custom ArrayAdapter implementation based on code in answer on page:
+ // http://stackoverflow.com/questions/7361135/how-to-change-color-and-font-on-listview
+
+@SuppressWarnings("rawtypes")
+final class CustomListAdapter extends ArrayAdapter{
+ 	private Context context;
+ 	private int id;
+ 	private List <String> items;
+ 	
+ 	@SuppressWarnings("unchecked")
+ 	public CustomListAdapter(Context context, int textViewResourceId, List<String> list) {
+ 		super(context, textViewResourceId, list);
+ 		this.context = context;
+ 		id = textViewResourceId;
+ 		items = list;
+ 	}
+ 	
+ 	@Override
+ 	public View getView(int position, View v, ViewGroup parent) {
+ 		View view = v;
+ 		if (v == null) {
+ 			LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+ 			view = layoutInflater.inflate(id, null);
+ 		}
+ 		
+ 		TextView textView = (TextView) view.findViewById(R.id.textView);
+ 		
+ 		if (items.get(position) != null) {
+ 			textView.setTextColor(Color.WHITE);
+ 			textView.setText(items.get(position));
+ 		}
+ 		
+ 		return view;
+ 	}
+ }
 }

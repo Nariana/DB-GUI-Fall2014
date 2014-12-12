@@ -4,7 +4,8 @@
     android:id="@+id/drawer_layout" 
     tools:context="com.example.pantryquest.Recipe" 
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent" 
+    android:typeface="sans" >
     <!--  the main content view  -->
 	<RelativeLayout 
 	    android:layout_width="match_parent"

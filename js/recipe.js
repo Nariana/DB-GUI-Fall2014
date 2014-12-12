@@ -2,9 +2,9 @@ console.log(localStorage.getItem("selectedRecipe"));
 //XAMPP
 //var rootURL = "http://localhost/DB-GUI-Fall2014/api/index.php";
 //MAMP
-// var rootURL = "http://localhost:8888/DB-GUI-Fall2014/api/index.php";
+ var rootURL = "http://localhost:8888/DB-GUI-Fall2014/api/index.php";
 
-var rootURL = "http://localhost/api/index.php";
+//var rootURL = "http://localhost/api/index.php";
 // var rootURL = "api/index.php"
 
 
@@ -103,12 +103,12 @@ $("#newButton").button().off("click").on("click", function(){
 });
 
 function colorThumbs(t){
-  console.log("in color thumbs");
   if($(t).hasClass("saved")){
-    $(t).css("color", "#EDE297");
+    $(t).css("color", "#EDE297").addClass("fa-star").removeClass("fa-star-o");
+
   }
   else{
-    $(t).css("color", "white");
+    $(t).css("color", "white").addClass("fa-star-o").removeClass("fa-star");
   }
 
 }
