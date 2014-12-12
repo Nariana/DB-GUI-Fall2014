@@ -80,7 +80,7 @@ function getResults(){
              
               for (var i = 0; i < result.length ; i++) {
                 var percent = Math.floor(result[i].rankingPoints*100);
-                var add = "<div id='recipe"+i+"' class='resultDiv' ><ul class='resultList'><h5 class='name'>"+result[i].recipeName+"</h5><li class='rating'>"+result[i].rating+" likes</li><li class='time'>"+result[i].time+" minutes</li><li class='percent'>"+percent+"% ingredient match</li></ul></div>";
+                var add = "<div id='recipe"+i+"' class='resultDiv' ><ul class='resultList'><h3 class='name'>"+result[i].recipeName+"</h3><li class='rating'>"+result[i].rating+" likes</li><li class='time'>"+result[i].time+" minutes</li><li class='percent'>"+percent+"% ingredient match</li></ul></div>";
                 
                 $("#resultListDiv").append(add);
                 //$("#recipe"+i + " ul").tooltip({ content: '<img src="'+result[i].picture+'" />' });\
@@ -157,8 +157,8 @@ function addListeners(){
     console.log($(this));
 
     if($(this).hasClass("thumb") === false){
-      console.log($(this).find("h5").html());
-      recipe = $(this).find("h5").html();
+      console.log($(this).find("h3").html());
+      recipe = $(this).find("h3").html();
       localStorage.setItem("selectedRecipe", recipe);
       window.location.href = "recipe.html";
     }
@@ -189,7 +189,7 @@ function addListeners(){
 
 function thumbClick(t){
     console.log(t);
-    var recipe = $(t).parent().parent().find("h5").html();
+    var recipe = $(t).parent().parent().find("h3").html();
     var send = {"recipeName": recipe};
     console.log(send);
     $(t).toggleClass("saved");
