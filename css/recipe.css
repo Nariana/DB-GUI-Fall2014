@@ -82,7 +82,7 @@
 	width: 695px;
 }
 
-#ingr :nth-child(even) {
+#ingr :nth-child(even), #instr :nth-child(even) {
     background-color: white;
 }
 
