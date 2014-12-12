@@ -34,7 +34,9 @@ function load(){
             if(result.instruction != undefined){
               $.each(instructions, function(i,text){
                // console.log(text);
+               if(!(text === "")){
                 $("#instr").append("<li>"+text+"</li>");
+              }
               })
             }
             else{
@@ -44,7 +46,9 @@ function load(){
             if(result.ingredients != undefined){
               var ingredients = result.ingredients.split("\n");
               $.each(ingredients, function(i,text){
+                
                 $("#ingr").append("<li>"+text+"</li>");
+
                 //console.log(text);
               })
             }
