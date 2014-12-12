@@ -13,5 +13,85 @@
 }
 
 #headerInfo img {
+	float: right;
+	margin: 0px;
+	height: 325px;
+	width: 525px;
+}
 
+#headerInfo h2 {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 600px;
+  padding-left: 20px;
+}
+
+#recipeName {
+	float: left;
+}
+
+.color-bg {
+	background-color: #636363;
+	color: white;
+	font-size: 28px;
+	font-family: 'Open Sans', sans-serif;
+	width: 65%;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}
+
+.color-bg ul {
+	padding-top: 30px;
+	padding-bottom: 30px;
+}
+.color-bg ul li{
+	display: inline;
+	padding: 100px;
+}
+
+#recipeButtons {
+	left: 0;
+	top: 0;
+	position: fixed;
+}
+
+#majorInfo {
+	background-color: #F2F1EC;
+	color: #7B7B7B;
+	font-size: 28px;
+	width: 65%;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#majorInfo ul {
+	margin-left: auto;
+	margin-right: auto;
+	background-color: #F2F1EC;
+	border: none;
+	padding-top: 25px;
+	padding-left: 20px;
+}
+
+#ingr li {
+	font-family: 'Open Sans', sans-serif;
+	margin-left: auto;
+	margin-right: auto;
+	width: 695px;
+}
+
+#ingr :nth-child(even) {
+    background-color: white;
+}
+
+#instr li{
+	padding-top: 20px;
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
+#instr:last-child {
+	padding-bottom: 20px;
 }
