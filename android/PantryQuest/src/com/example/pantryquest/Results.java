@@ -293,6 +293,7 @@ public class Results extends Activity implements OnClickListener, OnItemClickLis
     
  // custom ArrayAdapter implementation based on code in answer on page:
  // http://stackoverflow.com/questions/7361135/how-to-change-color-and-font-on-listview
+ // (this is different from the CustomListAdapter implemented in MainActivity.java)
 
 @SuppressWarnings("rawtypes")
 final class CustomListAdapter extends ArrayAdapter{
