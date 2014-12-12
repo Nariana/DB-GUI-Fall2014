@@ -14,7 +14,7 @@
     <string name="default_desc">Default Recipe Description</string>
     <string name="default_steps">Default Recipe Steps</string>
     <string name="default_ingr">Default Recipe Ingredients</string>
-    <string name="cooking_method">Cooking Method</string>
+    <string name="cooking_method">Cooking Methods</string>
     <string name="cb_bake">Bake</string>
     <string name="cb_boil">Boil</string>
     <string name="cb_grill">Grill</string>
@@ -30,5 +30,4 @@
     <string name="cals">Max Calories: 5000</string>
     <string name="time">Max PrepTime (Minutes): 1000</string>
     <string name="button_refresh">Refresh Search</string>
-    <string name="login">Login</string>
 </resources>

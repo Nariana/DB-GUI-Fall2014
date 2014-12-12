@@ -40,16 +40,12 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class Recipe extends Activity implements OnClickListener {
+public class Recipe extends Activity {
 
-	// bt is the button that, when pressed, returns to Results
-	private Button bt;
 	// img is the image for the recipe
 	private ImageView img;
 	// txtTitle is the textView containing the title of the recipe
 	private TextView txtTitle;
-	// txtDesc is the textView containing the ingredients of the recipe
-	private TextView txtIngr;
 	// txtSteps is the the textView containing the steps for the recipe
 	private TextView txtSteps;
 	// txtDesc is the textview containing the description of the recipe
@@ -66,23 +62,16 @@ public class Recipe extends Activity implements OnClickListener {
 		
 		txtTitle = (TextView) findViewById(R.id.title);
 		txtDesc = (TextView) findViewById(R.id.description);
-		txtIngr = (TextView) findViewById(R.id.ingredients);
 		txtSteps = (TextView) findViewById(R.id.steps);
 		img = (ImageView) findViewById(R.id.image);
 		
 		// set text color
 		txtTitle.setTextColor(Color.BLACK);
 		txtDesc.setTextColor(Color.BLACK);
-		txtIngr.setTextColor(Color.BLACK);
-		txtSteps.setTextColor(Color.BLACK);
+		txtSteps.setTextColor(Color.WHITE);
 		
 		// set ingredients and directions to scroll
-		txtIngr.setMovementMethod(new ScrollingMovementMethod());
 		txtSteps.setMovementMethod(new ScrollingMovementMethod());
-		
-		// set bt
-		bt = (Button) findViewById(R.id.backButton);
-		bt.setOnClickListener(this);
 		
 		// retrieve message info from the intent
 		Intent intent = getIntent();
@@ -100,13 +89,6 @@ public class Recipe extends Activity implements OnClickListener {
 		
 		// set the image
 		//
-	}
-
-	public void onClick(View v) {
-		// on bt click return to Results
-		if (v.getId() == R.id.backButton) {
-			this.finish();
-		}
 	}
 	
 	public String getStringFromUrl(String url) {
@@ -153,8 +135,8 @@ public class Recipe extends Activity implements OnClickListener {
     		recipeDesc = recipeDesc + ", Calories: " + jsonRecipe.optInt("calories");
     		recipeDesc = recipeDesc + ", Rating: " + jsonRecipe.optInt("rating");
     		txtDesc.setText(recipeDesc);
-    		txtIngr.setText(jsonRecipe.optString("ingredients"));
-    		txtSteps.setText(jsonRecipe.optString("instruction"));
+    		string = jsonRecipe.optString("ingredients") + "\n\n" + jsonRecipe.optString("instruction");
+    		txtSteps.setText(string);
     		Log.i("Description: ", recipeDesc);
     		
     		// set the image
