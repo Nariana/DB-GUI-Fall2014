@@ -103,12 +103,12 @@ $("#newButton").button().off("click").on("click", function(){
 });
 
 function colorThumbs(t){
-  console.log("in color thumbs");
   if($(t).hasClass("saved")){
-    $(t).css("color", "#EDE297");
+    $(t).css("color", "#EDE297").addClass("fa-star").removeClass("fa-star-o");
+
   }
   else{
-    $(t).css("color", "white");
+    $(t).css("color", "white").addClass("fa-star-o").removeClass("fa-star");
   }
 
 }
