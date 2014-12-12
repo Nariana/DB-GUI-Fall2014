@@ -14,10 +14,11 @@ $(document).ready(function(){
 
 function colorThumbs(t){
   if($(t).hasClass("saved")){
-    $(t).css("color", "#8aa1ab");
+    $(t).css("color", "#EDE297").addClass("fa-star").removeClass("fa-star-o");
+
   }
   else{
-    $(t).css("color", "black");
+    $(t).css("color", "black").addClass("fa-star-o").removeClass("fa-star");
   }
 
 }
@@ -93,8 +94,8 @@ function getResults(){
                     console.log(result[i].saved);
                     if (result[i].saved === "true") {
                       console.log("changing "+i);
-                      $("#recipe"+i + " ul i").addClass("saved");
-                      $("#recipe"+i + " ul i").css("color", "#8aa1ab");
+                      $("#recipe"+i + " ul i").addClass("saved").addClass("fa-star").removeClass("fa-star-o");
+                      $("#recipe"+i + " ul i").css("color", "#EDE297");
                     }
 
                    }
@@ -258,8 +259,8 @@ function load(){
       }
     });
     $( "#time" ).val($( "#slider-time" ).slider( "value" ) + " minutes");
-    $('#time').css("color", "white");
-    $("#calories").css("color", "white");
+    $('#time').css("color", "black");
+    $("#calories").css("color", "black");
 
     addListeners();
     showIngredients();

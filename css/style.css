@@ -1,8 +1,9 @@
 body {
-	background-color: #8aa1ab;
-	/* bold font for easier reading	 */
+	/*background-color: #8aa1ab;
+	 bold font for easier reading	 */
 	font-family: 'Raleway', sans-serif;
 	font-size: 16px;
+	background-image: url("../img/board.jpg");
 }
 
 img{
@@ -78,6 +79,9 @@ border: 1px solid black;
 margin-top: 75px;
 top: 0;
 left: 0;
+background-color: white;
+padding: 0;
+margin-left: 30px;
 }
 
 /* for recipe.html */
@@ -123,7 +127,7 @@ left: 0;
 }
 
 .filterTitle {
-	color: #EDE297;
+	color: #8aa1ab;
 	font-family: 'Open Sans', sans-serif;
 }
 
@@ -139,10 +143,11 @@ left: 0;
 
 #filters ul{
 	list-style: none;
+	padding: 10px;
 }
 
 #filters label{
-	color: white;
+	color: black;
 }
 
 .filterField{
@@ -241,6 +246,10 @@ html body .ui-widget{
 	padding: 10px;
 }
 
+
+
+
+
 .recName {
 	font-weight: bold;
 }
@@ -254,8 +263,8 @@ html body .ui-widget{
 }
 
 #calories, #time {
-	background-color: #8aa1ab;
-	color: white;
+	background-color: white;
+	color: black;
 }
 
 #calorieList, #timeList { 

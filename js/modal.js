@@ -423,7 +423,7 @@ $("#developers").button().off("click").on("click", function(){
   dialogFav = $( "#fav-form" ).dialog({
         autoOpen: false,
         height: 500,
-        width: 580,
+        width: 380,
         modal: true,
         buttons: {
           Close: function() {
@@ -473,6 +473,7 @@ $("#developers").button().off("click").on("click", function(){
                 $.each(result, function(index, recipe){
                   console.log(recipe);
                   var s = $("#favTab").append("<ul id='favRecipe"+index+"' class='favList'></ul>");
+                  $("#favRecipe"+index).tooltip({items: '#favRecipe'+index, content: "<img style='width: 150px;' src='"+recipe[3]+"'/>"});
                   $("#favRecipe"+index).append("<li class='recName'>"+recipe[0]+"</li>");
                   $("#favRecipe"+index).append("<li>"+recipe[1]+" minutes</li>");
                   $("#favRecipe"+index).append("<li>Rating: "+recipe[2]+"</li>")
