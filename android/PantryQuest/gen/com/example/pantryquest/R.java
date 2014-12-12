@@ -140,7 +140,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int logo_2=0x7f020002;
     }
     public static final class id {
-        public static final int action_settings=0x7f050023;
+        public static final int action_settings=0x7f050024;
         public static final int button=0x7f050009;
         public static final int button2=0x7f05000a;
         public static final int calories=0x7f050020;
@@ -173,6 +173,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int right=0x7f050002;
         public static final int selected_view=0x7f050000;
         public static final int steps=0x7f05000f;
+        public static final int textView=0x7f050023;
         public static final int time=0x7f050022;
         public static final int timeProgress=0x7f050021;
         public static final int title=0x7f05000d;
@@ -181,6 +182,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int activity_main=0x7f030000;
         public static final int activity_recipe=0x7f030001;
         public static final int activity_results=0x7f030002;
+        public static final int custom_list=0x7f030003;
     }
     public static final class menu {
         public static final int main=0x7f080000;
