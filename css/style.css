@@ -88,7 +88,7 @@ left: 0;
     width: 65%;
     color: #7B7B7B;
     background-color: #F2F1EC;
-    height: 400px;
+    height: 325px;
 }
 
 #recipeImg {
@@ -100,14 +100,8 @@ left: 0;
 
 /* selects the instructions p */
 #majorInfo ul {
-	width: 30%;
-	float: left;
-	padding: 10px;
-	border: 1px solid white;
-	margin: 10px;
 	list-style: none;
 	color: black;
-	background-color: white;
 }
 
 /* selects the ingredients p 
@@ -120,7 +114,6 @@ left: 0;
 
 #majorInfo{
 	margin-bottom: 100px;
-	float: left;
 }
 
 #recipeButtons{
@@ -191,12 +184,7 @@ left: 0;
 
 	font-size: 18px;
 
-	color: black;
-    text-shadow:
-    -1px -1px 0 #FFF,
-    1px -1px 0 #FFF,
-    -1px 1px 0 #FFF,
-    1px 1px 0 #FFF;  
+	color: black; 
 }
 
 .resultList{
